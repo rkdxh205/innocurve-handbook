@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 2 텔레그램 봇 만들기 — 실습 예시</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg2: #f6f8fa;
+      --bg3: #eef1f4;
+      --border: #d0d7de;
+      --text: #1f2328;
+      --text-dim: #636c76;
+      --accent: #0969da;
+      --accent-g: #1a7f37;
+      --accent-o: #953800;
+      --accent-p: #6639ba;
+      --accent-r: #cf222e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 15px;
+    }
+    .layout { display: flex; min-height: 100vh; }
+
+    /* ── 사이드바 ── */
+    nav {
+      width: 270px; min-width: 270px;
+      background: var(--bg2);
+      border-right: 1px solid var(--border);
+      position: sticky; top: 0; height: 100vh;
+      overflow-y: auto; padding: 20px 0;
+    }
+    nav .nav-title {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--text-dim);
+      padding: 0 16px 10px;
+    }
+    nav a {
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 16px;
+      color: var(--text-dim); text-decoration: none;
+      font-size: 13px; border-left: 2px solid transparent;
+      transition: all .15s;
+    }
+    nav a:hover { color: var(--accent); background: var(--bg3); border-left-color: var(--accent); }
+    nav .nav-group {
+      margin-top: 10px; padding: 7px 16px 4px;
+      font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .07em; color: var(--text-dim);
+      border-top: 1px solid var(--border);
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .dot-g { background: #1a7f37; }
+    .dot-b { background: #0969da; }
+    .dot-p { background: #6639ba; }
+
+    /* ── 본문 ── */
+    main { flex: 1; max-width: 880px; padding: 40px 52px; }
+    h1 { font-size: 1.9rem; font-weight: 700; color: #1f2328; margin-bottom: 6px; }
+    .subtitle { color: var(--text-dim); font-size: 13px; margin-bottom: 24px; }
+    .subtitle a { color: var(--accent); text-decoration: none; }
+
+    /* ── 버전 박스 ── */
+    .version-box {
+      background: #f0f7ff; border: 1px solid #a5d5f7;
+      border-left: 4px solid #0969da; border-radius: 6px;
+      padding: 14px 18px; margin-bottom: 36px; font-size: 13px;
+    }
+    .version-row { display: flex; gap: 12px; padding: 3px 0; border-bottom: 1px solid #d0e8ff; }
+    .version-row:last-child { border-bottom: none; }
+    .vlabel { min-width: 160px; font-weight: 600; color: #0550ae; flex-shrink: 0; }
+
+    /* ── 레벨 섹션 헤더 ── */
+    .level-header {
+      display: flex; align-items: center; gap: 12px;
+      margin: 48px 0 20px; padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+    }
+    .level-title { font-size: 1.3rem; font-weight: 700; }
+    .level-title-g { color: #1a7f37; }
+    .level-title-b { color: #0969da; }
+    .level-title-p { color: #6639ba; }
+    .level-desc { font-size: 13px; color: var(--text-dim); }
+
+    /* ── 레벨 배지 ── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 10.5px; font-weight: 700; padding: 3px 10px;
+      border-radius: 20px; text-transform: uppercase; letter-spacing: .05em;
+    }
+    .badge-g { background: #dafbe1; color: #116329; border: 1px solid #a2d9b1; }
+    .badge-b { background: #ddf4ff; color: #0550ae; border: 1px solid #a5d5f7; }
+    .badge-p { background: #fbefff; color: #6639ba; border: 1px solid #d2b9ff; }
+
+    /* ── 시나리오 카드 ── */
+    .scenario-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 36px;
+      overflow: hidden;
+    }
+    .card-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 22px;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+    }
+    .card-id {
+      font-family: 'SFMono-Regular', 'Consolas', monospace;
+      font-size: 11px; font-weight: 700;
+      color: var(--text-dim); min-width: 34px;
+    }
+    .card-title { font-size: 1.05rem; font-weight: 700; color: #1f2328; }
+    .card-body { padding: 22px 26px; }
+
+    /* ── 상황 설명 ── */
+    .situation {
+      background: #fffbf0; border-left: 3px solid #d4a72c;
+      border-radius: 0 6px 6px 0;
+      padding: 12px 16px; margin-bottom: 20px;
+      font-size: 14px; line-height: 1.7;
+    }
+    .situation::before {
+      content: '📌 상황'; display: block;
+      font-weight: 700; color: #7d4e00; margin-bottom: 6px;
+      font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
+    }
+
+    /* ── 명령어 목록 ── */
+    .cmd-list { margin-bottom: 20px; }
+    .cmd-list-title {
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .05em; color: var(--text-dim); margin-bottom: 8px;
+    }
+    .cmd-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .cmd-chip {
+      font-family: 'SFMono-Regular', 'Consolas', monospace;
+      font-size: 12px; font-weight: 600;
+      background: #f6f8fa; border: 1px solid #d0d7de;
+      border-radius: 6px; padding: 4px 10px;
+      color: #cf222e; text-decoration: none;
+      transition: background .15s;
+    }
+    .cmd-chip:hover { background: #ddf4ff; border-color: #a5d5f7; color: #0550ae; }
+
+    /* ── 단계별 실행 ── */
+    .steps-title {
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .05em; color: var(--text-dim); margin-bottom: 12px;
+    }
+    .step-list { list-style: none; counter-reset: step-counter; margin-bottom: 20px; }
+    .step-list li {
+      counter-increment: step-counter;
+      display: flex; gap: 14px;
+      margin-bottom: 18px; align-items: flex-start;
+    }
+    .step-list li::before {
+      content: counter(step-counter);
+      min-width: 26px; height: 26px;
+      background: #0969da; color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+    }
+    .step-content { flex: 1; }
+    .step-content strong { display: block; margin-bottom: 6px; color: #1f2328; font-size: 14px; }
+    .step-content p { font-size: 13.5px; color: var(--text-dim); margin-bottom: 8px; }
+
+    /* ── 코드 블록 ── */
+    pre.code-block {
+      background: #f6f8fa; border: 1px solid #d0d7de;
+      border-radius: 6px; padding: 12px 16px; overflow-x: auto;
+      font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+      font-size: 13px; line-height: 1.55; color: #116329;
+      margin: 6px 0 0; position: relative;
+    }
+    .copy-btn {
+      position: absolute; top: 8px; right: 10px;
+      background: #fff; border: 1px solid #d0d7de; border-radius: 5px;
+      padding: 3px 9px; font-size: 11px; cursor: pointer; color: #636c76;
+    }
+    .copy-btn:hover { background: #f6f8fa; color: #0969da; }
+    .copy-btn.copied { color: #1a7f37; border-color: #a2d9b1; }
+
+    /* ── 흐름 설명 ── */
+    .flow-box {
+      background: #f0f7ff; border: 1px solid #a5d5f7;
+      border-radius: 6px; padding: 14px 18px; margin-bottom: 16px; font-size: 13.5px;
+    }
+    .flow-box::before {
+      content: '⚙️ 내부 동작'; display: block;
+      font-weight: 700; color: #0550ae; margin-bottom: 8px;
+      font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
+    }
+
+    /* ── 팁 박스 ── */
+    .tip-box {
+      background: #dafbe1; border: 1px solid #a2d9b1; border-radius: 6px;
+      padding: 12px 16px; margin-bottom: 14px; font-size: 13.5px; color: #0a3622;
+    }
+    .tip-box::before {
+      content: '💡 팁'; display: block; font-weight: 700; color: #116329;
+      margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
+    }
+
+    /* ── 경고 박스 ── */
+    .warning-box {
+      background: #fff8c5; border: 1px solid #d4a72c;
+      border-radius: 6px; padding: 12px 16px; margin-bottom: 14px;
+      font-size: 13.5px; color: #5c3900;
+    }
+    .warning-box::before {
+      content: '⚠️ 주의'; display: block; font-weight: 700; color: #7d4e00;
+      margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
+    }
+
+    /* ── 관련 명령어 조합 ── */
+    .related-cmds {
+      border-top: 1px solid var(--border); padding-top: 14px; margin-top: 4px;
+      font-size: 13px; color: var(--text-dim);
+    }
+    .related-cmds strong { color: #1f2328; }
+
+    /* ── 인라인 코드 ── */
+    code {
+      font-family: 'SFMono-Regular', 'Consolas', monospace;
+      font-size: 12px; background: #f6f8fa;
+      border: 1px solid #d0d7de; border-radius: 4px;
+      padding: 2px 6px; color: #cf222e;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+  </style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ── 사이드바 ── -->
+<nav>
+  <a href="../index.html" style="font-weight:700;color:#0969da;margin-bottom:8px;border-bottom:1px solid #d0d7de;padding-bottom:10px;">← 핸드북 홈</a>
+  <div class="nav-title">Day 2. 텔레그램 봇 실습 예시</div>
+  <a href="#beginner"><span class="dot dot-g"></span>초급 (Getting Started)</a>
+
+  <div class="nav-group">초급 시나리오</div>
+  <a href="#scenario-1"><span class="dot dot-g"></span>G-1 내 이름의 봇을 직접 만들기</a>
+
+  <div class="nav-group">중급 시나리오</div>
+  <a href="#scenario-2"><span class="dot dot-b"></span>D-1 파이썬으로 "안녕하세요" 보내기</a>
+
+  <div class="nav-group">고급 시나리오</div>
+  <a href="#scenario-3"><span class="dot dot-p"></span>P-1 명령어에 응답하는 봇 로직 설계</a>
+
+  <div class="nav-group">바로가기</div>
+  <a href="day2-telegram_Manual.html">📖 Day 2 매뉴얼로 →</a>
+</nav>
+
+<!-- ── 본문 ── -->
+<main>
+  <h1>텔레그램 봇 만들기 실습 예시</h1>
+  <p class="subtitle">BotFather로 봇을 만들고, Claude Code와 함께 Bot API를 직접 호출해 보는 3단계 실습 가이드 &nbsp;|&nbsp; <a href="day2-telegram_Manual.html">← 매뉴얼로 돌아가기</a></p>
+
+  <!-- ── 버전 박스 ── -->
+  <div class="version-box">
+    <div class="version-row"><span class="vlabel">대상 범위</span><span>Telegram Bot API · Python 3.12 (requests 라이브러리)</span></div>
+    <div class="version-row"><span class="vlabel">이 파일의 목적</span><span>Day 2에서 실제로 손으로 따라 하는 개인 실습 3종(초급·중급·고급)을 제공합니다</span></div>
+    <div class="version-row"><span class="vlabel">레퍼런스 문서</span><span><a href="day2-telegram_Manual.html">day2-telegram_Manual.html</a> — 각 시나리오에서 링크로 연결됩니다</span></div>
+    <div class="version-row"><span class="vlabel">작성일</span><span>2026년 7월 5일</span></div>
+  </div>
+
+  <!-- ══════════════════════════════ 초급 ══════════════════════════════ -->
+  <div class="level-header" id="beginner">
+    <span class="badge badge-g">● 초급</span>
+    <span class="level-title level-title-g">Getting Started</span>
+    <span class="level-desc">텔레그램 앱에서 직접 BotFather와 대화하며 나만의 봇을 처음 만들어 봅니다</span>
+  </div>
+
+  <div class="scenario-card" id="scenario-1">
+    <div class="card-header">
+      <span class="card-id">G-1</span>
+      <span class="badge badge-g">초급</span>
+      <strong class="card-title">내 이름의 텔레그램 봇을 직접 만들고 토큰 발급받기</strong>
+    </div>
+    <div class="card-body">
+
+      <div class="situation">
+        아직 텔레그램 봇을 한 번도 만들어 본 적이 없습니다. 코드를 작성하기 전에, 먼저 텔레그램 앱 안에서 손으로 직접 대화하며 나만의 봇 계정 하나를 만들고, 앞으로 실습에서 계속 쓸 봇 토큰을 발급받아 안전하게 메모해 두려고 합니다.
+      </div>
+
+      <div class="cmd-list">
+        <div class="cmd-list-title">사용 요소</div>
+        <div class="cmd-chips">
+          <a class="cmd-chip" href="day2-telegram_Manual.html#section-2">BotFather</a>
+          <a class="cmd-chip" href="day2-telegram_Manual.html#section-3">봇 토큰</a>
+        </div>
+      </div>
+
+      <div class="steps-title">단계별 실행</div>
+      <ol class="step-list">
+        <li>
+          <div class="step-content">
+            <strong>@BotFather와 대화 시작하기</strong>
+            <p>텔레그램 앱 상단 검색창에 <code>@BotFather</code>를 입력해 공식 계정을 찾고, 대화방에 들어가 <code>시작</code> 버튼을 누릅니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong><code>/newbot</code> 전송하고 이름 정하기</strong>
+            <p>대화창에 <code>/newbot</code>을 입력해 전송합니다. BotFather가 먼저 표시 이름을 물으면 원하는 이름을 입력합니다.</p>
+            <div style="position:relative">
+              <pre class="code-block">/newbot</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>username 정하기</strong>
+            <p>이어서 username을 물으면, 5~32자·영문/숫자/밑줄만 사용하고 반드시 "bot"으로 끝나는 이름을 입력합니다. 한 번 정하면 바꿀 수 없으니 신중하게 고릅니다.</p>
+            <div style="position:relative">
+              <pre class="code-block">예시 username: gildong_news_alert_bot</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>발급된 토큰을 안전하게 메모하기</strong>
+            <p>등록이 완료되면 BotFather가 곧바로 봇 토큰을 대화창에 보여줍니다. 이 값을 그대로 복사해 본인만 아는 메모장(또는 비밀번호 관리 앱)에 저장합니다. 절대 공개된 곳에 붙여넣지 않습니다.</p>
+            <div style="position:relative">
+              <pre class="code-block">&lt;여기에_발급받은_BOT_TOKEN&gt;</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
+          </div>
+        </li>
+      </ol>
+
+      <div class="flow-box">
+        BotFather에게 <code>/newbot</code>을 보내면, 텔레그램 서버 내부에 새 봇 계정이 등록되고 그 봇만의 고유 ID와 비밀 토큰이 함께 생성됩니다. 이 토큰이 있어야만 프로그램이 그 봇의 이름으로 메시지를 보내거나 받을 수 있습니다.
+      </div>
+
+      <div class="tip-box">
+        표시 이름은 나중에 BotFather의 <code>/setname</code> 명령으로 바꿀 수 있지만, username은 절대 바꿀 수 없습니다. 처음부터 알아보기 쉬운 이름(예: 본인 성함 이니셜 + news + bot)으로 정해 두면 나중에 헷갈리지 않습니다.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════ 중급 ══════════════════════════════ -->
+  <div class="level-header" id="intermediate">
+    <span class="badge badge-b">● 중급</span>
+    <span class="level-title level-title-b">Daily Workflow</span>
+    <span class="level-desc">Claude Code에게 요청해 파이썬 코드로 내 봇이 실제 메시지를 보내게 만들어 봅니다</span>
+  </div>
+
+  <div class="scenario-card" id="scenario-2">
+    <div class="card-header">
+      <span class="card-id">D-1</span>
+      <span class="badge badge-b">중급</span>
+      <strong class="card-title">Claude Code와 함께 파이썬으로 "안녕하세요" 메시지 보내기</strong>
+    </div>
+    <div class="card-body">
+
+      <div class="situation">
+        G-1에서 봇과 토큰을 이미 발급받았습니다. 이번에는 텔레그램 앱을 직접 조작하지 않고, Claude Code에게 요청해서 파이썬 코드가 대신 내 봇에게 "안녕하세요" 메시지를 보내도록 만들려고 합니다. 그러려면 먼저 내 대화방 번호(chat_id)를 알아내야 합니다.
+      </div>
+
+      <div class="cmd-list">
+        <div class="cmd-list-title">사용 요소</div>
+        <div class="cmd-chips">
+          <a class="cmd-chip" href="day2-telegram_Manual.html#section-4">sendMessage</a>
+          <a class="cmd-chip" href="day2-telegram_Manual.html#section-4">getUpdates</a>
+        </div>
+      </div>
+
+      <div class="steps-title">단계별 실행</div>
+      <ol class="step-list">
+        <li>
+          <div class="step-content">
+            <strong>내 봇에게 먼저 말 걸기</strong>
+            <p>텔레그램에서 G-1에서 만든 내 봇을 검색해 대화방을 열고, 아무 텍스트나 한 번 보냅니다. (예: "안녕") 봇은 아직 응답하지 않지만, 이 메시지가 다음 단계에서 chat_id를 확인하는 데 쓰입니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>Claude Code에게 chat_id 확인 스크립트 요청하기</strong>
+            <p>Claude Code에게 "requests 라이브러리로 getUpdates를 호출해서 chat_id를 출력하는 파이썬 스크립트를 짜줘"라고 요청합니다. 아래와 같은 코드가 만들어지고 나면 직접 실행해 결과에 표시되는 <code>chat.id</code> 값을 메모합니다.</p>
+            <div style="position:relative">
+              <pre class="code-block">import requests
+
+TOKEN = "&lt;여기에_발급받은_BOT_TOKEN&gt;"
+url = f"https://api.telegram.org/bot{TOKEN}/getUpdates"
+
+response = requests.get(url, timeout=15)
+data = response.json()
+
+for update in data.get("result", []):
+    message = update.get("message", {})
+    print("chat_id:", message.get("chat", {}).get("id"))
+    print("text:", message.get("text"))</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>Claude Code에게 sendMessage 스크립트 요청하기</strong>
+            <p>이어서 "이 chat_id로 '안녕하세요' 메시지를 보내는 sendMessage 스크립트도 짜줘"라고 요청합니다. 실행하면 내 텔레그램 대화방에 실제로 메시지가 도착합니다.</p>
+            <div style="position:relative">
+              <pre class="code-block">import requests
+
+TOKEN = "&lt;여기에_발급받은_BOT_TOKEN&gt;"
+CHAT_ID = "&lt;1단계에서_확인한_chat_id&gt;"
+url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
+
+requests.post(url, json={
+    "chat_id": CHAT_ID,
+    "text": "안녕하세요"
+}, timeout=15)</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
+          </div>
+        </li>
+      </ol>
+
+      <div class="flow-box">
+        <code>requests.get</code>과 <code>requests.post</code>는 각각 <code>https://api.telegram.org/bot&lt;토큰&gt;/METHOD_NAME</code> 주소로 인터넷 요청을 보냅니다. 텔레그램 서버는 토큰으로 어느 봇의 요청인지 확인한 뒤, <code>getUpdates</code>는 쌓인 메시지 목록을, <code>sendMessage</code>는 발송 성공 여부를 응답으로 돌려줍니다.
+      </div>
+
+      <div class="warning-box">
+        토큰을 코드 안에 그대로 적어 GitHub 같은 공개 저장소에 올리지 않도록 주의합니다. Day 5에서 GitHub Actions로 자동화할 때는 토큰을 코드가 아닌 별도의 비밀 값(secret) 저장소에 넣는 방법을 다룹니다.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════ 고급 ══════════════════════════════ -->
+  <div class="level-header" id="advanced">
+    <span class="badge badge-p">● 고급</span>
+    <span class="level-title level-title-p">Power User</span>
+    <span class="level-desc">받은 메시지 내용에 따라 다르게 응답하는 간단한 명령어 처리 로직을 설계합니다</span>
+  </div>
+
+  <div class="scenario-card" id="scenario-3">
+    <div class="card-header">
+      <span class="card-id">P-1</span>
+      <span class="badge badge-p">고급</span>
+      <strong class="card-title">Claude Code와 함께 /start, /status 명령어에 응답하는 로직 설계하기</strong>
+    </div>
+    <div class="card-body">
+
+      <div class="situation">
+        지금까지는 봇이 항상 같은 메시지만 보냈습니다. 이번에는 사용자가 <code>/start</code>나 <code>/status</code> 같은 명령어를 보냈을 때, 봇이 그 내용을 구분해서 서로 다르게 응답하도록 Claude Code와 함께 로직을 설계하려고 합니다. 이는 Day 4~5에서 만들 뉴스 알림 봇에도 그대로 응용됩니다.
+      </div>
+
+      <div class="cmd-list">
+        <div class="cmd-list-title">사용 요소</div>
+        <div class="cmd-chips">
+          <a class="cmd-chip" href="day2-telegram_Manual.html#section-4">getUpdates</a>
+          <a class="cmd-chip" href="day2-telegram_Manual.html#section-4">sendMessage</a>
+          <a class="cmd-chip" href="day2-telegram_Manual.html#section-4">offset</a>
+        </div>
+      </div>
+
+      <div class="steps-title">단계별 실행</div>
+      <ol class="step-list">
+        <li>
+          <div class="step-content">
+            <strong>Claude Code에게 요청 내용 설명하기</strong>
+            <p>"getUpdates로 받은 메시지의 text가 /start인지 /status인지 확인해서, 각각 다른 안내 문구를 보내는 파이썬 함수를 짜줘. 그리고 한 번 처리한 메시지를 중복해서 또 처리하지 않도록 offset도 관리해줘"라고 요청합니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>명령어 분기 로직 확인하기</strong>
+            <p>Claude Code가 아래와 비슷한 형태의 코드를 만들어 줍니다. <code>tg_get</code>은 Bot API의 GET 메서드를, <code>send_message</code>는 <code>sendMessage</code>를 감싼 보조 함수이고, <code>offset</code>은 이미 처리한 메시지의 <code>update_id</code> 바로 다음 값으로 갱신해 같은 메시지를 두 번 처리하지 않게 합니다.</p>
+            <div style="position:relative">
+              <pre class="code-block">import requests
+
+TOKEN = "&lt;여기에_발급받은_BOT_TOKEN&gt;"
+TGAPI = f"https://api.telegram.org/bot{TOKEN}"
+
+def tg_get(method, **params):
+    r = requests.get(f"{TGAPI}/{method}", params=params, timeout=15)
+    r.raise_for_status()
+    return r.json()
+
+def send_message(chat_id, text):
+    requests.post(f"{TGAPI}/sendMessage", json={"chat_id": chat_id, "text": text}, timeout=15)
+
+offset = None
+
+def handle_updates():
+    global offset
+    resp = tg_get("getUpdates", offset=offset, timeout=0)
+    for upd in resp.get("result", []):
+        offset = upd["update_id"] + 1
+        msg = upd.get("message", {})
+        text = msg.get("text", "").strip()
+        chat_id = msg.get("chat", {}).get("id")
+
+        if text == "/start":
+            send_message(chat_id, "안녕하세요! 뉴스 알림 봇입니다.")
+        elif text == "/status":
+            send_message(chat_id, "정상 작동 중입니다. 뉴스가 검색되면 알려드립니다.")</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>명령어 추가로 확장해 보기</strong>
+            <p>같은 방식으로 <code>elif</code> 구문을 추가하면 <code>/help</code> 같은 명령어도 얼마든지 늘릴 수 있습니다. Claude Code에게 "명령어를 하나 더 추가해줘"라고 요청하면 같은 패턴으로 확장해 줍니다.</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="flow-box">
+        <code>getUpdates</code>가 반환하는 각 항목에는 고유한 <code>update_id</code>가 붙어 있습니다. 처리할 때마다 <code>offset</code>을 그 값+1로 올려두면, 다음 호출에서는 이미 처리한 메시지를 다시 받지 않습니다. 이 반복 호출 구조가 이후 GitHub Actions의 정기 실행(cron)과 결합되면, 사람이 지켜보지 않아도 새 메시지가 올 때마다 자동으로 응답하는 봇이 됩니다.
+      </div>
+
+      <div class="tip-box">
+        지금은 코드를 직접 실행해야만 봇이 응답하지만, Day 5에서 GitHub Actions로 이 로직을 주기적으로 자동 실행하도록 설정하면 사람이 켜 두지 않아도 항상 대기 중인 봇이 됩니다.
+      </div>
+
+      <div class="related-cmds">
+        <strong>함께 보기:</strong> Day 3 네이버 뉴스 검색 API 연동, Day 5 GitHub Actions로 정기 실행 자동화
+      </div>
+
+    </div>
+  </div>
+
+  <hr>
+  <p style="color: var(--text-dim); font-size: 12px; text-align: center;">
+    Telegram Bot API 기준 | 2026년 7월 5일 작성<br>
+    <a href="day2-telegram_Manual.html">← Day 2 매뉴얼</a>
+  </p>
+</main>
+
+</div>
+
+<script>
+function copyCode(btn) {
+  const pre = btn.previousElementSibling || btn.parentElement.querySelector('pre');
+  navigator.clipboard.writeText(pre.textContent).then(() => {
+    btn.textContent = '완료!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '복사'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+</script>
+  <script src="../assets/inpage-search.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 1 환경 준비 — 실습 예시</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg2: #f6f8fa;
+      --bg3: #eef1f4;
+      --border: #d0d7de;
+      --text: #1f2328;
+      --text-dim: #636c76;
+      --accent: #0969da;
+      --accent-g: #1a7f37;
+      --accent-o: #953800;
+      --accent-p: #6639ba;
+      --accent-r: #cf222e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 15px;
+    }
+    .layout { display: flex; min-height: 100vh; }
+
+    /* ── 사이드바 ── */
+    nav {
+      width: 270px; min-width: 270px;
+      background: var(--bg2);
+      border-right: 1px solid var(--border);
+      position: sticky; top: 0; height: 100vh;
+      overflow-y: auto; padding: 20px 0;
+    }
+    nav .nav-title {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--text-dim);
+      padding: 0 16px 10px;
+    }
+    nav a {
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 16px;
+      color: var(--text-dim); text-decoration: none;
+      font-size: 13px; border-left: 2px solid transparent;
+      transition: all .15s;
+    }
+    nav a:hover { color: var(--accent); background: var(--bg3); border-left-color: var(--accent); }
+    nav .nav-group {
+      margin-top: 10px; padding: 7px 16px 4px;
+      font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .07em; color: var(--text-dim);
+      border-top: 1px solid var(--border);
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .dot-g { background: #1a7f37; }
+    .dot-b { background: #0969da; }
+    .dot-p { background: #6639ba; }
+
+    /* ── 본문 ── */
+    main { flex: 1; max-width: 880px; padding: 40px 52px; }
+    h1 { font-size: 1.9rem; font-weight: 700; color: #1f2328; margin-bottom: 6px; }
+    .subtitle { color: var(--text-dim); font-size: 13px; margin-bottom: 24px; }
+    .subtitle a { color: var(--accent); text-decoration: none; }
+
+    /* ── 버전 박스 ── */
+    .version-box {
+      background: #f0f7ff; border: 1px solid #a5d5f7;
+      border-left: 4px solid #0969da; border-radius: 6px;
+      padding: 14px 18px; margin-bottom: 36px; font-size: 13px;
+    }
+    .version-row { display: flex; gap: 12px; padding: 3px 0; border-bottom: 1px solid #d0e8ff; }
+    .version-row:last-child { border-bottom: none; }
+    .vlabel { min-width: 160px; font-weight: 600; color: #0550ae; flex-shrink: 0; }
+
+    /* ── 레벨 섹션 헤더 ── */
+    .level-header {
+      display: flex; align-items: center; gap: 12px;
+      margin: 48px 0 20px; padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+    }
+    .level-title { font-size: 1.3rem; font-weight: 700; }
+    .level-title-g { color: #1a7f37; }
+    .level-title-b { color: #0969da; }
+    .level-title-p { color: #6639ba; }
+    .level-desc { font-size: 13px; color: var(--text-dim); }
+
+    /* ── 레벨 배지 ── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 10.5px; font-weight: 700; padding: 3px 10px;
+      border-radius: 20px; text-transform: uppercase; letter-spacing: .05em;
+    }
+    .badge-g { background: #dafbe1; color: #116329; border: 1px solid #a2d9b1; }
+    .badge-b { background: #ddf4ff; color: #0550ae; border: 1px solid #a5d5f7; }
+    .badge-p { background: #fbefff; color: #6639ba; border: 1px solid #d2b9ff; }
+
+    /* ── 시나리오 카드 ── */
+    .scenario-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 36px;
+      overflow: hidden;
+    }
+    .card-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 22px;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+    }
+    .card-id {
+      font-family: 'SFMono-Regular', 'Consolas', monospace;
+      font-size: 11px; font-weight: 700;
+      color: var(--text-dim); min-width: 34px;
+    }
+    .card-title { font-size: 1.05rem; font-weight: 700; color: #1f2328; }
+    .card-body { padding: 22px 26px; }
+
+    /* ── 상황 설명 ── */
+    .situation {
+      background: #fffbf0; border-left: 3px solid #d4a72c;
+      border-radius: 0 6px 6px 0;
+      padding: 12px 16px; margin-bottom: 20px;
+      font-size: 14px; line-height: 1.7;
+    }
+    .situation::before {
+      content: '📌 상황'; display: block;
+      font-weight: 700; color: #7d4e00; margin-bottom: 6px;
+      font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
+    }
+
+    /* ── 명령어 목록 ── */
+    .cmd-list { margin-bottom: 20px; }
+    .cmd-list-title {
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .05em; color: var(--text-dim); margin-bottom: 8px;
+    }
+    .cmd-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .cmd-chip {
+      font-family: 'SFMono-Regular', 'Consolas', monospace;
+      font-size: 12px; font-weight: 600;
+      background: #f6f8fa; border: 1px solid #d0d7de;
+      border-radius: 6px; padding: 4px 10px;
+      color: #cf222e; text-decoration: none;
+      transition: background .15s;
+    }
+    .cmd-chip:hover { background: #ddf4ff; border-color: #a5d5f7; color: #0550ae; }
+
+    /* ── 단계별 실행 ── */
+    .steps-title {
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .05em; color: var(--text-dim); margin-bottom: 12px;
+    }
+    .step-list { list-style: none; counter-reset: step-counter; margin-bottom: 20px; }
+    .step-list li {
+      counter-increment: step-counter;
+      display: flex; gap: 14px;
+      margin-bottom: 18px; align-items: flex-start;
+    }
+    .step-list li::before {
+      content: counter(step-counter);
+      min-width: 26px; height: 26px;
+      background: #0969da; color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+    }
+    .step-content { flex: 1; }
+    .step-content strong { display: block; margin-bottom: 6px; color: #1f2328; font-size: 14px; }
+    .step-content p { font-size: 13.5px; color: var(--text-dim); margin-bottom: 8px; }
+
+    /* ── 코드 블록 ── */
+    pre.code-block {
+      background: #f6f8fa; border: 1px solid #d0d7de;
+      border-radius: 6px; padding: 12px 16px; overflow-x: auto;
+      font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+      font-size: 13px; line-height: 1.55; color: #116329;
+      margin: 6px 0 0; position: relative;
+    }
+    .copy-btn {
+      position: absolute; top: 8px; right: 10px;
+      background: #fff; border: 1px solid #d0d7de; border-radius: 5px;
+      padding: 3px 9px; font-size: 11px; cursor: pointer; color: #636c76;
+    }
+    .copy-btn:hover { background: #f6f8fa; color: #0969da; }
+    .copy-btn.copied { color: #1a7f37; border-color: #a2d9b1; }
+
+    /* ── 흐름 설명 ── */
+    .flow-box {
+      background: #f0f7ff; border: 1px solid #a5d5f7;
+      border-radius: 6px; padding: 14px 18px; margin-bottom: 16px; font-size: 13.5px;
+    }
+    .flow-box::before {
+      content: '⚙️ 내부 동작'; display: block;
+      font-weight: 700; color: #0550ae; margin-bottom: 8px;
+      font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
+    }
+
+    /* ── 팁 박스 ── */
+    .tip-box {
+      background: #dafbe1; border: 1px solid #a2d9b1; border-radius: 6px;
+      padding: 12px 16px; margin-bottom: 14px; font-size: 13.5px; color: #0a3622;
+    }
+    .tip-box::before {
+      content: '💡 팁'; display: block; font-weight: 700; color: #116329;
+      margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
+    }
+
+    /* ── 경고 박스 ── */
+    .warning-box {
+      background: #fff8c5; border: 1px solid #d4a72c;
+      border-radius: 6px; padding: 12px 16px; margin-bottom: 14px;
+      font-size: 13.5px; color: #5c3900;
+    }
+    .warning-box::before {
+      content: '⚠️ 주의'; display: block; font-weight: 700; color: #7d4e00;
+      margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
+    }
+
+    /* ── 관련 명령어 조합 ── */
+    .related-cmds {
+      border-top: 1px solid var(--border); padding-top: 14px; margin-top: 4px;
+      font-size: 13px; color: var(--text-dim);
+    }
+    .related-cmds strong { color: #1f2328; }
+
+    /* ── 인라인 코드 ── */
+    code {
+      font-family: 'SFMono-Regular', 'Consolas', monospace;
+      font-size: 12px; background: #f6f8fa;
+      border: 1px solid #d0d7de; border-radius: 4px;
+      padding: 2px 6px; color: #cf222e;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+  </style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ── 사이드바 ── -->
+<nav>
+  <a href="../index.html" style="font-weight:700;color:#0969da;margin-bottom:8px;border-bottom:1px solid #d0d7de;padding-bottom:10px;">← 핸드북 홈</a>
+  <div class="nav-title">Day 1 환경 준비 실습 예시</div>
+  <a href="#beginner"><span class="dot dot-g"></span>초급 (Getting Started)</a>
+
+  <div class="nav-group">초급 시나리오</div>
+  <a href="#scenario-1"><span class="dot dot-g"></span>G-1 claude.ai 가입 + Claude Desktop 설치</a>
+
+  <div class="nav-group">중급 시나리오</div>
+  <a href="#scenario-2"><span class="dot dot-b"></span>D-1 Cursor 설치 + Claude Code 확장 연결</a>
+
+  <div class="nav-group">고급 시나리오</div>
+  <a href="#scenario-3"><span class="dot dot-p"></span>P-1 Claude Code에게 프로젝트 폴더 구조 만들게 하기</a>
+
+  <div class="nav-group">바로가기</div>
+  <a href="day1-setup_Manual.html">📖 Day 1 매뉴얼 문서로 →</a>
+</nav>
+
+<!-- ── 본문 ── -->
+<main>
+  <h1>Day 1 환경 준비 실습 예시</h1>
+  <p class="subtitle">난이도별 3가지 시나리오로 직접 따라 하며 Claude·Cursor·Claude Code 확장 연결까지 끝내는 실습 가이드 &nbsp;|&nbsp; <a href="day1-setup_Manual.html">← 레퍼런스 문서로 돌아가기</a></p>
+
+  <div class="version-box">
+    <div class="version-row"><span class="vlabel">대상 범위</span><span>Day 1 환경 준비 — claude.ai 가입, Claude Desktop 설치, Cursor 설치, Claude Code 확장 연결</span></div>
+    <div class="version-row"><span class="vlabel">이 파일의 목적</span><span>이론 문서(day1-setup_Manual.html)에서 설명한 개념을 실제 화면 조작 순서로 재현</span></div>
+    <div class="version-row"><span class="vlabel">레퍼런스 문서</span><span><a href="day1-setup_Manual.html">day1-setup_Manual.html</a> — 각 시나리오에서 링크로 연결됩니다</span></div>
+    <div class="version-row"><span class="vlabel">작성일</span><span>2026년 7월 5일</span></div>
+  </div>
+
+  <!-- ══════════════════════════════ 초급 ══════════════════════════════ -->
+  <div class="level-header" id="beginner">
+    <span class="badge badge-g">● 초급</span>
+    <span class="level-title level-title-g">Getting Started</span>
+    <span class="level-desc">Claude를 처음 써보는 단계 — 계정 가입과 Desktop 앱 설치</span>
+  </div>
+
+  <div class="scenario-card" id="scenario-1">
+    <div class="card-header">
+      <span class="card-id">G-1</span>
+      <span class="badge badge-g">초급</span>
+      <strong class="card-title">claude.ai 회원가입부터 Claude Desktop 설치까지</strong>
+    </div>
+    <div class="card-body">
+
+      <div class="situation">
+        김 국장은 이번 5일 과정을 시작하기 전, 아직 Claude 계정이 전혀 없는 상태입니다. 코딩 경험이 없어 무엇부터 눌러야 할지 막막하지만, 오늘은 딱 두 가지만 해내면 됩니다 — claude.ai 계정 만들기, 그리고 컴퓨터에 Claude Desktop 앱을 설치해 로그인까지 마치기입니다.
+      </div>
+
+      <div class="cmd-list">
+        <div class="cmd-list-title">사용 요소</div>
+        <div class="cmd-chips">
+          <a class="cmd-chip" href="day1-setup_Manual.html#section-2">claude.ai 계정 가입</a>
+          <a class="cmd-chip" href="day1-setup_Manual.html#section-3">Claude Desktop 설치</a>
+        </div>
+      </div>
+
+      <div class="steps-title">단계별 실행</div>
+      <ol class="step-list">
+        <li>
+          <div class="step-content">
+            <strong>1. claude.ai 접속 및 로그인 방식 선택</strong>
+            <p>브라우저를 열고 claude.ai에 접속합니다. 화면 가운데에 있는 "Continue with email" 또는 "Continue with Google" 버튼 중 편한 쪽을 클릭합니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>2. 이메일 인증 완료</strong>
+            <p>"Continue with email"을 선택했다면 입력한 주소로 로그인 링크가 담긴 메일이 도착합니다. 메일을 받은 것과 같은 기기라면 링크 클릭만으로 로그인되고, 다른 기기(예: 휴대폰으로 메일 확인)라면 화면에 표시된 인증 코드를 입력합니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>3. 전화번호 및 나이 확인, SMS 코드 입력</strong>
+            <p>신규 계정이므로 국가번호(대한민국은 +82)와 전화번호를 입력하고, 만 18세 이상임을 확인하는 절차를 거칩니다. 이어서 문자로 오는 6자리 코드를 입력하면 가입이 끝납니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>4. Claude Desktop 다운로드</strong>
+            <p>웹 브라우저에서 claude.com/download에 접속한 뒤, 사용 중인 컴퓨터가 Windows라면 "Download for Windows" 버튼을, macOS라면 "Download for macOS" 버튼을 클릭합니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>5. 설치 및 로그인</strong>
+            <p>내려받은 설치파일을 더블클릭해 실행하고, 화면 안내를 그대로 따라가면 설치가 끝납니다. 설치 후 앱을 실행해 1~3단계에서 만든 계정으로 로그인합니다.</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="flow-box">
+        claude.ai 계정은 클라우드에 저장되는 하나의 로그인 정보이며, Claude Desktop·모바일 앱·Cursor의 Claude Code 확장까지 모두 이 계정 하나로 연결됩니다. 즉 오늘 만든 계정 하나가 5일 내내 사용할 "출입증" 역할을 합니다.
+      </div>
+
+      <div class="tip-box">
+        가입 과정에서 인증 메일이나 문자가 바로 오지 않는다면, 스팸함을 먼저 확인하고 1~2분 정도 기다린 뒤 재전송을 시도하세요. 기관 이메일 계정은 외부 메일 수신이 지연되거나 차단되는 경우가 있으므로, 필요하다면 개인 이메일로도 시도해볼 수 있습니다.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════ 중급 ══════════════════════════════ -->
+  <div class="level-header" id="intermediate">
+    <span class="badge badge-b">● 중급</span>
+    <span class="level-title level-title-b">Daily Workflow</span>
+    <span class="level-desc">코드를 다룰 실제 작업대 — Cursor 설치와 Claude Code 확장 연결</span>
+  </div>
+
+  <div class="scenario-card" id="scenario-2">
+    <div class="card-header">
+      <span class="card-id">D-1</span>
+      <span class="badge badge-b">중급</span>
+      <strong class="card-title">Cursor 설치 + Extensions 뷰에서 Claude Code 확장 검색·설치·로그인</strong>
+    </div>
+    <div class="card-body">
+
+      <div class="situation">
+        G-1을 마친 김 국장은 이제 claude.ai 계정과 Claude Desktop을 모두 갖춘 상태입니다. 하지만 앞으로 4일간 실제로 Python 코드를 작성하려면 대화창만 있는 도구로는 부족합니다. 이번에는 코드 편집이 가능한 Cursor를 설치하고, 그 안에 Claude Code 확장을 연결해 "AI에게 코드 작업을 직접 시킬 수 있는 상태"를 만들어 봅니다.
+      </div>
+
+      <div class="cmd-list">
+        <div class="cmd-list-title">사용 요소</div>
+        <div class="cmd-chips">
+          <a class="cmd-chip" href="day1-setup_Manual.html#section-4">Cursor 에디터</a>
+          <a class="cmd-chip" href="day1-setup_Manual.html#section-5">Claude Code 확장</a>
+        </div>
+      </div>
+
+      <div class="steps-title">단계별 실행</div>
+      <ol class="step-list">
+        <li>
+          <div class="step-content">
+            <strong>1. Cursor 다운로드 및 설치</strong>
+            <p>cursor.com/download에 접속해 사용 중인 운영체제용 설치파일을 내려받고 실행합니다. 설치가 끝나면 Cursor를 처음 실행할 때 나오는 기본 설정 화면(테마, 키보드 단축키 방식 등)은 기본값 그대로 두고 넘어가도 됩니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>2. Extensions 뷰 열기</strong>
+            <p>Cursor 창에서 키보드 단축키 Ctrl+Shift+X(Windows)를 누르거나, macOS라면 Cmd+Shift+X를 누릅니다. 좌측에 네모 4개가 겹쳐진 모양의 아이콘을 클릭해도 같은 화면이 열립니다.</p>
+            <div style="position:relative">
+              <pre class="code-block">Windows / Linux : Ctrl+Shift+X
+macOS           : Cmd+Shift+X</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>3. "Claude Code" 검색 및 설치</strong>
+            <p>Extensions 뷰 상단 검색창에 Claude Code를 입력합니다. 검색 결과 중 게시자가 Anthropic으로 표시된 "Claude Code for VS Code" 항목을 찾아 Install 버튼을 클릭합니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>4. 확장 실행 및 로그인 연결</strong>
+            <p>설치가 끝나면 좌측 사이드바에 Claude Code 아이콘이 새로 생깁니다. 이 아이콘을 클릭해 대화창을 연 뒤, 처음 실행 시 뜨는 로그인 안내를 따라 브라우저에서 claude.ai 계정으로 인증을 완료합니다.</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="flow-box">
+        Claude Code 확장은 별도의 API 키를 요구하지 않고, 브라우저 OAuth 인증만으로 계정의 Pro 플랜 이용 권한을 그대로 가져와 사용합니다. 즉 한 번 로그인해두면 Cursor를 다시 열 때마다 매번 로그인할 필요 없이 바로 대화창이 연결됩니다.
+      </div>
+
+      <div class="warning-box">Free 플랜 계정으로 로그인을 시도하면 확장이 정상적으로 연결되지 않습니다. G-1에서 가입한 계정이 아직 Free 플랜이라면, day1-setup_Manual.html의 "2. claude.ai 계정 가입" 항목에 있는 Pro 플랜 업그레이드 절차를 먼저 완료하세요.</div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════ 고급 ══════════════════════════════ -->
+  <div class="level-header" id="advanced">
+    <span class="badge badge-p">● 고급</span>
+    <span class="level-title level-title-p">Power User</span>
+    <span class="level-desc">첫 워밍업 실습 — Claude에게 실제 파일 작업을 맡겨 보기</span>
+  </div>
+
+  <div class="scenario-card" id="scenario-3">
+    <div class="card-header">
+      <span class="card-id">P-1</span>
+      <span class="badge badge-p">고급</span>
+      <strong class="card-title">Claude Code에게 "5일 프로젝트 폴더 구조를 만들어줘"라고 요청하기</strong>
+    </div>
+    <div class="card-body">
+
+      <div class="situation">
+        D-1까지 마친 김 국장은 claude.ai 계정, Claude Desktop, Cursor, Claude Code 확장을 모두 갖춘 상태입니다. 마지막으로 오늘 실습에서는 이번 5일 과정 전체를 이 확장 하나로 진행하게 된다는 것을 직접 체감해보기 위해, Claude Code에게 처음으로 실제 폴더와 파일을 만들어 달라고 요청해 봅니다. 이것이 5일 과정에서 Claude에게 처음으로 "말로 파일 작업을 시켜보는" 순간입니다.
+      </div>
+
+      <div class="cmd-list">
+        <div class="cmd-list-title">사용 요소</div>
+        <div class="cmd-chips">
+          <a class="cmd-chip" href="day1-setup_Manual.html#section-5">Claude Code 확장</a>
+          <a class="cmd-chip" href="day1-setup_Manual.html#tree">5일 로드맵</a>
+        </div>
+      </div>
+
+      <div class="steps-title">단계별 실행</div>
+      <ol class="step-list">
+        <li>
+          <div class="step-content">
+            <strong>1. 실습용 폴더를 Cursor에서 열기</strong>
+            <p>바탕화면 등 원하는 위치에 news-alert-bot이라는 빈 폴더를 하나 만들고, Cursor의 File 메뉴에서 Open Folder를 눌러 이 폴더를 엽니다. 이후 4일간 실습할 모든 코드가 이 폴더 안에 쌓이게 됩니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>2. Claude Code 대화창에 요청 입력</strong>
+            <p>좌측 사이드바의 Claude Code 아이콘을 클릭해 대화창을 열고, 아래와 같이 이번 5일 과정에 맞는 폴더 구조를 만들어 달라고 자연스러운 문장으로 요청합니다. 명령어를 외울 필요 없이, 하고 싶은 말을 그대로 적으면 됩니다.</p>
+            <div style="position:relative">
+              <pre class="code-block">지금부터 5일 동안 "내 이름이 들어간 뉴스 기사를 찾아
+텔레그램으로 알려주는 봇"을 만드는 프로젝트를 진행할 거야.
+이 폴더 안에 아래 내용을 정리한 README.md 파일 하나와,
+앞으로 코드를 저장할 src 폴더를 만들어줘.
+README.md에는 5일 계획(Day1 환경 준비, Day2 텔레그램 봇 만들기,
+Day3 네이버 뉴스 API 연동, Day4 GitHub Actions 자동화 배포,
+Day5 운영·예외처리)을 간단히 정리해줘.</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>3. 작업 내용 확인 및 승인</strong>
+            <p>Claude Code는 파일을 만들거나 수정하기 전에 어떤 파일을 어떻게 바꿀지 미리 보여주고 승인을 요청하는 경우가 많습니다. 제안된 내용(README.md 생성, src 폴더 생성)을 확인하고 이상이 없으면 승인(Approve 등 표시된 버튼 클릭)합니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>4. 결과물을 Cursor 탐색기에서 직접 확인</strong>
+            <p>Cursor 좌측의 파일 탐색기(Explorer) 패널을 열어, 방금 요청한 README.md 파일과 src 폴더가 실제로 생성되었는지 눈으로 확인합니다. README.md를 클릭해 열어보고 5일 계획이 잘 정리되어 있는지도 확인합니다.</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="flow-box">
+        Claude Code는 대화창에 입력된 요청을 해석해, 실제로는 파일 생성·수정 같은 명령을 컴퓨터에 내리는 방식으로 동작합니다. 사람이 폴더를 만들고 마우스 우클릭으로 파일을 새로 만드는 작업을, 문장으로 요청하면 Claude가 대신 수행하는 것입니다. 다만 컴퓨터에 실제 변화를 일으키는 작업이므로, 승인 절차를 거치도록 설계되어 있습니다.
+      </div>
+
+      <div class="tip-box">
+        요청 문장이 구체적일수록(원하는 파일 이름, 폴더 이름, 들어갈 내용까지) Claude가 만드는 결과물이 기대에 가까워집니다. 이번 실습처럼 "무엇을, 어떤 이름으로, 어떤 내용으로" 만들어 달라고 적는 습관을 Day 2부터도 그대로 이어가면 좋습니다.
+      </div>
+
+      <div class="related-cmds">
+        <strong>함께 보기:</strong> Day 2 실습에서는 이 src 폴더 안에 텔레그램 봇의 첫 Python 코드를 Claude Code로 작성하게 됩니다.
+      </div>
+
+    </div>
+  </div>
+
+  <hr>
+  <p style="color: var(--text-dim); font-size: 12px; text-align: center;">
+    Day 1 환경 준비 기준 | 2026년 7월 5일 작성<br>
+    <a href="day1-setup_Manual.html">← Day 1 환경 준비 — 매뉴얼</a>
+  </p>
+</main>
+
+</div>
+
+<script>
+function copyCode(btn) {
+  const pre = btn.previousElementSibling || btn.parentElement.querySelector('pre');
+  navigator.clipboard.writeText(pre.textContent).then(() => {
+    btn.textContent = '완료!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '복사'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+</script>
+  <script src="../assets/inpage-search.js" defer></script>
+</body>
+</html>

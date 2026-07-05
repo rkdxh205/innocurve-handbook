@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 2 텔레그램 봇 만들기 — 매뉴얼</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg2: #f6f8fa;
+      --bg3: #eef1f4;
+      --border: #d0d7de;
+      --text: #1f2328;
+      --text-dim: #636c76;
+      --accent: #0969da;
+      --accent2: #1a7f37;
+      --accent3: #953800;
+      --accent4: #6639ba;
+      --accent5: #cf222e;
+      --accent6: #0550ae;
+      --tag-bg: #ddf4ff;
+      --tag-text: #0550ae;
+      --code-bg: #f6f8fa;
+      --code-border: #d0d7de;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+    /* ── 사이드바 ── */
+    nav {
+      width: 260px;
+      min-width: 260px;
+      background: var(--bg2);
+      border-right: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 20px 0;
+    }
+    nav .nav-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text-dim);
+      padding: 0 16px 8px;
+    }
+    nav a {
+      display: block;
+      padding: 6px 16px;
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 13px;
+      border-left: 2px solid transparent;
+      transition: all .15s;
+    }
+    nav a:hover { color: var(--accent); background: var(--bg3); border-left-color: var(--accent); }
+    nav .nav-section {
+      margin-top: 12px;
+      padding: 6px 16px 4px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--text-dim);
+    }
+    /* ── 본문 ── */
+    main {
+      flex: 1;
+      max-width: 900px;
+      padding: 40px 48px;
+      overflow-x: hidden;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1f2328;
+      margin-bottom: 6px;
+    }
+    .subtitle {
+      color: var(--text-dim);
+      font-size: 13px;
+      margin-bottom: 32px;
+    }
+    .subtitle a { color: var(--accent); text-decoration: none; }
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent6);
+      margin: 48px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      scroll-margin-top: 20px;
+    }
+    h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent3);
+      margin: 28px 0 8px;
+      scroll-margin-top: 20px;
+    }
+    p { margin: 8px 0; color: var(--text); }
+    /* ── 트리 ── */
+    .tree-box {
+      background: #f6f8fa;
+      border: 1px solid var(--code-border);
+      border-radius: 8px;
+      padding: 20px 24px;
+      overflow-x: auto;
+      margin: 16px 0 24px;
+    }
+    .tree-box pre {
+      font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #1f2328;
+      white-space: pre;
+    }
+    .tree-box pre .cmd { color: var(--accent); font-weight: 600; }
+    .tree-box pre .desc { color: var(--text-dim); }
+    /* ── 코드 블록 ── */
+    pre.code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--code-border);
+      border-radius: 6px;
+      padding: 14px 18px;
+      overflow-x: auto;
+      font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #116329;
+      margin: 8px 0 16px;
+    }
+    /* ── 인라인 코드 ── */
+    code {
+      font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+      font-size: 12px;
+      background: #f6f8fa;
+      border: 1px solid #d0d7de;
+      border-radius: 4px;
+      padding: 2px 6px;
+      color: #cf222e;
+    }
+    /* ── 원문 블록 ── */
+    /* ── 테이블 ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 20px;
+      font-size: 13.5px;
+    }
+    th {
+      background: var(--bg3);
+      color: var(--accent6);
+      text-align: left;
+      padding: 10px 14px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    td {
+      padding: 9px 14px;
+      border: 1px solid var(--border);
+      vertical-align: top;
+      color: var(--text);
+    }
+    tr:nth-child(even) td { background: #f6f8fa; }
+    td code { font-size: 11.5px; }
+    /* ── 배지 ── */
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-right: 6px;
+    }
+    .badge-alias { background: #dafbe1; color: #116329; border: 1px solid #a2d9b1; }
+    .badge-skill { background: #fbefff; color: #6639ba; border: 1px solid #d2b9ff; }
+    .badge-workflow { background: #ddf4ff; color: #0550ae; border: 1px solid #a5d5f7; }
+    .badge-new { background: #fff8c5; color: #953800; border: 1px solid #f5c518; }
+    /* ── 구분선 ── */
+    hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+    /* ── 섹션 헤더 ── */
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+    /* ── 버전 박스 ── */
+    .version-box {
+      background: #f0f7ff;
+      border: 1px solid #a5d5f7;
+      border-left: 4px solid #0969da;
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin: 16px 0 32px;
+      font-size: 13px;
+    }
+    .version-row {
+      display: flex;
+      gap: 12px;
+      padding: 3px 0;
+      border-bottom: 1px solid #d0e8ff;
+    }
+    .version-row:last-child { border-bottom: none; }
+    .vlabel {
+      min-width: 180px;
+      font-weight: 600;
+      color: #0550ae;
+      flex-shrink: 0;
+    }
+    .vvalue { color: #1f2328; }
+    /* ── 링크 ── */
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    /* ── 경고 박스 ── */
+    .warning-box {
+      background: #fff8c5;
+      border: 1px solid #d4a72c;
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #7d4e00;
+      margin: 12px 0;
+    }
+    .warning-box::before { content: '⚠️  '; }
+    /* ── 권한 모드 표 ── */
+    .mode-table td:first-child { font-family: monospace; color: #ff7b72; font-size: 12px; }
+  </style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ── 사이드바 네비게이션 ── -->
+<nav>
+  <a href="../index.html" style="font-weight:700;color:#0969da;margin-bottom:8px;border-bottom:1px solid #d0d7de;padding-bottom:10px;">← 핸드북 홈</a>
+  <div class="nav-title">Day 2. 텔레그램 봇</div>
+  <a href="#tree">오늘의 흐름 한눈에 보기</a>
+  <div class="nav-section">기초 다지기</div>
+  <a href="#section-1">1. 텔레그램이란, 왜 텔레그램인가</a>
+  <a href="#section-2">2. BotFather로 봇 만들기</a>
+  <a href="#section-3">3. 봇 토큰이란 무엇인가</a>
+  <a href="#section-4">4. Telegram Bot API 기초</a>
+  <div class="nav-section">마무리</div>
+  <a href="#refs">참고 링크</a>
+</nav>
+
+<!-- ── 본문 ── -->
+<main>
+  <!-- 페이지 제목 + 한 줄 부제 -->
+  <h1>텔레그램 봇 만들기: BotFather와 Bot API 기초</h1>
+  <p class="subtitle">내 이름을 언급한 뉴스를 알려줄 "나만의 봇"을 텔레그램 위에 만드는 첫걸음 &nbsp;|&nbsp; 공식 문서: <a href="https://core.telegram.org/bots" target="_blank">Telegram Bots 공식 문서</a></p>
+
+  <!-- ── 버전 박스 ── -->
+  <div class="version-box">
+    <div class="version-row"><span class="vlabel">대상 버전</span><span class="vvalue">Telegram Bot API · Python 3.12 (requests 라이브러리) — 2026년 7월 기준</span></div>
+    <div class="version-row"><span class="vlabel">참조 문서 URL</span><span class="vvalue"><a href="https://core.telegram.org/bots/api" target="_blank">core.telegram.org/bots/api</a></span></div>
+    <div class="version-row"><span class="vlabel">문서 수집일</span><span class="vvalue">2026-07-05</span></div>
+    <div class="version-row"><span class="vlabel">버전 확인 방법</span><span class="vvalue">core.telegram.org/bots/api 공식 문서에서 최신 API 사양 확인</span></div>
+    <div class="version-row"><span class="vlabel">개정 시 확인 사항</span><span class="vvalue">core.telegram.org/bots, core.telegram.org/bots/api 재확인</span></div>
+  </div>
+
+  <!-- ── 개념/명령 트리 ── -->
+  <h2 id="tree">오늘의 흐름 한눈에 보기</h2>
+  <div class="tree-box"><pre>
+Day 2 전체 흐름
+├── 1단계: 텔레그램 앱 설치           스마트폰·PC에 텔레그램을 설치하고 계정을 준비합니다
+├── 2단계: BotFather로 봇 생성        @BotFather와 대화하며 /newbot 으로 나만의 봇을 만듭니다
+├── 3단계: 봇 토큰 발급               발급된 토큰을 비밀번호처럼 안전하게 보관합니다
+├── 4단계: Bot API 기초 익히기        sendMessage로 메시지를 보내고, getUpdates로 받은 메시지를 확인합니다
+└── 5단계: 다음 날 예고               Day 3 — 네이버 뉴스 검색 API와 내 봇을 연결합니다
+</pre></div>
+
+  <hr>
+
+  <!-- ── 섹션 1 ── -->
+  <h2 id="section-1">1. 텔레그램이란, 왜 텔레그램으로 알림을 받는가</h2>
+
+  <h3><code>Telegram</code> — 전 세계에서 널리 쓰이는 메신저이자 개방형 봇 플랫폼</h3>
+  <p>텔레그램은 카카오톡과 비슷한 메신저 앱이지만, 처음부터 "봇(bot)"을 자유롭게 만들어 붙일 수 있도록 설계된 것이 큰 차이점입니다. 누구나 무료로 계정을 만들고, 자신만의 자동화 프로그램을 봇 형태로 연결해 메시지를 주고받을 수 있습니다. 이번 핸드북에서는 이 봇을 "내 이름이 언급된 뉴스를 알려주는 개인 비서"로 활용합니다.</p>
+
+  <h3><code>Bot API</code> — 텔레그램이 공식 제공하는 봇 프로그래밍 인터페이스</h3>
+  <p>Telegram Bot API는 별도의 서버나 복잡한 설정 없이도, 인터넷 요청 한 번으로 메시지를 보내고 받을 수 있게 해주는 공식 인터페이스입니다. 로그인 절차나 승인 심사가 없고, 봇 하나당 발급되는 "토큰" 하나만 있으면 바로 사용할 수 있어 진입 장벽이 매우 낮습니다.</p>
+
+  <p style="background:#e8f4fd;border-left:3px solid #0969da;padding:8px 14px;border-radius:4px;font-size:13.5px;">💡 <strong>핵심 한 줄:</strong> 텔레그램은 API가 공개돼 있고 무료이며, GitHub Actions 같은 자동화 도구와도 궁합이 좋아 "개인 알림 채널"로 안성맞춤입니다.</p>
+
+  <table>
+    <thead><tr><th>비교 항목</th><th>텔레그램</th><th>카카오톡·문자(SMS)</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>봇 API 공개 여부</td>
+        <td>공식적으로 완전히 공개, 무료</td>
+        <td>개인 개발자용 공개 API가 제한적이거나 유료</td>
+      </tr>
+      <tr>
+        <td>알림 자동화 난이도</td>
+        <td>토큰 하나로 즉시 메시지 발송 가능</td>
+        <td>별도 심사·계약이 필요한 경우가 많음</td>
+      </tr>
+      <tr>
+        <td>이번 핸드북과의 궁합</td>
+        <td>GitHub Actions의 정기 실행 결과를 그대로 전달하기 적합</td>
+        <td>해당 없음</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <!-- ── 섹션 2 ── -->
+  <h2 id="section-2">2. BotFather로 봇 만들기</h2>
+
+  <h3><code>@BotFather</code> — 모든 텔레그램 봇을 만들고 관리하는 공식 봇</h3>
+  <p>BotFather는 텔레그램이 공식으로 운영하는 "봇을 만들어주는 봇"입니다. 새 봇을 등록하거나, 이름을 바꾸거나, 프로필 사진을 설정하는 등 봇 관리에 필요한 모든 명령을 대화 형태로 처리합니다.</p>
+
+  <ol style="margin:0 0 16px 20px;line-height:2;">
+    <li><strong>@BotFather 검색:</strong> 텔레그램 앱 상단 검색창에 <code>@BotFather</code>를 입력해 공식 계정(파란 인증 배지가 있는 계정)을 찾습니다.</li>
+    <li><strong>대화 시작:</strong> BotFather와의 대화방에 들어가 <code>시작</code>(Start) 버튼을 눌러 대화를 엽니다.</li>
+    <li><strong><code>/newbot</code> 전송:</strong> 새 봇을 만들겠다는 명령을 보냅니다.</li>
+    <li><strong>표시 이름 입력:</strong> 대화 목록 등에 보일 봇의 이름을 입력합니다. (예: "홍길동 뉴스 알림봇" — 한글도 가능하며 나중에 변경할 수 있습니다.)</li>
+    <li><strong>username 입력:</strong> 봇의 고유 주소가 되는 username을 입력합니다. 아래 규칙을 따라야 하며, 한 번 정하면 바꿀 수 없습니다.</li>
+  </ol>
+
+  <h3><code>username</code> 규칙 — 한 번 정하면 바꿀 수 없는 봇의 고유 주소</h3>
+  <p>BotFather는 입력한 username이 규칙에 맞고 아직 아무도 쓰지 않은 이름일 때만 봇 생성을 완료합니다.</p>
+
+  <table>
+    <thead><tr><th>규칙</th><th>내용</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>길이</td>
+        <td>5자 이상 32자 이하</td>
+        <td>너무 짧으면 거부됩니다</td>
+      </tr>
+      <tr>
+        <td>허용 문자</td>
+        <td>영문 알파벳, 숫자, 밑줄(<code>_</code>)만 가능</td>
+        <td>한글·공백·특수문자 불가</td>
+      </tr>
+      <tr>
+        <td>끝 글자</td>
+        <td>반드시 <code>bot</code>으로 끝나야 함</td>
+        <td>예: <code>gildong_news_bot</code></td>
+      </tr>
+      <tr>
+        <td>변경 가능 여부</td>
+        <td>한 번 정하면 이후 변경 불가</td>
+        <td>신중하게 정하는 것을 권장합니다</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="warning-box">username은 전 세계 사용자와 공유하는 이름 공간이라 이미 다른 사람이 쓰고 있으면 등록되지 않습니다. 여러 후보를 미리 생각해 두는 것이 좋습니다.</div>
+
+  <hr>
+
+  <!-- ── 섹션 3 ── -->
+  <h2 id="section-3">3. 봇 토큰이란 무엇인가</h2>
+
+  <h3><code>Bot Token</code> — 봇의 신원과 권한을 증명하는 비밀 문자열</h3>
+  <p>username 등록이 끝나면 BotFather는 곧바로 "봇 토큰(token)"을 발급해 대화창에 보여줍니다. 이 토큰은 앞으로 프로그램이 "나는 이 봇이다"라고 증명할 때 쓰는 열쇠이며, 토큰만 있으면 누구든 그 봇의 이름으로 메시지를 보내거나 받을 수 있습니다.</p>
+
+  <p>토큰은 다음과 같은 형식으로 발급됩니다.</p>
+  <pre class="code-block">110201543:AAHdqTcvCH1vGWJxfSeofSAs0K5PALDsaw</pre>
+  <p>앞부분의 숫자(<code>110201543</code>)는 봇의 고유 ID이고, 콜론(<code>:</code>) 뒤의 약 35자 문자열이 실제 비밀 값입니다. (※ 위 예시는 텔레그램 공식 튜토리얼에 나오는 예시 형식이며, 실제로 발급받은 토큰은 이와 다른 값입니다.)</p>
+
+  <div class="warning-box">봇 토큰은 집 열쇠나 비밀번호와 동일하게 취급해야 합니다. GitHub 등 공개 저장소 코드에 그대로 적어 올리거나, 화면 공유·발표 중에 화면에 노출하지 않도록 각별히 주의하세요. 토큰이 유출되면 즉시 BotFather에서 <code>/revoke</code> 명령으로 재발급받아야 합니다.</div>
+
+  <p style="background:#e8f4fd;border-left:3px solid #0969da;padding:8px 14px;border-radius:4px;font-size:13.5px;">💡 <strong>핵심 한 줄:</strong> 발급받은 토큰은 메모장 등에 안전하게 적어두고, 이후 실습(Day 3~5)에서 코드나 GitHub Actions의 비밀 값(secret)으로 사용하게 됩니다.</p>
+
+  <hr>
+
+  <!-- ── 섹션 4 ── -->
+  <h2 id="section-4">4. Telegram Bot API 기초</h2>
+
+  <p>모든 Bot API 호출은 아래와 같이 토큰을 포함한 하나의 주소(URL) 형태를 따릅니다. 이 주소에 필요한 값(파라미터)을 담아 요청을 보내면, 텔레그램 서버가 그 결과를 돌려줍니다.</p>
+  <pre class="code-block">https://api.telegram.org/bot&lt;여기에_발급받은_BOT_TOKEN&gt;/METHOD_NAME</pre>
+
+  <p>
+    <span class="badge badge-workflow">HTTPS</span>
+    <span class="badge badge-alias">GET 또는 POST</span>
+    <span class="badge badge-skill">토큰 필요</span>
+  </p>
+
+  <h3><code>sendMessage</code> — 봇이 특정 대화방에 메시지를 보내는 메서드</h3>
+  <p>가장 기본적인 메서드로, 어느 대화방(<code>chat_id</code>)에 어떤 내용(<code>text</code>)을 보낼지 지정하면 그대로 메시지가 전송됩니다. 이번 핸드북의 최종 목표인 "뉴스 알림 보내기"의 핵심 동작이 바로 이 메서드입니다.</p>
+
+  <table>
+    <thead><tr><th>파라미터</th><th>필수 여부</th><th>설명</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><code>chat_id</code></td>
+        <td>필수</td>
+        <td>메시지를 받을 대화방의 고유 번호</td>
+      </tr>
+      <tr>
+        <td><code>text</code></td>
+        <td>필수</td>
+        <td>보낼 메시지 내용</td>
+      </tr>
+      <tr>
+        <td><code>parse_mode</code></td>
+        <td>선택</td>
+        <td>굵게·기울임 등 서식을 적용할지 지정 (예: <code>Markdown</code>, <code>HTML</code>)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3><code>getUpdates</code> — 롱 폴링(long polling)으로 대기 중인 메시지를 가져오는 메서드</h3>
+  <p>봇에게 도착했지만 아직 프로그램이 확인하지 않은 메시지들을 가져오는 메서드입니다. "롱 폴링"이란 서버에 접속해서 새 메시지가 올 때까지 짧게 기다렸다가 응답받는 방식으로, 별도의 웹 서버 없이도 메시지 수신이 가능하게 해줍니다.</p>
+
+  <table>
+    <thead><tr><th>파라미터</th><th>기본값</th><th>설명</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><code>offset</code></td>
+        <td>없음</td>
+        <td>이 번호 이후의 새 메시지만 가져오도록 지정 (이미 처리한 메시지를 다시 받지 않기 위함)</td>
+      </tr>
+      <tr>
+        <td><code>limit</code></td>
+        <td>100</td>
+        <td>한 번에 가져올 메시지 최대 개수 (1~100 사이)</td>
+      </tr>
+      <tr>
+        <td><code>timeout</code></td>
+        <td>0</td>
+        <td>새 메시지가 없을 때 몇 초 동안 대기할지 (초 단위)</td>
+      </tr>
+      <tr>
+        <td><code>allowed_updates</code></td>
+        <td>모든 종류</td>
+        <td>받고 싶은 업데이트 종류를 제한 (예: 일반 메시지만)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="warning-box">봇에 웹훅(webhook)이 설정돼 있으면 <code>getUpdates</code>는 동작하지 않습니다. 이번 핸드북에서는 웹훅을 설정하지 않으므로 문제없이 사용할 수 있습니다.</div>
+
+  <h3><code>chat_id</code> 알아내기 — 내 대화방 번호를 확인하는 표준 절차</h3>
+  <p>메시지를 보내려면 상대방(자기 자신)의 <code>chat_id</code>를 알아야 합니다. 아래 절차를 따르면 누구나 자신의 <code>chat_id</code>를 쉽게 확인할 수 있습니다.</p>
+
+  <ol style="margin:0 0 16px 20px;line-height:2;">
+    <li><strong>봇에게 말 걸기:</strong> 텔레그램에서 방금 만든 내 봇을 검색해 대화방을 열고, 아무 텍스트나 한 번 보냅니다. (예: "안녕")</li>
+    <li><strong><code>getUpdates</code> 호출:</strong> 발급받은 토큰으로 <code>getUpdates</code> 메서드를 호출합니다.</li>
+    <li><strong><code>chat.id</code> 확인:</strong> 응답 결과(JSON) 안의 <code>message.chat.id</code> 값이 바로 내 <code>chat_id</code>입니다. 이 값을 메모해 두면 Day 3부터 계속 사용하게 됩니다.</li>
+  </ol>
+
+  <hr>
+
+  <!-- ── 참고 링크 ── -->
+  <h2 id="refs">참고 링크</h2>
+  <ul style="list-style: none; padding: 0; line-height: 2.2;">
+    <li>📖 <a href="https://core.telegram.org/bots" target="_blank">Telegram Bots 공식 개요 문서</a></li>
+    <li>⚙️ <a href="https://core.telegram.org/bots/api" target="_blank">Telegram Bot API 전체 레퍼런스</a></li>
+    <li>🛠️ <a href="https://core.telegram.org/bots/features#creating-a-new-bot" target="_blank">BotFather로 새 봇 만들기 안내</a></li>
+    <li>🎓 <a href="https://core.telegram.org/bots/tutorial" target="_blank">Telegram Bot 공식 튜토리얼</a></li>
+  </ul>
+
+  <hr>
+  <p style="margin-top: 24px; color: var(--text-dim); font-size: 12px;">Telegram Bot API 공식 문서 기준 | 2026년 7월</p>
+</main>
+
+</div>
+  <script src="../assets/inpage-search.js" defer></script>
+</body>
+</html>

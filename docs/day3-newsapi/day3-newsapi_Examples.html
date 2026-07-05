@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 3 네이버 뉴스 API 연동 — 실습 예시</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg2: #f6f8fa;
+      --bg3: #eef1f4;
+      --border: #d0d7de;
+      --text: #1f2328;
+      --text-dim: #636c76;
+      --accent: #0969da;
+      --accent-g: #1a7f37;
+      --accent-o: #953800;
+      --accent-p: #6639ba;
+      --accent-r: #cf222e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 15px;
+    }
+    .layout { display: flex; min-height: 100vh; }
+
+    /* ── 사이드바 ── */
+    nav {
+      width: 270px; min-width: 270px;
+      background: var(--bg2);
+      border-right: 1px solid var(--border);
+      position: sticky; top: 0; height: 100vh;
+      overflow-y: auto; padding: 20px 0;
+    }
+    nav .nav-title {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--text-dim);
+      padding: 0 16px 10px;
+    }
+    nav a {
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 16px;
+      color: var(--text-dim); text-decoration: none;
+      font-size: 13px; border-left: 2px solid transparent;
+      transition: all .15s;
+    }
+    nav a:hover { color: var(--accent); background: var(--bg3); border-left-color: var(--accent); }
+    nav .nav-group {
+      margin-top: 10px; padding: 7px 16px 4px;
+      font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .07em; color: var(--text-dim);
+      border-top: 1px solid var(--border);
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .dot-g { background: #1a7f37; }
+    .dot-b { background: #0969da; }
+    .dot-p { background: #6639ba; }
+
+    /* ── 본문 ── */
+    main { flex: 1; max-width: 880px; padding: 40px 52px; }
+    h1 { font-size: 1.9rem; font-weight: 700; color: #1f2328; margin-bottom: 6px; }
+    .subtitle { color: var(--text-dim); font-size: 13px; margin-bottom: 24px; }
+    .subtitle a { color: var(--accent); text-decoration: none; }
+
+    /* ── 버전 박스 ── */
+    .version-box {
+      background: #f0f7ff; border: 1px solid #a5d5f7;
+      border-left: 4px solid #0969da; border-radius: 6px;
+      padding: 14px 18px; margin-bottom: 36px; font-size: 13px;
+    }
+    .version-row { display: flex; gap: 12px; padding: 3px 0; border-bottom: 1px solid #d0e8ff; }
+    .version-row:last-child { border-bottom: none; }
+    .vlabel { min-width: 160px; font-weight: 600; color: #0550ae; flex-shrink: 0; }
+
+    /* ── 레벨 섹션 헤더 ── */
+    .level-header {
+      display: flex; align-items: center; gap: 12px;
+      margin: 48px 0 20px; padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+    }
+    .level-title { font-size: 1.3rem; font-weight: 700; }
+    .level-title-g { color: #1a7f37; }
+    .level-title-b { color: #0969da; }
+    .level-title-p { color: #6639ba; }
+    .level-desc { font-size: 13px; color: var(--text-dim); }
+
+    /* ── 레벨 배지 ── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 10.5px; font-weight: 700; padding: 3px 10px;
+      border-radius: 20px; text-transform: uppercase; letter-spacing: .05em;
+    }
+    .badge-g { background: #dafbe1; color: #116329; border: 1px solid #a2d9b1; }
+    .badge-b { background: #ddf4ff; color: #0550ae; border: 1px solid #a5d5f7; }
+    .badge-p { background: #fbefff; color: #6639ba; border: 1px solid #d2b9ff; }
+
+    /* ── 시나리오 카드 ── */
+    .scenario-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 36px;
+      overflow: hidden;
+    }
+    .card-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 22px;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+    }
+    .card-id {
+      font-family: 'SFMono-Regular', 'Consolas', monospace;
+      font-size: 11px; font-weight: 700;
+      color: var(--text-dim); min-width: 34px;
+    }
+    .card-title { font-size: 1.05rem; font-weight: 700; color: #1f2328; }
+    .card-body { padding: 22px 26px; }
+
+    /* ── 상황 설명 ── */
+    .situation {
+      background: #fffbf0; border-left: 3px solid #d4a72c;
+      border-radius: 0 6px 6px 0;
+      padding: 12px 16px; margin-bottom: 20px;
+      font-size: 14px; line-height: 1.7;
+    }
+    .situation::before {
+      content: '📌 상황'; display: block;
+      font-weight: 700; color: #7d4e00; margin-bottom: 6px;
+      font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
+    }
+
+    /* ── 명령어 목록 ── */
+    .cmd-list { margin-bottom: 20px; }
+    .cmd-list-title {
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .05em; color: var(--text-dim); margin-bottom: 8px;
+    }
+    .cmd-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .cmd-chip {
+      font-family: 'SFMono-Regular', 'Consolas', monospace;
+      font-size: 12px; font-weight: 600;
+      background: #f6f8fa; border: 1px solid #d0d7de;
+      border-radius: 6px; padding: 4px 10px;
+      color: #cf222e; text-decoration: none;
+      transition: background .15s;
+    }
+    .cmd-chip:hover { background: #ddf4ff; border-color: #a5d5f7; color: #0550ae; }
+
+    /* ── 단계별 실행 ── */
+    .steps-title {
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .05em; color: var(--text-dim); margin-bottom: 12px;
+    }
+    .step-list { list-style: none; counter-reset: step-counter; margin-bottom: 20px; }
+    .step-list li {
+      counter-increment: step-counter;
+      display: flex; gap: 14px;
+      margin-bottom: 18px; align-items: flex-start;
+    }
+    .step-list li::before {
+      content: counter(step-counter);
+      min-width: 26px; height: 26px;
+      background: #0969da; color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+    }
+    .step-content { flex: 1; }
+    .step-content strong { display: block; margin-bottom: 6px; color: #1f2328; font-size: 14px; }
+    .step-content p { font-size: 13.5px; color: var(--text-dim); margin-bottom: 8px; }
+
+    /* ── 코드 블록 ── */
+    pre.code-block {
+      background: #f6f8fa; border: 1px solid #d0d7de;
+      border-radius: 6px; padding: 12px 16px; overflow-x: auto;
+      font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+      font-size: 13px; line-height: 1.55; color: #116329;
+      margin: 6px 0 0; position: relative;
+    }
+    .copy-btn {
+      position: absolute; top: 8px; right: 10px;
+      background: #fff; border: 1px solid #d0d7de; border-radius: 5px;
+      padding: 3px 9px; font-size: 11px; cursor: pointer; color: #636c76;
+    }
+    .copy-btn:hover { background: #f6f8fa; color: #0969da; }
+    .copy-btn.copied { color: #1a7f37; border-color: #a2d9b1; }
+
+    /* ── 흐름 설명 ── */
+    .flow-box {
+      background: #f0f7ff; border: 1px solid #a5d5f7;
+      border-radius: 6px; padding: 14px 18px; margin-bottom: 16px; font-size: 13.5px;
+    }
+    .flow-box::before {
+      content: '⚙️ 내부 동작'; display: block;
+      font-weight: 700; color: #0550ae; margin-bottom: 8px;
+      font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
+    }
+
+    /* ── 팁 박스 ── */
+    .tip-box {
+      background: #dafbe1; border: 1px solid #a2d9b1; border-radius: 6px;
+      padding: 12px 16px; margin-bottom: 14px; font-size: 13.5px; color: #0a3622;
+    }
+    .tip-box::before {
+      content: '💡 팁'; display: block; font-weight: 700; color: #116329;
+      margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
+    }
+
+    /* ── 경고 박스 ── */
+    .warning-box {
+      background: #fff8c5; border: 1px solid #d4a72c;
+      border-radius: 6px; padding: 12px 16px; margin-bottom: 14px;
+      font-size: 13.5px; color: #5c3900;
+    }
+    .warning-box::before {
+      content: '⚠️ 주의'; display: block; font-weight: 700; color: #7d4e00;
+      margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
+    }
+
+    /* ── 관련 명령어 조합 ── */
+    .related-cmds {
+      border-top: 1px solid var(--border); padding-top: 14px; margin-top: 4px;
+      font-size: 13px; color: var(--text-dim);
+    }
+    .related-cmds strong { color: #1f2328; }
+
+    /* ── 인라인 코드 ── */
+    code {
+      font-family: 'SFMono-Regular', 'Consolas', monospace;
+      font-size: 12px; background: #f6f8fa;
+      border: 1px solid #d0d7de; border-radius: 4px;
+      padding: 2px 6px; color: #cf222e;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+  </style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ── 사이드바 ── -->
+<nav>
+  <a href="../index.html" style="font-weight:700;color:#0969da;margin-bottom:8px;border-bottom:1px solid #d0d7de;padding-bottom:10px;">← 핸드북 홈</a>
+  <div class="nav-title">Day 3 네이버 뉴스 API 실습 예시</div>
+  <a href="#beginner"><span class="dot dot-g"></span>초급 (Getting Started)</a>
+
+  <div class="nav-group">초급 시나리오</div>
+  <a href="#scenario-1"><span class="dot dot-g"></span>G-1 API 키 발급받고 안전하게 보관하기</a>
+
+  <div class="nav-group">중급 시나리오</div>
+  <a href="#scenario-2"><span class="dot dot-b"></span>D-1 내 이름 뉴스 검색 스크립트 만들기</a>
+
+  <div class="nav-group">고급 시나리오</div>
+  <a href="#scenario-3"><span class="dot dot-p"></span>P-1 동명이인 필터 + 중복 방지 로직 추가하기</a>
+
+  <div class="nav-group">바로가기</div>
+  <a href="day3-newsapi_Manual.html">📖 Day 3 매뉴얼로 →</a>
+</nav>
+
+<!-- ── 본문 ── -->
+<main>
+  <h1>Day 3 네이버 뉴스 API 연동 실습 예시</h1>
+  <p class="subtitle">난이도별로 직접 따라 하며 네이버 뉴스검색 API를 내 프로젝트에 연결합니다 &nbsp;|&nbsp; <a href="day3-newsapi_Manual.html">← 매뉴얼 문서로 돌아가기</a></p>
+
+  <div class="version-box">
+    <div class="version-row"><span class="vlabel">대상 범위</span><span>네이버 뉴스검색 Open API · Python 3.12 (requests)</span></div>
+    <div class="version-row"><span class="vlabel">이 파일의 목적</span><span>API 키 발급부터 검색 스크립트 작성, 동명이인 필터링까지 3단계 실습으로 직접 실행해보는 문서</span></div>
+    <div class="version-row"><span class="vlabel">레퍼런스 문서</span><span><a href="day3-newsapi_Manual.html">day3-newsapi_Manual.html</a> — 각 시나리오에서 링크로 연결됩니다</span></div>
+    <div class="version-row"><span class="vlabel">작성일</span><span>2026년 7월 5일</span></div>
+  </div>
+
+  <!-- ══════════════════════════════ 초급 ══════════════════════════════ -->
+  <div class="level-header" id="beginner">
+    <span class="badge badge-g">● 초급</span>
+    <span class="level-title level-title-g">Getting Started</span>
+    <span class="level-desc">네이버 개발자센터에 처음 가입하고 API 키를 발급받는 단계</span>
+  </div>
+
+  <div class="scenario-card" id="scenario-1">
+    <div class="card-header">
+      <span class="card-id">G-1</span>
+      <span class="badge badge-g">초급</span>
+      <strong class="card-title">네이버 개발자센터에서 API 키 발급받고 안전하게 보관하기</strong>
+    </div>
+    <div class="card-body">
+
+      <div class="situation">
+        이제 막 네이버 오픈 API라는 것을 처음 들어본 상황입니다. 뉴스검색 API를 쓰려면 먼저 네이버 개발자센터에서 애플리케이션을 등록하고 나만의 Client ID·Client Secret을 발급받아야 한다는 것을 알게 되었고, 지금 그 절차를 실제로 따라 하려고 합니다.
+      </div>
+
+      <div class="cmd-list">
+        <div class="cmd-list-title">사용 요소</div>
+        <div class="cmd-chips">
+          <a class="cmd-chip" href="day3-newsapi_Manual.html#section-1">애플리케이션 등록</a>
+          <a class="cmd-chip" href="day3-newsapi_Manual.html#section-1">Client ID / Client Secret</a>
+        </div>
+      </div>
+
+      <div class="steps-title">단계별 실행</div>
+      <ol class="step-list">
+        <li>
+          <div class="step-content">
+            <strong>developers.naver.com 접속 및 로그인</strong>
+            <p>웹 브라우저에서 <code>developers.naver.com</code>에 접속한 뒤, 평소 쓰던 네이버 계정으로 로그인합니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>애플리케이션 등록 메뉴로 이동</strong>
+            <p>상단 메뉴에서 <code>Application</code> → <code>애플리케이션 등록</code>을 클릭합니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>애플리케이션 정보 입력</strong>
+            <p>애플리케이션 이름을 40자 이내로 입력하고(예: "뉴스 언급 알림 봇"), 이용 API 목록에서 <code>검색(Search)</code>을 선택합니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>서비스 환경 등록</strong>
+            <p>비로그인 오픈 API 사용 환경으로 <code>WEB</code>을 선택하고, 서비스 URL을 입력합니다. 아직 실제 서비스 도메인이 없다면 <code>http://localhost</code> 계열 주소를 입력해도 흔히 등록이 허용됩니다.</p>
+            <div style="position:relative">
+              <pre class="code-block">서비스 URL 예시: http://localhost:3000</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>Client ID / Client Secret 확인 및 보관</strong>
+            <p>등록이 완료되면 애플리케이션 상세 화면에서 Client ID와 Client Secret을 확인할 수 있습니다. 이 값을 프로젝트 폴더의 <code>.env</code> 파일에 아래 형식으로 저장해두세요.</p>
+            <div style="position:relative">
+              <pre class="code-block">NAVER_CLIENT_ID=YOUR_NAVER_CLIENT_ID
+NAVER_CLIENT_SECRET=YOUR_NAVER_CLIENT_SECRET</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
+          </div>
+        </li>
+      </ol>
+
+      <div class="flow-box">
+        Client ID와 Client Secret은 "이 요청을 보낸 사람이 등록된 애플리케이션의 소유자"임을 네이버 서버가 확인하는 열쇠입니다. 이 값이 유출되면 다른 사람이 내 이름으로 등록된 애플리케이션의 호출 한도를 소모할 수 있으므로, 코드 파일이 아닌 별도 파일에 보관하는 것이 중요합니다.
+      </div>
+
+      <div class="tip-box">
+        <code>.env</code> 파일은 반드시 <code>.gitignore</code>에 추가해서 GitHub 저장소에 올라가지 않도록 하세요. 실수로 이미 커밋했다면 즉시 Client Secret을 재발급받는 것이 안전합니다.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════ 중급 ══════════════════════════════ -->
+  <div class="level-header" id="intermediate">
+    <span class="badge badge-b">● 중급</span>
+    <span class="level-title level-title-b">Daily Workflow</span>
+    <span class="level-desc">발급받은 API 키로 실제로 내 이름을 검색해보는 단계</span>
+  </div>
+
+  <div class="scenario-card" id="scenario-2">
+    <div class="card-header">
+      <span class="card-id">D-1</span>
+      <span class="badge badge-b">중급</span>
+      <strong class="card-title">Claude Code에게 요청해서 내 이름 뉴스 검색 스크립트 만들기</strong>
+    </div>
+    <div class="card-body">
+
+      <div class="situation">
+        G-1에서 Client ID·Client Secret 발급을 마쳤습니다. 이제 이 열쇠를 이용해 실제로 내 이름이 들어간 최신 뉴스 기사 제목을 화면에 출력하는 간단한 파이썬 스크립트를 Claude Code에게 요청해서 만들어보려고 합니다. 프로젝트 폴더와 <code>.env</code> 파일은 이미 준비되어 있다고 가정합니다.
+      </div>
+
+      <div class="cmd-list">
+        <div class="cmd-list-title">사용 요소</div>
+        <div class="cmd-chips">
+          <a class="cmd-chip" href="day3-newsapi_Manual.html#section-2">파라미터(query·display·sort)</a>
+          <a class="cmd-chip" href="day3-newsapi_Manual.html#section-3">응답 필드(title·pubDate)</a>
+        </div>
+      </div>
+
+      <div class="steps-title">단계별 실행</div>
+      <ol class="step-list">
+        <li>
+          <div class="step-content">
+            <strong>Claude Code에게 스크립트 작성 요청</strong>
+            <p>프로젝트 폴더를 열어둔 채로 Claude Code에 아래와 같이 요청합니다.</p>
+            <div style="position:relative">
+              <pre class="code-block">"news_search.py 파일을 만들어줘.
+.env에 있는 NAVER_CLIENT_ID, NAVER_CLIENT_SECRET을 python-dotenv로 불러오고,
+내 이름 '홍길동'을 검색어로 네이버 뉴스검색 API(display=10, sort=date)를 호출해서
+기사 제목만 최신순으로 화면에 출력하는 코드를 작성해줘."</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>생성된 코드 확인하기</strong>
+            <p>Claude Code가 만들어주는 코드는 대략 아래와 같은 형태를 띱니다. 실제 발급받은 값은 <code>.env</code> 파일에만 저장하고, 코드에는 직접 적지 않습니다.</p>
+            <div style="position:relative">
+              <pre class="code-block">import os, html, re, requests
+from dotenv import load_dotenv
+
+load_dotenv()
+CLIENT_ID = os.environ.get("NAVER_CLIENT_ID")
+CLIENT_SECRET = os.environ.get("NAVER_CLIENT_SECRET")
+
+headers = {
+    "X-Naver-Client-Id": CLIENT_ID,
+    "X-Naver-Client-Secret": CLIENT_SECRET
+}
+query = requests.utils.quote("홍길동")
+url = f"https://openapi.naver.com/v1/search/news.json?query={query}&display=10&sort=date"
+
+resp = requests.get(url, headers=headers, timeout=15)
+for item in resp.json().get("items", []):
+    title = html.unescape(re.sub(r"&lt;[^&gt;]+&gt;", "", item["title"]))
+    print(title, "|", item["pubDate"])</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>실행하고 결과 확인</strong>
+            <p>터미널에서 스크립트를 실행해 실제 뉴스 제목 목록이 최신순으로 출력되는지 확인합니다.</p>
+            <div style="position:relative">
+              <pre class="code-block">python news_search.py</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
+          </div>
+        </li>
+      </ol>
+
+      <div class="flow-box">
+        <code>requests.get()</code>이 네이버 서버에 HTTP 요청을 보내면, 서버는 헤더의 Client ID·Secret으로 신원을 확인한 뒤 검색 결과를 JSON으로 돌려줍니다. <code>resp.json()</code>은 이 JSON 문자열을 파이썬 딕셔너리로 바꿔주고, <code>items</code> 배열을 하나씩 순회하며 제목만 뽑아 출력하는 구조입니다.
+      </div>
+
+      <div class="warning-box">
+        실행했는데 결과가 비어 있거나 오류가 난다면 <code>print(resp.status_code, resp.text)</code>를 추가해 원인을 확인하세요. 401 오류는 대개 Client ID·Secret이 잘못 입력된 경우입니다. 어떤 경우에도 실제 키 값을 코드나 화면 캡처, GitHub 커밋에 노출하지 마세요.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════ 고급 ══════════════════════════════ -->
+  <div class="level-header" id="advanced">
+    <span class="badge badge-p">● 고급</span>
+    <span class="level-title level-title-p">Power User</span>
+    <span class="level-desc">동명이인 기사를 걸러내고 중복 알림을 막는 단계</span>
+  </div>
+
+  <div class="scenario-card" id="scenario-3">
+    <div class="card-header">
+      <span class="card-id">P-1</span>
+      <span class="badge badge-p">고급</span>
+      <strong class="card-title">동명이인 필터와 중복 방지 로직까지 추가한 완성형 스크립트 만들기</strong>
+    </div>
+    <div class="card-body">
+
+      <div class="situation">
+        D-1에서 만든 스크립트를 몇 차례 실행해보니 두 가지 문제가 눈에 띄었습니다. 첫째, 같은 이름을 가진 배우나 다른 지역 인물의 기사가 함께 섞여 나옵니다. 둘째, 스크립트를 다시 실행할 때마다 이미 확인한 기사가 반복해서 출력됩니다. 이 두 문제를 동시에 해결하는 더 완성된 스크립트를 만들려고 합니다.
+      </div>
+
+      <div class="cmd-list">
+        <div class="cmd-list-title">사용 요소</div>
+        <div class="cmd-chips">
+          <a class="cmd-chip" href="day3-newsapi_Manual.html#section-4">포함/제외 키워드 필터</a>
+          <a class="cmd-chip" href="day3-newsapi_Manual.html#section-3">응답 정제(html.unescape, re.sub)</a>
+        </div>
+      </div>
+
+      <div class="steps-title">단계별 실행</div>
+      <ol class="step-list">
+        <li>
+          <div class="step-content">
+            <strong>포함·제외 키워드 목록 정의하기</strong>
+            <p>본인의 소속 기관·직함·지역구처럼 진짜 나를 가리키는 기사에 함께 등장할 단어를 <code>REQUIRED_KEYWORDS</code>에, 동명이인이 주로 등장하는 분야를 <code>EXCLUDE_CONTEXTS</code>에 정리합니다.</p>
+            <div style="position:relative">
+              <pre class="code-block">REQUIRED_KEYWORDS = ["소속기관", "지역구", "직함"]
+EXCLUDE_CONTEXTS = ["배우", "가수", "다른지역"]
+
+def is_target_person(text):
+    if "홍길동" not in text:
+        return False
+    if not any(k in text for k in REQUIRED_KEYWORDS):
+        return False
+    if any(k in text for k in EXCLUDE_CONTEXTS):
+        return False
+    return True</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>이미 보낸 기사 URL을 기억하는 중복 방지 로직 추가하기</strong>
+            <p><code>seen_urls.txt</code> 파일에 이전에 확인한 기사의 <code>link</code> 값을 한 줄씩 저장해두고, 다음 실행에서는 이 목록에 없는 새 URL만 처리하도록 합니다.</p>
+            <div style="position:relative">
+              <pre class="code-block">import os
+
+SEEN_FILE = "seen_urls.txt"
+
+def load_seen_urls():
+    if not os.path.exists(SEEN_FILE):
+        return set()
+    with open(SEEN_FILE, "r", encoding="utf-8") as f:
+        return set(line.strip() for line in f if line.strip())
+
+def save_seen_url(url):
+    with open(SEEN_FILE, "a", encoding="utf-8") as f:
+        f.write(url + "\n")</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>전체 로직 하나로 합치기</strong>
+            <p>검색 → 정제 → 동명이인 필터 → 중복 확인 순서로 하나의 스크립트에 연결합니다.</p>
+            <div style="position:relative">
+              <pre class="code-block">import os, html, re, requests
+from dotenv import load_dotenv
+
+load_dotenv()
+headers = {
+    "X-Naver-Client-Id": os.environ.get("NAVER_CLIENT_ID"),
+    "X-Naver-Client-Secret": os.environ.get("NAVER_CLIENT_SECRET")
+}
+query = requests.utils.quote("홍길동")
+url = f"https://openapi.naver.com/v1/search/news.json?query={query}&display=20&sort=date"
+
+resp = requests.get(url, headers=headers, timeout=15)
+seen = load_seen_urls()
+new_count = 0
+
+for item in resp.json().get("items", []):
+    title = html.unescape(re.sub(r"&lt;[^&gt;]+&gt;", "", item["title"]))
+    description = html.unescape(re.sub(r"&lt;[^&gt;]+&gt;", "", item["description"]))
+    link = item["link"]
+
+    if link in seen:
+        continue
+    if not is_target_person(title + description):
+        continue
+
+    print(title, "|", link)
+    save_seen_url(link)
+    new_count += 1
+
+print(f"새로 확인된 기사: {new_count}건")</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
+          </div>
+        </li>
+      </ol>
+
+      <div class="flow-box">
+        세 요소가 순서대로 맞물려 동작합니다. 먼저 <code>is_target_person()</code>이 동명이인 기사를 걸러내고, 그다음 <code>seen</code> 집합과 비교해 이미 처리한 기사인지 확인합니다. 통과한 기사만 화면에 출력하면서 동시에 <code>seen_urls.txt</code>에 URL을 추가해, 다음 실행부터는 같은 기사가 다시 나오지 않게 됩니다.
+      </div>
+
+      <div class="tip-box">
+        처음에는 키워드 목록을 느슨하게 시작해서, 실제로 어떤 기사가 걸러지고 어떤 기사가 통과하는지 며칠간 지켜본 뒤 목록을 다듬는 방식이 안전합니다. 너무 엄격하게 시작하면 정작 필요한 기사까지 놓칠 수 있습니다.
+      </div>
+
+      <div class="related-cmds">
+        <strong>함께 보기:</strong> 오늘 완성한 <code>seen_urls.txt</code> 기반 중복 방지 로직과 검색 스크립트는 Day 4에서 텔레그램 전송 코드와 결합되어, GitHub Actions로 매일 자동 실행되는 완전한 뉴스 알림 봇이 됩니다.
+      </div>
+
+    </div>
+  </div>
+
+  <hr>
+  <p style="color: var(--text-dim); font-size: 12px; text-align: center;">
+    네이버 뉴스검색 Open API 기준 | 2026년 7월 5일 작성<br>
+    <a href="day3-newsapi_Manual.html">← Day 3 매뉴얼로 돌아가기</a>
+  </p>
+</main>
+
+</div>
+
+<script>
+function copyCode(btn) {
+  const pre = btn.previousElementSibling || btn.parentElement.querySelector('pre');
+  navigator.clipboard.writeText(pre.textContent).then(() => {
+    btn.textContent = '완료!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '복사'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+</script>
+  <script src="../assets/inpage-search.js" defer></script>
+</body>
+</html>
