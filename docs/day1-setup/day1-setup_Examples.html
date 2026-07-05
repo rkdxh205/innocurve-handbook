@@ -255,7 +255,7 @@
   <a href="#scenario-2"><span class="dot dot-b"></span>D-1 Cursor 설치 + Claude Code 확장 연결</a>
 
   <div class="nav-group">고급 시나리오</div>
-  <a href="#scenario-3"><span class="dot dot-p"></span>P-1 Claude Code에게 프로젝트 폴더 구조 만들게 하기</a>
+  <a href="#scenario-3"><span class="dot dot-p"></span>P-1 PRD 작성하고, 그 설계도로 프로젝트 폴더 만들기</a>
 
   <div class="nav-group">바로가기</div>
   <a href="day1-setup_Manual.html">📖 Day 1 매뉴얼 문서로 →</a>
@@ -264,7 +264,7 @@
 <!-- ── 본문 ── -->
 <main>
   <h1>Day 1 환경 준비 실습 예시</h1>
-  <p class="subtitle">난이도별 3가지 시나리오로 직접 따라 하며 Claude·Cursor·Claude Code 확장 연결까지 끝내는 실습 가이드 &nbsp;|&nbsp; <a href="day1-setup_Manual.html">← 레퍼런스 문서로 돌아가기</a></p>
+  <p class="subtitle">난이도별 3가지 시나리오로 직접 따라 하며 Claude·Cursor·Claude Code 확장 연결부터 PRD 작성까지 끝내는 실습 가이드 &nbsp;|&nbsp; <a href="day1-setup_Manual.html">← 매뉴얼 문서로 돌아가기</a></p>
 
   <div class="version-box">
     <div class="version-row"><span class="vlabel">대상 범위</span><span>Day 1 환경 준비 — claude.ai 가입, Claude Desktop 설치, Cursor 설치, Claude Code 확장 연결</span></div>
@@ -418,26 +418,26 @@ macOS           : Cmd+Shift+X</pre>
   <div class="level-header" id="advanced">
     <span class="badge badge-p">● 고급</span>
     <span class="level-title level-title-p">Power User</span>
-    <span class="level-desc">첫 워밍업 실습 — Claude에게 실제 파일 작업을 맡겨 보기</span>
+    <span class="level-desc">첫 워밍업 실습 — PRD를 쓰고, 그 설계도로 Claude에게 실제 파일 작업을 맡겨 보기</span>
   </div>
 
   <div class="scenario-card" id="scenario-3">
     <div class="card-header">
       <span class="card-id">P-1</span>
       <span class="badge badge-p">고급</span>
-      <strong class="card-title">Claude Code에게 "5일 프로젝트 폴더 구조를 만들어줘"라고 요청하기</strong>
+      <strong class="card-title">Claude와 함께 PRD를 쓰고, 그 설계도로 프로젝트 폴더 만들기</strong>
     </div>
     <div class="card-body">
 
       <div class="situation">
-        D-1까지 마친 김 국장은 claude.ai 계정, Claude Desktop, Cursor, Claude Code 확장을 모두 갖춘 상태입니다. 마지막으로 오늘 실습에서는 이번 5일 과정 전체를 이 확장 하나로 진행하게 된다는 것을 직접 체감해보기 위해, Claude Code에게 처음으로 실제 폴더와 파일을 만들어 달라고 요청해 봅니다. 이것이 5일 과정에서 Claude에게 처음으로 "말로 파일 작업을 시켜보는" 순간입니다.
+        D-1까지 마친 김 국장은 claude.ai 계정, Claude Desktop, Cursor, Claude Code 확장을 모두 갖춘 상태입니다. 하지만 도구가 준비됐다고 바로 코드부터 쓰기 시작하면 방향을 잃기 쉽습니다. 오늘의 마지막 실습에서는 코드를 한 줄도 쓰기 전에 "무엇을, 누구를 위해, 왜 만드는가"를 PRD 한 장으로 먼저 정리하고, 그 PRD를 바탕으로 Claude Code에게 실제 프로젝트 폴더를 만들어 달라고 요청해 봅니다. 계획 없이 시작한 프로젝트가 5일 뒤 산으로 가지 않도록, 오늘 이 과정을 거치는 것입니다.
       </div>
 
       <div class="cmd-list">
         <div class="cmd-list-title">사용 요소</div>
         <div class="cmd-chips">
+          <a class="cmd-chip" href="day1-setup_Manual.html#section-6">PRD 작성</a>
           <a class="cmd-chip" href="day1-setup_Manual.html#section-5">Claude Code 확장</a>
-          <a class="cmd-chip" href="day1-setup_Manual.html#tree">5일 로드맵</a>
         </div>
       </div>
 
@@ -446,49 +446,74 @@ macOS           : Cmd+Shift+X</pre>
         <li>
           <div class="step-content">
             <strong>1. 실습용 폴더를 Cursor에서 열기</strong>
-            <p>바탕화면 등 원하는 위치에 news-alert-bot이라는 빈 폴더를 하나 만들고, Cursor의 File 메뉴에서 Open Folder를 눌러 이 폴더를 엽니다. 이후 4일간 실습할 모든 코드가 이 폴더 안에 쌓이게 됩니다.</p>
+            <p>바탕화면 등 원하는 위치에 news-alert-bot이라는 빈 폴더를 하나 만들고, Cursor의 File 메뉴에서 Open Folder를 눌러 이 폴더를 엽니다. 이후 4일간 실습할 모든 코드와 오늘 쓸 PRD가 이 폴더 안에 쌓이게 됩니다.</p>
           </div>
         </li>
         <li>
           <div class="step-content">
-            <strong>2. Claude Code 대화창에 요청 입력</strong>
-            <p>좌측 사이드바의 Claude Code 아이콘을 클릭해 대화창을 열고, 아래와 같이 이번 5일 과정에 맞는 폴더 구조를 만들어 달라고 자연스러운 문장으로 요청합니다. 명령어를 외울 필요 없이, 하고 싶은 말을 그대로 적으면 됩니다.</p>
+            <strong>2. Claude Code에게 PRD 초안 요청</strong>
+            <p>좌측 사이드바의 Claude Code 아이콘을 클릭해 대화창을 열고, 아래 프롬프트를 그대로 붙여넣어 PRD 초안을 요청합니다. 괄호 안 내용은 본인 상황에 맞게 바꿔도 됩니다.</p>
             <div style="position:relative">
-              <pre class="code-block">지금부터 5일 동안 "내 이름이 들어간 뉴스 기사를 찾아
-텔레그램으로 알려주는 봇"을 만드는 프로젝트를 진행할 거야.
-이 폴더 안에 아래 내용을 정리한 README.md 파일 하나와,
-앞으로 코드를 저장할 src 폴더를 만들어줘.
-README.md에는 5일 계획(Day1 환경 준비, Day2 텔레그램 봇 만들기,
-Day3 네이버 뉴스 API 연동, Day4 GitHub Actions 자동화 배포,
-Day5 운영·예외처리)을 간단히 정리해줘.</pre>
+              <pre class="code-block">너는 공공서비스를 기획하는 프로덕트 매니저야.
+아래 아이디어를 바탕으로 PRD(제품요구사항정의서) 초안을
+작성해줘.
+
+- 서비스명: 내 이름 뉴스 알림 텔레그램 봇
+- 대상 사용자: 나 자신(정책 담당자) — 텔레그램으로 알림을 받는 1인 사용자
+- 핵심 문제: 내 이름이 언급된 뉴스를 매번 직접 검색하기 번거롭다
+
+PRD는 다음 항목을 포함해줘:
+1. 개요 및 목적
+2. 대상 사용자와 니즈
+3. 핵심 기능 목록 (Must/Should/Could/Won't 우선순위 포함)
+4. 화면·동작 흐름 (무엇을 입력하면 무엇이 출력되는가)
+5. 성공지표(KPI)
+6. 제외 범위 (이번 5일 안에 하지 않을 것)
+
+표와 목록을 활용해서 정리해줘.</pre>
               <button class="copy-btn" onclick="copyCode(this)">복사</button>
             </div>
           </div>
         </li>
         <li>
           <div class="step-content">
-            <strong>3. 작업 내용 확인 및 승인</strong>
-            <p>Claude Code는 파일을 만들거나 수정하기 전에 어떤 파일을 어떻게 바꿀지 미리 보여주고 승인을 요청하는 경우가 많습니다. 제안된 내용(README.md 생성, src 폴더 생성)을 확인하고 이상이 없으면 승인(Approve 등 표시된 버튼 클릭)합니다.</p>
+            <strong>3. PRD 저장 + 프로젝트 폴더 구조 요청</strong>
+            <p>PRD 초안이 마음에 들면(완벽하지 않아도 괜찮습니다), 아래처럼 이어서 요청해 PRD를 파일로 저장하고 동시에 앞으로 코드를 쌓아갈 폴더까지 만들어 달라고 합니다.</p>
+            <div style="position:relative">
+              <pre class="code-block">방금 만든 PRD를 이 폴더에 PRD.md 파일로 저장해줘.
+그리고 앞으로 4일간 코드를 저장할 src 폴더도 만들어줘.
+마지막으로 README.md에 5일 계획(Day1 환경 준비·PRD 작성,
+Day2 텔레그램 봇 만들기, Day3 네이버 뉴스 API 연동,
+Day4 GitHub Actions 자동화 배포, Day5 운영·예외처리)을
+간단히 정리해줘.</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
           </div>
         </li>
         <li>
           <div class="step-content">
-            <strong>4. 결과물을 Cursor 탐색기에서 직접 확인</strong>
-            <p>Cursor 좌측의 파일 탐색기(Explorer) 패널을 열어, 방금 요청한 README.md 파일과 src 폴더가 실제로 생성되었는지 눈으로 확인합니다. README.md를 클릭해 열어보고 5일 계획이 잘 정리되어 있는지도 확인합니다.</p>
+            <strong>4. 작업 내용 확인 및 승인</strong>
+            <p>Claude Code는 파일을 만들거나 수정하기 전에 어떤 파일을 어떻게 바꿀지 미리 보여주고 승인을 요청하는 경우가 많습니다. 제안된 내용(PRD.md·README.md 생성, src 폴더 생성)을 확인하고 이상이 없으면 승인(Approve 등 표시된 버튼 클릭)합니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>5. 결과물을 Cursor 탐색기에서 직접 확인</strong>
+            <p>Cursor 좌측의 파일 탐색기(Explorer) 패널을 열어, 방금 요청한 PRD.md·README.md 파일과 src 폴더가 실제로 생성되었는지 눈으로 확인합니다. PRD.md를 열어 6개 항목이 잘 정리되어 있는지 훑어봅니다 — 이 문서가 앞으로 4일간의 기준이 됩니다.</p>
           </div>
         </li>
       </ol>
 
       <div class="flow-box">
-        Claude Code는 대화창에 입력된 요청을 해석해, 실제로는 파일 생성·수정 같은 명령을 컴퓨터에 내리는 방식으로 동작합니다. 사람이 폴더를 만들고 마우스 우클릭으로 파일을 새로 만드는 작업을, 문장으로 요청하면 Claude가 대신 수행하는 것입니다. 다만 컴퓨터에 실제 변화를 일으키는 작업이므로, 승인 절차를 거치도록 설계되어 있습니다.
+        Claude Code는 대화창에 입력된 요청을 해석해, 실제로는 파일 생성·수정 같은 명령을 컴퓨터에 내리는 방식으로 동작합니다. PRD를 글로 정리해 달라는 요청도, 그 내용을 실제 파일로 저장해 달라는 요청도 원리는 같습니다 — 다만 컴퓨터에 실제 변화를 일으키는 작업이므로, 승인 절차를 거치도록 설계되어 있습니다.
       </div>
 
       <div class="tip-box">
-        요청 문장이 구체적일수록(원하는 파일 이름, 폴더 이름, 들어갈 내용까지) Claude가 만드는 결과물이 기대에 가까워집니다. 이번 실습처럼 "무엇을, 어떤 이름으로, 어떤 내용으로" 만들어 달라고 적는 습관을 Day 2부터도 그대로 이어가면 좋습니다.
+        완벽한 PRD를 쓰려고 하지 마세요. 오늘 쓴 PRD.md는 Day 3~4를 진행하며 언제든 "이 항목을 이렇게 바꿔줘"라고 요청해 계속 다듬어 나가면 됩니다. 중요한 것은 "코드보다 계획이 먼저"라는 순서 자체입니다.
       </div>
 
       <div class="related-cmds">
-        <strong>함께 보기:</strong> Day 2 실습에서는 이 src 폴더 안에 텔레그램 봇의 첫 Python 코드를 Claude Code로 작성하게 됩니다.
+        <strong>함께 보기:</strong> Day 2 실습에서는 오늘 만든 PRD.md의 Must 기능부터 하나씩, src 폴더 안에 텔레그램 봇의 첫 Python 코드로 구현하게 됩니다.
       </div>
 
     </div>
