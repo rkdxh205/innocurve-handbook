@@ -187,6 +187,25 @@
     .copy-btn:hover { background: #f6f8fa; color: #0969da; }
     .copy-btn.copied { color: #1a7f37; border-color: #a2d9b1; }
 
+    /* ── 프롬프트 박스 (Claude Code에게 그대로 복사해 보낼 문구) ── */
+    .prompt-box {
+      position: relative;
+      background: #fbefff; border: 1px solid #d2b9ff;
+      border-radius: 8px; padding: 14px 44px 14px 18px;
+      margin: 8px 0 14px;
+    }
+    .prompt-box .prompt-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .05em; color: #6639ba; margin-bottom: 6px;
+    }
+    .prompt-box .prompt-label::before { content: '🤖 '; }
+    .prompt-box pre {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 13.5px; line-height: 1.6; color: #3b1d66;
+      white-space: pre-wrap; margin: 0;
+    }
+    .prompt-box .copy-btn { top: 12px; right: 12px; }
+
     /* ── 흐름 설명 ── */
     .flow-box {
       background: #f0f7ff; border: 1px solid #a5d5f7;
@@ -443,7 +462,13 @@
         <li>
           <div class="step-content">
             <strong>Claude Code에게 chat_id 확인 스크립트 요청하기</strong>
-            <p>Claude Code에게 "requests 라이브러리로 getUpdates를 호출해서 chat_id를 출력하는 파이썬 스크립트를 짜줘"라고 요청합니다. 아래와 같은 코드가 만들어지고 나면 직접 실행해 결과에 표시되는 <code>chat.id</code> 값을 메모합니다.</p>
+            <p>Claude Code에게 아래 프롬프트를 그대로 복사해 붙여넣습니다.</p>
+            <div class="prompt-box">
+              <div class="prompt-label">Claude Code 프롬프트</div>
+              <pre>requests 라이브러리로 getUpdates를 호출해서 chat_id를 출력하는 파이썬 스크립트를 짜줘</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
+            <p>아래와 같은 코드가 만들어지고 나면 직접 실행해 결과에 표시되는 <code>chat.id</code> 값을 메모합니다.</p>
             <div style="position:relative">
               <pre class="code-block">import requests
 
@@ -464,7 +489,13 @@ for update in data.get("result", []):
         <li>
           <div class="step-content">
             <strong>Claude Code에게 sendMessage 스크립트 요청하기</strong>
-            <p>이어서 "이 chat_id로 '안녕하세요' 메시지를 보내는 sendMessage 스크립트도 짜줘"라고 요청합니다. 실행하면 내 텔레그램 대화방에 실제로 메시지가 도착합니다.</p>
+            <p>이어서 아래 프롬프트를 그대로 복사해 요청합니다.</p>
+            <div class="prompt-box">
+              <div class="prompt-label">Claude Code 프롬프트</div>
+              <pre>이 chat_id로 '안녕하세요' 메시지를 보내는 sendMessage 스크립트도 짜줘</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
+            <p>실행하면 내 텔레그램 대화방에 실제로 메시지가 도착합니다.</p>
             <div style="position:relative">
               <pre class="code-block">import requests
 
@@ -529,7 +560,11 @@ requests.post(url, json={
         <li>
           <div class="step-content">
             <strong>3. Claude Code에게 테스트 호출 스크립트 요청하기</strong>
-            <p>"발급받은 네이버 Client ID·Secret으로 뉴스검색 API를 호출해서 검색 결과 개수를 출력하는 파이썬 스크립트를 짜줘"라고 요청합니다.</p>
+            <div class="prompt-box">
+              <div class="prompt-label">Claude Code 프롬프트</div>
+              <pre>발급받은 네이버 Client ID·Secret으로 뉴스검색 API를 호출해서 검색 결과 개수를 출력하는 파이썬 스크립트를 짜줘</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
             <div style="position:relative">
               <pre class="code-block">import requests
 
@@ -601,7 +636,11 @@ print("검색 결과 개수:", len(data.get("items", [])))</pre>
         <li>
           <div class="step-content">
             <strong>Claude Code에게 요청 내용 설명하기</strong>
-            <p>"getUpdates로 받은 메시지의 text가 /start인지 /status인지 확인해서, 각각 다른 안내 문구를 보내는 파이썬 함수를 짜줘. 그리고 한 번 처리한 메시지를 중복해서 또 처리하지 않도록 offset도 관리해줘"라고 요청합니다.</p>
+            <div class="prompt-box">
+              <div class="prompt-label">Claude Code 프롬프트</div>
+              <pre>getUpdates로 받은 메시지의 text가 /start인지 /status인지 확인해서, 각각 다른 안내 문구를 보내는 파이썬 함수를 짜줘. 그리고 한 번 처리한 메시지를 중복해서 또 처리하지 않도록 offset도 관리해줘</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
           </div>
         </li>
         <li>
@@ -644,7 +683,12 @@ def handle_updates():
         <li>
           <div class="step-content">
             <strong>명령어 추가로 확장해 보기</strong>
-            <p>같은 방식으로 <code>elif</code> 구문을 추가하면 <code>/help</code> 같은 명령어도 얼마든지 늘릴 수 있습니다. Claude Code에게 "명령어를 하나 더 추가해줘"라고 요청하면 같은 패턴으로 확장해 줍니다.</p>
+            <p>같은 방식으로 <code>elif</code> 구문을 추가하면 <code>/help</code> 같은 명령어도 얼마든지 늘릴 수 있습니다.</p>
+            <div class="prompt-box">
+              <div class="prompt-label">Claude Code 프롬프트</div>
+              <pre>명령어를 하나 더 추가해줘</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
           </div>
         </li>
       </ol>
@@ -693,7 +737,11 @@ def handle_updates():
         <li>
           <div class="step-content">
             <strong>1. Claude Code에게 전체 로직 요청하기</strong>
-            <p>"내 이름 조합 검색어와 관심 키워드 검색어로 네이버 뉴스 API를 각각 검색하고, 최근 N시간 이내 기사만 남긴 뒤, 이름 기사는 동명이인 필터로·관심 키워드 기사는 포함 여부로 걸러내고, seen_urls.txt에 없는 새 기사만 텔레그램으로 보낸 뒤 seen_urls.txt를 갱신하는 파이썬 스크립트를 짜줘"라고 요청합니다.</p>
+            <div class="prompt-box">
+              <div class="prompt-label">Claude Code 프롬프트</div>
+              <pre>내 이름 조합 검색어와 관심 키워드 검색어로 네이버 뉴스 API를 각각 검색하고, 최근 N시간 이내 기사만 남긴 뒤, 이름 기사는 동명이인 필터로·관심 키워드 기사는 포함 여부로 걸러내고, seen_urls.txt에 없는 새 기사만 텔레그램으로 보낸 뒤 seen_urls.txt를 갱신하는 파이썬 스크립트를 짜줘</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
           </div>
         </li>
         <li>
@@ -837,13 +885,24 @@ print(f"신규 {new_count}건 전송 완료")</pre>
         <li>
           <div class="step-content">
             <strong>1. 하드코딩된 값을 환경변수로 바꾸기</strong>
-            <p>P-2 스크립트의 <code>BOT_TOKEN</code>, <code>NAVER_ID</code>, <code>NAVER_SECRET</code>, <code>CHAT_ID</code>를 <code>os.environ[...]</code>으로 읽도록 Claude Code에게 요청해 바꿉니다. 코드 안에 비밀 값이 그대로 남지 않도록 하기 위한 필수 단계입니다.</p>
+            <p>코드 안에 비밀 값이 그대로 남지 않도록, 아래 프롬프트로 요청해 바꿉니다.</p>
+            <div class="prompt-box">
+              <div class="prompt-label">Claude Code 프롬프트</div>
+              <pre>이 스크립트의 BOT_TOKEN, NAVER_ID, NAVER_SECRET, CHAT_ID를 os.environ으로 읽도록 바꿔줘</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
           </div>
         </li>
         <li>
           <div class="step-content">
             <strong>2. GitHub 저장소를 만들고 코드 올리기</strong>
-            <p>github.com에서 Private 저장소를 하나 만들고, Claude Code에게 "이 폴더를 방금 만든 저장소에 올려줘"라고 요청합니다. <code>.env</code> 파일은 <code>.gitignore</code>에 추가해 절대 함께 올라가지 않도록 합니다.</p>
+            <p>github.com에서 Private 저장소를 하나 만들고, Claude Code에게 아래 프롬프트를 요청합니다.</p>
+            <div class="prompt-box">
+              <div class="prompt-label">Claude Code 프롬프트</div>
+              <pre>이 폴더를 방금 만든 저장소에 올려줘</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
+            <p><code>.env</code> 파일은 <code>.gitignore</code>에 추가해 절대 함께 올라가지 않도록 합니다.</p>
           </div>
         </li>
         <li>
@@ -855,7 +914,11 @@ print(f"신규 {new_count}건 전송 완료")</pre>
         <li>
           <div class="step-content">
             <strong>4. 워크플로 파일 요청하기</strong>
-            <p>"<code>check_and_send.py</code>를 매일 KST 오전 8시·오후 6시에 실행하고, 실행 후 <code>seen_urls.txt</code> 변경사항을 자동으로 커밋·푸시하는 GitHub Actions 워크플로 yml을 만들어줘"라고 요청합니다.</p>
+            <div class="prompt-box">
+              <div class="prompt-label">Claude Code 프롬프트</div>
+              <pre>check_and_send.py를 매일 KST 오전 8시·오후 6시에 실행하고, 실행 후 seen_urls.txt 변경사항을 자동으로 커밋·푸시하는 GitHub Actions 워크플로 yml을 만들어줘</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
             <div style="position:relative">
               <pre class="code-block">name: 내 이름 뉴스 알림 봇
 

@@ -152,6 +152,32 @@
       color: #cf222e;
     }
     /* ── 원문 블록 ── */
+    /* ── 복사 버튼 ── */
+    .copy-btn {
+      position: absolute; top: 8px; right: 10px;
+      background: #fff; border: 1px solid #d0d7de; border-radius: 5px;
+      padding: 3px 9px; font-size: 11px; cursor: pointer; color: #636c76;
+    }
+    .copy-btn:hover { background: #f6f8fa; color: #0969da; }
+    .copy-btn.copied { color: #1a7f37; border-color: #a2d9b1; }
+    /* ── 프롬프트 박스 (Claude Code에게 그대로 복사해 보낼 문구) ── */
+    .prompt-box {
+      position: relative;
+      background: #fbefff; border: 1px solid #d2b9ff;
+      border-radius: 8px; padding: 14px 44px 14px 18px;
+      margin: 8px 0 16px;
+    }
+    .prompt-box .prompt-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .05em; color: #6639ba; margin-bottom: 6px;
+    }
+    .prompt-box .prompt-label::before { content: '🤖 '; }
+    .prompt-box pre {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      font-size: 13.5px; line-height: 1.6; color: #3b1d66;
+      white-space: pre-wrap; margin: 0;
+    }
+    .prompt-box .copy-btn { top: 12px; right: 12px; }
     /* ── 테이블 ── */
     table {
       width: 100%;
@@ -657,7 +683,12 @@ def is_target_person(text: str) -> bool:
         return False
     return True</pre>
 
-  <div class="tip-box">키워드 목록은 한 번에 완벽하게 정하기 어렵습니다. 처음에는 넓게 잡아 시험 삼아 돌려보고, 실제로 걸러지는(또는 놓치는) 기사를 보면서 Claude Code에게 "이 기사는 왜 통과했는지/걸러졌는지 설명하고 키워드를 조정해줘"라고 요청하며 다듬어 가는 방식이 효율적입니다.</div>
+  <div class="tip-box">키워드 목록은 한 번에 완벽하게 정하기 어렵습니다. 처음에는 넓게 잡아 시험 삼아 돌려보고, 실제로 걸러지는(또는 놓치는) 기사를 보면서 아래 프롬프트로 다듬어 가는 방식이 효율적입니다.</div>
+  <div class="prompt-box">
+    <div class="prompt-label">Claude Code 프롬프트</div>
+    <pre>이 기사는 왜 통과했는지/걸러졌는지 설명하고 키워드를 조정해줘</pre>
+    <button class="copy-btn" onclick="copyCode(this)">복사</button>
+  </div>
 
   <h3><code>관심 키워드 필터</code> — 이름 없이 주제만으로 판단하는 더 단순한 조건</h3>
   <p>6단계에서 추가한 관심 키워드 기사는 애초에 "내가 관심있는 주제인지"만 확인하면 되므로, 동명이인 판단(<code>is_target_person</code>)만큼 조건이 복잡할 필요가 없습니다. 키워드 자체가 이미 검색어였으므로, 제목·요약에 그 키워드가 실제로 들어있는지 한 번 더 확인하는 정도로 충분합니다.</p>
@@ -704,7 +735,13 @@ def save_seen(seen: set[str], path="seen_urls.txt"):
 5. 남은 새 기사를 sendMessage로 텔레그램에 전송
 6. 전송한 기사의 URL을 seen_urls에 추가하고 저장</pre>
 
-  <p>Claude Code에게 "지금까지 만든 이름 검색·관심 키워드 검색·시간 필터·동명이인 필터·중복 제거 코드를 하나로 합쳐서, 새 기사가 있으면 텔레그램으로 보내고 seen_urls.txt를 갱신하는 스크립트로 만들어줘"라고 요청하면, 이 여섯 단계를 함수 하나로 엮은 실행 파일을 받을 수 있습니다. 이 스크립트를 로컬에서 직접 실행해보면, 오늘 만든 봇이 실제로 내 이름이 들어간 최신 기사와 관심 키워드 기사를 함께 찾아 텔레그램으로 보내주는 모습을 확인할 수 있습니다.</p>
+  <p>Claude Code에게 아래 프롬프트를 그대로 복사해 요청하면, 이 여섯 단계를 함수 하나로 엮은 실행 파일을 받을 수 있습니다.</p>
+  <div class="prompt-box">
+    <div class="prompt-label">Claude Code 프롬프트</div>
+    <pre>지금까지 만든 이름 검색·관심 키워드 검색·시간 필터·동명이인 필터·중복 제거 코드를 하나로 합쳐서, 새 기사가 있으면 텔레그램으로 보내고 seen_urls.txt를 갱신하는 스크립트로 만들어줘</pre>
+    <button class="copy-btn" onclick="copyCode(this)">복사</button>
+  </div>
+  <p>이 스크립트를 로컬에서 직접 실행해보면, 오늘 만든 봇이 실제로 내 이름이 들어간 최신 기사와 관심 키워드 기사를 함께 찾아 텔레그램으로 보내주는 모습을 확인할 수 있습니다.</p>
 
   <p style="background:#e8f4fd;border-left:3px solid #0969da;padding:8px 14px;border-radius:4px;font-size:13.5px;">💡 <strong>오늘의 결과물:</strong> 지금까지의 6단계를 모두 마치면 "내 이름 + 관심 키워드 뉴스 알림 봇"이 그 자체로 완성되어, 실행할 때마다 실제로 동작합니다. <code>RECENT_HOURS</code> 값으로 얼마나 최신 기사만 받을지도 이미 내가 정할 수 있습니다. 다음 10단계에서는 이 스크립트를 사람이 직접 실행하지 않아도 저절로 주기적으로 실행되도록 GitHub에 올려 자동화합니다.</p>
 
@@ -726,7 +763,14 @@ CHAT_ID = os.environ["CHAT_ID"]</pre>
 
   <ol style="margin:0 0 16px 20px;line-height:2;">
     <li><strong>GitHub에서 새 저장소 만들기:</strong> github.com 우측 상단 <code>+</code> → <code>New repository</code>에서 이름을 정하고 <code>Private</code>(비공개)로 생성합니다.</li>
-    <li><strong>코드 push:</strong> Claude Code에게 "이 폴더를 방금 만든 GitHub 저장소에 올려줘"라고 요청하면 <code>git init → git add → git commit → git remote add → git push</code> 과정을 대신 실행해 줍니다.</li>
+    <li>
+      <strong>코드 push:</strong> Claude Code에게 아래 프롬프트로 요청하면 <code>git init → git add → git commit → git remote add → git push</code> 과정을 대신 실행해 줍니다.
+      <div class="prompt-box">
+        <div class="prompt-label">Claude Code 프롬프트</div>
+        <pre>이 폴더를 방금 만든 GitHub 저장소에 올려줘</pre>
+        <button class="copy-btn" onclick="copyCode(this)">복사</button>
+      </div>
+    </li>
   </ol>
 
   <div class="warning-box"><code>.env</code> 파일이나 토큰이 적힌 파일은 반드시 <code>.gitignore</code>에 추가해 저장소에 올라가지 않도록 합니다. 실수로 이미 올렸다면 그 토큰은 유출된 것으로 간주하고 BotFather의 <code>/revoke</code>로 즉시 재발급받아야 합니다.</div>
@@ -838,6 +882,16 @@ jobs:
 </main>
 
 </div>
+  <script>
+function copyCode(btn) {
+  const pre = btn.previousElementSibling || btn.parentElement.querySelector('pre');
+  navigator.clipboard.writeText(pre.textContent).then(() => {
+    btn.textContent = '완료!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '복사'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+  </script>
   <script src="../assets/inpage-search.js" defer></script>
 </body>
 </html>
