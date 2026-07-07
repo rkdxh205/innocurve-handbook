@@ -260,6 +260,8 @@
   <a href="../index.html" style="font-weight:700;color:#0969da;margin-bottom:8px;border-bottom:1px solid #d0d7de;padding-bottom:10px;">← 핸드북 홈</a>
   <div class="nav-title">Day 1 · 환경 준비</div>
   <a href="#tree">5일 로드맵 한눈에 보기</a>
+  <div class="nav-section">준비</div>
+  <a href="#section-0">0. 실습 폴더 만들기</a>
   <div class="nav-section">이론</div>
   <a href="#section-1">1. 생성형 AI와 Claude란 무엇인가</a>
   <a href="#section-2">2. claude.ai 계정 가입</a>
@@ -267,6 +269,8 @@
   <a href="#section-4">4. Cursor 에디터란 무엇이고 왜 쓰는가</a>
   <a href="#section-5">5. Claude Code 확장 설치 및 연결</a>
   <a href="#section-6">6. PRD 작성 — 만들기 전에 먼저 계획하기</a>
+  <div class="nav-section">메모 정리</div>
+  <a href="#section-7">7. Obsidian 설치 및 Vault 연결</a>
   <div class="nav-section">부록</div>
   <a href="#refs">참고 링크</a>
 </nav>
@@ -287,15 +291,41 @@
 
   <!-- ── 5일 로드맵 트리 ── -->
   <h2 id="tree">5일 로드맵 한눈에 보기</h2>
-  <p>이번 과정은 "내 이름이 들어간 뉴스 기사를 자동으로 찾아 텔레그램으로 알려주는 봇"을 5일에 걸쳐 직접 만들어보는 개인 실습 과정입니다. 오늘 Day 1은 그 5일 전체를 떠받치는 도구를 준비하는 단계입니다.</p>
+  <p>이번 과정은 나만의 AI 에이전트를 직접 만들어보는 개인 실습 과정입니다. Day 1~2에서는 "내 이름이나 관심 있는 키워드가 들어간 뉴스 기사를 자동으로 찾아 텔레그램으로 알려주는 봇"을 첫 에이전트로 완성하고, 이후에는 또 다른 에이전트를 만들어봅니다. 오늘 Day 1은 전체를 떠받치는 도구를 준비하는 단계이며, Day 1~2는 확정되었고 Day 3~5의 세부 내용은 아직 확정되지 않았습니다.</p>
   <div class="tree-box"><pre>
-5일 뉴스 알림 봇 만들기 프로젝트
+나만의 AI 에이전트 만들기 프로젝트
 ├── Day 1 · 환경 준비              Claude 가입·설치, Cursor·Claude Code 확장 연결, PRD 작성 (오늘)
-├── Day 2 · 텔레그램 봇 만들기      BotFather로 봇 생성, Python으로 첫 메시지 전송
-├── Day 3 · 네이버 뉴스 API 연동    이름으로 뉴스 검색, 결과를 텔레그램 메시지로 가공
-├── Day 4 · GitHub Actions 자동화 배포   코드를 GitHub에 올리고 정해진 시각마다 자동 실행
-└── Day 5 · 운영·예외처리·리더십 로드맵   오류 대응, 비용/보안 점검, 조직 내 확산 방안
+├── Day 2 · 텔레그램 봇 만들기      텔레그램 앱·GitHub 계정 준비, BotFather로 봇 생성, 네이버 오픈 API 키 발급
+├── Day 3 · 미정                  세부 주제 추후 확정
+├── Day 4 · 미정                  세부 주제 추후 확정
+└── Day 5 · 미정 (Vercel 배포 포함 예정)   그 외 세부 주제 추후 확정
 </pre></div>
+
+  <hr>
+
+  <!-- ── 섹션 0 ── -->
+  <h2 id="section-0">0. 실습 폴더 만들기</h2>
+
+  <h3><code>practice folder</code> — 5일간 만드는 모든 것이 모이는 한 곳</h3>
+  <p>본격적인 설치에 앞서, 이번 5일 동안 Claude가 만드는 코드·PRD·메모를 전부 모아둘 폴더를 하나 먼저 만들어 둡니다. 이 폴더가 오늘부터 실습의 "본진"이 되며, 뒤에서 설치할 Cursor와 Obsidian 모두 이 폴더 하나를 기준으로 연결됩니다.</p>
+
+  <table>
+    <thead><tr><th>운영체제</th><th>만드는 방법</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><code>Windows</code></td>
+        <td>바탕화면에서 마우스 오른쪽 클릭 → 새로 만들기 → 폴더를 선택하고, 이름을 <code>news-alert-bot</code>처럼 알아보기 쉬운 영문 이름으로 지정합니다.</td>
+      </tr>
+      <tr>
+        <td><code>macOS</code></td>
+        <td>바탕화면에서 마우스 오른쪽 클릭(또는 두 손가락 클릭) → 새로운 폴더를 선택하고, 동일하게 영문 이름으로 지정합니다.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="warning-box">폴더 이름은 한글보다 영문·숫자·밑줄(<code>_</code>)로 짓는 것을 권장합니다. 이후 Cursor·Claude Code·터미널에서 경로를 다룰 때 한글 경로가 간혹 오류를 일으키는 경우가 있기 때문입니다.</div>
+
+  <p style="background:#e8f4fd;border-left:3px solid #0969da;padding:8px 14px;border-radius:4px;font-size:13.5px;">💡 <strong>핵심 한 줄:</strong> 오늘 만든 이 폴더 하나가 Day 1의 PRD부터 이후 실습의 모든 코드까지, 앞으로의 과정 전체를 지탱하는 기준점이 됩니다.</p>
 
   <hr>
 
@@ -309,7 +339,7 @@
   <p>Claude는 대화창에 입력된 내용, 첨부된 파일, 이전 대화 기록 등 "맥락"을 근거로 답을 생성합니다. "뉴스 기사를 요약해줘"보다 "부총리·차관급 정책 담당자가 5분 내로 훑어볼 수 있도록, 핵심 쟁점과 숫자 위주로 6줄 이내로 요약해줘"처럼 맥락을 구체적으로 줄수록 실무에 바로 쓸 수 있는 결과가 나옵니다. 이번 5일 과정에서도 Claude에게 코드 작성을 요청할 때마다 "무엇을, 왜, 어떤 형태로" 원하는지 맥락을 명시하는 습관이 중요합니다.</p>
 
   <h3><code>hallucination</code> — Claude가 잘하는 일과 사람이 반드시 판단해야 하는 일</h3>
-  <p>Claude는 반복적인 코드 작성, 문서 초안 작성, 오류 메시지 해석, 절차 설명 같은 작업에 매우 능숙합니다. 반면 존재하지 않는 사실을 그럴듯하게 지어내는 "환각(hallucination)" 현상이 있을 수 있으므로, 최종 정책 판단·법적 책임이 따르는 의사결정·외부에 실제로 발송되는 메시지 내용의 최종 확인은 반드시 담당자가 직접 검토해야 합니다. 이번 과정에서 만들 뉴스 알림 봇도 "기사를 찾아 알려주는 역할"까지는 자동화하되, 그 내용을 바탕으로 한 판단은 담당자의 몫으로 남겨 둡니다.</p>
+  <p>Claude는 반복적인 코드 작성, 문서 초안 작성, 오류 메시지 해석, 절차 설명 같은 작업에 매우 능숙합니다. 반면 존재하지 않는 사실을 그럴듯하게 지어내는 "환각(hallucination)" 현상이 있을 수 있으므로, 최종 정책 판단·법적 책임이 따르는 의사결정·외부에 실제로 발송되는 메시지 내용의 최종 확인은 반드시 담당자가 직접 검토해야 합니다. 이번 과정에서 만드는 뉴스 알림 봇을 비롯한 여러 에이전트도 "정해진 역할"까지는 자동화하되, 그 결과를 바탕으로 한 최종 판단은 담당자의 몫으로 남겨 둡니다.</p>
 
   <table>
     <thead><tr><th>구분</th><th>Claude가 잘하는 일</th><th>사람이 반드시 판단해야 하는 일</th></tr></thead>
@@ -476,7 +506,7 @@
   <h2 id="section-5">5. Claude Code 확장 설치 및 연결</h2>
 
   <h3><code>anthropic.claude-code</code> — Cursor 안에서 Claude에게 코드 작업을 맡기는 확장</h3>
-  <p>Claude Code 확장(공식 명칭 "Claude Code for VS Code", 확장 ID <code>anthropic.claude-code</code>)은 Cursor(또는 VS Code) 안에 대화창을 띄워, 그 대화창에서 Claude에게 실제로 파일을 만들거나 코드를 수정하도록 요청할 수 있게 해주는 확장입니다. 지금까지는 claude.ai나 Claude Desktop에서 "대화"만 할 수 있었다면, 이 확장을 설치한 뒤부터는 Claude가 직접 프로젝트 폴더 안의 파일을 읽고 쓰는 실질적인 작업까지 수행할 수 있습니다. 이번 5일 과정에서 만들 뉴스 알림 봇의 실제 코드도 모두 이 확장을 통해 작성하게 됩니다.</p>
+  <p>Claude Code 확장(공식 명칭 "Claude Code for VS Code", 확장 ID <code>anthropic.claude-code</code>)은 Cursor(또는 VS Code) 안에 대화창을 띄워, 그 대화창에서 Claude에게 실제로 파일을 만들거나 코드를 수정하도록 요청할 수 있게 해주는 확장입니다. 지금까지는 claude.ai나 Claude Desktop에서 "대화"만 할 수 있었다면, 이 확장을 설치한 뒤부터는 Claude가 직접 프로젝트 폴더 안의 파일을 읽고 쓰는 실질적인 작업까지 수행할 수 있습니다. 이번 과정에서 만들 뉴스 알림 봇과 이후의 다른 에이전트의 실제 코드도 모두 이 확장을 통해 작성하게 됩니다.</p>
 
   <h3><code>install</code> — 확장 설치 절차</h3>
   <ol style="margin:0 0 16px 20px;line-height:2;">
@@ -504,10 +534,10 @@
   <h2 id="section-6">6. PRD 작성 — 만들기 전에 먼저 계획하기</h2>
 
   <h3><code>PRD</code> — 코드보다 먼저 쓰는 한 장의 설계도</h3>
-  <p>PRD(Product Requirements Document, 제품요구사항정의서)는 "무엇을, 누구를 위해, 왜 만드는가"를 코드를 쓰기 전에 미리 정리해두는 문서입니다. 화려한 기획서일 필요는 없습니다 — Day 2부터 시작할 실습이 방향을 잃지 않도록 잡아주는 나침반 한 장이면 충분합니다. 도구 준비를 마친 오늘, Claude와 대화하며 이번 5일간 만들 "내 이름 뉴스 알림 봇"의 PRD를 직접 작성해봅니다.</p>
+  <p>PRD(Product Requirements Document, 제품요구사항정의서)는 "무엇을, 누구를 위해, 왜 만드는가"를 코드를 쓰기 전에 미리 정리해두는 문서입니다. 화려한 기획서일 필요는 없습니다 — Day 2부터 시작할 실습이 방향을 잃지 않도록 잡아주는 나침반 한 장이면 충분합니다. 도구 준비를 마친 오늘, Claude와 대화하며 첫 에이전트인 "내 이름·관심 키워드 뉴스 알림 봇"의 PRD를 직접 작성해봅니다.</p>
 
   <h3><code>Who / What / Why</code> — PRD를 시작하는 세 가지 질문</h3>
-  <p>모든 PRD는 이 세 질문에서 출발합니다: 누가 쓰는가(Who), 무엇을 하는가(What), 왜 필요한가(Why). 이번 프로젝트에 대입하면, Who는 나 자신(텔레그램으로 알림을 받는 1인 사용자), What은 "내 이름이 들어간 뉴스를 자동으로 찾아 알려주는 것", Why는 "매번 직접 검색하는 반복 작업을 줄이기 위해서"가 됩니다. 이 세 문장만 먼저 명확히 해두면, 나머지 항목은 Claude와의 대화로 빠르게 채울 수 있습니다.</p>
+  <p>모든 PRD는 이 세 질문에서 출발합니다: 누가 쓰는가(Who), 무엇을 하는가(What), 왜 필요한가(Why). 이번 프로젝트에 대입하면, Who는 나 자신(텔레그램으로 알림을 받는 1인 사용자), What은 "내 이름이나 관심 키워드가 들어간 뉴스를 자동으로 찾아 알려주는 것", Why는 "매번 직접 검색하는 반복 작업을 줄이기 위해서"가 됩니다. 이 세 문장만 먼저 명확히 해두면, 나머지 항목은 Claude와의 대화로 빠르게 채울 수 있습니다.</p>
 
   <h3><code>MoSCoW</code> — 기능의 우선순위를 나누는 법</h3>
   <p>처음부터 모든 기능을 다 만들려고 하면 5일 안에 끝내기 어렵습니다. MoSCoW는 기능을 네 등급으로 나눠 "이번에 반드시 만들 것"과 "나중으로 미룰 것"을 구분하는 방법입니다. Day 2~4에서는 Must에 해당하는 기능만 먼저 완성하고, Should·Could는 시간이 남으면 도전하는 순서로 진행합니다.</p>
@@ -577,6 +607,41 @@
 
   <hr>
 
+  <!-- ── 섹션 7 ── -->
+  <h2 id="section-7">7. Obsidian 설치 및 Vault 연결</h2>
+
+  <h3><code>Obsidian</code> — PRD와 메모를 쌓아가는 마크다운 노트 도구</h3>
+  <p>Obsidian은 마크다운(.md) 형식의 글을 로컬 폴더에 그대로 저장하면서, 글과 글 사이를 연결하고 검색할 수 있게 해주는 메모 도구입니다. 방금 작성한 PRD처럼 Claude와 함께 만든 문서와 아이디어를 이 위에 차곡차곡 쌓아두면, 클라우드나 별도 서버 없이도 나만의 학습 기록이 하나의 폴더 안에 정리됩니다. 별도 계정 가입 없이 바로 사용할 수 있습니다.</p>
+
+  <h3><code>install</code> — 설치 절차</h3>
+  <ol style="margin:0 0 16px 20px;line-height:2;">
+    <li><strong>다운로드:</strong> Obsidian 공식 사이트에서 사용 중인 운영체제(Windows/macOS)에 맞는 설치 파일을 내려받습니다.</li>
+    <li><strong>설치 진행:</strong> 내려받은 설치 파일을 실행해 안내에 따라 설치를 마칩니다. 별도 계정 가입 없이 바로 사용할 수 있습니다.</li>
+  </ol>
+
+  <h3><code>Vault</code> — 실습 폴더를 그대로 메모 저장소로 쓰기</h3>
+  <p>Obsidian에서는 메모를 저장하는 폴더 하나를 "Vault(볼트)"라고 부릅니다. 별도 폴더를 새로 만들 필요 없이, 0단계에서 만든 실습 폴더를 그대로 Vault로 사용합니다.</p>
+
+  <ol style="margin:0 0 16px 20px;line-height:2;">
+    <li><strong>Obsidian 첫 화면:</strong> Obsidian을 처음 실행하면 나오는 화면에서 "Open folder as vault(폴더를 볼트로 열기)"를 선택합니다.</li>
+    <li><strong>실습 폴더 선택:</strong> 0단계에서 만든 실습 폴더를 선택합니다. 폴더 전체가 하나의 Vault가 됩니다.</li>
+    <li><strong>첫 메모 만들어보기:</strong> 왼쪽 파일 목록에서 새 노트 만들기 버튼을 눌러 "0일차 준비.md" 같은 이름으로 메모를 하나 만들어봅니다. 이후 Claude가 만드는 PRD와 회고를 이 Vault 안에 계속 쌓아가게 됩니다.</li>
+  </ol>
+
+  <h3><code>community plugin</code> — (선택) Obsidian에서 HTML 파일 함께 보기</h3>
+  <p>이 핸드북처럼 만들어진 HTML 화면을 Obsidian 안에서 바로 열어보고 싶다면, 커뮤니티 플러그인을 추가할 수 있습니다.</p>
+
+  <ol style="margin:0 0 16px 20px;line-height:2;">
+    <li><strong>커뮤니티 플러그인 켜기:</strong> Obsidian 설정(⚙) → Community plugins로 들어가 "Restricted mode(제한 모드)"를 꺼줍니다.</li>
+    <li><strong>HTML 관련 플러그인 검색·설치:</strong> 같은 화면의 Browse(찾아보기)에서 "html"로 검색하면 HTML 파일을 노트처럼 열어주는 플러그인이 나옵니다. 평점과 최근 업데이트 일자를 확인하고 설치 후 활성화합니다.</li>
+  </ol>
+
+  <div class="warning-box">플러그인 설치가 번거롭거나 사내 정책으로 제한될 때는 훨씬 확실한 방법이 있습니다. 파일 탐색기(또는 Finder)에서 HTML 파일을 더블클릭해 기본 브라우저로 여는 것입니다. 이 핸드북 전체가 그 방식으로 만들어지고 확인되었으므로, 플러그인 없이 브라우저로만 봐도 전혀 문제가 없습니다.</div>
+
+  <p style="background:#e8f4fd;border-left:3px solid #0969da;padding:8px 14px;border-radius:4px;font-size:13.5px;">💡 <strong>핵심 한 줄:</strong> Obsidian은 선택 사항이지만, 5일 내내 쌓이는 PRD·회고·아이디어를 한곳에서 검색 가능한 메모로 남기고 싶다면 지금 연결해 두는 것이 좋습니다.</p>
+
+  <hr>
+
   <!-- ── 참고 링크 ── -->
   <h2 id="refs">참고 링크</h2>
   <ul style="list-style: none; padding: 0; line-height: 2.2;">
@@ -588,6 +653,7 @@
     <li>⚙️ <a href="https://cursor.com/download" target="_blank">Cursor 다운로드 (cursor.com/download)</a></li>
     <li>⚙️ <a href="https://cursor.com/help/customization/extensions" target="_blank">Cursor 확장 안내 (cursor.com/help)</a></li>
     <li>⚙️ <a href="https://code.claude.com/docs/en/vs-code" target="_blank">Claude Code for VS Code 공식 문서 (code.claude.com)</a></li>
+    <li>🗒️ <a href="https://obsidian.md" target="_blank">Obsidian 공식 사이트 (obsidian.md)</a></li>
   </ul>
 
   <hr>

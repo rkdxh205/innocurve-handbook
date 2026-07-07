@@ -249,6 +249,7 @@
   <a href="#beginner"><span class="dot dot-g"></span>초급 (Getting Started)</a>
 
   <div class="nav-group">초급 시나리오</div>
+  <a href="#scenario-0"><span class="dot dot-g"></span>G-0 실습 폴더 만들고 Obsidian Vault로 연결하기</a>
   <a href="#scenario-1"><span class="dot dot-g"></span>G-1 claude.ai 가입 + Claude Desktop 설치</a>
 
   <div class="nav-group">중급 시나리오</div>
@@ -267,7 +268,7 @@
   <p class="subtitle">난이도별 3가지 시나리오로 직접 따라 하며 Claude·Cursor·Claude Code 확장 연결부터 PRD 작성까지 끝내는 실습 가이드 &nbsp;|&nbsp; <a href="day1-setup_Manual.html">← 매뉴얼 문서로 돌아가기</a></p>
 
   <div class="version-box">
-    <div class="version-row"><span class="vlabel">대상 범위</span><span>Day 1 환경 준비 — claude.ai 가입, Claude Desktop 설치, Cursor 설치, Claude Code 확장 연결</span></div>
+    <div class="version-row"><span class="vlabel">대상 범위</span><span>Day 1 환경 준비 — 실습 폴더 만들기, claude.ai 가입, Claude Desktop 설치, Cursor 설치, Claude Code 확장 연결, Obsidian Vault 연결</span></div>
     <div class="version-row"><span class="vlabel">이 파일의 목적</span><span>이론 문서(day1-setup_Manual.html)에서 설명한 개념을 실제 화면 조작 순서로 재현</span></div>
     <div class="version-row"><span class="vlabel">레퍼런스 문서</span><span><a href="day1-setup_Manual.html">day1-setup_Manual.html</a> — 각 시나리오에서 링크로 연결됩니다</span></div>
     <div class="version-row"><span class="vlabel">작성일</span><span>2026년 7월 5일</span></div>
@@ -278,6 +279,65 @@
     <span class="badge badge-g">● 초급</span>
     <span class="level-title level-title-g">Getting Started</span>
     <span class="level-desc">Claude를 처음 써보는 단계 — 계정 가입과 Desktop 앱 설치</span>
+  </div>
+
+  <div class="scenario-card" id="scenario-0">
+    <div class="card-header">
+      <span class="card-id">G-0</span>
+      <span class="badge badge-g">초급</span>
+      <strong class="card-title">실습 폴더 만들고 Obsidian Vault로 연결하기</strong>
+    </div>
+    <div class="card-body">
+
+      <div class="situation">
+        아직 아무것도 설치하지 않은 가장 첫 시작입니다. 계정을 만들고 프로그램을 설치하기 전에, 앞으로 5일간 만드는 모든 코드·PRD·메모가 모일 폴더 하나를 먼저 만들고, 메모 도구인 Obsidian으로 그 폴더를 열어 첫 메모를 남겨봅니다.
+      </div>
+
+      <div class="cmd-list">
+        <div class="cmd-list-title">사용 요소</div>
+        <div class="cmd-chips">
+          <a class="cmd-chip" href="day1-setup_Manual.html#section-0">실습 폴더 만들기</a>
+          <a class="cmd-chip" href="day1-setup_Manual.html#section-7">Obsidian Vault 연결</a>
+        </div>
+      </div>
+
+      <div class="steps-title">단계별 실행</div>
+      <ol class="step-list">
+        <li>
+          <div class="step-content">
+            <strong>1. 실습 폴더 만들기</strong>
+            <p>바탕화면에서 마우스 오른쪽 클릭 → 새로 만들기 → 폴더를 선택하고, <code>news-alert-bot</code>처럼 영문 이름으로 폴더를 하나 만듭니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>2. Obsidian 설치</strong>
+            <p>Obsidian 공식 사이트에서 사용 중인 운영체제용 설치 파일을 내려받아 실행합니다. 계정 가입 없이 바로 사용할 수 있습니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>3. 실습 폴더를 Vault로 열기</strong>
+            <p>Obsidian 첫 화면에서 "Open folder as vault"를 선택하고, 1단계에서 만든 실습 폴더를 그대로 선택합니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>4. 첫 메모 작성</strong>
+            <p>새 노트 만들기 버튼을 눌러 "0일차 준비.md" 라는 이름으로 메모를 하나 만들고, "오늘 실습 폴더와 Obsidian을 연결했다"처럼 한 줄만 적어봅니다.</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="flow-box">
+        Obsidian의 Vault는 클라우드 서버가 아니라 방금 지정한 실습 폴더 그 자체입니다. 즉 이후 Claude Code가 이 폴더 안에 PRD.md·README.md를 만들면, 그 파일들이 Obsidian 안에서도 곧바로 노트로 나타납니다.
+      </div>
+
+      <div class="tip-box">
+        Obsidian 설치는 선택 사항입니다. 메모 없이 폴더와 Cursor만으로도 5일 실습을 그대로 진행할 수 있습니다. 다만 PRD와 회고를 검색 가능한 메모로 남기고 싶다면 지금 연결해두는 것을 권장합니다.
+      </div>
+
+    </div>
   </div>
 
   <div class="scenario-card" id="scenario-1">
@@ -458,9 +518,9 @@ macOS           : Cmd+Shift+X</pre>
 아래 아이디어를 바탕으로 PRD(제품요구사항정의서) 초안을
 작성해줘.
 
-- 서비스명: 내 이름 뉴스 알림 텔레그램 봇
+- 서비스명: 내 이름·관심 키워드 뉴스 알림 텔레그램 봇
 - 대상 사용자: 나 자신(정책 담당자) — 텔레그램으로 알림을 받는 1인 사용자
-- 핵심 문제: 내 이름이 언급된 뉴스를 매번 직접 검색하기 번거롭다
+- 핵심 문제: 내 이름이 언급된 뉴스와 내가 관심 있는 주제의 뉴스를 매번 직접 검색하기 번거롭다
 
 PRD는 다음 항목을 포함해줘:
 1. 개요 및 목적
@@ -481,10 +541,10 @@ PRD는 다음 항목을 포함해줘:
             <p>PRD 초안이 마음에 들면(완벽하지 않아도 괜찮습니다), 아래처럼 이어서 요청해 PRD를 파일로 저장하고 동시에 앞으로 코드를 쌓아갈 폴더까지 만들어 달라고 합니다.</p>
             <div style="position:relative">
               <pre class="code-block">방금 만든 PRD를 이 폴더에 PRD.md 파일로 저장해줘.
-그리고 앞으로 4일간 코드를 저장할 src 폴더도 만들어줘.
-마지막으로 README.md에 5일 계획(Day1 환경 준비·PRD 작성,
-Day2 텔레그램 봇 만들기, Day3 네이버 뉴스 API 연동,
-Day4 GitHub Actions 자동화 배포, Day5 운영·예외처리)을
+그리고 앞으로 코드를 저장할 src 폴더도 만들어줘.
+마지막으로 README.md에 지금까지 확정된 계획
+(Day1 환경 준비·PRD 작성, Day2 텔레그램 봇 만들기)과
+"Day3 이후는 추후 확정 예정"이라는 메모를
 간단히 정리해줘.</pre>
               <button class="copy-btn" onclick="copyCode(this)">복사</button>
             </div>

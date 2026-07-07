@@ -249,13 +249,17 @@
   <a href="#beginner"><span class="dot dot-g"></span>초급 (Getting Started)</a>
 
   <div class="nav-group">초급 시나리오</div>
+  <a href="#scenario-0"><span class="dot dot-g"></span>G-0 Telegram Desktop 설치 & GitHub 계정 만들기</a>
   <a href="#scenario-1"><span class="dot dot-g"></span>G-1 내 이름의 봇을 직접 만들기</a>
 
   <div class="nav-group">중급 시나리오</div>
   <a href="#scenario-2"><span class="dot dot-b"></span>D-1 파이썬으로 "안녕하세요" 보내기</a>
+  <a href="#scenario-2b"><span class="dot dot-b"></span>D-2 네이버 오픈 API 키 발급받고 테스트 호출하기</a>
 
   <div class="nav-group">고급 시나리오</div>
   <a href="#scenario-3"><span class="dot dot-p"></span>P-1 명령어에 응답하는 봇 로직 설계</a>
+  <a href="#scenario-4"><span class="dot dot-p"></span>P-2 뉴스봇 완성 — 키워드·시간범위·필터링·전송</a>
+  <a href="#scenario-5"><span class="dot dot-p"></span>P-3 GitHub Actions로 자동 실행</a>
 
   <div class="nav-group">바로가기</div>
   <a href="day2-telegram_Manual.html">📖 Day 2 매뉴얼로 →</a>
@@ -264,12 +268,12 @@
 <!-- ── 본문 ── -->
 <main>
   <h1>텔레그램 봇 만들기 실습 예시</h1>
-  <p class="subtitle">BotFather로 봇을 만들고, Claude Code와 함께 Bot API를 직접 호출해 보는 3단계 실습 가이드 &nbsp;|&nbsp; <a href="day2-telegram_Manual.html">← 매뉴얼로 돌아가기</a></p>
+  <p class="subtitle">BotFather로 봇을 만들고, Claude Code와 함께 Bot API와 네이버 오픈 API를 직접 호출해 GitHub Actions 자동 실행까지 오늘 안에 완성하는 실습 가이드 &nbsp;|&nbsp; <a href="day2-telegram_Manual.html">← 매뉴얼로 돌아가기</a></p>
 
   <!-- ── 버전 박스 ── -->
   <div class="version-box">
-    <div class="version-row"><span class="vlabel">대상 범위</span><span>Telegram Bot API · Python 3.12 (requests 라이브러리)</span></div>
-    <div class="version-row"><span class="vlabel">이 파일의 목적</span><span>Day 2에서 실제로 손으로 따라 하는 개인 실습 3종(초급·중급·고급)을 제공합니다</span></div>
+    <div class="version-row"><span class="vlabel">대상 범위</span><span>Telegram Bot API · 네이버 뉴스검색 Open API · Python 3.12 (requests 라이브러리) · GitHub Actions</span></div>
+    <div class="version-row"><span class="vlabel">이 파일의 목적</span><span>Day 2에서 실제로 손으로 따라 하는 개인 실습 7종(초급 2·중급 2·고급 3)을 제공합니다</span></div>
     <div class="version-row"><span class="vlabel">레퍼런스 문서</span><span><a href="day2-telegram_Manual.html">day2-telegram_Manual.html</a> — 각 시나리오에서 링크로 연결됩니다</span></div>
     <div class="version-row"><span class="vlabel">작성일</span><span>2026년 7월 5일</span></div>
   </div>
@@ -279,6 +283,55 @@
     <span class="badge badge-g">● 초급</span>
     <span class="level-title level-title-g">Getting Started</span>
     <span class="level-desc">텔레그램 앱에서 직접 BotFather와 대화하며 나만의 봇을 처음 만들어 봅니다</span>
+  </div>
+
+  <div class="scenario-card" id="scenario-0">
+    <div class="card-header">
+      <span class="card-id">G-0</span>
+      <span class="badge badge-g">초급</span>
+      <strong class="card-title">Telegram Desktop 설치하고 GitHub 계정까지 미리 만들어두기</strong>
+    </div>
+    <div class="card-body">
+
+      <div class="situation">
+        아직 텔레그램 앱조차 설치하지 않았습니다. 오늘 실습은 노트북(데스크톱)만으로 진행하므로 스마트폰 앱 설치는 건너뛰고 Telegram Desktop으로 바로 가입합니다. 이후 실습에서 코드를 저장하려면 GitHub 계정도 필요하므로, 인증에 시간이 걸릴 수 있는 두 가지를 본격적인 봇 만들기에 앞서 먼저 끝내둡니다.
+      </div>
+
+      <div class="cmd-list">
+        <div class="cmd-list-title">사용 요소</div>
+        <div class="cmd-chips">
+          <a class="cmd-chip" href="day2-telegram_Manual.html#section-0">Telegram Desktop 설치</a>
+          <a class="cmd-chip" href="day2-telegram_Manual.html#section-0">GitHub 계정 만들기</a>
+        </div>
+      </div>
+
+      <div class="steps-title">단계별 실행</div>
+      <ol class="step-list">
+        <li>
+          <div class="step-content">
+            <strong>1. Telegram Desktop 설치</strong>
+            <p>telegram.org/apps(또는 Microsoft Store)에서 "Telegram Desktop"을 내려받아 설치합니다. 스마트폰 앱은 설치하지 않습니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>2. 전화번호로 가입</strong>
+            <p>데스크톱 앱을 실행해 휴대폰 번호를 입력하면 문자(SMS)로 인증 코드가 도착합니다. 이 코드를 앱 화면에 입력하면 가입이 끝납니다 — 스마트폰에 텔레그램 앱이 없어도 문자만 받으면 됩니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>3. GitHub 계정 가입</strong>
+            <p>github.com에서 Sign up을 눌러 이메일·비밀번호·username(영문 권장)을 입력하고 인증을 마쳐 계정을 만듭니다.</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="tip-box">
+        GitHub 계정으로 실제로 무엇을 하게 될지는 이후 실습에서 안내합니다. 오늘은 로그인 가능한 계정을 만들어 두는 것까지만 완료하면 충분합니다. 그리고 봇이 완성된 뒤 스마트폰에도 같은 계정으로 텔레그램 앱을 설치해두면, 외출 중에도 편하게 뉴스 알림을 받아볼 수 있습니다.
+      </div>
+
+    </div>
   </div>
 
   <div class="scenario-card" id="scenario-1">
@@ -434,7 +487,82 @@ requests.post(url, json={
       </div>
 
       <div class="warning-box">
-        토큰을 코드 안에 그대로 적어 GitHub 같은 공개 저장소에 올리지 않도록 주의합니다. Day 5에서 GitHub Actions로 자동화할 때는 토큰을 코드가 아닌 별도의 비밀 값(secret) 저장소에 넣는 방법을 다룹니다.
+        토큰을 코드 안에 그대로 적어 GitHub 같은 공개 저장소에 올리지 않도록 주의합니다. 이후 자동화 실습에서는 토큰을 코드가 아닌 별도의 비밀 값(secret) 저장소에 넣는 방법을 다룹니다.
+      </div>
+
+    </div>
+  </div>
+
+  <div class="scenario-card" id="scenario-2b">
+    <div class="card-header">
+      <span class="card-id">D-2</span>
+      <span class="badge badge-b">중급</span>
+      <strong class="card-title">네이버 오픈 API 키 발급받고 테스트 호출하기</strong>
+    </div>
+    <div class="card-body">
+
+      <div class="situation">
+        텔레그램 봇은 준비됐지만, 뉴스를 검색해올 열쇠가 아직 없습니다. 네이버 개발자센터에서 뉴스검색 API용 Client ID·Client Secret을 발급받고, Claude Code와 함께 정말로 작동하는지 간단히 테스트 호출까지 해봅니다.
+      </div>
+
+      <div class="cmd-list">
+        <div class="cmd-list-title">사용 요소</div>
+        <div class="cmd-chips">
+          <a class="cmd-chip" href="day2-telegram_Manual.html#section-5">네이버 오픈 API 등록</a>
+        </div>
+      </div>
+
+      <div class="steps-title">단계별 실행</div>
+      <ol class="step-list">
+        <li>
+          <div class="step-content">
+            <strong>1. 네이버 개발자센터에서 애플리케이션 등록</strong>
+            <p>developers.naver.com에 로그인해 Application → 애플리케이션 등록으로 들어가, 이름을 입력하고 이용 API에서 "검색(Search)"을 체크합니다. 서비스 환경은 WEB, 서비스 URL은 <code>http://localhost</code>로 입력해도 됩니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>2. Client ID·Client Secret 확인 및 메모</strong>
+            <p>등록이 끝나면 애플리케이션 상세 화면에 표시되는 Client ID와 Client Secret을 봇 토큰과 마찬가지로 안전한 곳에 메모해둡니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>3. Claude Code에게 테스트 호출 스크립트 요청하기</strong>
+            <p>"발급받은 네이버 Client ID·Secret으로 뉴스검색 API를 호출해서 검색 결과 개수를 출력하는 파이썬 스크립트를 짜줘"라고 요청합니다.</p>
+            <div style="position:relative">
+              <pre class="code-block">import requests
+
+CLIENT_ID = "&lt;여기에_발급받은_CLIENT_ID&gt;"
+CLIENT_SECRET = "&lt;여기에_발급받은_CLIENT_SECRET&gt;"
+
+headers = {
+    "X-Naver-Client-Id": CLIENT_ID,
+    "X-Naver-Client-Secret": CLIENT_SECRET,
+}
+url = "https://openapi.naver.com/v1/search/news.json?query=테스트"
+
+response = requests.get(url, headers=headers, timeout=15)
+data = response.json()
+print("검색 결과 개수:", len(data.get("items", [])))</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>4. 정상 동작 확인</strong>
+            <p>실행 결과로 오류 없이 숫자가 출력되면 Client ID·Secret이 정상적으로 발급·연결된 것입니다. 실제로 이 키로 뉴스를 검색하고 필터링·전송까지 하는 완성된 로직은 바로 다음 P-2에서 이어집니다.</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="flow-box">
+        네이버 뉴스검색 API도 텔레그램 Bot API와 마찬가지로, 발급받은 인증 값을 요청에 실어 보내면 서버가 그 값을 확인한 뒤 결과를 돌려주는 구조입니다. 다만 텔레그램은 URL 경로에 토큰을 넣고, 네이버는 HTTP 헤더에 Client ID·Secret을 넣는다는 점이 다릅니다.
+      </div>
+
+      <div class="warning-box">
+        Client Secret 역시 봇 토큰과 동일하게 취급해야 하는 비밀 값입니다. 코드에 직접 적지 말고 별도의 비밀 값 저장 방식을 쓰는 습관을 지금부터 들이는 것이 좋습니다.
       </div>
 
     </div>
@@ -444,7 +572,7 @@ requests.post(url, json={
   <div class="level-header" id="advanced">
     <span class="badge badge-p">● 고급</span>
     <span class="level-title level-title-p">Power User</span>
-    <span class="level-desc">받은 메시지 내용에 따라 다르게 응답하는 간단한 명령어 처리 로직을 설계합니다</span>
+    <span class="level-desc">명령어 응답 로직 설계 → 뉴스 검색·필터링·중복 방지로 봇 완성 → GitHub Actions로 완전 자동화까지 진행합니다</span>
   </div>
 
   <div class="scenario-card" id="scenario-3">
@@ -456,7 +584,7 @@ requests.post(url, json={
     <div class="card-body">
 
       <div class="situation">
-        지금까지는 봇이 항상 같은 메시지만 보냈습니다. 이번에는 사용자가 <code>/start</code>나 <code>/status</code> 같은 명령어를 보냈을 때, 봇이 그 내용을 구분해서 서로 다르게 응답하도록 Claude Code와 함께 로직을 설계하려고 합니다. 이는 Day 4~5에서 만들 뉴스 알림 봇에도 그대로 응용됩니다.
+        지금까지는 봇이 항상 같은 메시지만 보냈습니다. 이번에는 사용자가 <code>/start</code>나 <code>/status</code> 같은 명령어를 보냈을 때, 봇이 그 내용을 구분해서 서로 다르게 응답하도록 Claude Code와 함께 로직을 설계하려고 합니다. 이런 명령어 분기 방식은 이후 만들 다른 에이전트에도 그대로 응용됩니다.
       </div>
 
       <div class="cmd-list">
@@ -526,11 +654,273 @@ def handle_updates():
       </div>
 
       <div class="tip-box">
-        지금은 코드를 직접 실행해야만 봇이 응답하지만, Day 5에서 GitHub Actions로 이 로직을 주기적으로 자동 실행하도록 설정하면 사람이 켜 두지 않아도 항상 대기 중인 봇이 됩니다.
+        지금은 코드를 직접 실행해야만 봇이 응답하지만, 이후 자동화 실습에서 이 로직을 주기적으로 자동 실행하도록 설정하면 사람이 켜 두지 않아도 항상 대기 중인 봇이 됩니다.
       </div>
 
       <div class="related-cmds">
-        <strong>함께 보기:</strong> Day 3 네이버 뉴스 검색 API 연동, Day 5 GitHub Actions로 정기 실행 자동화
+        <strong>함께 보기:</strong> 이어서 P-2에서 실제 뉴스 검색·필터링·중복 방지 로직까지 합쳐 오늘 안에 봇을 완성합니다. 이 봇을 사람이 켜두지 않아도 저절로 실행되게 만드는 자동화는 다음 Day에서 새로운 주제로 이어집니다.
+      </div>
+
+    </div>
+  </div>
+
+  <div class="scenario-card" id="scenario-4">
+    <div class="card-header">
+      <span class="card-id">P-2</span>
+      <span class="badge badge-p">고급</span>
+      <strong class="card-title">이름·관심 키워드 검색, 시간범위, 동명이인 필터링, 중복 방지를 합쳐 진짜 동작하는 봇 완성하기</strong>
+    </div>
+    <div class="card-body">
+
+      <div class="situation">
+        지금까지 봇 토큰과 네이버 API 키를 발급받고, 메시지를 보내고 받는 법도 익혔습니다. 이제 D-2에서 테스트했던 네이버 뉴스검색 API 호출에 "내 이름이 맞는지 걸러내기", "관심 키워드 기사도 함께 받기", "몇 시간 이내 기사까지 받을지 정하기", "이미 보낸 기사 제외하기"를 모두 더해, 실제로 매번 실행할 때마다 원하는 뉴스만 골라 텔레그램으로 보내주는 완성된 봇을 오늘 안에 만들어봅니다.
+      </div>
+
+      <div class="cmd-list">
+        <div class="cmd-list-title">사용 요소</div>
+        <div class="cmd-chips">
+          <a class="cmd-chip" href="day2-telegram_Manual.html#section-6">뉴스검색 API</a>
+          <a class="cmd-chip" href="day2-telegram_Manual.html#section-6">RECENT_HOURS</a>
+          <a class="cmd-chip" href="day2-telegram_Manual.html#section-7">동명이인 필터</a>
+          <a class="cmd-chip" href="day2-telegram_Manual.html#section-7">관심 키워드 필터</a>
+          <a class="cmd-chip" href="day2-telegram_Manual.html#section-8">중복 방지</a>
+          <a class="cmd-chip" href="day2-telegram_Manual.html#section-9">sendMessage</a>
+        </div>
+      </div>
+
+      <div class="steps-title">단계별 실행</div>
+      <ol class="step-list">
+        <li>
+          <div class="step-content">
+            <strong>1. Claude Code에게 전체 로직 요청하기</strong>
+            <p>"내 이름 조합 검색어와 관심 키워드 검색어로 네이버 뉴스 API를 각각 검색하고, 최근 N시간 이내 기사만 남긴 뒤, 이름 기사는 동명이인 필터로·관심 키워드 기사는 포함 여부로 걸러내고, seen_urls.txt에 없는 새 기사만 텔레그램으로 보낸 뒤 seen_urls.txt를 갱신하는 파이썬 스크립트를 짜줘"라고 요청합니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>2. 완성된 스크립트 확인하기</strong>
+            <p>Claude Code가 검색 → 시간 필터 → 이름/키워드 필터 → 중복 제거 → 전송을 하나로 묶어 아래와 비슷한 형태의 스크립트를 만들어 줍니다.</p>
+            <div style="position:relative">
+              <pre class="code-block">import re, html, os, requests
+from datetime import datetime, timezone, timedelta
+from email.utils import parsedate_to_datetime
+
+BOT_TOKEN = "&lt;여기에_발급받은_BOT_TOKEN&gt;"
+NAVER_ID = "&lt;여기에_발급받은_CLIENT_ID&gt;"
+NAVER_SECRET = "&lt;여기에_발급받은_CLIENT_SECRET&gt;"
+CHAT_ID = "&lt;1단계에서_확인한_chat_id&gt;"
+
+TARGET_NAME = "홍길동"
+NAME_QUERIES = ["홍길동 세종시", "홍길동 세종시의회"]        # 나에 대한 뉴스
+INTEREST_KEYWORDS = ["재정경제", "지역 개발"]                # 내가 관심있는 주제 뉴스
+REQUIRED_KEYWORDS = ["세종", "세종시", "세종시의회"]
+EXCLUDE_CONTEXTS = ["배우", "가수", "교수"]
+RECENT_HOURS = 3          # 몇 시간 이내 기사까지 받을지 (작을수록 실시간에 가까움)
+SEEN_FILE = "seen_urls.txt"
+
+def is_target_person(text):
+    if TARGET_NAME not in text:
+        return False
+    if not any(k in text for k in REQUIRED_KEYWORDS):
+        return False
+    if any(k in text for k in EXCLUDE_CONTEXTS):
+        return False
+    return True
+
+def is_interest_match(text, keyword):
+    return keyword in text
+
+def search_naver(query):
+    headers = {"X-Naver-Client-Id": NAVER_ID, "X-Naver-Client-Secret": NAVER_SECRET}
+    url = f"https://openapi.naver.com/v1/search/news.json?query={requests.utils.quote(query)}&display=20&sort=date"
+    return requests.get(url, headers=headers, timeout=15).json().get("items", [])
+
+def fetch_articles():
+    cutoff = datetime.now(timezone.utc) - timedelta(hours=RECENT_HOURS)
+    articles = []
+
+    for query in NAME_QUERIES:
+        for item in search_naver(query):
+            title = html.unescape(re.sub(r"&lt;[^&gt;]+&gt;", "", item["title"]))
+            desc = html.unescape(re.sub(r"&lt;[^&gt;]+&gt;", "", item["description"]))
+            pub_dt = parsedate_to_datetime(item["pubDate"])
+            if pub_dt < cutoff or not is_target_person(title + " " + desc):
+                continue
+            articles.append({"title": title, "url": item["originallink"] or item["link"]})
+
+    for keyword in INTEREST_KEYWORDS:
+        for item in search_naver(keyword):
+            title = html.unescape(re.sub(r"&lt;[^&gt;]+&gt;", "", item["title"]))
+            desc = html.unescape(re.sub(r"&lt;[^&gt;]+&gt;", "", item["description"]))
+            pub_dt = parsedate_to_datetime(item["pubDate"])
+            if pub_dt < cutoff or not is_interest_match(title + " " + desc, keyword):
+                continue
+            articles.append({"title": title, "url": item["originallink"] or item["link"]})
+
+    return articles
+
+def load_seen():
+    if not os.path.exists(SEEN_FILE):
+        return set()
+    with open(SEEN_FILE, encoding="utf-8") as f:
+        return {line.strip() for line in f if line.strip()}
+
+def save_seen(seen):
+    with open(SEEN_FILE, "w", encoding="utf-8") as f:
+        f.write("\n".join(sorted(seen)))
+
+def send_message(text):
+    requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
+                  json={"chat_id": CHAT_ID, "text": text}, timeout=15)
+
+seen = load_seen()
+new_count = 0
+for article in fetch_articles():
+    if article["url"] in seen:
+        continue
+    send_message(f"🔔 새 뉴스 알림\n\n📌 {article['title']}\n\n🔗 {article['url']}")
+    seen.add(article["url"])
+    new_count += 1
+
+save_seen(seen)
+print(f"신규 {new_count}건 전송 완료")</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>3. 직접 실행해서 동작 확인하기</strong>
+            <p>이 스크립트를 로컬에서 실행하면 내 이름이 들어간 최신 기사와 관심 키워드 기사가 함께 텔레그램으로 도착합니다. <code>RECENT_HOURS</code>를 줄이거나 늘려 실행해보면 더 최근 기사만/더 넓은 범위의 기사까지 받아지는 차이도 확인할 수 있습니다. 다시 한 번 실행하면 방금 받은 기사는 <code>seen_urls.txt</code> 덕분에 다시 오지 않습니다.</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="flow-box">
+        검색(이름 쿼리 + 관심 키워드 쿼리) → 시간 필터(<code>RECENT_HOURS</code>) → 내용 필터(<code>is_target_person</code> / <code>is_interest_match</code>) → 중복 제거(<code>seen_urls</code>) → 전송(<code>sendMessage</code>)이 한 스크립트 안에서 순서대로 실행됩니다. 이 다섯 단계가 바로 오늘 처음부터 끝까지 만든 "내 이름 + 관심 키워드 뉴스 알림 봇"의 전체 동작 원리입니다.
+      </div>
+
+      <div class="tip-box">
+        검색어를 여러 개(예: 이름+소속, 이름+지역, 관심 주제 여러 개) 조합해 <code>NAME_QUERIES</code>·<code>INTEREST_KEYWORDS</code> 리스트에 추가하도록 Claude Code에게 요청하면, 더 폭넓게 기사를 수집하면서도 필터 로직은 그대로 재사용할 수 있습니다.
+      </div>
+
+      <div class="related-cmds">
+        <strong>함께 보기:</strong> 이어서 P-3에서 이 스크립트를 GitHub에 올려, 사람이 실행하지 않아도 저절로 하루 2번 자동 실행되게 만듭니다.
+      </div>
+
+    </div>
+  </div>
+
+  <div class="scenario-card" id="scenario-5">
+    <div class="card-header">
+      <span class="card-id">P-3</span>
+      <span class="badge badge-p">고급</span>
+      <strong class="card-title">GitHub Actions로 하루 2번 자동 실행되게 만들기</strong>
+    </div>
+    <div class="card-body">
+
+      <div class="situation">
+        P-2에서 완성한 스크립트는 아직 내가 직접 실행해야만 동작합니다. 이번에는 이 코드를 GitHub 저장소에 올리고, GitHub Actions 워크플로를 설정해서 내 컴퓨터를 꺼두어도 매일 아침·저녁 두 번씩 서버가 대신 실행하고, 실행 결과(<code>seen_urls.txt</code>)까지 저장소에 자동으로 반영되도록 만듭니다.
+      </div>
+
+      <div class="cmd-list">
+        <div class="cmd-list-title">사용 요소</div>
+        <div class="cmd-chips">
+          <a class="cmd-chip" href="day2-telegram_Manual.html#section-10">GitHub Secrets</a>
+          <a class="cmd-chip" href="day2-telegram_Manual.html#section-10">GitHub Actions cron</a>
+          <a class="cmd-chip" href="day2-telegram_Manual.html#section-10">workflow_dispatch</a>
+        </div>
+      </div>
+
+      <div class="steps-title">단계별 실행</div>
+      <ol class="step-list">
+        <li>
+          <div class="step-content">
+            <strong>1. 하드코딩된 값을 환경변수로 바꾸기</strong>
+            <p>P-2 스크립트의 <code>BOT_TOKEN</code>, <code>NAVER_ID</code>, <code>NAVER_SECRET</code>, <code>CHAT_ID</code>를 <code>os.environ[...]</code>으로 읽도록 Claude Code에게 요청해 바꿉니다. 코드 안에 비밀 값이 그대로 남지 않도록 하기 위한 필수 단계입니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>2. GitHub 저장소를 만들고 코드 올리기</strong>
+            <p>github.com에서 Private 저장소를 하나 만들고, Claude Code에게 "이 폴더를 방금 만든 저장소에 올려줘"라고 요청합니다. <code>.env</code> 파일은 <code>.gitignore</code>에 추가해 절대 함께 올라가지 않도록 합니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>3. Secrets 등록하기</strong>
+            <p>저장소의 <code>Settings → Secrets and variables → Actions</code>에서 <code>BOT_TOKEN</code>, <code>NAVER_CLIENT_ID</code>, <code>NAVER_CLIENT_SECRET</code>, <code>CHAT_ID</code> 네 가지를 각각 등록합니다.</p>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>4. 워크플로 파일 요청하기</strong>
+            <p>"<code>check_and_send.py</code>를 매일 KST 오전 8시·오후 6시에 실행하고, 실행 후 <code>seen_urls.txt</code> 변경사항을 자동으로 커밋·푸시하는 GitHub Actions 워크플로 yml을 만들어줘"라고 요청합니다.</p>
+            <div style="position:relative">
+              <pre class="code-block">name: 내 이름 뉴스 알림 봇
+
+on:
+  schedule:
+    - cron: '0 23 * * *'   # 매일 오전 8시 KST (UTC 23:00)
+    - cron: '0 9 * * *'    # 매일 오후 6시 KST (UTC 09:00)
+  workflow_dispatch:
+
+concurrency:
+  group: news-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests
+      - name: 뉴스 체크 및 전송
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+        run: python check_and_send.py
+      - name: seen_urls.txt 커밋
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add seen_urls.txt
+          if git diff --cached --quiet; then
+            echo "변경 없음"
+          else
+            git commit -m "Update seen_urls"
+            git pull --rebase -X theirs origin main
+            git push origin main
+          fi</pre>
+              <button class="copy-btn" onclick="copyCode(this)">복사</button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="step-content">
+            <strong>5. 수동 실행으로 바로 테스트하기</strong>
+            <p>cron 시각까지 기다릴 필요 없이, 저장소의 <code>Actions</code> 탭 → 워크플로 선택 → <code>Run workflow</code> 버튼으로 즉시 실행해볼 수 있습니다. 실행 로그와 실제 텔레그램 메시지 도착 여부를 함께 확인합니다.</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="flow-box">
+        GitHub Actions는 정해진 cron 시각마다(또는 수동 클릭 시) 가상 서버 하나를 새로 띄워 저장소 코드를 내려받고, Secrets 값을 환경변수로 주입해 스크립트를 실행합니다. 실행이 끝나면 마지막 스텝이 변경된 <code>seen_urls.txt</code>를 저장소에 다시 커밋해, 다음 실행에서도 중복 방지가 그대로 이어지게 만듭니다.
+      </div>
+
+      <div class="warning-box">
+        <code>concurrency</code> 설정이 없으면 실행 시간이 밀릴 때 이전 실행과 다음 실행이 겹쳐 같은 기사를 두 번 보낼 수 있습니다. 반드시 함께 설정합니다.
+      </div>
+
+      <div class="related-cmds">
+        <strong>여기까지 오면:</strong> 내 컴퓨터를 켜두지 않아도 하루 2번씩 자동으로 내 이름·관심 키워드 뉴스를 찾아 텔레그램으로 보내주는 봇이 완성됩니다 — Day 2의 최종 결과물입니다.
       </div>
 
     </div>

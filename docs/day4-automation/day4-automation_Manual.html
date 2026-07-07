@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Day 4 GitHub Actions 자동화 — 매뉴얼</title>
+  <title>Day 4 — 커리큘럼 미정</title>
   <style>
     :root {
       --bg: #ffffff;
@@ -31,429 +32,78 @@
       line-height: 1.7;
       font-size: 15px;
     }
-    .layout {
-      display: flex;
-      min-height: 100vh;
-    }
-    /* ── 사이드바 ── */
+    .layout { display: flex; min-height: 100vh; }
     nav {
-      width: 260px;
-      min-width: 260px;
+      width: 260px; min-width: 260px;
       background: var(--bg2);
       border-right: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow-y: auto;
-      padding: 20px 0;
+      position: sticky; top: 0; height: 100vh;
+      overflow-y: auto; padding: 20px 0;
     }
     nav .nav-title {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--text-dim);
-      padding: 0 16px 8px;
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--text-dim); padding: 0 16px 8px;
     }
     nav a {
-      display: block;
-      padding: 6px 16px;
-      color: var(--text-dim);
-      text-decoration: none;
-      font-size: 13px;
-      border-left: 2px solid transparent;
-      transition: all .15s;
+      display: block; padding: 6px 16px; color: var(--text-dim);
+      text-decoration: none; font-size: 13px;
+      border-left: 2px solid transparent; transition: all .15s;
     }
     nav a:hover { color: var(--accent); background: var(--bg3); border-left-color: var(--accent); }
-    nav .nav-section {
-      margin-top: 12px;
-      padding: 6px 16px 4px;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      color: var(--text-dim);
-    }
-    /* ── 본문 ── */
-    main {
-      flex: 1;
-      max-width: 900px;
-      padding: 40px 48px;
-      overflow-x: hidden;
-    }
-    h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #1f2328;
-      margin-bottom: 6px;
-    }
-    .subtitle {
-      color: var(--text-dim);
-      font-size: 13px;
-      margin-bottom: 32px;
-    }
-    .subtitle a { color: var(--accent); text-decoration: none; }
+    main { flex: 1; max-width: 820px; padding: 40px 48px; }
+    h1 { font-size: 2rem; font-weight: 700; color: #1f2328; margin-bottom: 6px; }
+    .subtitle { color: var(--text-dim); font-size: 13px; margin-bottom: 32px; }
     h2 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--accent6);
-      margin: 48px 0 16px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-      scroll-margin-top: 20px;
-    }
-    h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--accent3);
-      margin: 28px 0 8px;
-      scroll-margin-top: 20px;
+      font-size: 1.25rem; font-weight: 700; color: var(--accent6);
+      margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
     }
     p { margin: 8px 0; color: var(--text); }
-    /* ── 트리 ── */
-    .tree-box {
-      background: #f6f8fa;
-      border: 1px solid var(--code-border);
-      border-radius: 8px;
-      padding: 20px 24px;
-      overflow-x: auto;
-      margin: 16px 0 24px;
-    }
-    .tree-box pre {
-      font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
-      font-size: 13px;
-      line-height: 1.6;
-      color: #1f2328;
-      white-space: pre;
-    }
-    .tree-box pre .cmd { color: var(--accent); font-weight: 600; }
-    .tree-box pre .desc { color: var(--text-dim); }
-    /* ── 코드 블록 ── */
-    pre.code-block {
-      background: var(--code-bg);
-      border: 1px solid var(--code-border);
-      border-radius: 6px;
-      padding: 14px 18px;
-      overflow-x: auto;
-      font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
-      font-size: 13px;
-      line-height: 1.5;
-      color: #116329;
-      margin: 8px 0 16px;
-    }
-    /* ── 인라인 코드 ── */
-    code {
-      font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
-      font-size: 12px;
-      background: #f6f8fa;
-      border: 1px solid #d0d7de;
-      border-radius: 4px;
-      padding: 2px 6px;
-      color: #cf222e;
-    }
-    /* ── 원문 블록 ── */
-    /* ── 테이블 ── */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 12px 0 20px;
-      font-size: 13.5px;
-    }
-    th {
-      background: var(--bg3);
-      color: var(--accent6);
-      text-align: left;
-      padding: 10px 14px;
-      font-weight: 600;
-      border: 1px solid var(--border);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: .05em;
-    }
-    td {
-      padding: 9px 14px;
-      border: 1px solid var(--border);
-      vertical-align: top;
-      color: var(--text);
-    }
-    tr:nth-child(even) td { background: #f6f8fa; }
-    td code { font-size: 11.5px; }
-    /* ── 배지 ── */
-    .badge {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 20px;
-      text-transform: uppercase;
-      letter-spacing: .05em;
-      margin-right: 6px;
-    }
-    .badge-alias { background: #dafbe1; color: #116329; border: 1px solid #a2d9b1; }
-    .badge-skill { background: #fbefff; color: #6639ba; border: 1px solid #d2b9ff; }
-    .badge-workflow { background: #ddf4ff; color: #0550ae; border: 1px solid #a5d5f7; }
-    .badge-new { background: #fff8c5; color: #953800; border: 1px solid #f5c518; }
-    /* ── 구분선 ── */
-    hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
-    /* ── 섹션 헤더 ── */
-    .section-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--tag-bg);
-      color: var(--tag-text);
-      font-size: 11px;
-      font-weight: 600;
-      padding: 3px 10px;
-      border-radius: 20px;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-    }
-    /* ── 버전 박스 ── */
     .version-box {
-      background: #f0f7ff;
-      border: 1px solid #a5d5f7;
-      border-left: 4px solid #0969da;
-      border-radius: 6px;
-      padding: 14px 18px;
-      margin: 16px 0 32px;
-      font-size: 13px;
+      background: #f0f7ff; border: 1px solid #a5d5f7;
+      border-left: 4px solid #0969da; border-radius: 6px;
+      padding: 14px 18px; margin: 16px 0 32px; font-size: 13px;
     }
-    .version-row {
-      display: flex;
-      gap: 12px;
-      padding: 3px 0;
-      border-bottom: 1px solid #d0e8ff;
-    }
+    .version-row { display: flex; gap: 12px; padding: 3px 0; border-bottom: 1px solid #d0e8ff; }
     .version-row:last-child { border-bottom: none; }
-    .vlabel {
-      min-width: 180px;
-      font-weight: 600;
-      color: #0550ae;
-      flex-shrink: 0;
+    .vlabel { min-width: 140px; font-weight: 600; color: #0550ae; flex-shrink: 0; }
+    .tbd-box {
+      background: #fff8c5; border: 1px solid #d4a72c; border-radius: 8px;
+      padding: 24px 28px; margin: 24px 0; text-align: center;
     }
-    .vvalue { color: #1f2328; }
-    /* ── 링크 ── */
+    .tbd-box .big { font-size: 1.4rem; font-weight: 700; color: #7d4e00; margin-bottom: 8px; }
+    .tbd-box p { color: #5c3900; font-size: 14px; }
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
-    /* ── 경고 박스 ── */
-    .warning-box {
-      background: #fff8c5;
-      border: 1px solid #d4a72c;
-      border-radius: 6px;
-      padding: 12px 16px;
-      font-size: 13px;
-      color: #7d4e00;
-      margin: 12px 0;
-    }
-    .warning-box::before { content: '⚠️  '; }
-    /* ── 권한 모드 표 ── */
-    .mode-table td:first-child { font-family: monospace; color: #ff7b72; font-size: 12px; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
   </style>
 </head>
 <body>
 <div class="layout">
 
-<!-- ── 사이드바 네비게이션 ── -->
 <nav>
-  <a href="../index.html" style="font-weight:700;color:#0969da;margin-bottom:8px;border-bottom:1px solid #d0d7de;padding-bottom:10px;">← 핸드북 홈</a>
-  <div class="nav-title">Day 4 자동화</div>
-  <a href="#tree">오늘의 흐름</a>
-  <div class="nav-section">저장소와 배포 준비</div>
-  <a href="#section-1">1. GitHub 저장소 만들기</a>
-  <a href="#section-2">2. Secrets 등록하기</a>
-  <div class="nav-section">자동화 문법과 확인</div>
-  <a href="#section-3">3. Actions 워크플로우 문법</a>
-  <a href="#section-4">4. 실행 확인과 로그 보기</a>
-  <div class="nav-section">마무리</div>
-  <a href="#refs">참고 링크</a>
+  <a href="../index.html" style="font-weight:700;color:#0969da;margin-bottom:8px;border-bottom:1px solid #d0d7de;padding-bottom:10px;display:block;">← 핸드북 홈</a>
+  <div class="nav-title">Day 4 · 미정</div>
+  <a href="#status">현재 상태</a>
 </nav>
 
-<!-- ── 본문 ── -->
 <main>
-  <h1>Day 4 · GitHub 저장소와 Actions로 자동 실행 배포하기</h1>
-  <p class="subtitle">내 컴퓨터에서만 실행되던 뉴스 알림 봇을, GitHub에 올려서 정해진 시간마다 스스로 실행되도록 만드는 방법 &nbsp;|&nbsp; 공식 문서: <a href="https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions" target="_blank">GitHub Actions — Workflow syntax</a></p>
+  <h1>Day 4 — 커리큘럼 미정</h1>
+  <p class="subtitle">이 날짜의 세부 주제와 실습 내용은 아직 확정되지 않았습니다.</p>
 
-  <!-- ── 버전 박스 ── -->
   <div class="version-box">
-    <div class="version-row"><span class="vlabel">대상 버전</span><span class="vvalue">GitHub Actions · GitHub 웹 UI · Python 3.12 — 2026년 7월 기준</span></div>
-    <div class="version-row"><span class="vlabel">참조 문서 URL</span><span class="vvalue"><a href="https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions" target="_blank">docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions</a></span></div>
-    <div class="version-row"><span class="vlabel">문서 수집일</span><span class="vvalue">2026-07-05</span></div>
-    <div class="version-row"><span class="vlabel">버전 확인 방법</span><span class="vvalue">docs.github.com/actions 공식 문서에서 최신 워크플로우 문법 확인</span></div>
-    <div class="version-row"><span class="vlabel">개정 시 확인 사항</span><span class="vvalue">docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions 재확인</span></div>
+    <div class="version-row"><span class="vlabel">현재 상태</span><span>미정 (TBD)</span></div>
+    <div class="version-row"><span class="vlabel">확정된 것</span><span>Day 1(환경 준비) · Day 2(텔레그램 봇 만들기)까지만 확정</span></div>
+    <div class="version-row"><span class="vlabel">최종 업데이트</span><span>2026년 7월</span></div>
   </div>
 
-  <!-- ── 개념/명령 트리 ── -->
-  <h2 id="tree">오늘의 흐름</h2>
-  <div class="tree-box"><pre>
-Day 4 · 자동 실행 배포
-├── 1. GitHub 저장소 만들기          웹 화면에서 코드를 담을 저장소를 생성
-├── 2. Secrets 등록하기              BOT_TOKEN·NAVER_CLIENT_ID·NAVER_CLIENT_SECRET을 안전하게 저장
-├── 3. Actions 워크플로우 작성        .github/workflows/*.yml 파일에 실행 규칙 기록
-├── 4. 수동 실행 테스트               workflow_dispatch 버튼으로 한 번 실행해보고 확인
-└── 5. cron 자동 스케줄               하루 2회(오전 8시/오후 6시, KST) 자동 실행 등록
-</pre></div>
+  <h2 id="status">현재 상태</h2>
+  <div class="tbd-box">
+    <div class="big">📋 이 날짜의 커리큘럼은 아직 확정되지 않았습니다</div>
+    <p>세부 주제와 실습 예시는 이후 확정되는 대로 이 페이지에 채워집니다.</p>
+  </div>
 
   <hr>
-
-  <!-- ── 섹션 1 ── -->
-  <h2 id="section-1">1. GitHub 저장소란 무엇인가 + 웹 화면으로 새 저장소 만들기</h2>
-
-  <h3><code>Repository</code> — 코드를 담아두는 온라인 보관함</h3>
-  <p>GitHub 저장소(repository)는 지금까지 Claude Code로 작성한 파이썬 코드를 온라인에 저장해 두는 공간입니다. 내 컴퓨터에만 있는 코드는 컴퓨터를 꺼두면 실행할 수 없지만, GitHub에 올려두면 GitHub의 서버가 대신 코드를 보관하고 있다가 정해진 시간에 실행해 줄 수 있습니다. Day 4의 목표는 이 저장소를 만들고, 그 안에서 자동 실행 규칙(Actions)을 설정하는 것입니다.</p>
-
-  <h3><code>New repository</code> — 웹 화면으로 저장소 생성하기</h3>
-  <p>터미널 명령어를 몰라도 괜찮습니다. 아래 순서는 모두 github.com 화면에서 마우스 클릭만으로 진행합니다.</p>
-  <ol style="margin:0 0 16px 20px;line-height:2;">
-    <li><strong>로그인:</strong> github.com에 접속해 본인 계정으로 로그인합니다.</li>
-    <li><strong>새 저장소 시작:</strong> 화면 우측 상단의 <code>+</code> 아이콘을 클릭하고, 드롭다운 메뉴에서 <code>New repository</code>를 선택합니다.</li>
-    <li><strong>이름 입력:</strong> <code>Repository name</code>란에 저장소 이름을 입력합니다. (예: <code>news-alert-bot</code>)</li>
-    <li><strong>설명 입력(선택):</strong> <code>Description</code>란에 이 저장소가 무엇인지 한 줄로 적어둘 수 있습니다. 생략해도 됩니다.</li>
-    <li><strong>공개 범위 선택:</strong> <code>Public</code> 또는 <code>Private</code> 중 하나를 선택합니다.</li>
-    <li><strong>README 추가(선택):</strong> 필요하면 <code>Add a README file</code> 체크박스를 선택합니다.</li>
-    <li><strong>생성 완료:</strong> <code>Create repository</code> 버튼을 클릭하면 저장소가 만들어지고, 코드를 올릴 준비가 끝난 저장소 화면으로 이동합니다.</li>
-  </ol>
-
-  <h3><code>Public</code> vs <code>Private</code> — 공개 범위 선택 기준</h3>
-  <p>뉴스 알림 봇처럼 개인 이름을 검색어로 다루는 코드는 저장소 자체를 <code>Private</code>로 두는 편이 안전합니다. 다만 Secrets(3절)로 등록한 값은 저장소가 <code>Public</code>이어도 외부에 노출되지 않으므로, 공개 여부와 무관하게 실제 비밀값은 반드시 Secrets에만 저장해야 합니다.</p>
-  <table>
-    <thead><tr><th>구분</th><th>공개 범위</th><th>권장 상황</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><code>Public</code></td>
-        <td>누구나 코드를 볼 수 있음</td>
-        <td>공개해도 무방한 예제·학습용 코드</td>
-      </tr>
-      <tr>
-        <td><code>Private</code></td>
-        <td>본인과 초대한 사람만 볼 수 있음</td>
-        <td>개인 이름·검색어가 포함된 실제 운영 코드 (권장)</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p style="background:#e8f4fd;border-left:3px solid #0969da;padding:8px 14px;border-radius:4px;font-size:13.5px;">💡 <strong>핵심 한 줄:</strong> 저장소를 Private로 두더라도, 텔레그램 토큰이나 API 키 같은 실제 비밀값은 코드 안에 직접 적지 않고 반드시 Secrets에 등록합니다.</p>
-
-  <hr>
-
-  <!-- ── 섹션 2 ── -->
-  <h2 id="section-2">2. Secrets(비밀값) 등록하기</h2>
-
-  <h3><code>Settings → Secrets and variables → Actions</code> — 비밀값 저장 위치</h3>
-  <p>Secrets는 텔레그램 봇 토큰이나 네이버 API 키처럼 외부에 노출되면 안 되는 값을 GitHub 저장소 안에 암호화된 형태로 저장하는 기능입니다. 워크플로우 실행 시에는 값이 자동으로 주입되지만, 저장 이후에는 화면에서 값을 다시 확인할 수 없어 실수로 노출될 위험이 크게 줄어듭니다.</p>
-  <ol style="margin:0 0 16px 20px;line-height:2;">
-    <li><strong>저장소 설정 진입:</strong> 저장소 화면 상단의 <code>Settings</code> 탭을 클릭합니다.</li>
-    <li><strong>Secrets 메뉴 이동:</strong> 좌측 메뉴에서 <code>Secrets and variables</code> → <code>Actions</code>를 클릭하고, <code>Secrets</code> 탭이 선택돼 있는지 확인합니다.</li>
-    <li><strong>새 Secret 추가:</strong> <code>New repository secret</code> 버튼을 클릭합니다.</li>
-    <li><strong>이름과 값 입력:</strong> <code>Name</code>란에 식별용 이름(예: <code>BOT_TOKEN</code>)을, <code>Secret</code>란에 실제 값을 입력합니다.</li>
-    <li><strong>저장:</strong> <code>Add secret</code> 버튼을 클릭하면 등록이 완료됩니다.</li>
-  </ol>
-  <p>Day 4에서는 아래 3개의 Secret을 이 순서대로 등록합니다.</p>
-  <table>
-    <thead><tr><th>Secret 이름</th><th>값의 내용</th><th>비고</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><code>BOT_TOKEN</code></td>
-        <td>Day 2에서 BotFather로 발급받은 텔레그램 봇 토큰</td>
-        <td>이름만 공개되어도 안전 — 값은 절대 공개 금지</td>
-      </tr>
-      <tr>
-        <td><code>NAVER_CLIENT_ID</code></td>
-        <td>Day 3에서 발급받은 네이버 검색 API Client ID</td>
-        <td>Naver Developers 콘솔에서 확인</td>
-      </tr>
-      <tr>
-        <td><code>NAVER_CLIENT_SECRET</code></td>
-        <td>Day 3에서 발급받은 네이버 검색 API Client Secret</td>
-        <td>Naver Developers 콘솔에서 확인</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h3><code>${{ secrets.이름 }}</code> — 워크플로우 안에서 참조하는 문법</h3>
-  <p>등록한 Secret은 워크플로우 파일(.yml) 안에서 <code>${{ secrets.BOT_TOKEN }}</code>처럼 <code>secrets.</code> 뒤에 등록한 이름을 붙여 참조합니다. 이렇게 참조된 값은 실행 중에만 환경 변수로 전달되며, 실행 로그 화면에도 실제 값 대신 <code>***</code>로 가려져 출력됩니다.</p>
-  <pre class="code-block">env:
-  BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-  NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
-  NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}</pre>
-
-  <div class="warning-box">Secret은 등록 후에는 값을 다시 볼 수 없고, 수정하려면 같은 이름으로 새 값을 덮어써야 합니다. 이름과 값을 입력할 때 오타가 없는지 저장 전에 한 번 더 확인하세요.</div>
-
-  <hr>
-
-  <!-- ── 섹션 3 ── -->
-  <h2 id="section-3">3. GitHub Actions 워크플로우 문법</h2>
-
-  <h3><code>.github/workflows/*.yml</code> — 워크플로우 파일의 위치</h3>
-  <p>GitHub Actions의 실행 규칙은 저장소 안의 <code>.github/workflows/</code> 폴더에 있는 <code>.yml</code> 파일에 기록합니다. 이 폴더에 파일을 하나 추가하고 저장소에 커밋(commit)하면, GitHub가 자동으로 그 파일을 워크플로우로 인식합니다.</p>
-  <pre class="code-block">news-alert-bot/
-├── check_and_send.py
-├── seen_urls.txt
-└── .github/
-    └── workflows/
-        └── news-check.yml</pre>
-
-  <h3><code>on.schedule.cron</code> — 정해진 시간마다 자동 실행</h3>
-  <p><code>cron</code> 표현식은 "분 시 일 월 요일" 5개 필드로 실행 시각을 지정합니다. 여기서 중요한 점은 GitHub Actions의 cron은 기본적으로 UTC(협정 세계시) 기준으로 해석된다는 것입니다. 한국 시간(KST)은 UTC보다 9시간 빠르므로, 워크플로우 파일에는 한국시간을 UTC로 환산한 값을 적어야 합니다.</p>
-  <table>
-    <thead><tr><th>원하는 한국시간(KST)</th><th>UTC 환산 값</th><th>cron 표현식</th></tr></thead>
-    <tbody>
-      <tr>
-        <td>오전 8시</td>
-        <td>전날 23시</td>
-        <td><code>0 23 * * *</code></td>
-      </tr>
-      <tr>
-        <td>오후 6시</td>
-        <td>같은 날 9시</td>
-        <td><code>0 9 * * *</code></td>
-      </tr>
-    </tbody>
-  </table>
-  <pre class="code-block">on:
-  schedule:
-    - cron: '0 23 * * *'   # 매일 오전 8시 KST (UTC 23:00)
-    - cron: '0 9 * * *'    # 매일 오후 6시 KST (UTC 09:00)</pre>
-
-  <h3><code>workflow_dispatch</code> — 수동 실행 버튼 추가하기</h3>
-  <p><code>workflow_dispatch</code>를 <code>on</code> 항목에 추가하면, 저장소의 Actions 탭에 "Run workflow" 버튼이 생겨 예약 시간을 기다리지 않고도 원할 때 직접 실행해볼 수 있습니다. 단, 이 버튼은 기본 브랜치(보통 <code>main</code>)에 올라가 있는 워크플로우 파일에서만 나타납니다.</p>
-  <pre class="code-block">on:
-  workflow_dispatch:</pre>
-
-  <div class="warning-box">예약 실행(cron)은 최소 5분 간격으로만 설정할 수 있고, GitHub 서버 부하 상황에 따라 실제 실행이 예정 시각보다 지연될 수 있습니다. 알림이 몇 분 늦게 와도 정상적인 동작이니 당황하지 않아도 됩니다.</div>
-
-  <hr>
-
-  <!-- ── 섹션 4 ── -->
-  <h2 id="section-4">4. 실행 확인과 로그 보기</h2>
-
-  <h3><code>Actions 탭</code> — 실행 목록과 상태 확인</h3>
-  <p>저장소 상단의 <code>Actions</code> 탭을 클릭하면 지금까지 실행된(또는 예정된) 워크플로우 목록이 시간순으로 표시됩니다. 각 실행 항목 옆에는 성공(초록색 체크)과 실패(빨간색 X) 상태가 아이콘으로 표시되어, 굳이 내용을 열어보지 않아도 한눈에 성공 여부를 파악할 수 있습니다.</p>
-
-  <h3><code>로그 보기</code> — 실패 원인 찾는 접근법</h3>
-  <p>실행 항목을 클릭하면 각 단계(step)별로 걸린 시간과 출력 내용을 확인할 수 있습니다. 실패했다면 초록 체크 대신 빨간 X가 표시된 단계를 찾아 그 단계를 펼쳐보면, 어떤 이유로 멈췄는지(예: 패키지 설치 실패, 토큰 값 오류, API 응답 오류 등) 화면에 그대로 출력됩니다. 위에서부터 순서대로 읽어가며 가장 먼저 실패한 단계를 확인하는 것이 원인 파악의 기본 순서입니다.</p>
-  <ol style="margin:0 0 16px 20px;line-height:2;">
-    <li><strong>어떤 실행인지 확인:</strong> Actions 탭에서 문제가 생긴 실행 항목을 클릭합니다.</li>
-    <li><strong>실패한 단계 찾기:</strong> 단계 목록에서 빨간 X 표시가 붙은 단계를 찾습니다.</li>
-    <li><strong>로그 펼쳐 읽기:</strong> 해당 단계를 클릭해 펼치고, 에러 메시지를 위에서부터 읽습니다.</li>
-    <li><strong>원인에 맞춰 조치:</strong> Secret 값 오타, 코드 오류, API 키 만료 등 원인에 따라 해당 부분을 수정하고 다시 실행합니다.</li>
-  </ol>
-
-  <p style="background:#e8f4fd;border-left:3px solid #0969da;padding:8px 14px;border-radius:4px;font-size:13.5px;">💡 <strong>핵심 한 줄:</strong> 워크플로우가 실패하면 당황하지 말고 Actions 탭 → 실패한 실행 → 빨간 X가 붙은 단계 순서로 로그를 열어보면 대부분 원인을 바로 확인할 수 있습니다.</p>
-
-  <hr>
-
-  <!-- ── 참고 링크 ── -->
-  <h2 id="refs">참고 링크</h2>
-  <ul style="list-style: none; padding: 0; line-height: 2.2;">
-    <li>📖 <a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/quickstart-for-repositories" target="_blank">GitHub Docs — Quickstart for repositories</a></li>
-    <li>⚙️ <a href="https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions" target="_blank">GitHub Docs — Workflow syntax for GitHub Actions</a></li>
-    <li>🔐 <a href="https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions" target="_blank">GitHub Docs — Using secrets in GitHub Actions</a></li>
-  </ul>
-
-  <hr>
-  <p style="margin-top: 24px; color: var(--text-dim); font-size: 12px;">GitHub Actions · GitHub 웹 UI 최신 버전 기준 | 2026년 7월</p>
+  <p style="margin-top: 24px; color: var(--text-dim); font-size: 12px;"><a href="../index.html">← 핸드북 홈으로 돌아가기</a></p>
 </main>
 
 </div>
