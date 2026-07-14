@@ -1,6 +1,6 @@
 /* 랜딩 사이트 전체 검색 — 의존성·빌드 없음.
    첫 포커스 때 DOCS의 모든 문서를 fetch → DOMParser로 파싱해 색인 구축(항상 최신).
-   매뉴얼: h2[id](섹션) + h3(항목, 안에 <code>) / 예시: .scenario-card[id](시나리오)
+   이론: h2[id](섹션) + h3(항목, 안에 <code>) / 실습: .scenario-card[id](시나리오·STEP)
    결과 선택 시 해당 문서의 정확한 위치로 이동(+ ?q= 로 그 페이지 검색 자동 적용).
 
    ★ 사용 시 수정할 곳은 아래 DOCS 배열 하나뿐 — 새 문서의 path·title로 교체한다.
@@ -8,16 +8,14 @@
 (function () {
   'use strict';
   var DOCS = [
-    { path: 'day1-setup/day1-setup_Manual.html',       title: 'Day 1 환경 준비 — 매뉴얼' },
-    { path: 'day1-setup/day1-setup_Examples.html',     title: 'Day 1 환경 준비 — 실습 예시' },
-    { path: 'day2-telegram/day2-telegram_Manual.html',   title: 'Day 2 텔레그램 봇 만들기 — 매뉴얼' },
-    { path: 'day2-telegram/day2-telegram_Examples.html', title: 'Day 2 텔레그램 봇 만들기 — 실습 예시' },
-    { path: 'day3-newsapi/day3-newsapi_Manual.html',     title: 'Day 3 네이버 뉴스 API 연동 — 매뉴얼' },
-    { path: 'day3-newsapi/day3-newsapi_Examples.html',   title: 'Day 3 네이버 뉴스 API 연동 — 실습 예시' },
-    { path: 'day4-automation/day4-automation_Manual.html',   title: 'Day 4 GitHub Actions 자동화 — 매뉴얼' },
-    { path: 'day4-automation/day4-automation_Examples.html', title: 'Day 4 GitHub Actions 자동화 — 실습 예시' },
-    { path: 'day5-operate/day5-operate_Manual.html',     title: 'Day 5 운영과 리더십 로드맵 — 매뉴얼' },
-    { path: 'day5-operate/day5-operate_Examples.html',   title: 'Day 5 운영과 리더십 로드맵 — 실습 예시' }
+    { path: 'day1/day1_Manual.html',   title: 'Day 1 AI 개념과 개발 환경 구축 — 이론' },
+    { path: 'day1/day1_Examples.html', title: 'Day 1 AI 개념과 개발 환경 구축 — 실습' },
+    { path: 'day2/day2_Manual.html',   title: 'Day 2 (미정) — 이론' },
+    { path: 'day2/day2_Examples.html', title: 'Day 2 (미정) — 실습' },
+    { path: 'day3/day3_Manual.html',   title: 'Day 3 (미정) — 이론' },
+    { path: 'day3/day3_Examples.html', title: 'Day 3 (미정) — 실습' },
+    { path: 'day4/day4_Manual.html',   title: 'Day 4 (미정) — 이론' },
+    { path: 'day4/day4_Examples.html', title: 'Day 4 (미정) — 실습' }
   ];
   function ready(fn){ if (document.readyState !== 'loading') fn(); else document.addEventListener('DOMContentLoaded', fn); }
   function strip(s){ return (s || '').replace(/\s+/g, ' ').trim(); }
@@ -47,7 +45,7 @@
     var wrap = document.createElement('div');
     wrap.className = 'ss-wrap';
     wrap.innerHTML =
-      '<input type="search" placeholder="핸드북 전체 검색 — 섹션·항목·시나리오…" aria-label="핸드북 전체 검색">' +
+      '<input type="search" placeholder="가이드북 전체 검색 — 섹션·항목·시나리오…" aria-label="가이드북 전체 검색">' +
       '<div class="ss-results" role="listbox"></div>' +
       '<div class="ss-hint">' + DOCS.length + '개 문서 전체에서 찾아 해당 위치로 이동합니다.</div>';
     firstGroup.parentNode.insertBefore(wrap, firstGroup);
