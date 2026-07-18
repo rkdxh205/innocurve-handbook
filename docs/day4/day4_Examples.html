@@ -220,11 +220,12 @@
 
   <div class="nav-group">bkit PDCA 완성</div>
   <a href="#step-1"><span class="dot dot-g"></span>STEP 1 · Do — 기능 구현</a>
+  <a href="#ref-code"><span class="dot dot-g"></span>참고 · 예시 앱(문서 Q&amp;A 봇)</a>
   <a href="#step-2"><span class="dot dot-b"></span>STEP 2 · Check — Gap 분석·검증</a>
   <a href="#step-3"><span class="dot dot-p"></span>STEP 3 · Act — 개선·고도화</a>
 
   <div class="nav-group">마무리 (진행 시간)</div>
-  <a href="#step-4"><span class="dot dot-o"></span>STEP 4 · 배포 및 발표 준비</a>
+  <a href="#step-4"><span class="dot dot-o"></span>STEP 4 · Vercel 자동 배포</a>
   <a href="#step-5"><span class="dot dot-o"></span>STEP 5 · 발표 및 시연</a>
   <a href="#step-6"><span class="dot dot-o"></span>STEP 6 · 피드백·평가·수료</a>
 
@@ -239,12 +240,12 @@
 
   <div class="version-box">
     <div class="version-row"><span class="vlabel">진행 순서</span><span>STEP 1 Do → STEP 2 Check → STEP 3 Act → STEP 4~6 배포·발표·수료</span></div>
-    <div class="version-row"><span class="vlabel">사용 도구</span><span><strong>Claude Code(CLI)</strong> · <strong>OpenAI API Key</strong>(Day 1 발급) · <strong>Vercel</strong></span></div>
-    <div class="version-row"><span class="vlabel">오늘의 결과물</span><span>동작하는 <code>doc-qa-bot</code> · 인터넷에 배포된 주소 · 발표·시연</span></div>
+    <div class="version-row"><span class="vlabel">사용 도구</span><span><strong>Claude Desktop</strong>의 <strong>Code 탭</strong> · (외부 API를 쓰면) <strong>API Key</strong> · <strong>Vercel</strong></span></div>
+    <div class="version-row"><span class="vlabel">오늘의 결과물</span><span>동작하는 <strong>내 앱</strong> · 인터넷에 배포된 주소 · 발표·시연</span></div>
   </div>
 
   <div class="warning-box">
-    Day 4는 Day 3의 <code>doc-qa-bot</code> 폴더를 이어서 씁니다. 이미 <code>CLAUDE.md</code>(규칙)·<code>PLAN.md</code>·<code>DESIGN.md</code>가 준비돼 있다고 가정합니다. 답변 생성에는 <strong>OpenAI API Key</strong>가 필요하며, 키는 <strong>코드에 직접 쓰지 말고</strong> <code>.env</code> 같은 파일로 관리하고 <strong>커밋하지 마세요.</strong>
+    Day 4는 Day 3의 <strong>작업 폴더</strong>를 이어서 씁니다. 이미 <code>CLAUDE.md</code>(규칙)·<code>PLAN.md</code>·<code>DESIGN.md</code>가 준비돼 있다고 가정합니다. 앱이 <strong>외부 API(예: OpenAI)</strong>를 쓰면 <strong>API Key</strong>가 필요하며, 키는 <strong>코드에 직접 쓰지 말고</strong> <code>.env</code> 같은 파일로 관리하고 <strong>커밋하지 마세요.</strong>
   </div>
 
   <!-- ══════════════════════════════ bkit PDCA 완성 ══════════════════════════════ -->
@@ -259,12 +260,23 @@
     <div class="card-header">
       <span class="card-id">STEP 1</span>
       <span class="badge badge-g">Do</span>
-      <strong class="card-title">PLAN·DESIGN대로 MVP 구현하기</strong>
+      <strong class="card-title">PLAN·DESIGN대로 하나씩 구현하기</strong>
     </div>
     <div class="card-body">
 
       <div class="situation">
-        Day 3의 <code>PLAN.md</code>·<code>DESIGN.md</code>를 입력으로, 문서 Q&amp;A(RAG) 챗봇의 <strong>가장 작은 동작 버전(MVP)</strong>부터 만듭니다. 한 번에 다 만들지 말고, 작업을 하나씩 시켜 그때그때 실행해 확인합니다.
+        Day 3의 <code>PLAN.md</code>·<code>DESIGN.md</code>를 입력으로 <strong>내 앱</strong>을 구현합니다. PRD가 이미 MVP 규모이니 <strong>그 전체를 만들되</strong>, 한 번에 다 만들지 말고 <strong>작업을 하나씩</strong> 시켜 그때그때 실행해 확인합니다. 먼저 <strong>핵심 흐름 하나를 끝까지</strong> 돌려 놓고 나머지를 얹으면 안전합니다.
+      </div>
+
+      <div class="doc-box">
+        <div class="doc-title">구현 규약 — 서버·비밀 키를 쓰는 앱만 (정적 앱은 건너뛰기)</div>
+        <ul>
+          <li>서버리스 함수는 <code>api/</code> 폴더에 둔다 (Vercel이 자동으로 인식)</li>
+          <li>비밀 키는 코드에 두지 말고 <b>환경변수(예: <code>OPENAI_API_KEY</code>)로만</b> 읽고, 없으면 안내 메시지를 돌려준다</li>
+          <li>화면(정적 HTML)은 그 함수를 <code>/api/…</code> 경로로 호출한다</li>
+        </ul>
+        내 앱이 <b>서버에서 외부 API·비밀 키를 쓴다면</b> 이 규약을 지켜야 Day 4 <a href="#step-4">STEP 4 배포</a>가 매끄럽습니다. 정적 화면만이라면 이 규약은 건너뛰어도 됩니다.
+        <p style="margin:8px 0 0"><b>왜 <code>api/</code> 함수가 필요할까요?</b> 비밀 키를 화면(브라우저)에 두면 <b>누구나 열어 볼 수 있어</b> 위험합니다. 그래서 키를 감춰 줄 <b>중간 서버(<code>api/</code> 함수)</b>를 두고, 브라우저는 그 함수만 부릅니다 — 키는 함수 안에서만 씁니다. 정리하면 <b><code>.env</code>·환경변수 = 키 보관, <code>api/</code> 함수 = 그 키로 대신 일하는 서버</b>라 대체재가 아니라 함께 씁니다.</p>
       </div>
 
       <div class="cmd-list">
@@ -277,20 +289,15 @@
       <div class="steps-title">단계별 실행</div>
       <ol class="step-list">
         <li><div class="step-content">
-          <strong>작업 폴더에서 Claude Code 실행</strong>
-          <p>터미널에서 <code>doc-qa-bot</code> 폴더로 이동한 뒤 <code>claude</code>를 실행합니다.</p>
-          <div class="code-wrap">
-            <pre class="code-block"><span class="c-cmd">cd</span> doc-qa-bot
-<span class="c-cmd">claude</span></pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
+          <strong>Code 탭에서 새 세션 시작 (작업 폴더 지정)</strong>
+          <p>Claude Desktop 상단 <strong>Code</strong> 탭에서 <strong>+ New session</strong>(<code>Ctrl+N</code>)으로 새 세션을 열고, <strong>Environment: Local</strong> · <strong>Project folder: Day 3의 작업 폴더</strong>를 지정합니다. Day 3의 <code>CLAUDE.md</code>·<code>PLAN.md</code>·<code>DESIGN.md</code>가 그대로 보이는지 확인합니다.</p>
         </div></li>
         <li><div class="step-content">
           <strong>계획 다시 확인하기</strong>
-          <p>구현을 시작하기 전에, Claude에게 <code>PLAN.md</code>·<code>DESIGN.md</code>를 읽고 이번에 만들 MVP의 <strong>첫 작업 하나</strong>가 무엇인지 짚게 합니다.</p>
+          <p>구현을 시작하기 전에, Claude에게 <code>PLAN.md</code>·<code>DESIGN.md</code>를 읽고 <strong>가장 먼저 구현할 작업 하나</strong>가 무엇인지 짚게 합니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">PLAN.md와 DESIGN.md를 읽고, MVP를 만들기 위해
+            <pre class="code-block">PLAN.md와 DESIGN.md를 읽고,
 가장 먼저 구현할 작업 하나가 무엇인지 알려줘.
 아직 코드는 만들지 말고, 그 작업만 한 문장으로 정리해줘.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
@@ -310,14 +317,101 @@
         </div></li>
         <li><div class="step-content">
           <strong>실행해 확인하고 다음 작업으로</strong>
-          <p>안내받은 방법으로 직접 실행해 동작을 확인합니다. 잘 되면 <code>PLAN.md</code>의 <strong>다음 작업</strong>으로 넘어가 3~4번을 반복하며 MVP를 완성합니다.<span class="note">(답변 생성 기능을 붙일 때 OpenAI API Key가 필요합니다. 키는 <code>.env</code>로 관리하고 커밋하지 마세요.)</span></p>
+          <p>구현한 것을 <strong>바로 실행해 눈으로 확인</strong>합니다(방법은 아래 <b>팁</b> 참고). 잘 되면 <code>PLAN.md</code>의 <strong>다음 작업</strong>으로 넘어가 3~4번을 반복하며 <strong>앱을 완성</strong>합니다.<span class="note">(앱이 외부 API를 쓰면 그 API Key가 필요합니다. 키는 <code>.env</code>로 관리하고 커밋하지 마세요.)</span></p>
         </div></li>
       </ol>
+
+      <div class="tip-box">
+        <b>결과를 눈으로 확인하는 법 (Code 탭)</b><br>
+        • <b>가장 쉬운 법</b> — 채팅에 뜬 <code>index.html</code> 같은 <b>파일 경로를 클릭</b>하면 오른쪽 <b>브라우저 창</b>에 바로 열립니다(단축키 <code>Ctrl+Shift+B</code>). 정적 화면은 서버 없이 이렇게 바로 보입니다.<br>
+        • <b>서버(<code>api/</code> 함수)가 있는 앱</b> — Claude에게 "로컬에서 띄워서 확인하게 해줘"라고 하면 개발 서버(<code>vercel dev</code> 등)를 실행해 <code>localhost:3000</code>을 브라우저 창에 자동으로 엽니다.<br>
+        • <b>직접 명령을 치고 싶으면</b> — <b>내장 터미널</b>을 <code>Ctrl+`</code>(컨트롤+백틱)로 열어 실행합니다.
+      </div>
 
       <div class="tip-box">
         막히면 통째로 다시 만들라고 하기보다, <strong>"방금 바꾼 부분에서 무엇이 문제인지"</strong>를 물어보세요. 작게 나눠 왔기 때문에 원인을 좁히기 쉽습니다.
       </div>
 
+    </div>
+  </div>
+
+  <!-- 참고 · 예시 앱 문서Q&A봇 (드라이런으로 검증된 뼈대) -->
+  <div class="scenario-card" id="ref-code">
+    <div class="card-header">
+      <span class="card-id">참고</span>
+      <span class="badge badge-g">참고 예시</span>
+      <strong class="card-title">참고 예시 앱 — 문서 Q&amp;A 봇(RAG-lite): 내 앱이 "외부 API 호출" 구조면 대조용</strong>
+    </div>
+    <div class="card-body">
+      <div class="situation">
+        이건 <b>여러 앱 유형 중 하나의 예시</b>입니다 — "문서를 올리면 그 내용으로 답하는" 문서 Q&amp;A 봇. 내 앱도 <b>서버에서 외부 API를 부르는 구조</b>라면, 막힐 때 아래 <b>검증된 최소 예시</b>와 대조해 보세요(파일은 딱 둘 — 화면 <code>index.html</code>·서버리스 함수 <code>api/ask.js</code>). 그대로 베끼기보다 <b>내 코드와 무엇이 다른지 비교</b>하는 용도이며, <b>정적 앱이라면 넘어가도 됩니다.</b>
+      </div>
+
+      <span class="prompt-label">api/ask.js — 서버리스 함수 (OpenAI 호출)</span>
+      <div class="code-wrap">
+        <pre class="code-block">module.exports = async (req, res) =&gt; {
+  if (req.method !== 'POST') { res.status(405).json({ error: 'POST만 지원합니다.' }); return; }
+
+  const apiKey = process.env.OPENAI_API_KEY;              // 키는 환경변수로만
+  if (!apiKey) { res.status(500).json({ error: 'OPENAI_API_KEY가 없습니다.' }); return; }
+
+  let body = req.body;
+  if (typeof body === 'string') { try { body = JSON.parse(body); } catch { body = {}; } }
+  const { document = '', question = '' } = body || {};
+  if (!question.trim()) { res.status(400).json({ error: '질문을 입력하세요.' }); return; }
+
+  const prompt = '아래 문서만 근거로 한국어로 답하세요. 없으면 "문서에서 찾을 수 없습니다".\n\n'
+               + '[문서]\n' + document + '\n\n[질문]\n' + question;
+
+  const r = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + apiKey },
+    body: JSON.stringify({ model: 'gpt-4o-mini', messages: [{ role: 'user', content: prompt }] })
+  });
+  const data = await r.json();
+  if (!r.ok) { res.status(502).json({ error: 'OpenAI 호출 실패', detail: data }); return; }
+  res.status(200).json({ answer: data.choices[0].message.content });
+};</pre>
+        <button class="copy-btn" onclick="copyCode(this)">복사</button>
+      </div>
+
+      <div class="doc-box">
+        <div class="doc-title">이 함수가 하는 일 (한눈에)</div>
+        <ul>
+          <li><b>POST 요청만 받기</b> — 화면에서 보낸 질문을 받습니다(그 외 방식은 거절).</li>
+          <li><b>환경변수에서 키 읽기</b> — <code>OPENAI_API_KEY</code>를 코드가 아니라 환경변수에서 가져옵니다(없으면 오류 안내).</li>
+          <li><b>프롬프트 만들기</b> — "이 문서만 근거로 답해줘" 형태로 문서와 질문을 하나로 묶습니다.</li>
+          <li><b>OpenAI 호출</b> — 그 프롬프트를 OpenAI에 보내 답을 받습니다.</li>
+          <li><b>답 돌려주기</b> — 받은 답(또는 오류 메시지)을 화면으로 보냅니다.</li>
+        </ul>
+      </div>
+
+      <span class="prompt-label">index.html — 화면에서 함수를 호출하는 핵심 부분</span>
+      <div class="code-wrap">
+        <pre class="code-block">const doc = document.getElementById('doc').value;
+const question = document.getElementById('q').value;
+const r = await fetch('/api/ask', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ document: doc, question })
+});
+const data = await r.json();
+out.textContent = data.answer || ('⚠️ ' + (data.error || '알 수 없는 오류'));</pre>
+        <button class="copy-btn" onclick="copyCode(this)">복사</button>
+      </div>
+
+      <div class="doc-box">
+        <div class="doc-title">이 코드가 하는 일 (한눈에)</div>
+        <ul>
+          <li>입력칸에서 <b>문서와 질문을 읽어</b>,</li>
+          <li>내 서버 함수 <code>/api/ask</code>에 <b>보내고</b>,</li>
+          <li>돌아온 <b>답을 화면에 표시</b>합니다(오류면 ⚠️ 메시지).</li>
+        </ul>
+      </div>
+
+      <div class="warning-box">
+        모델명(<code>gpt-4o-mini</code>)은 <b>교육 시점의 최신·저가 모델</b>로 바꿀 수 있습니다. 이 예시는 "정답"이 아니라 <b>최소 뼈대</b>이며, 근거 표시·예외 처리 같은 개선은 Act 단계에서 각자 다듬습니다.
+      </div>
     </div>
   </div>
 
@@ -363,20 +457,29 @@
           </div>
         </div></li>
         <li><div class="step-content">
-          <strong>성공 기준 시나리오 돌리기</strong>
-          <p>Day 3 STEP 5에서 정한 <strong>성공 기준</strong>을 그대로 시험지로 삼아, 실제로 그 시나리오를 실행해 통과하는지 확인합니다.</p>
+          <strong>성공 기준 시나리오 돌리기 — Claude가 판정</strong>
+          <p><a href="../day3/day3_Examples.html#step-3">Day 3에서 정한 <strong>성공 기준</strong></a>을 시험지로 삼아, 그 시나리오를 실제로 실행하고 <strong>통과 여부를 Claude에게 판정</strong>하게 합니다.</p>
           <div class="doc-box">
-            <div class="doc-title">예시 — 성공 기준 시나리오</div>
-            <b>시나리오:</b> 샘플 문서 1개를 올리고, 그 문서로 답할 수 있는 질문 3개를 던진다.<br>
-            <b>통과 조건:</b> 세 질문 모두 <b>문서 근거와 함께</b> 답하면 통과.
+            <div class="doc-title">예시 — 성공 기준 시나리오 (앱마다 다름)</div>
+            성공 기준은 앱마다 다릅니다. <b>Day 3에서 내가 정한 성공 기준</b>을 그대로 쓰세요.<br>
+            <b>예(문서 Q&amp;A 봇):</b> 샘플 문서 1개를 올리고 질문 3개를 던져, 셋 다 <b>문서 근거와 함께</b> 답하면 통과.
+          </div>
+          <span class="prompt-label">프롬프트</span>
+          <div class="code-wrap">
+            <pre class="code-block">PLAN.md에 적힌 "이번 사이클 성공 기준"을 읽고,
+지금 앱으로 그 시나리오를 실제로 실행해봐.
+각 기준을 통과했는지 '통과/실패'로 판정하고,
+실패한 건 왜 실패했는지 한 줄로 알려줘.</pre>
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
         </div></li>
         <li><div class="step-content">
-          <strong>검증 결과 기록하기</strong>
-          <p>통과/실패와 Gap 목록을 <code>CHECK.md</code>로 남겨, 다음 단계(Act)에서 무엇을 고칠지 분명히 합니다.</p>
+          <strong>검증 결과 기록하기 (CHECK.md 최신화)</strong>
+          <p>통과/실패와 Gap 목록을 <code>CHECK.md</code>로 남깁니다. Check는 개선하며 <strong>여러 번 돌리므로</strong>, 매번 새 파일을 만들지 말고 <strong>같은 <code>CHECK.md</code>를 최신 결과로 갱신(덮어쓰기)</strong>합니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">방금 Gap 목록과 성공 기준 시나리오 결과를 CHECK.md로 정리해줘.
+            <pre class="code-block">방금 Gap 목록과 성공 기준 판정 결과를 CHECK.md로 정리해줘.
+- CHECK.md가 이미 있으면 새로 만들지 말고 그 파일을 최신 내용으로 덮어써줘
 - 맨 위에 "통과 / 실패"를 적고
 - 아래에 고쳐야 할 항목을 우선순위 순으로 정리해줘</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
@@ -439,7 +542,7 @@
           <div class="code-wrap">
             <pre class="code-block">지금 앱에서 사용자 경험을 가장 크게 높일 작은 개선
 한 가지를 제안하고, 그 하나만 구현해줘.
-(예: 답변에 근거 문장 표시, 빈 입력 안내 메시지 등)</pre>
+(예: 잘못된 입력 안내 메시지, 로딩 표시, 결과를 보기 좋게 정리 등)</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
         </div></li>
@@ -470,17 +573,98 @@ CLAUDE.md에 규칙으로 한두 줄 추가해줘.</pre>
   <div class="level-header">
     <span class="badge badge-o">● 마무리</span>
     <span class="level-title level-title-o">배포 · 발표 · 수료</span>
-    <span class="level-desc">별도 개념 없이 진행하는 시간입니다</span>
+    <span class="level-desc">결과물을 인터넷에 배포하고, 발표·수료로 마무리합니다</span>
   </div>
 
-  <!-- STEP 4 (진행 시간 — 헤더만) -->
-  <div class="session-card" id="step-4">
-    <div class="session-head">
-      <span class="session-id">STEP 4</span>
-      <span class="badge badge-o">진행 시간</span>
-      <span class="session-title">결과물 Vercel 배포 및 발표 준비</span>
+  <!-- STEP 4 · 배포 (실습) -->
+  <div class="scenario-card" id="step-4">
+    <div class="card-header">
+      <span class="card-id">STEP 4</span>
+      <span class="badge badge-o">배포</span>
+      <strong class="card-title">Vercel에 자동 배포하기 (Claude가 실행)</strong>
     </div>
-    <p>완성한 <code>doc-qa-bot</code>을 <strong>Vercel에 배포</strong>해 인터넷 주소로 만들고, 시연·발표를 준비하는 시간입니다. Day 1에서 익힌 배포 방식을 이번 결과물에 그대로 적용합니다. (별도 학습 개념 없음)</p>
+    <div class="card-body">
+
+      <div class="situation">
+        완성한 <strong>내 앱</strong>을 <strong>Claude Code가 Vercel에 직접 배포</strong>합니다. 사람은 <strong>최초 1회 <code>vercel login</code>(브라우저 승인)</strong>만 하고, 실제 배포 명령(<code>vercel --prod</code>)은 <strong>Claude가 대신 실행</strong>합니다 — <strong>터미널을 직접 열거나</strong> 웹사이트에 들어갈 필요가 없습니다. 이후 수정할 때마다 "다시 배포해줘" 한마디면 됩니다.
+      </div>
+
+      <div class="cmd-list">
+        <div class="cmd-list-title">관련 이론</div>
+        <div class="cmd-chips">
+          <a class="cmd-chip" href="day4_Manual.html#section-4">배포 및 발표 준비</a>
+        </div>
+      </div>
+
+      <div class="steps-title">단계별 실행</div>
+      <ol class="step-list">
+        <li><div class="step-content">
+          <strong>① 배포 준비 점검 (Claude Code에게)</strong>
+          <p>배포 전에, 그대로 올라갈 구조인지 Claude Code에게 확인·정리시킵니다.</p>
+          <span class="prompt-label">프롬프트</span>
+          <div class="code-wrap">
+            <pre class="code-block">이 프로젝트를 Vercel에 배포하려고 해. 아래를 점검·정리해줘.
+- (서버리스 함수를 쓰면) api 폴더에 있고, 화면에서 /api/… 로 호출하는지
+- 비밀 키를 코드에 직접 두지 않고 환경변수로만 읽는지
+- .env 같은 비밀 파일이 코드에 섞여 올라가지 않는지
+- 정적 파일만이라면 그대로 배포 가능한지
+고쳤으면 무엇을 왜 바꿨는지 한 줄로 알려줘.</pre>
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
+          </div>
+        </div></li>
+
+        <li><div class="step-content">
+          <strong>② Vercel 로그인 (최초 1회 · 브라우저 승인만)</strong>
+          <p><strong>터미널을 직접 열 필요 없이</strong>, 아래처럼 Claude에게 시키면 Vercel 도구 설치·로그인을 <strong>Claude가 대신 실행</strong>합니다. <strong>브라우저 창이 뜨면 본인이 승인</strong>하면 끝 — 이 승인이 사람이 하는 유일한 단계입니다.</p>
+          <span class="prompt-label">프롬프트</span>
+          <div class="code-wrap">
+            <pre class="code-block">Vercel에 배포할 수 있게 준비해줘.
+vercel 도구를 설치하고 로그인을 시작해줘.
+(로그인 창이 뜨면 내가 승인할게.)</pre>
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
+          </div>
+          <p class="code-caption">▲ Claude가 대신 실행하는 명령: <code>npm install -g vercel</code> → <code>vercel login</code>. 직접 보고 싶으면 내장 터미널(<code>Ctrl+`</code>)에서 같은 명령을 쳐도 됩니다.</p>
+        </div></li>
+
+        <li><div class="step-content">
+          <strong>③ Claude가 배포하기 (<code>vercel --prod</code>)</strong>
+          <p>로그인만 되면, 아래처럼 시켜 <strong>Claude가 직접 배포</strong>하게 합니다. 프로젝트 설정 질문은 기본값으로 넘어가고, 끝나면 <code>https://…vercel.app</code> 공개 주소가 나옵니다.</p>
+          <span class="prompt-label">프롬프트</span>
+          <div class="code-wrap">
+            <pre class="code-block">이 프로젝트를 vercel --prod 로 배포해줘.
+설정 질문은 기본값으로 진행하고,
+완성된 공개 주소(https://...vercel.app)를 알려줘.</pre>
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
+          </div>
+        </div></li>
+
+        <li><div class="step-content">
+          <strong>④ 비밀 키 등록 후 다시 배포 (키를 쓰는 앱만)</strong>
+          <p>앱이 <strong>외부 API(예: OpenAI)</strong>를 부른다면, 그 키를 Vercel 환경변수로 등록한 뒤 다시 배포해야 반영됩니다. 아래처럼 시키면 Claude가 등록·재배포하고, <strong>키 값만 본인이 붙여넣습니다</strong>.</p>
+          <span class="prompt-label">프롬프트</span>
+          <div class="code-wrap">
+            <pre class="code-block">OPENAI_API_KEY를 Vercel 환경변수로 등록해줘(값은 내가 입력할게).
+적용 범위는 Production으로 하고, 등록되면 vercel --prod 로 다시 배포해줘.</pre>
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
+          </div>
+          <p class="code-caption">▲ 정적 화면만인 앱은 이 단계를 건너뜁니다. 키 이름은 내 앱이 쓰는 API에 맞게 바꿔도 됩니다.</p>
+        </div></li>
+
+        <li><div class="step-content">
+          <strong>⑤ 이후 수정할 때마다 — "다시 배포해줘"</strong>
+          <p>코드를 고친 뒤에는 Claude에게 <strong>"다시 배포해줘"</strong>라고만 하면 <code>vercel --prod</code>를 다시 실행해 <strong>같은 주소에 갱신</strong>합니다. 발표 땐 이 공개 주소로 시연합니다.</p>
+        </div></li>
+      </ol>
+
+      <div class="warning-box">
+        <b>비밀 키는 반드시 Vercel 환경변수로만.</b> 코드나 정적 HTML(브라우저)에 키를 직접 넣으면 배포와 동시에 누구나 볼 수 있습니다. 키는 <strong>Vercel 환경변수</strong>에 두고 서버리스 함수가 그 값을 읽게 하며, <code>.env</code> 파일은 <strong>공유·커밋하지 않습니다.</strong>
+      </div>
+
+      <div class="tip-box">
+        배포 후 (키가 필요한) 기능이 안 되면 대개 <strong>환경변수를 등록한 뒤 다시 배포(<code>vercel --prod</code>)를 안 한 경우</strong>입니다. 키를 추가하면 반드시 다시 배포해야 반영됩니다.<br>완전 무인으로 하려면 vercel.com에서 토큰을 1회 발급해 <b>Local 환경변수 <code>VERCEL_TOKEN</code></b>에 저장하면, 이후 로그인 없이 Claude가 배포합니다.
+      </div>
+
+    </div>
   </div>
 
   <!-- STEP 5 (진행 시간 — 헤더만) -->
@@ -524,7 +708,6 @@ function copyCode(btn) {
 </script>
 <script src="../assets/roadmap.js" defer></script>
 <script src="../assets/autolink.js" defer></script>
-<script src="../assets/glossary.js" defer></script>
 <script src="../assets/inpage-search.js" defer></script>
 </body>
 </html>
