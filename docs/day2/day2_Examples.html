@@ -439,7 +439,7 @@
           <p>Claude Desktop 대화창에 아래 프롬프트를 붙여넣어, 빈 <code>PRD.md</code> 템플릿을 만들게 합니다. 파일 생성을 물으면 <strong>"허용(Allow)"</strong> 합니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">doc-qa-bot 폴더에 PRD.md 파일을 만들어줘.
+            <pre class="code-block">Filesystem으로 doc-qa-bot 폴더에 PRD.md 파일을 직접 만들어줘.
 아래 다섯 항목의 빈 템플릿으로 만들어줘.
 1) 문제 정의
 2) 목표와 성공 기준
@@ -454,7 +454,7 @@
           <p>STEP 2에서 잡은 메모를 불러 주며 각 항목을 채우게 합니다. 아래처럼 내 내용을 넣어 요청합니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">PRD.md를 아래 내용으로 채워줘.
+            <pre class="code-block">Filesystem으로 PRD.md를 아래 내용으로 직접 채워줘.
 - 문제: (STEP 2에서 적은 문제 한 문장)
 - 핵심 기능: (STEP 2에서 고른 기능들)
 - 사용자 흐름: (STEP 2에서 그린 흐름)
@@ -517,7 +517,7 @@
           <p>같은 대화(또는 <code>doc-qa-bot</code> 폴더가 지정된 대화)에서 아래 프롬프트로 검토를 요청합니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">PRD.md를 읽고 검토해줘.
+            <pre class="code-block">Filesystem으로 PRD.md를 직접 읽고 검토해줘.
 1) 빠졌거나 더 정해야 할 부분
 2) 모호하게 적힌 문장
 3) 사용자가 겪을 수 있는 예외 상황 5가지
@@ -532,7 +532,7 @@
           <div class="code-wrap">
             <pre class="code-block">방금 준 의견 중에서
 (예: 1번, 3번의 첫째·둘째 항목)만 반영해서
-PRD.md를 업데이트해줘.</pre>
+Filesystem으로 PRD.md를 직접 업데이트해줘.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
         </div></li>
@@ -542,7 +542,7 @@ PRD.md를 업데이트해줘.</pre>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
             <pre class="code-block">핵심 기능을 만들기 좋은 작은 작업 단위로 나눠서,
-PRD.md 맨 아래에 "개발 단위" 섹션으로 추가해줘.
+Filesystem으로 PRD.md 맨 아래에 "개발 단위" 섹션으로 직접 추가해줘.
 각 단위는 한 줄로, 만들 순서대로 정렬해줘.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>

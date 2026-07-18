@@ -386,14 +386,23 @@
       <div class="steps-title">단계별 실행</div>
       <ol class="step-list">
         <li><div class="step-content">
-          <strong>Claude 가입 및 Pro 구독</strong>
-          <p>claude.ai에서 계정을 만든 뒤 아래 순서로 Pro를 구독합니다.<span class="note">(Free로도 진행은 가능하지만, 사용량 제한이 빡빡해 실습에는 Pro를 권장합니다.)</span></p>
+          <strong>Claude 가입 및 유료 구독 (Pro 또는 Max)</strong>
+          <p>claude.ai에서 계정을 만든 뒤 아래 순서로 유료 플랜을 구독합니다.</p>
           <ol class="substeps">
             <li>로그인 후 화면 <strong>좌측 하단의 이름</strong>을 클릭하고 <strong>"Settings"</strong>를 선택합니다.</li>
             <li><strong>"Billing"</strong> 탭으로 이동해 <strong>"Upgrade plan"</strong>을 클릭합니다.</li>
-            <li><strong>Pro</strong> 플랜을 선택하고 결제 주기(월간/연간)를 고릅니다.</li>
+            <li>실습 강도에 맞는 플랜을 선택하고 결제 주기를 고릅니다.<span class="note">(아래는 2026년 7월 기준 요금이며, 최신 금액은 결제 화면에서 확인하세요.)</span>
+              <ul>
+                <li><strong>Pro</strong> — 월 <strong>$20</strong>(연간 결제 시 약 $17/월). 개념 실습·PRD 작성 등 가벼운 작업에 적당합니다.</li>
+                <li><strong>Max 5×</strong> — 월 <strong>$100</strong>. Pro의 약 5배 사용량. 본격 앱 제작 단계에 여유가 있습니다.</li>
+                <li><strong>Max 20×</strong> — 월 <strong>$200</strong>. Pro의 약 20배 사용량. 장시간 집중 제작에 적합합니다.<span class="note">(Max는 월간 결제만 제공되며 연간 할인이 없습니다.)</span></li>
+              </ul>
+            </li>
             <li>카드 정보를 입력하고 <strong>"Subscribe"</strong>를 눌러 구독을 완료합니다.</li>
           </ol>
+          <div class="tip-box">
+            뒤 과정의 <strong>Claude Code</strong>는 파일을 읽고·쓰고·검증하는 작업을 반복해 토큰이 빠르게 소모됩니다. 고도화된 PRD 작성이나 앱 제작 같은 본격 단계에서는 <strong>Pro만으로는 사용량 한도에 금방 도달</strong>할 수 있습니다. 그래서 <strong>집중 제작 주간에는 Max를 권장</strong>하고, 이후 사용 빈도를 보며 Pro로 낮추는 방식을 추천합니다. 비용이 부담되면 Pro로 시작해도 되지만, 실습 중 한도에 걸리면 그날 진도가 끊길 수 있다는 점만 감안하세요.
+          </div>
         </div></li>
         <li><div class="step-content">
           <strong>Claude Desktop 설치 및 로그인</strong>
@@ -407,26 +416,37 @@
               </ul>
             </li>
             <li>내려받은 파일을 실행해 안내에 따라 설치를 완료합니다.</li>
-            <li>Claude Desktop을 실행하고, 앞에서 <strong>Pro를 구독한 계정으로 로그인</strong>합니다.</li>
+            <li>Claude Desktop을 실행하고, 앞에서 <strong>유료 플랜을 구독한 계정으로 로그인</strong>합니다.</li>
           </ol>
         </div></li>
         <li><div class="step-content">
           <strong>실습용 작업 폴더 만들기</strong>
-          <p>Claude가 파일을 만들어 둘 전용 폴더를 하나 준비합니다. 이 폴더만 작업 폴더로 지정할 것이므로 반드시 따로 만듭니다.</p>
+          <p>Claude가 만든 파일이 담길 <strong>전용 폴더</strong>를 하나 준비합니다. 나중에 이 폴더 하나만 Claude에게 열어 줄 거라서, 다른 파일과 섞이지 않도록 <strong>새 폴더로 따로</strong> 만드는 것이 좋습니다.</p>
           <ol class="substeps">
-            <li>파일 탐색기(Windows) 또는 Finder(macOS)에서 <strong>홈 디렉토리(내 사용자 폴더)</strong>로 이동합니다.<span class="note">(예: Windows <code>C:\Users\사용자명</code>, macOS <code>/Users/사용자명</code>)</span></li>
-            <li>그 안에 실습용 새 폴더를 만들고 이름을 <code>hello-page</code>로 짓습니다.<span class="note">(한글·공백 없는 영문 이름을 권장합니다. 전체 경로 예: <code>C:\Users\사용자명\hello-page</code>)</span></li>
+            <li><strong>바탕화면</strong>처럼 나중에 다시 열기 쉬운 곳으로 갑니다. 바탕화면이 가장 편하고, 문서 폴더나 내 사용자 폴더도 괜찮습니다 — <strong>위치는 어디든 상관없습니다.</strong></li>
+            <li>빈 공간에서 <strong>마우스 오른쪽 버튼 → "새 폴더"</strong>를 눌러 폴더를 만들고, 이름을 <code>hello-page</code>로 바꿉니다.<span class="note">(폴더 이름은 <strong>한글·띄어쓰기 없이 영문</strong>으로 지어 주세요. 그래야 나중에 오류가 나지 않습니다.)</span></li>
           </ol>
+          <p class="note" style="padding-left:2px;">윈도우에서 바탕화면이 OneDrive로 백업되고 있어도 그대로 만드시면 됩니다. 혹시 나중에 폴더를 못 찾거나 경로 관련 오류가 나면, 내 사용자 폴더(<code>C:\Users\내이름</code>)에 만들면 가장 안전합니다.</p>
         </div></li>
         <li><div class="step-content">
-          <strong>Claude Desktop에 로컬 작업 폴더 지정</strong>
-          <p>Claude Desktop이 방금 만든 <code>hello-page</code> 폴더에서 파일을 직접 만들고 수정할 수 있도록, 이 폴더를 <strong>작업 폴더로 지정</strong>합니다.</p>
+          <strong>Claude Desktop에 로컬 작업 폴더 연결하기</strong>
+          <p>Claude가 방금 만든 <code>hello-page</code> 폴더에서 파일을 직접 만들고 고칠 수 있도록, <strong>"Filesystem(파일시스템)"</strong>이라는 기능을 켜고 이 폴더를 열어 줍니다. 아래 순서대로 클릭만 하면 됩니다.</p>
           <ol class="substeps">
-            <li>Claude Desktop 좌측 하단(또는 우측 상단)의 <strong>Settings(설정)</strong>를 엽니다.</li>
-            <li>로컬 파일 접근 설정 화면으로 이동합니다.<span class="note">(버전에 따라 <strong>"Connectors"</strong>, <strong>"Extensions"</strong>, 또는 <strong>"파일/폴더 접근"</strong> 등으로 표시됩니다.)</span></li>
-            <li>목록에서 <strong>"Filesystem"</strong>(로컬 폴더 접근)을 켜고, 접근을 허용할 폴더를 물으면 앞서 만든 <strong><code>hello-page</code> 폴더</strong>를 선택합니다.<span class="note">(여러 폴더가 아니라 이 실습 폴더 하나만 지정합니다.)</span></li>
-            <li>설정을 저장하고 대화창으로 돌아오면, 이제 이 폴더를 대상으로 작업할 수 있습니다.</li>
+            <li><strong>앱 설정을 엽니다.</strong> 창 <strong>왼쪽 맨 아래의 내 이름(프로필)</strong>을 클릭한 뒤 <strong>"설정"</strong>을 누릅니다.<span class="note">(키보드로 <code>Ctrl</code> + <code>,</code>(쉼표)를 눌러도 열립니다. 채팅창 안의 톱니바퀴가 아니라 앱 전체 설정이어야 합니다.)</span></li>
+            <li>설정 창 왼쪽 메뉴에서 <strong>"데스크톱 앱" 아래의 "확장 프로그램"</strong>을 클릭합니다.<span class="note">(같은 왼쪽 메뉴 아래쪽에 있는 "커넥터"와 헷갈리지 마세요. 폴더 연결은 "확장 프로그램"에서 합니다.)</span></li>
+            <li>오른쪽 위 <strong>"확장 프로그램 찾아보기"</strong>를 눌러, 목록에서 <strong>"Filesystem"</strong>을 찾아 클릭합니다.<span class="note">("Let Claude access your filesystem to read and write files."라고 설명된 항목입니다.)</span></li>
+            <li>Filesystem 화면에서 <strong>설치</strong>한 뒤 <strong>구성 화면</strong>으로 들어갑니다.<span class="note">("구성" 버튼이 보이면 클릭하세요. "활성화하려면 먼저 필수 항목을 채우라"는 안내가 있는 화면입니다.)</span></li>
+            <li>구성 화면의 <strong>"Allowed Directories(허용 디렉터리)"</strong>에서 <strong>"+ directory 추가"</strong> 버튼을 눌러, 앞서 만든 <strong><code>hello-page</code> 폴더만</strong> 선택합니다.<span class="note">(바탕화면 전체나 여러 폴더가 아니라 딱 이 실습 폴더 하나만 추가해야 안전합니다.)</span></li>
+            <li><strong>"저장"</strong>을 누른 뒤 맨 위 토글을 켜 <strong>"사용 중"</strong> 상태로 만듭니다. 토글이 파란색으로 바뀌고 빨간 경고가 사라지면 연결 완료입니다.<span class="note">(추가한 폴더 경로가 <code>C:\Users\사용자명\Desktop\hello-page</code>처럼 표시되면 제대로 지정된 것입니다. 폴더를 추가하기 전에는 저장 버튼이 회색으로 눌리지 않습니다.)</span></li>
+            <li><strong>제대로 됐는지 확인:</strong> 대화창 아래 입력칸 왼쪽의 <strong><code>+</code> 버튼</strong>을 눌러 <strong>"커넥터"</strong> 목록에 <strong>Filesystem</strong>이 보이면 연결된 것입니다.</li>
           </ol>
+          <p class="note" style="padding-left:2px;">구성 화면을 아래로 내리면 <strong>"도구 권한"</strong>이 있는데, <strong>기본값("승인 필요")</strong> 그대로 두면 됩니다 — Claude가 파일을 읽거나 만들기 전에 매번 허용을 물어보므로 더 안전합니다.</p>
+          <div class="tip-box">
+            <strong>연결 확인:</strong> 대화창에 <strong>"Filesystem으로 hello-page 폴더에 test.txt 파일을 직접 만들어줘"</strong>라고 입력하세요. 도구 사용 허용 팝업이 뜨면 <strong>"허용"</strong>을 누르고, 실제 <code>hello-page</code> 폴더에 <code>test.txt</code>가 생기면 성공입니다. (확인 후 지워도 됩니다.)
+          </div>
+          <div class="warning-box">
+            <strong>꼭 기억하세요 — "Filesystem으로 … 직접":</strong> Claude에게 파일을 만들거나 고쳐 달라고 할 때 <strong>"Filesystem으로"</strong>와 <strong>"직접"</strong>이라는 말을 넣어야 실제 폴더에 반영됩니다. 이 말을 빼면 Claude가 폴더 대신 <strong>"다운로드 및 열기" 버튼이 달린 임시 파일</strong>만 만들어 줄 수 있습니다. 그런 파일만 보이고 폴더엔 안 생긴다면 "<strong>다운로드 파일 말고, Filesystem으로 실제 폴더에 직접 써줘</strong>"라고 다시 요청하세요. 이 규칙은 <strong>앞으로 모든 실습(웹페이지·PRD·앱 제작)에 똑같이 적용</strong>됩니다.
+          </div>
         </div></li>
       </ol>
 
@@ -462,6 +482,34 @@
       </div>
 
       <div class="steps-title">단계별 실행</div>
+
+      <div class="env-head">⚡ 방법 ① · 명령 한 줄로 빠르게 설치 <span class="env-note" style="color:#0550ae;">— 다운로드+설치 자동 (권장)</span></div>
+      <ol class="step-list">
+        <li><div class="step-content">
+          <strong>명령창에 붙여넣어 한 번에 설치</strong>
+          <p>터미널(<strong>Windows는 PowerShell</strong>, <strong>macOS는 터미널</strong>)을 열고, 운영체제에 맞는 명령을 붙여넣어 실행합니다. 마법사 클릭 없이 내 PC에 맞는 파일만 자동으로 내려받아 설치됩니다.</p>
+          <p style="font-size:13.5px;color:var(--text-dim);margin:6px 0 2px;"><strong>Windows</strong> (PowerShell) — 아래 두 명령을 <strong>하나씩</strong> 복사해 실행합니다.</p>
+          <p style="font-size:13px;color:var(--text-dim);margin:8px 0 2px;">① Node.js 설치</p>
+          <div class="code-wrap">
+            <pre class="code-block"><span class="c-cmd">winget</span> install OpenJS.NodeJS.LTS</pre>
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
+          </div>
+          <p style="font-size:13px;color:var(--text-dim);margin:8px 0 2px;">② Git 설치</p>
+          <div class="code-wrap">
+            <pre class="code-block"><span class="c-cmd">winget</span> install Git.Git</pre>
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
+          </div>
+          <p class="note" style="padding-left:2px;">①이 끝난 뒤 ②를 실행하세요. (한 명령이 끝나야 다음이 깔끔하게 진행됩니다. 둘을 한꺼번에 붙여넣어도 순서대로 실행되긴 합니다.)</p>
+          <p style="font-size:13.5px;color:var(--text-dim);margin:10px 0 2px;"><strong>macOS</strong> (터미널 · Homebrew가 있는 경우)</p>
+          <div class="code-wrap">
+            <pre class="code-block"><span class="c-cmd">brew</span> install node git</pre>
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
+          </div>
+          <p>설치 도중 <strong>관리자 권한 팝업(UAC)</strong>이 뜨면 <strong>"예"</strong>를 누릅니다. 끝나면 아래 <strong>"설치 확인 &amp; Git 최초 설정"</strong>으로 넘어가세요.<span class="note">(<code>winget</code>을 못 찾는다고 나오거나 맥에 Homebrew가 없으면 아래 <strong>방법 ②</strong>로 하세요.)</span></p>
+        </div></li>
+      </ol>
+
+      <div class="env-head env-ide">🌐 방법 ② · 사이트에서 직접 내려받기 <span class="env-note">— winget/Homebrew가 없을 때</span></div>
       <ol class="step-list">
         <li><div class="step-content">
           <strong>Node.js 설치</strong>
@@ -499,6 +547,10 @@
             <figcaption>그림 2-2. Windows 탭의 파란색 "Git for Windows/x64 Setup" 링크</figcaption>
           </figure>
         </div></li>
+      </ol>
+
+      <div class="env-head">✅ 설치 확인 &amp; Git 최초 설정 <span class="env-note" style="color:#0550ae;">— 방법 ①·② 공통</span></div>
+      <ol class="step-list">
         <li><div class="step-content">
           <strong>터미널에서 버전 확인</strong>
           <p>터미널(Windows는 PowerShell, macOS는 터미널)을 열고 아래를 입력합니다. 버전 번호가 나오면 정상 설치된 것입니다.</p>
@@ -566,7 +618,7 @@
           <p>이후 실습에서 프로그램이 OpenAI를 호출할 때 쓸 API Key를 미리 준비합니다. 먼저 아래 프롬프트로 <code>.env</code> 파일을 만들어 달라고 요청합니다.</p>
           <span class="prompt-label">프롬프트 ①</span>
           <div class="code-wrap">
-            <pre class="code-block">hello-page 폴더에 .env 파일을 만들어줘.
+            <pre class="code-block">Filesystem으로 hello-page 폴더에 .env 파일을 직접 만들어줘.
 그 안에 OPENAI_API_KEY 항목을 넣어줘.
 그리고 .gitignore 파일에도 .env를 추가해서
 API Key가 실수로 업로드되지 않게 해줘.</pre>
@@ -576,7 +628,7 @@ API Key가 실수로 업로드되지 않게 해줘.</pre>
           <span class="prompt-label">프롬프트 ②</span>
           <div class="code-wrap">
             <pre class="code-block">OPENAI_API_KEY 값은 sk-여기에-내-키를-붙여넣기 야.
-.env 파일의 OPENAI_API_KEY에 이 값을 넣어줘.</pre>
+Filesystem으로 .env 파일의 OPENAI_API_KEY에 이 값을 직접 넣어줘.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
           <div class="warning-box">
@@ -588,7 +640,7 @@ API Key가 실수로 업로드되지 않게 해줘.</pre>
           <p>아래 프롬프트를 Claude Desktop 대화창에 그대로 붙여넣습니다. 내용은 본인 소개에 맞게 바꿔도 됩니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">hello-page 폴더에 자기소개 웹페이지를 만들어줘.
+            <pre class="code-block">Filesystem으로 hello-page 폴더에 자기소개 웹페이지를 직접 만들어줘.
 index.html 파일 하나에 제목, 짧은 소개 문단,
 그리고 좋아하는 것 3가지를 목록으로 넣어줘.
 색상은 파란색 계열로 깔끔하게 디자인해줘.</pre>
@@ -644,7 +696,7 @@ index.html 파일 하나에 제목, 짧은 소개 문단,
           <p>STEP 4에서 이어 온 Claude Desktop 대화창에 아래 프롬프트를 입력해 디자인과 기능을 함께 수정합니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">방금 만든 index.html을 이렇게 바꿔줘.
+            <pre class="code-block">Filesystem으로 방금 만든 index.html을 직접 이렇게 바꿔줘.
 1. 배경을 밝은 회색으로 바꾸고 제목을 가운데 정렬해줘.
 2. 맨 아래에 "문의하기" 버튼을 하나 추가하고,
    누르면 "감사합니다!"라는 알림창이 뜨게 해줘.</pre>
