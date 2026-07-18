@@ -5,10 +5,10 @@
   'use strict';
 
   var DAYS = [
-    { n: 1, title: 'AI 개념과 환경 구축', desc: 'Node.js·Git·Claude Code 설치, 헬로페이지 배포', status: 'confirmed' },
-    { n: 2, title: '미정', desc: '세부 주제 추후 확정', status: 'tbd' },
-    { n: 3, title: '미정', desc: '세부 주제 추후 확정', status: 'tbd' },
-    { n: 4, title: '미정', desc: '세부 주제 추후 확정', status: 'tbd' }
+    { n: 1, title: 'AI 개념과 환경 구축', desc: 'Node.js·Git·Claude Desktop 설치, 헬로페이지 배포', status: 'confirmed' },
+    { n: 2, title: 'AI 앱 개념과 PRD 작성', desc: 'RAG 챗봇 이해, 내 앱 PRD 작성·검토', status: 'confirmed' },
+    { n: 3, title: 'Claude Code 심화와 PDCA', desc: '스킬·플러그인·MCP·하네스, PRD 기반 계획·설계', status: 'confirmed' },
+    { n: 4, title: 'PDCA 완성과 배포·발표', desc: 'Do·Check·Act로 앱 완성, Vercel 배포·발표·수료', status: 'confirmed' }
   ];
 
   var CSS = [
@@ -68,7 +68,6 @@
     for (var i = 0; i < DAYS.length; i++) {
       var d = DAYS[i];
       var cls = 'rm-step ' + d.status + (d.n === active ? ' active' : '');
-      var badge = d.status === 'confirmed' ? '확정' : '미정';
       var href = '../day' + d.n + '/day' + d.n + '_Manual.html';
       var aria = d.n === active ? ' aria-current="page"' : '';
       html += '<a class="' + cls + '" href="' + href + '"' + aria + '>' +
@@ -76,7 +75,6 @@
         '<div class="rm-day">Day ' + d.n + '</div>' +
         '<div class="rm-title">' + d.title + '</div>' +
         '<div class="rm-desc">' + d.desc + '</div>' +
-        '<span class="rm-badge">' + badge + '</span>' +
       '</a>';
     }
     html += '</div>';

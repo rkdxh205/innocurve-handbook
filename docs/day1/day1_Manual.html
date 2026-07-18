@@ -161,7 +161,7 @@
   <a href="#section-1">1. AI 기초개념과 트렌드</a>
   <a href="#section-2">2. 온라인 서비스의 이해 (GitHub·Vercel·OpenAI)</a>
   <a href="#section-3">3. 개발 도구의 이해 (Node.js·Git)</a>
-  <a href="#section-4">4. Claude와 Claude Code의 이해</a>
+  <a href="#section-4">4. Claude와 Claude Desktop의 이해</a>
   <a href="#section-5">5. 바이브 코딩과 배포의 이해</a>
   <div class="nav-section">부록</div>
   <a href="#refs">참고 링크</a>
@@ -176,7 +176,7 @@
 
   <!-- ── 버전 박스 ── -->
   <div class="version-box">
-    <div class="version-row"><span class="vlabel">다루는 개념</span><span class="vvalue">생성형 AI와 LLM의 기본 개념부터 GitHub·Vercel·OpenAI 온라인 서비스, Node.js·Git 개발 도구,<br>Claude 구독과 Claude Code, 바이브 코딩과 배포까지 다룹니다.</span></div>
+    <div class="version-row"><span class="vlabel">다루는 개념</span><span class="vvalue">생성형 AI와 LLM의 기본 개념부터 GitHub·Vercel·OpenAI 온라인 서비스, Node.js·Git 개발 도구,<br>Claude 구독과 Claude Desktop·로컬 작업 폴더, 바이브 코딩과 배포까지 다룹니다.</span></div>
     <div class="version-row"><span class="vlabel">짝 문서(실습)</span><span class="vvalue"><a href="day1_Examples.html">day1_Examples.html</a> — 이 개념들을 실제로 설치·실행하는 순서</span></div>
   </div>
 
@@ -188,7 +188,7 @@ Day 1 · 이론 → 실습 대응표
 ├── <span class="cmd">1. AI 기초개념과 트렌드</span>          <span class="desc">→ 실습 전 반드시 이해 (실습에 별도 단계 없음)</span>
 ├── <span class="cmd">2. GitHub·Vercel·OpenAI 이해</span>     <span class="desc">→ 실습 STEP 1</span>
 ├── <span class="cmd">3. Node.js·Git 이해</span>              <span class="desc">→ 실습 STEP 2</span>
-├── <span class="cmd">4. Claude·Claude Code 이해</span>        <span class="desc">→ 실습 STEP 3</span>
+├── <span class="cmd">4. Claude·Claude Desktop 이해</span>     <span class="desc">→ 실습 STEP 3</span>
 └── <span class="cmd">5. 바이브 코딩·배포 이해</span>          <span class="desc">→ 실습 STEP 4·5 (헬로페이지)</span>
 </pre></div>
 
@@ -216,7 +216,7 @@ Day 1 · 이론 → 실습 대응표
     <tbody>
       <tr><td><code>ChatGPT</code><br>(OpenAI)</td><td>범용성 · 생태계</td><td>가장 널리 쓰이는 대화형 AI로, 폭넓은 API·플러그인 생태계와 이미지 생성·음성 대화 등 다양한 기능을 한곳에서 제공합니다. 일반적인 문서 작성·아이디어 발상에 두루 강합니다.</td></tr>
       <tr><td><code>Gemini</code><br>(Google)</td><td>구글 연동 · 멀티모달</td><td>구글 검색·Gmail·문서 등 구글 서비스와의 연동과 최신 정보 반영에 강하며, 텍스트·이미지·영상을 함께 이해하는 멀티모달 처리와 매우 긴 문맥 처리에 강점이 있습니다.</td></tr>
-      <tr><td><code>Claude</code><br>(Anthropic)</td><td>긴 문서 · 코드 · 안전성</td><td>긴 문맥의 정확한 이해, 코드 작성, 안정적이고 신중한 답변에 강점이 있습니다.<br><strong>이번 과정의 주력 도구</strong>로, 터미널에서 직접 파일을 다루는 Claude Code의 기반이 됩니다.</td></tr>
+      <tr><td><code>Claude</code><br>(Anthropic)</td><td>긴 문서 · 코드 · 안전성</td><td>긴 문맥의 정확한 이해, 코드 작성, 안정적이고 신중한 답변에 강점이 있습니다.<br><strong>이번 과정의 주력 도구</strong>로, 데스크톱 앱(Claude Desktop)으로 설치해 내 폴더의 파일을 직접 만들며 사용합니다.</td></tr>
     </tbody>
   </table>
   <p class="keyline">🇰🇷 <strong>참고 — 국산 모델:</strong> 국내에서도 Upstage의 <code>Solar</code>, 네이버의 <code>HyperCLOVA X</code> 등 한국어에 최적화된 LLM이 함께 발전하고 있습니다. 데이터 주권·한국어 성능이 중요한 공공 업무에서는 국산 모델도 함께 검토할 수 있습니다.</p>
@@ -255,7 +255,7 @@ Day 1 · 이론 → 실습 대응표
   <h2 id="section-3">3. 개발 도구의 이해 — Node.js와 Git</h2>
 
   <h3><code>Node.js</code> — 개발 도구를 돌리는 실행 환경</h3>
-  <p>Node.js는 원래 웹 브라우저 안에서만 동작하던 자바스크립트를, <strong>컴퓨터에서 직접 실행할 수 있게</strong> 해주는 프로그램입니다. 이번 과정에서 사용하는 여러 도구(Claude Code, Vercel 명령어 등)는 Node.js와 함께 설치되는 <code>npm</code>이라는 "도구 설치기"를 통해 내려받습니다. 그래서 Node.js가 가장 먼저 준비되어야 합니다.</p>
+  <p>Node.js는 원래 웹 브라우저 안에서만 동작하던 자바스크립트를, <strong>컴퓨터에서 직접 실행할 수 있게</strong> 해주는 프로그램입니다. 이번 과정에서 사용하는 도구(Vercel 명령어 등)는 Node.js와 함께 설치되는 <code>npm</code>이라는 "도구 설치기"를 통해 내려받습니다. 그래서 Node.js가 미리 준비되어야 합니다.</p>
   <p><code>npm</code>(Node Package Manager)은 앱스토어처럼 개발 도구를 이름만으로 설치·관리해 주는 도구입니다. 실습에서 <code>npm install</code> 명령이 자주 나오는 이유가 바로 이것입니다.</p>
 
   <h3><code>Git</code> — 코드의 변경 이력을 지키는 안전벨트</h3>
@@ -264,7 +264,7 @@ Day 1 · 이론 → 실습 대응표
   <table>
     <thead><tr><th>도구</th><th>한 줄 정의</th><th>이번 과정에서의 쓰임</th></tr></thead>
     <tbody>
-      <tr><td><code>Node.js</code></td><td>자바스크립트 실행 환경</td><td>Claude Code·Vercel 등 도구 설치의 토대</td></tr>
+      <tr><td><code>Node.js</code></td><td>자바스크립트 실행 환경</td><td>Vercel CLI 등 도구 설치의 토대</td></tr>
       <tr><td><code>npm</code></td><td>도구 설치·관리기</td><td><code>npm install</code>로 도구를 내려받음</td></tr>
       <tr><td><code>Git</code></td><td>코드 변경 이력 관리기</td><td>GitHub 업로드·Vercel 배포의 바탕</td></tr>
     </tbody>
@@ -275,45 +275,41 @@ Day 1 · 이론 → 실습 대응표
   <hr>
 
   <!-- ── 섹션 4 ── -->
-  <h2 id="section-4">4. Claude와 Claude Code의 이해</h2>
+  <h2 id="section-4">4. Claude와 Claude Desktop의 이해</h2>
 
   <h3><code>Free / Pro</code> — LLM 구독이란</h3>
-  <p>Claude는 무료(Free)로도 채팅을 쓸 수 있지만, 이번 과정의 주력 도구인 Claude Code는 유료 구독(Pro 이상)에서만 동작합니다. 구독은 "더 많은 사용량과 추가 기능을 쓰기 위한 월 단위 이용권"이라고 이해하면 됩니다.</p>
+  <p>Claude는 무료(Free)로도 채팅과 데스크톱 앱을 쓸 수 있지만, 실습을 넉넉한 사용량으로 원활히 진행하려면 유료 구독(Pro 이상)을 권장합니다. 구독은 "더 많은 사용량과 추가 기능을 쓰기 위한 월 단위 이용권"이라고 이해하면 됩니다.</p>
   <table>
     <thead><tr><th>구분</th><th>Free 플랜</th><th>Pro 플랜</th></tr></thead>
     <tbody>
       <tr><td>가격</td><td>무료</td><td>월 $20 (연간 결제 시 월 $17)</td></tr>
-      <tr><td>이용 범위</td><td>웹·앱 채팅</td><td>채팅 + <strong>Claude Code 이용 가능</strong></td></tr>
+      <tr><td>이용 범위</td><td>웹·앱 채팅, 기본 기능</td><td>채팅 + <strong>넉넉한 사용량과 최신 모델 우선 이용</strong></td></tr>
       <tr><td>사용량</td><td>기본</td><td>Free 대비 대폭 확대, 혼잡 시 우선 접속</td></tr>
     </tbody>
   </table>
 
-  <h3><code>Claude Code</code> — 대화만 하는 AI에서, 파일을 직접 다루는 AI로</h3>
-  <p>claude.ai 채팅이나 Claude Desktop에서는 Claude와 "대화"만 할 수 있습니다. 반면 Claude Code는 터미널(명령어 창) 안에서 Claude에게 한국어로 지시하면, Claude가 <strong>실제로 내 컴퓨터의 파일을 만들고 수정</strong>해 줍니다. 즉 "말로 설명해 주는 AI"에서 "직접 작업해 주는 AI"로 한 걸음 나아간 도구입니다.</p>
+  <h3><code>Claude Desktop</code> — 대화만 하는 AI에서, 내 파일을 함께 다루는 AI로</h3>
+  <p>Claude Desktop은 웹 브라우저 없이 내 컴퓨터에 설치해 쓰는 <strong>Claude 데스크톱 앱</strong>입니다. 기본적으로는 claude.ai 채팅처럼 "대화"를 하는 도구지만, 내 컴퓨터의 <strong>로컬 작업 폴더</strong>를 지정해 두면 대화를 넘어 <strong>실제로 그 폴더 안의 파일을 만들고 수정</strong>하게 할 수 있습니다. 즉 "말로 설명해 주는 AI"에서 "직접 작업해 주는 AI"로 한 걸음 나아갑니다.</p>
 
-  <h3><code>터미널 · 명령어</code> — CLI라는 대화 방식</h3>
-  <p>터미널(CLI, Command Line Interface)은 버튼 대신 <strong>글자 명령으로 컴퓨터에 지시</strong>하는 화면입니다. Claude Code를 실행하면 여기에 한국어 문장을 쓰거나, <code>/</code>로 시작하는 "슬래시 명령어"로 도구 자체를 제어합니다. 아래는 각 기본 명령어가 하는 일의 의미입니다(실제 입력은 실습에서).</p>
+  <h3><code>로컬 작업 폴더</code> — Claude가 내 폴더에서 직접 파일을 만들게 하기</h3>
+  <p>Claude Desktop 설정에서 내 컴퓨터의 특정 폴더를 <strong>작업 폴더로 지정</strong>하면, 그 순간부터 Claude가 그 폴더 안에서 파일을 읽고 만들고 고칠 수 있게 됩니다. 이번 과정에서는 실습 전용 폴더(예: <code>hello-page</code>) 하나를 만들어 그 폴더만 지정하고, 그 안에서 웹페이지 파일을 만들어 갑니다.</p>
   <table>
-    <thead><tr><th>명령어</th><th>개념적 역할</th></tr></thead>
+    <thead><tr><th>용어</th><th>한 줄 정의</th><th>이번 과정에서의 쓰임</th></tr></thead>
     <tbody>
-      <tr><td><code>claude</code></td><td>현재 폴더에서 Claude Code와의 대화를 시작</td></tr>
-      <tr><td><code>/help</code></td><td>쓸 수 있는 명령어 목록을 보여줌</td></tr>
-      <tr><td><code>/clear</code></td><td>지금까지의 대화 맥락을 초기화(새 주제 시작 시)</td></tr>
-      <tr><td><code>/model</code></td><td>사용할 Claude 모델을 바꿈</td></tr>
-      <tr><td><code>/login</code></td><td>계정 로그인(최초 1회 인증)</td></tr>
+      <tr><td><code>Claude Desktop</code></td><td>내 컴퓨터에 설치하는 Claude 앱</td><td>한국어로 지시해 코드를 만드는 작업 공간</td></tr>
+      <tr><td><code>로컬 작업 폴더</code></td><td>Claude가 다룰 수 있게 지정한 폴더</td><td><code>hello-page</code> 폴더에 파일 생성·수정</td></tr>
     </tbody>
   </table>
 
-  <h3><code>CLI vs IDE</code> — Claude Code를 쓰는 두 가지 환경</h3>
-  <p>Claude Code는 두 가지 방식으로 쓸 수 있습니다. 하나는 <strong>CLI(터미널)</strong>에서 <code>claude</code> 명령으로 실행하는 방식이고, 다른 하나는 <strong>Cursor 같은 IDE(코드 편집기)</strong>에 확장(익스텐션)으로 설치해 화면 옆 패널에서 쓰는 방식입니다. Cursor는 AI 코딩에 특화된 편집기로, 코드 파일·미리보기·터미널을 한 화면에서 다룰 수 있어 초보자에게 편합니다. <strong>이번 과정의 실습은 Cursor(IDE) 환경에서 진행</strong>합니다.</p>
+  <div class="warning-box">작업 폴더 지정은 Claude에게 <strong>그 폴더에 한해</strong> 파일을 다룰 권한을 줍니다. 그래서 실습 전용 폴더(예: <code>hello-page</code>)를 따로 만들어 그 폴더만 지정하는 것이 안전합니다. 시스템 폴더나 개인 문서 폴더 전체를 지정하지 마십시오.</div>
 
   <p>
     <span class="badge badge-workflow">Claude 구독</span>
-    <span class="badge badge-skill">Claude Code</span>
-    <span class="badge badge-new">CLI · IDE(Cursor)</span>
+    <span class="badge badge-skill">Claude Desktop</span>
+    <span class="badge badge-new">로컬 작업 폴더</span>
   </p>
 
-  <div class="practice-box">Pro 구독과 <strong>CLI · IDE(Cursor) 두 환경</strong> 준비, 기본 명령어 실행은 <a href="day1_Examples.html#step-3">실습 STEP 3</a>에서 진행합니다.</div>
+  <div class="practice-box">Pro 구독과 <strong>Claude Desktop 설치, 로컬 작업 폴더 지정</strong>은 <a href="day1_Examples.html#step-3">실습 STEP 3</a>에서 진행합니다.</div>
 
   <hr>
 
@@ -337,7 +333,7 @@ Day 1 · 이론 → 실습 대응표
   <h3><code>deploy</code> — 로컬과 배포의 차이</h3>
   <p>내 컴퓨터 안의 파일을 브라우저로 여는 것은 "로컬(local)" 상태로, 나만 볼 수 있습니다. 이 파일을 Vercel 같은 서비스로 올려 인터넷 주소를 부여하는 것을 "배포(deploy)"라 하며, 그 순간부터 그 주소를 아는 누구나 접속할 수 있습니다. 실습의 마지막 단계에서 헬로페이지를 실제로 배포해, <code>로컬 → 인터넷 공개</code>의 전 과정을 경험합니다.</p>
 
-  <p class="keyline">💡 <strong>핵심 한 줄:</strong> 자연어로 만들고(바이브 코딩), 명령어 한 줄로 세상에 공개하는(배포) 흐름 — 이 개념을 손으로 확인하는 것이 Day 1 실습의 목표입니다.</p>
+  <p class="keyline">💡 <strong>핵심 한 줄:</strong> 자연어로 만들고(바이브 코딩), 클릭 몇 번으로 세상에 공개하는(배포) 흐름 — 이 개념을 손으로 확인하는 것이 Day 1 실습의 목표입니다.</p>
 
   <div class="practice-box">자연어 프롬프트로 헬로페이지를 만들고(<a href="day1_Examples.html#step-4">STEP 4</a>), 수정 후 Vercel로 배포하는(<a href="day1_Examples.html#step-5">STEP 5</a>) 실제 순서는 실습 문서에 있습니다.</div>
 
@@ -352,7 +348,7 @@ Day 1 · 이론 → 실습 대응표
     <li>🚀 <a href="https://vercel.com" target="_blank">Vercel (vercel.com)</a></li>
     <li>🔑 <a href="https://platform.openai.com" target="_blank">OpenAI Platform (platform.openai.com)</a></li>
     <li>📖 <a href="https://claude.ai" target="_blank">Claude (claude.ai)</a> · <a href="https://claude.com/pricing" target="_blank">요금제(claude.com/pricing)</a></li>
-    <li>⚙️ <a href="https://code.claude.com/docs/en/overview" target="_blank">Claude Code 공식 문서 (code.claude.com/docs)</a></li>
+    <li>💻 <a href="https://claude.ai/download" target="_blank">Claude Desktop 다운로드 (claude.ai/download)</a></li>
   </ul>
 
   <hr>

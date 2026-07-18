@@ -223,9 +223,9 @@
                  rm-blink .5s ease-in-out 3.9s 3 both,
                  rm-glow 2.4s ease-in-out 5.4s infinite;
     }
-    .roadmap-step:nth-child(2) .roadmap-num { animation: rm-on-gold .7s ease-out 1.2s both, rm-blink .5s ease-in-out 3.9s 3 both; }
-    .roadmap-step:nth-child(3) .roadmap-num { animation: rm-on-gold .7s ease-out 2.1s both, rm-blink .5s ease-in-out 3.9s 3 both; }
-    .roadmap-step:nth-child(4) .roadmap-num { animation: rm-on-gold .7s ease-out 3.0s both, rm-blink .5s ease-in-out 3.9s 3 both; }
+    .roadmap-step:nth-child(2) .roadmap-num { animation: rm-on-blue .7s ease-out 1.2s both, rm-blink .5s ease-in-out 3.9s 3 both; }
+    .roadmap-step:nth-child(3) .roadmap-num { animation: rm-on-blue .7s ease-out 2.1s both, rm-blink .5s ease-in-out 3.9s 3 both; }
+    .roadmap-step:nth-child(4) .roadmap-num { animation: rm-on-blue .7s ease-out 3.0s both, rm-blink .5s ease-in-out 3.9s 3 both; }
 
     /* 텍스트: 원 활성화 직후 단계별로 순차 등장 */
     .roadmap-step .roadmap-day,
@@ -292,42 +292,34 @@
     </header>
 
     <figure style="margin:8px 0 32px;">
-      <div class="roadmap" role="img" aria-label="4일 로드맵 — Day 1은 확정, Day 2~4는 미정">
+      <div class="roadmap" role="img" aria-label="4일 로드맵 — Day 1부터 Day 4까지">
         <div class="roadmap-step confirmed">
           <div class="roadmap-num">1</div>
           <div class="roadmap-day">Day 1</div>
           <div class="roadmap-title">AI 개념과 환경 구축</div>
-          <div class="roadmap-desc">Node.js·Git·Claude Code 설치, 헬로페이지 배포</div>
-          <span class="roadmap-badge">확정</span>
-        </div>
-        <div class="roadmap-step tbd">
+          <div class="roadmap-desc">Node.js·Git·Claude Desktop 설치, 헬로페이지 배포</div>        </div>
+        <div class="roadmap-step confirmed">
           <div class="roadmap-num">2</div>
           <div class="roadmap-day">Day 2</div>
-          <div class="roadmap-title">미정</div>
-          <div class="roadmap-desc">세부 주제 추후 확정</div>
-          <span class="roadmap-badge">미정</span>
-        </div>
-        <div class="roadmap-step tbd">
+          <div class="roadmap-title">AI 앱 개념과 PRD 작성</div>
+          <div class="roadmap-desc">RAG 챗봇 이해, 내 앱 PRD 작성·검토</div>        </div>
+        <div class="roadmap-step confirmed">
           <div class="roadmap-num">3</div>
           <div class="roadmap-day">Day 3</div>
-          <div class="roadmap-title">미정</div>
-          <div class="roadmap-desc">세부 주제 추후 확정</div>
-          <span class="roadmap-badge">미정</span>
-        </div>
-        <div class="roadmap-step tbd">
+          <div class="roadmap-title">Claude Code 심화와 PDCA</div>
+          <div class="roadmap-desc">스킬·플러그인·MCP·하네스, PRD 기반 계획·설계</div>        </div>
+        <div class="roadmap-step confirmed">
           <div class="roadmap-num">4</div>
           <div class="roadmap-day">Day 4</div>
-          <div class="roadmap-title">미정</div>
-          <div class="roadmap-desc">세부 주제 추후 확정</div>
-          <span class="roadmap-badge">미정</span>
-        </div>
+          <div class="roadmap-title">PDCA 완성과 배포·발표</div>
+          <div class="roadmap-desc">Do·Check·Act로 앱 완성, Vercel 배포·발표·수료</div>        </div>
       </div>
-      <figcaption style="text-align:center;font-size:12px;color:var(--text-dim);margin-top:6px;">그림 1. 4일 로드맵 — Day 1은 확정되었고, Day 2~4의 세부 내용은 아직 확정되지 않았습니다.</figcaption>
+      <figcaption style="text-align:center;font-size:12px;color:var(--text-dim);margin-top:6px;">그림 1. 4일 로드맵 — Day 1 환경 구축부터 Day 4 앱 완성·배포·수료까지의 전체 흐름입니다.</figcaption>
     </figure>
 
     <div class="meta">
-      대상 <strong>Node.js · Git · GitHub · Vercel · OpenAI · Claude.ai · Claude Code (Day 1 확정, Day 2~4는 미정)</strong><br>공식 문서:
-      <a href="https://code.claude.com/docs/en/vs-code" target="_blank">각 장별 공식 문서 모음 (하단 참고 링크 참조)</a>
+      대상 <strong>Node.js · Git · GitHub · Vercel · OpenAI · Claude.ai · Claude Desktop · Claude Code</strong><br>공식 문서:
+      <a href="https://claude.ai/download" target="_blank">각 장별 공식 문서 모음 (하단 참고 링크 참조)</a>
       &nbsp;|&nbsp; 각 일차는 <strong>이론</strong>(용어·개념 설명)과 <strong>실습</strong>(프롬프트·명령어 진행 순서)으로 나뉩니다.
     </div>
 
@@ -337,75 +329,75 @@
         <a class="card" href="day1/day1_Manual.html">
           <span class="tag tag-ref">이론</span>
           <h2>AI 개념과 환경 구축 이론</h2>
-          <p>생성형 AI·LLM 개념과 최신 모델 동향부터 Node.js·Git·GitHub·Vercel·API Key·Claude Code·바이브 코딩·배포까지, 실습에 필요한 용어와 도구의 개념을 정리합니다.</p>
+          <p>생성형 AI·LLM 개념과 최신 모델 동향부터 Node.js·Git·GitHub·Vercel·API Key·Claude Desktop·바이브 코딩·배포까지, 실습에 필요한 용어와 도구의 개념을 정리합니다.</p>
           <div class="go">이론 열기 →</div>
         </a>
         <a class="card" href="day1/day1_Examples.html">
           <span class="tag tag-ex">실습</span>
           <h2>AI 개념과 환경 구축 실습</h2>
-          <p>STEP 1~5 순서대로 Node.js·Git 설치, 계정 준비, Claude Code 설치를 마친 뒤, 자연어 프롬프트로 헬로페이지를 만들어 수정하고 Vercel로 배포하는 실습입니다.</p>
+          <p>STEP 1~5 순서대로 Node.js·Git 설치, 계정 준비, Claude Desktop 설치를 마친 뒤, 자연어 프롬프트로 헬로페이지를 만들어 수정하고 Vercel로 배포하는 실습입니다.</p>
           <div class="go">실습 열기 →</div>
         </a>
       </div>
     </div>
 
     <div class="group">
-      <p class="section-label">② Day 2 — 미정</p>
+      <p class="section-label">② Day 2 — AI 애플리케이션 개념과 PRD 작성</p>
       <div class="grid">
         <a class="card" href="day2/day2_Manual.html">
           <span class="tag tag-ref">이론</span>
-          <h2>Day 2 이론 (미정)</h2>
-          <p>세부 주제가 아직 확정되지 않았습니다. 확정되는 대로 이 문서에 반영됩니다.</p>
-          <div class="go">현재 상태 보기 →</div>
+          <h2>AI 앱 개념과 PRD 작성 이론</h2>
+          <p>문서 Q&amp;A 챗봇(RAG)의 개념부터 PRD(제품요구사항정의서)의 필요성·구성 요소, AI를 활용한 검토·구체화까지, 만들기 전에 알아야 할 개념을 정리합니다.</p>
+          <div class="go">이론 열기 →</div>
         </a>
         <a class="card" href="day2/day2_Examples.html">
           <span class="tag tag-ex">실습</span>
-          <h2>Day 2 실습 (미정)</h2>
-          <p>실습 시나리오가 아직 확정되지 않았습니다.</p>
-          <div class="go">현재 상태 보기 →</div>
+          <h2>AI 앱 개념과 PRD 작성 실습</h2>
+          <p>Claude Desktop으로 RAG를 체험하고, 내가 만들 문서 Q&amp;A 앱의 PRD를 직접 작성한 뒤 AI로 검토·구체화해 <code>PRD.md</code> 한 편을 완성하는 실습입니다.</p>
+          <div class="go">실습 열기 →</div>
         </a>
       </div>
     </div>
 
     <div class="group">
-      <p class="section-label">③ Day 3 — 미정</p>
+      <p class="section-label">③ Day 3 — Claude Code 심화와 PDCA</p>
       <div class="grid">
         <a class="card" href="day3/day3_Manual.html">
           <span class="tag tag-ref">이론</span>
-          <h2>Day 3 이론 (미정)</h2>
-          <p>세부 주제가 아직 확정되지 않았습니다. 확정되는 대로 이 문서에 반영됩니다.</p>
-          <div class="go">현재 상태 보기 →</div>
+          <h2>Claude Code 심화·PDCA 이론</h2>
+          <p>Claude Code의 스킬·플러그인·MCP(외부 도구 연결)와 하네스 엔지니어링(반복 가능·안정적 결과), 그리고 PDCA 방법론과 Plan·Design의 개념을 정리합니다.</p>
+          <div class="go">이론 열기 →</div>
         </a>
         <a class="card" href="day3/day3_Examples.html">
           <span class="tag tag-ex">실습</span>
-          <h2>Day 3 실습 (미정)</h2>
-          <p>실습 시나리오가 아직 확정되지 않았습니다.</p>
-          <div class="go">현재 상태 보기 →</div>
+          <h2>Claude Code 심화·PDCA 실습</h2>
+          <p>스킬·플러그인·MCP를 직접 다루고, <code>CLAUDE.md</code>로 하네스를 세운 뒤, Day 2의 PRD를 <code>PLAN.md</code>·<code>DESIGN.md</code>로 계획·설계하는 실습입니다.</p>
+          <div class="go">실습 열기 →</div>
         </a>
       </div>
     </div>
 
     <div class="group">
-      <p class="section-label">④ Day 4 — 미정</p>
+      <p class="section-label">④ Day 4 — bkit PDCA 완성과 배포·발표</p>
       <div class="grid">
         <a class="card" href="day4/day4_Manual.html">
           <span class="tag tag-ref">이론</span>
-          <h2>Day 4 이론 (미정)</h2>
-          <p>세부 주제가 아직 확정되지 않았습니다. 확정되는 대로 이 문서에 반영됩니다.</p>
-          <div class="go">현재 상태 보기 →</div>
+          <h2>PDCA 완성·배포·발표 이론</h2>
+          <p>bkit PDCA의 나머지 세 단계 — Do(구현)·Check(Gap 분석·검증)·Act(오류 수정·개선·고도화) — 의 개념을 정리하고, 배포·발표·수료 시간을 안내합니다.</p>
+          <div class="go">이론 열기 →</div>
         </a>
         <a class="card" href="day4/day4_Examples.html">
           <span class="tag tag-ex">실습</span>
-          <h2>Day 4 실습 (미정)</h2>
-          <p>실습 시나리오가 아직 확정되지 않았습니다.</p>
-          <div class="go">현재 상태 보기 →</div>
+          <h2>PDCA 완성·배포·발표 실습</h2>
+          <p>Day 3의 <code>PLAN.md</code>·<code>DESIGN.md</code>로 <code>doc-qa-bot</code>을 구현·검증·개선해 첫 PDCA 한 바퀴를 완성하고, Vercel 배포·발표·수료로 마무리하는 실습입니다.</p>
+          <div class="go">실습 열기 →</div>
         </a>
       </div>
     </div>
 
     <footer>
-      Node.js · Git · Vercel · Claude Code · 한국어 교육 자료 (Day 2~4에서 사용할 기술은 아직 확정되지 않았습니다)<br>
-      공식 문서: <a href="https://code.claude.com/docs/en/overview" target="_blank">code.claude.com</a> · <a href="https://vercel.com/docs" target="_blank">vercel.com/docs</a>
+      Node.js · Git · Vercel · Claude Desktop · Claude Code · OpenAI API · 한국어 교육 자료<br>
+      공식 문서: <a href="https://claude.ai/download" target="_blank">claude.ai</a> · <a href="https://vercel.com/docs" target="_blank">vercel.com/docs</a>
     </footer>
   </div>
   <script src="assets/site-search.js" defer></script>

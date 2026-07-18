@@ -10,12 +10,12 @@
   var DOCS = [
     { path: 'day1/day1_Manual.html',   title: 'Day 1 AI 개념과 개발 환경 구축 — 이론' },
     { path: 'day1/day1_Examples.html', title: 'Day 1 AI 개념과 개발 환경 구축 — 실습' },
-    { path: 'day2/day2_Manual.html',   title: 'Day 2 (미정) — 이론' },
-    { path: 'day2/day2_Examples.html', title: 'Day 2 (미정) — 실습' },
-    { path: 'day3/day3_Manual.html',   title: 'Day 3 (미정) — 이론' },
-    { path: 'day3/day3_Examples.html', title: 'Day 3 (미정) — 실습' },
-    { path: 'day4/day4_Manual.html',   title: 'Day 4 (미정) — 이론' },
-    { path: 'day4/day4_Examples.html', title: 'Day 4 (미정) — 실습' }
+    { path: 'day2/day2_Manual.html',   title: 'Day 2 AI 앱 개념과 PRD 작성 — 이론' },
+    { path: 'day2/day2_Examples.html', title: 'Day 2 AI 앱 개념과 PRD 작성 — 실습' },
+    { path: 'day3/day3_Manual.html',   title: 'Day 3 Claude Code 심화와 PDCA — 이론' },
+    { path: 'day3/day3_Examples.html', title: 'Day 3 Claude Code 심화와 PDCA — 실습' },
+    { path: 'day4/day4_Manual.html',   title: 'Day 4 bkit PDCA 완성과 배포·발표 — 이론' },
+    { path: 'day4/day4_Examples.html', title: 'Day 4 bkit PDCA 완성과 배포·발표 — 실습' }
   ];
   function ready(fn){ if (document.readyState !== 'loading') fn(); else document.addEventListener('DOMContentLoaded', fn); }
   function strip(s){ return (s || '').replace(/\s+/g, ' ').trim(); }
