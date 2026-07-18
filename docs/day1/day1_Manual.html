@@ -135,6 +135,15 @@
       padding: 12px 16px; font-size: 13px; color: #7d4e00; margin: 12px 0;
     }
     .warning-box::before { content: '⚠️  '; }
+    /* ── 안전(Security) 박스 ── */
+    .security-box {
+      background: #ffebe9; border: 1px solid #ffb3ab; border-radius: 6px;
+      padding: 12px 16px; font-size: 13px; color: #7d1a13; margin: 12px 0;
+    }
+    .security-box::before {
+      content: '🔒 안전(Security)'; display: block; font-weight: 700; color: #cf222e;
+      margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
+    }
     /* ── 실습 연결 박스 ── */
     .practice-box {
       background: #dafbe1; border: 1px solid #a2d9b1; border-radius: 6px;
@@ -147,6 +156,7 @@
       background: #e8f4fd; border-left: 3px solid #0969da; padding: 8px 14px;
       border-radius: 4px; font-size: 13.5px; margin: 16px 0;
     }
+    .note { display: block; margin-top: 4px; font-style: italic; color: #6e7781; font-size: 13px; line-height: 1.6; }
   </style>
 </head>
 <body>
@@ -236,7 +246,7 @@ Day 1 · 이론 → 실습 대응표
 
   <h3><code>API Key</code> — 프로그램이 AI를 불러 쓰기 위한 비밀 열쇠</h3>
   <p>사람이 화면에서 로그인하듯, 프로그램이 외부 AI 서비스를 호출할 때는 "누가 요청했는지"를 증명해야 합니다. 그 증명 수단이 API Key(<code>sk-</code>로 시작하는 긴 문자열)입니다. 이후 실습에서 OpenAI 기능을 프로그램으로 불러 쓸 때 필요하므로 미리 발급해 둡니다.</p>
-  <div class="warning-box">API Key는 비밀번호와 같습니다. 코드·채팅·공개 저장소에 노출하면 타인이 내 계정으로 요금을 발생시킬 수 있습니다.<br>발급 화면을 벗어나면 다시 볼 수 없으므로 안전하게 보관하고, 유출이 의심되면 즉시 삭제(Revoke) 후 재발급해야 합니다.</div>
+  <div class="security-box">API Key는 비밀번호와 같습니다. 코드·채팅·공개 저장소에 노출하면 타인이 내 계정으로 요금을 발생시킬 수 있습니다.<br>발급 화면을 벗어나면 다시 볼 수 없으므로 안전하게 보관하고, 유출이 의심되면 즉시 삭제(Revoke) 후 재발급해야 합니다.</div>
 
   <table>
     <thead><tr><th>서비스</th><th>비유</th><th>역할</th></tr></thead>
@@ -301,7 +311,7 @@ Day 1 · 이론 → 실습 대응표
     </tbody>
   </table>
 
-  <div class="warning-box">작업 폴더 지정은 Claude에게 <strong>그 폴더에 한해</strong> 파일을 다룰 권한을 줍니다. 그래서 실습 전용 폴더(예: <code>hello-page</code>)를 따로 만들어 그 폴더만 지정하는 것이 안전합니다. 시스템 폴더나 개인 문서 폴더 전체를 지정하지 마십시오.</div>
+  <div class="security-box">작업 폴더 지정은 Claude에게 <strong>그 폴더에 한해</strong> 파일을 다룰 권한을 줍니다. 그래서 실습 전용 폴더(예: <code>hello-page</code>)를 따로 만들어 그 폴더만 지정하는 것이 안전합니다. 시스템 폴더나 개인 문서 폴더 전체를 지정하지 마십시오.</div>
 
   <p>
     <span class="badge badge-workflow">Claude 구독</span>
@@ -333,7 +343,17 @@ Day 1 · 이론 → 실습 대응표
   <h3><code>deploy</code> — 로컬과 배포의 차이</h3>
   <p>내 컴퓨터 안의 파일을 브라우저로 여는 것은 "로컬(local)" 상태로, 나만 볼 수 있습니다. 이 파일을 Vercel 같은 서비스로 올려 인터넷 주소를 부여하는 것을 "배포(deploy)"라 하며, 그 순간부터 그 주소를 아는 누구나 접속할 수 있습니다. 실습의 마지막 단계에서 헬로페이지를 실제로 배포해, <code>로컬 → 인터넷 공개</code>의 전 과정을 경험합니다.</p>
 
-  <p class="keyline">💡 <strong>핵심 한 줄:</strong> 자연어로 만들고(바이브 코딩), 클릭 몇 번으로 세상에 공개하는(배포) 흐름 — 이 개념을 손으로 확인하는 것이 Day 1 실습의 목표입니다.</p>
+  <h3><code>.env</code> — 비밀 값을 코드와 분리해 보관하는 파일</h3>
+  <p>API Key나 비밀번호 같은 <strong>민감한 값</strong>을 코드 안에 직접 적어 두면, 그 코드를 공유하거나 배포하는 순간 값도 함께 노출됩니다. 그래서 이런 값은 <code>.env</code>(environment, 환경변수)라는 별도 파일에 <code>OPENAI_API_KEY=sk-...</code>처럼 <strong>이름=값</strong> 형태로 따로 적어 두고, 코드는 그 파일에서 값을 읽어 쓰도록 만듭니다. 이렇게 하면 <strong>비밀 값과 코드가 분리</strong>되어, 코드를 고치거나 공유할 때 실수로 키가 딸려 나갈 위험이 줄어듭니다.<br><span class="note">참고로 <code>.env</code> 파일은 <strong>서버 프로그램(예: Node.js)이 실행 중일 때</strong> 그 서버가 읽어옵니다. 그래서 이번 실습에서도 <strong>로컬 서버를 켜서(<code>localhost</code>)</strong> <code>.env</code>의 키를 읽어 챗봇을 동작시키고, 인터넷에 배포할 때는 <code>.env</code> 대신 <strong>Vercel의 환경변수(Environment Variables)</strong>에 같은 키를 등록합니다 — 형태만 다를 뿐 "비밀 값은 서버가 읽는다"는 원리는 같습니다.</span></p>
+
+  <h3><code>.gitignore</code> — "이 파일은 올리지 마"라고 알려 주는 목록</h3>
+  <p>Git·GitHub은 폴더 안의 파일을 <strong>추적해서 저장소에 올립니다.</strong> 이때 <code>.gitignore</code>라는 파일에 이름을 적어 두면, Git이 그 파일·폴더를 <strong>추적 대상에서 제외</strong>해 저장소에 올리지 않습니다. 예를 들어 <code>.gitignore</code>에 <code>.env</code> 한 줄을 넣어 두면, 방금 만든 비밀 값 파일이 <strong>GitHub 같은 공개 저장소에 실수로 올라가는 것을 막아</strong> 줍니다.</p>
+  <p>정리하면 — <strong>① 비밀 값은 <code>.env</code>에 따로 두고 → ② <code>.gitignore</code>에 <code>.env</code>를 적어 올라가지 않게</strong> 하는 두 단계가, 키를 안전하게 다루는 기본 원칙입니다.</p>
+  <p style="margin-top:8px;">📺 참고 영상 · <a href="https://tv.naver.com/v/102757103" target="_blank" rel="noopener">경찰, 깃허브 계정 유출에 긴급보안 조치 권고 (네이버 TV) →</a></p>
+
+  <div class="security-box">API Key가 공개 저장소(GitHub 등)나 배포된 파일에 그대로 올라가면, 그 주소를 아는 누구나 내 키로 요금을 발생시킬 수 있습니다. 비밀 값은 반드시 <code>.env</code>로 분리하고 <code>.gitignore</code>에 <code>.env</code>를 등록해, 공개 저장소나 배포 파일에 키가 딸려 올라가지 않게 하십시오.</div>
+
+  <p class="keyline">💡 <strong>핵심 한 줄:</strong> 자연어로 만들고(바이브 코딩), 클릭 몇 번으로 세상에 공개하는(배포) 흐름 — 이 개념을 손으로 확인하는 것이 Day 1 실습의 목표입니다. 이때 <strong>비밀 값(<code>.env</code>)은 코드와 분리해 안전하게</strong> 다루는 것이 함께 지켜야 할 원칙입니다.</p>
 
   <div class="practice-box">자연어 프롬프트로 헬로페이지를 만들고(<a href="day1_Examples.html#step-4">STEP 4</a>), 수정 후 Vercel로 배포하는(<a href="day1_Examples.html#step-5">STEP 5</a>) 실제 순서는 실습 문서에 있습니다.</div>
 
@@ -358,6 +378,7 @@ Day 1 · 이론 → 실습 대응표
 </div>
 <script src="../assets/roadmap.js" defer></script>
 <script src="../assets/autolink.js" defer></script>
+<script src="../assets/glossary.js" defer></script>
 <script src="../assets/inpage-search.js" defer></script>
 </body>
 </html>
