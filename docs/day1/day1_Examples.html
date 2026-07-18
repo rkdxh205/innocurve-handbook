@@ -384,12 +384,12 @@
     <div class="card-header">
       <span class="card-id">STEP 2</span>
       <span class="badge badge-b">설치</span>
-      <strong class="card-title">Claude 구독 + Claude Desktop 사용 환경 준비 (로컬 작업 폴더 지정)</strong>
+      <strong class="card-title">Claude 구독 + Claude Desktop 준비 (커넥터 연결·작업 폴더 생성)</strong>
     </div>
     <div class="card-body">
 
       <div class="situation">
-        이번 과정의 작업 도구인 Claude Desktop을 쓸 수 있게 만듭니다.<br>Claude를 Pro로 구독하고 앱을 설치한 뒤, <strong>로컬 작업 폴더</strong>로 <code>hello-page</code>를 지정해 Claude가 그 폴더에 직접 파일을 만들 수 있게 합니다.<span class="note">(앞으로의 모든 실습은 이 Claude Desktop 환경에서 진행합니다.)</span>
+        이번 과정의 작업 도구인 Claude Desktop을 쓸 수 있게 만듭니다.<br>Claude를 Pro로 구독하고 앱을 설치한 뒤, <strong>Desktop Commander 커넥터</strong> 하나를 연결해 <strong>작업 폴더(<code>hello-page</code>) 생성부터 파일 만들기·명령 실행까지 전부 채팅으로</strong> 할 수 있게 만듭니다.<span class="note">(앞으로의 모든 실습은 이 Claude Desktop 환경에서 진행합니다.)</span>
       </div>
 
       <div class="cmd-list">
@@ -436,42 +436,39 @@
           </ol>
         </div></li>
         <li><div class="step-content">
-          <strong>실습용 작업 폴더 만들기</strong>
-          <p>Claude가 만든 파일이 담길 <strong>전용 폴더</strong>를 하나 준비합니다. 나중에 이 폴더 하나만 Claude에게 열어 줄 거라서, 다른 파일과 섞이지 않도록 <strong>새 폴더로 따로</strong> 만드는 것이 좋습니다.</p>
-          <ol class="substeps">
-            <li><strong>바탕화면</strong>처럼 나중에 다시 열기 쉬운 곳으로 갑니다. 바탕화면이 가장 편하고, 문서 폴더나 내 사용자 폴더도 괜찮습니다 — <strong>위치는 어디든 상관없습니다.</strong></li>
-            <li>빈 공간에서 <strong>마우스 오른쪽 버튼 → "새 폴더"</strong>를 눌러 폴더를 만들고, 이름을 <code>hello-page</code>로 바꿉니다.<span class="note">(폴더 이름은 <strong>한글·띄어쓰기 없이 영문</strong>으로 지어 주세요. 그래야 나중에 오류가 나지 않습니다.)</span></li>
-          </ol>
-          <p class="note" style="padding-left:2px;">윈도우에서 바탕화면이 OneDrive로 백업되고 있어도 그대로 만드시면 됩니다. 혹시 나중에 폴더를 못 찾거나 경로 관련 오류가 나면, 내 사용자 폴더(<code>C:\Users\내이름</code>)에 만들면 가장 안전합니다.</p>
-        </div></li>
-        <li><div class="step-content">
-          <strong>Claude Desktop에 로컬 작업 폴더 연결하기</strong>
-          <p>Claude가 방금 만든 <code>hello-page</code> 폴더에서 파일을 직접 만들고 고칠 수 있도록, <strong>"Filesystem(파일시스템)"</strong>이라는 기능을 켜고 이 폴더를 열어 줍니다. 아래 순서대로 클릭만 하면 됩니다.</p>
+          <strong>Desktop Commander 커넥터 연결하기</strong>
+          <p>다음 단계에서 <strong>폴더 생성·프로그램 설치를 전부 채팅으로</strong> 하기 위해, Claude가 내 컴퓨터에서 명령을 대신 실행하게 해주는 <strong>"Desktop Commander"</strong> 커넥터를 먼저 연결합니다.</p>
           <ol class="substeps">
             <li><strong>앱 설정을 엽니다.</strong> 창 <strong>왼쪽 맨 아래의 내 이름(프로필)</strong>을 클릭한 뒤 <strong>"설정"</strong>을 누릅니다.<span class="note">(키보드로 <code>Ctrl</code> + <code>,</code>(쉼표)를 눌러도 열립니다. 채팅창 안의 톱니바퀴가 아니라 앱 전체 설정이어야 합니다.)</span></li>
-            <li>설정 창 왼쪽 메뉴에서 <strong>"데스크톱 앱" 아래의 "확장 프로그램"</strong>을 클릭합니다.<span class="note">(같은 왼쪽 메뉴 아래쪽에 있는 "커넥터"와 헷갈리지 마세요. 폴더 연결은 "확장 프로그램"에서 합니다.)</span></li>
-            <li>오른쪽 위 <strong>"확장 프로그램 찾아보기"</strong>를 눌러, 목록에서 <strong>"Filesystem"</strong>을 찾아 클릭합니다.<span class="note">("Let Claude access your filesystem to read and write files."라고 설명된 항목입니다.)</span></li>
-            <li>Filesystem 화면에서 <strong>설치</strong>한 뒤 <strong>구성 화면</strong>으로 들어갑니다.<span class="note">("구성" 버튼이 보이면 클릭하세요. "활성화하려면 먼저 필수 항목을 채우라"는 안내가 있는 화면입니다.)</span></li>
-            <li>구성 화면의 <strong>"Allowed Directories(허용 디렉터리)"</strong>에서 <strong>"+ directory 추가"</strong> 버튼을 눌러, 앞서 만든 <strong><code>hello-page</code> 폴더만</strong> 선택합니다.<span class="note">(바탕화면 전체나 여러 폴더가 아니라 딱 이 실습 폴더 하나만 추가해야 안전합니다.)</span></li>
-            <li><strong>"저장"</strong>을 누른 뒤 맨 위 토글을 켜 <strong>"사용 중"</strong> 상태로 만듭니다. 토글이 파란색으로 바뀌고 빨간 경고가 사라지면 연결 완료입니다.<span class="note">(추가한 폴더 경로가 <code>C:\Users\사용자명\Desktop\hello-page</code>처럼 표시되면 제대로 지정된 것입니다. 폴더를 추가하기 전에는 저장 버튼이 회색으로 눌리지 않습니다.)</span></li>
-            <li><strong>제대로 됐는지 확인:</strong> 대화창 아래 입력칸 왼쪽의 <strong><code>+</code> 버튼</strong>을 눌러 <strong>"커넥터"</strong> 목록에 <strong>Filesystem</strong>이 보이면 연결된 것입니다.</li>
+            <li>왼쪽 메뉴에서 <strong>"데스크톱 앱" 아래의 "확장 프로그램"</strong>을 클릭한 뒤, 오른쪽 위 <strong>"확장 프로그램 찾아보기"</strong>를 누릅니다. "디렉터리" 화면이 열리면 왼쪽에서 <strong>"커넥터"</strong> 탭을 선택합니다.</li>
+            <li>검색창에 <strong>"Desktop Commander"</strong>를 입력합니다. "Build, explore, and automate on your local machine with access to files and terminal."이라고 설명된 카드의 오른쪽 <strong>"+"</strong> 버튼을 눌러 설치하고, 권한 안내가 나오면 그대로 승인합니다.</li>
+            <li>설치가 끝나면 <strong>Claude Desktop을 완전히 종료했다가 다시 실행</strong>합니다. 대화창 아래 입력칸 왼쪽의 <strong><code>+</code> 버튼</strong>을 눌러 <strong>"커넥터"</strong> 목록에 <strong>Desktop Commander</strong>가 보이면 연결된 것입니다.</li>
           </ol>
-          <p class="note" style="padding-left:2px;">구성 화면을 아래로 내리면 <strong>"도구 권한"</strong>이 있는데, <strong>기본값("승인 필요")</strong> 그대로 두면 됩니다 — Claude가 파일을 읽거나 만들기 전에 매번 허용을 물어보므로 더 안전합니다.</p>
-          <div class="tip-box">
-            <strong>연결 확인:</strong> 대화창에 <strong>"hello-page 폴더에 test.txt 파일을 직접 만들어줘"</strong>라고 입력하세요. 도구 사용 허용 팝업이 뜨면 <strong>"허용"</strong>을 누르고, 실제 <code>hello-page</code> 폴더에 <code>test.txt</code>가 생기면 성공입니다. (확인 후 지워도 됩니다.)
+        </div></li>
+        <li><div class="step-content">
+          <strong>자연어로 작업 폴더(hello-page) 만들기</strong>
+          <p>폴더도 손으로 만들 필요 없이 Claude에게 시키면 됩니다. 새 대화창에 아래 프롬프트를 붙여넣으면, 방금 연결한 Desktop Commander가 실제로 폴더를 만들어 줍니다.</p>
+          <span class="prompt-label">프롬프트</span>
+          <div class="code-wrap">
+            <pre class="code-block">바탕화면에 hello-page 라는 폴더를 직접 만들어줘.
+폴더 이름은 영문·띄어쓰기 없이 정확히 hello-page 로 해줘.</pre>
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
-          <div class="security-box">
-            <strong>꼭 기억하세요 — "직접, 실제 폴더에":</strong> Claude에게 파일을 만들거나 고쳐 달라고 할 때 <strong>"직접"</strong>·<strong>"실제 폴더에"</strong> 같은 말을 넣으면 실제 폴더에 확실히 반영됩니다. 이 말이 없으면 Claude가 폴더 대신 <strong>"다운로드 및 열기" 버튼이 달린 임시 파일</strong>만 만들어 줄 수 있습니다. 그런 파일만 보이고 폴더엔 안 생긴다면 "<strong>다운로드 파일 말고 실제 폴더에 직접 써줘</strong>"라고 다시 요청하세요. 이 규칙은 <strong>앞으로 모든 실습(웹페이지·PRD·앱 제작)에 똑같이 적용</strong>됩니다.
-          </div>
+          <p>Claude가 명령을 실행해도 되는지 물으면 <strong>"허용(Allow)"</strong>을 누릅니다. 바탕화면에 <code>hello-page</code> 폴더가 생기면 성공입니다.<span class="note">(위치는 바탕화면이 가장 편하지만 어디든 상관없습니다. 다른 곳에 만들고 싶으면 "바탕화면에" 대신 원하는 경로를 알려주면 됩니다.)</span></p>
+          <p class="note" style="padding-left:2px;">윈도우에서 바탕화면이 OneDrive로 백업되고 있어도 그대로 만들면 됩니다. 혹시 나중에 폴더를 못 찾거나 경로 관련 오류가 나면, 내 사용자 폴더(<code>C:\Users\내이름</code>)에 만들어 달라고 요청하면 가장 안전합니다.</p>
         </div></li>
       </ol>
 
+      <div class="tip-box">
+        <strong>꼭 기억하세요 — "직접, 실제 폴더에":</strong> Claude에게 파일을 만들거나 고쳐 달라고 할 때 <strong>"직접"</strong>·<strong>"실제 폴더에"</strong> 같은 말을 넣으면 실제 폴더에 확실히 반영됩니다. 이 말이 없으면 Claude가 폴더 대신 <strong>"다운로드 및 열기" 버튼이 달린 임시 파일</strong>만 만들어 줄 수 있습니다. 그런 파일만 보이고 폴더엔 안 생긴다면 "<strong>다운로드 파일 말고 실제 폴더에 직접 써줘</strong>"라고 다시 요청하세요. 이 규칙은 <strong>앞으로 모든 실습(웹페이지·PRD·앱 제작)에 똑같이 적용</strong>됩니다.
+      </div>
+
       <div class="security-box">
-        작업 폴더로는 <strong>실습 폴더(<code>hello-page</code>)만</strong> 지정하십시오. 내 문서·바탕화면 전체나 시스템 폴더를 지정하면 Claude가 그 폴더의 파일도 다룰 수 있게 되어 위험합니다.
+        <strong>Desktop Commander는 권한이 넓습니다.</strong> 파일뿐 아니라 <strong>명령까지 실행</strong>할 수 있어 컴퓨터 전반에 접근할 수 있으니, Claude가 파일 작업·명령을 실행하기 전에 뜨는 <strong>"허용" 팝업</strong>을 매번 확인하세요. 낯선 명령이 보이면 바로 허용하지 말고 무슨 명령인지 먼저 물어보는 것이 안전합니다.
       </div>
 
       <div class="tip-box">
-        앞으로의 모든 실습(STEP 4부터)은 이 <strong>Claude Desktop 환경</strong>에서 진행합니다. 즉 Claude Desktop 대화창에 한국어로 지시하면, 지정한 <code>hello-page</code> 폴더에 파일이 직접 만들어지는 방식입니다.
+        앞으로의 모든 실습(STEP 4부터)은 이 <strong>Claude Desktop 환경</strong>에서 진행합니다. 대화창에 한국어로 지시하면, Desktop Commander가 <code>hello-page</code> 폴더에 <strong>파일을 직접 만들고 명령을 실행</strong>해 줍니다.
       </div>
 
     </div>
@@ -482,12 +479,12 @@
     <div class="card-header">
       <span class="card-id">STEP 3</span>
       <span class="badge badge-g">설치</span>
-      <strong class="card-title">Desktop Commander 연결하고, Node.js·Git은 Claude에게 맡기기</strong>
+      <strong class="card-title">Node.js·Git 설치를 터미널 없이 채팅으로</strong>
     </div>
     <div class="card-body">
 
       <div class="situation">
-        작업대(Claude Desktop)를 갖췄으니, 모든 실습의 토대인 Node.js와 Git을 준비합니다.<br>Claude Desktop에 <strong>"Desktop Commander"</strong>라는 커넥터를 클릭 한 번으로 연결하면, 이후로는 <strong>터미널을 전혀 열지 않고</strong> Node.js 설치부터 Git 설치·버전 확인까지 채팅으로 끝낼 수 있습니다.
+        모든 실습의 토대인 Node.js와 Git을 준비합니다.<br>STEP 2에서 연결한 <strong>Desktop Commander</strong> 덕분에, 이제 <strong>터미널을 전혀 열지 않고</strong> Node.js 설치부터 Git 설치·버전 확인까지 전부 채팅으로 끝낼 수 있습니다.
       </div>
 
       <div class="cmd-list">
@@ -499,31 +496,7 @@
 
       <div class="steps-title">단계별 실행</div>
 
-      <div class="env-head">1️⃣ Desktop Commander 연결 <span class="env-note" style="color:#0550ae;">— 클릭만으로, 터미널 없음</span></div>
-      <ol class="step-list">
-        <li><div class="step-content">
-          <strong>앱 설정 열기</strong>
-          <p>STEP 2에서 했던 것처럼 창 <strong>왼쪽 맨 아래의 내 이름(프로필)</strong>을 클릭한 뒤 <strong>"설정"</strong>을 누릅니다.</p>
-        </div></li>
-        <li><div class="step-content">
-          <strong>확장 프로그램 디렉터리 열기</strong>
-          <p>설정 창 왼쪽 메뉴에서 <strong>"데스크톱 앱" 아래의 "확장 프로그램"</strong>을 클릭한 뒤, 오른쪽 위 <strong>"확장 프로그램 찾아보기"</strong>를 클릭합니다. "디렉터리" 화면이 열리면 왼쪽에서 <strong>"커넥터"</strong> 탭을 선택합니다.</p>
-        </div></li>
-        <li><div class="step-content">
-          <strong>Desktop Commander 검색 후 추가</strong>
-          <p>위쪽 검색창에 <strong>"Desktop Commander"</strong>를 입력합니다. "Build, explore, and automate on your local machine with access to files and terminal."이라고 설명된 카드가 나오면, 카드 오른쪽의 <strong>"+"</strong> 버튼을 클릭해 설치합니다.</p>
-          <ol class="substeps">
-            <li>설치 진행 중 권한 관련 안내가 나오면 그대로 승인·진행합니다.</li>
-            <li>설치가 끝나면 <strong>Claude Desktop을 완전히 종료했다가 다시 실행</strong>합니다.</li>
-          </ol>
-        </div></li>
-        <li><div class="step-content">
-          <strong>연결 확인</strong>
-          <p>대화창 아래 입력칸 왼쪽의 <strong><code>+</code> 버튼</strong>을 눌러 <strong>"커넥터"</strong> 목록에 <strong>Desktop Commander</strong>가 보이면 연결된 것입니다.</p>
-        </div></li>
-      </ol>
-
-      <div class="env-head env-ide">2️⃣ Node.js · Git 설치는 채팅으로 <span class="env-note">— 말로만, 터미널 없음</span></div>
+      <div class="env-head">Node.js · Git 설치는 채팅으로 <span class="env-note" style="color:#0550ae;">— 말로만, 터미널 없음</span></div>
       <ol class="step-list">
         <li><div class="step-content">
           <strong>Claude Desktop 채팅으로 설치 요청</strong>
@@ -565,7 +538,7 @@ git config --global user.email을 "본인이메일@example.com"으로
       </ol>
 
       <div class="tip-box">
-        Desktop Commander는 이후 실습(STEP 5~6의 앱 제작)에서도 계속 쓰입니다. Filesystem이 "파일을 읽고 쓰는" 역할이라면, Desktop Commander는 <strong>"명령을 대신 실행하는"</strong> 역할입니다 — 나중에 <code>npm install</code>, <code>pip install</code> 같은 설치 명령도 채팅으로 요청하면 됩니다.
+        Desktop Commander는 이후 실습(STEP 5~6의 앱 제작)에서도 계속 쓰입니다. <strong>파일 생성·수정</strong>부터 <code>npm install</code> 같은 <strong>설치·실행 명령</strong>까지, 필요한 작업을 전부 채팅으로 대신 해주는 도구입니다.
       </div>
 
       <div class="security-box">
@@ -742,7 +715,7 @@ API Key가 실수로 업로드되지 않게 해줘.</pre>
     <div class="card-body">
 
       <div class="situation">
-        정적인 페이지를 넘어, <strong>1초마다 스스로 갱신되는</strong> 실시간 시계를 만듭니다. 새 파일을 따로 만들지 않고, STEP 4에서 만든 <code>index.html</code>(헬로페이지)에 <strong>새 섹션으로 추가</strong>합니다. 앞으로 STEP 6의 챗봇도 이 <code>index.html</code> 한 파일에 계속 이어 붙여 나갑니다.
+        정적인 페이지를 넘어, <strong>1초마다 스스로 갱신되는</strong> 실시간 시계를 만듭니다. 새 파일을 따로 만들지 않고, STEP 4에서 만든 <code>index.html</code>(헬로페이지)에 <strong>새 섹션으로 추가</strong>합니다. (STEP 6의 챗봇은 성격이 달라, <code>index.html</code>에 섞지 않고 <strong>별도의 <code>chatbot.html</code> 파일로 따로</strong> 만듭니다.)
       </div>
 
       <div class="steps-title">단계별 실행</div>
@@ -779,7 +752,7 @@ API Key가 실수로 업로드되지 않게 해줘.</pre>
         "24시간제로 바꿔줘", "요일도 보여줘", "폰트를 더 크게"처럼 이어서 말로 다듬을 수 있습니다. 이 <code>index.html</code>은 STEP 7에서 <strong>Vercel로 그대로 배포</strong>할 수 있습니다.
       </div>
 
-      <div class="security-box">
+      <div class="tip-box">
         시간이 안 움직이고 멈춰 있으면, "자바스크립트 <code>setInterval</code>로 <strong>1초마다 실제로 다시 그려지게</strong> 해줘"라고 다시 요청하세요. (화면이 저절로 갱신되려면 자바스크립트가 필요합니다.)
       </div>
 
@@ -796,7 +769,12 @@ API Key가 실수로 업로드되지 않게 해줘.</pre>
     <div class="card-body">
 
       <div class="situation">
-        이번엔 진짜 <strong>AI 챗봇</strong>을 만듭니다. 화면(HTML)에서 OpenAI를 직접 호출하면 <strong>API 키가 그대로 노출</strong>되어 위험하므로, "화면"과 "키를 대신 보관해 호출해 주는 작은 서버 코드"로 나눠 만듭니다.<br>새 파일을 만들지 않고, 지금까지 이어온 <strong><code>index.html</code>에 챗봇 섹션을 추가</strong>합니다. 파이썬 설치 없이 지금까지처럼 <strong>Claude Desktop 채팅만으로</strong> 만들고, 만드는 즉시 내 컴퓨터에서 화면을 열어 확인합니다. STEP 1에서 발급한 OpenAI 키와 STEP 4에서 만든 <code>.env</code>를 그대로 씁니다.
+        이번엔 진짜 <strong>AI 챗봇</strong>을 만듭니다. 화면(HTML)에서 OpenAI를 직접 호출하면 <strong>API 키가 그대로 노출</strong>되어 위험하므로, "화면"과 "키를 대신 보관해 호출해 주는 작은 서버 코드"로 나눠 만듭니다.<br>자기소개 페이지(<code>index.html</code>)와는 섞지 않고, <strong>챗봇만 담은 별도의 <code>chatbot.html</code> 파일로 따로</strong> 만듭니다. 파이썬 설치 없이 지금까지처럼 <strong>Claude Desktop 채팅만으로</strong> 만들고, 만드는 즉시 내 컴퓨터에서 화면을 열어 확인합니다. STEP 1에서 발급한 OpenAI 키와 STEP 4에서 만든 <code>.env</code>를 그대로 씁니다.
+      </div>
+
+      <div class="security-box">
+        <strong>Q. 페이지(HTML)만 만들면 안 되나요? 서버는 왜 필요하죠?</strong><br>
+        A. 화면(HTML)에서 OpenAI를 직접 부르려면 <strong>API 키를 화면 코드에 그대로 적어야</strong> 합니다. 그러면 브라우저 "소스 보기"로 <strong>누구나 키를 볼 수 있고</strong>, STEP 7에서 인터넷에 공개하면 남이 내 키로 과금까지 할 수 있습니다. 그래서 <strong>키를 대신 숨겨서 호출해 주는 작은 서버</strong>를 두는 겁니다. (시계·자기소개는 비밀 키가 없어 서버 없이 페이지만으로 충분했고, 챗봇은 비밀 키를 쓰기 때문에 서버가 필요합니다.)
       </div>
 
       <div class="steps-title">단계별 실행</div>
@@ -830,17 +808,17 @@ API Key가 실수로 업로드되지 않게 해줘.</pre>
         </div></li>
       </ol>
 
-      <div class="env-head env-ide">2️⃣ 챗봇 섹션을 index.html에 추가하기</div>
+      <div class="env-head env-ide">2️⃣ 챗봇 페이지(chatbot.html) 따로 만들기</div>
       <ol class="step-list">
         <li><div class="step-content">
-          <strong>챗봇 섹션 추가 요청</strong>
-          <p>이어서 아래 프롬프트로 기존 <code>index.html</code>(자기소개+시계)에 챗봇 섹션을 이어 붙입니다.</p>
+          <strong>챗봇 페이지 요청</strong>
+          <p>자기소개 페이지(<code>index.html</code>)는 그대로 두고, 아래 프롬프트로 챗봇만 담긴 <strong>새 파일 <code>chatbot.html</code></strong>을 따로 만듭니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">hello-page 폴더의 index.html에 새 섹션을 추가해줘.
-기존 자기소개·시계 내용은 절대 지우지 말고 그 아래에 이어 붙여줘.
+            <pre class="code-block">hello-page 폴더에 chatbot.html 파일을 새로 만들어줘.
+(기존 index.html은 건드리지 말고, 챗봇만 담긴 독립 페이지야.)
 요구사항:
-- 구분선 아래, 섹션 제목은 "My First Chatbot"
+- 페이지 제목은 "My First Chatbot"
 - 메시지 목록 + 입력창 + 전송 버튼으로 된 채팅 UI
 - 지금까지의 대화를 배열로 기억해서(새로고침하면 초기화됨),
   매번 전체 대화를 함께 서버로 전송
@@ -848,7 +826,9 @@ API Key가 실수로 업로드되지 않게 해줘.</pre>
   (body는 { messages: [...] } 형태의 JSON),
   응답을 채팅 화면에 표시
 - 응답을 기다리는 동안 "생각 중..." 표시
-- 이 섹션은 파란색 계열로 깔끔하게</pre>
+- 전체적으로 파란색 계열로 깔끔하게
+- 상단에 hello-page 폴더의 재정경제부.svg 로고를 넣고,
+  그 로고를 누르면 index.html(자기소개)로 돌아가게 해줘</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
         </div></li>
@@ -869,7 +849,7 @@ Desktop Commander로 백그라운드 실행해줘.
         </div></li>
         <li><div class="step-content">
           <strong>브라우저로 확인</strong>
-          <p>브라우저 주소창에 <code>http://localhost:3000/</code>을 입력해 접속합니다. 자기소개·시계 아래에 채팅창이 보이고, 메시지를 입력해 답이 오면 성공입니다.</p>
+          <p>브라우저 주소창에 <code>http://localhost:3000/chatbot.html</code>을 입력해 접속합니다. 채팅창이 보이고, 메시지를 입력해 답이 오면 성공입니다. (자기소개 페이지는 <code>http://localhost:3000/</code>에서 따로 열립니다.)</p>
           <p class="note" style="padding-left:2px;">코드를 고친 뒤에는 Claude에게 "서버 재시작해줘"라고 요청하고 브라우저를 새로고침(F5)하세요. 다 끝나면 "서버 종료해줘"라고 요청하면 됩니다.</p>
         </div></li>
       </ol>
@@ -879,7 +859,7 @@ Desktop Commander로 백그라운드 실행해줘.
       </div>
 
       <div class="security-box">
-        ① API 키는 <code>.env</code>에만 두고 <code>index.html</code>·<code>server.js</code>에 직접 적지 마세요(서버 코드가 <code>.env</code>를 읽어오는 구조라야 안전합니다). ② GPT 호출은 <strong>API 사용료가 조금씩 과금</strong>됩니다(STEP 1의 $5 한도 안에서). ③ 실제로 인터넷에 공개 배포할 때는(STEP 7) <code>.env</code>가 아니라 <strong>Vercel 프로젝트 설정에 별도로 API 키를 등록</strong>해야 합니다 — STEP 7에서 안내합니다. ④ 오류가 나면 그대로 붙여넣어 "이 오류 고쳐줘"라고 요청하면 됩니다.
+        ① API 키는 <code>.env</code>에만 두고 <code>chatbot.html</code>·<code>server.js</code>에 직접 적지 마세요(서버 코드가 <code>.env</code>를 읽어오는 구조라야 안전합니다). ② GPT 호출은 <strong>API 사용료가 조금씩 과금</strong>됩니다(STEP 1의 $5 한도 안에서). ③ 실제로 인터넷에 공개 배포할 때는(STEP 7) <code>.env</code>가 아니라 <strong>Vercel 프로젝트 설정에 별도로 API 키를 등록</strong>해야 합니다 — STEP 7에서 안내합니다. ④ 오류가 나면 그대로 붙여넣어 "이 오류 고쳐줘"라고 요청하면 됩니다.
       </div>
 
     </div>
@@ -902,7 +882,7 @@ Desktop Commander로 백그라운드 실행해줘.
     <div class="card-body">
 
       <div class="situation">
-        내 컴퓨터에만 있던 <strong>웹 결과물(자기소개·시계·챗봇이 모두 담긴 <code>index.html</code> 한 장)</strong>을 누구나 접속할 수 있는 인터넷 주소로 배포합니다. "만들고 → 고치고 → 세상에 공개"의 마지막 단계입니다.<span class="note">(챗봇도 이제 같은 index.html 안의 섹션이라, 파일 하나로 한 번에 배포됩니다.)</span>
+        내 컴퓨터에만 있던 <strong>웹 결과물(자기소개·시계가 담긴 <code>index.html</code>과 챗봇 페이지 <code>chatbot.html</code>)</strong>을 누구나 접속할 수 있는 인터넷 주소로 배포합니다. "만들고 → 고치고 → 세상에 공개"의 마지막 단계입니다.<span class="note">(두 페이지와 <code>api/</code> 폴더를 폴더째 한 번에 배포합니다.)</span>
       </div>
 
       <div class="cmd-list">
@@ -913,7 +893,7 @@ Desktop Commander로 백그라운드 실행해줘.
         </div>
       </div>
 
-      <p style="font-size:13.5px; color:var(--text-dim); margin-bottom:4px;">완성된 웹 페이지·서버 함수(<code>index.html</code>·<code>api/</code> 폴더)를 인터넷에 배포합니다. 배포 방법은 두 가지가 있으니, <strong>둘 중 편한 방법 하나</strong>를 선택해 진행하면 됩니다.</p>
+      <p style="font-size:13.5px; color:var(--text-dim); margin-bottom:4px;">완성된 웹 페이지·서버 함수(<code>index.html</code>·<code>chatbot.html</code>·<code>api/</code> 폴더)를 인터넷에 배포합니다. 배포 방법은 두 가지가 있으니, <strong>둘 중 편한 방법 하나</strong>를 선택해 진행하면 됩니다.</p>
 
       <!-- 방법 ①: GitHub + Vercel 사이트 -->
       <div class="env-head">🌐 방법 ① · GitHub 업로드 후 Vercel 사이트에서 배포 <span class="env-note" style="color:#0550ae;">— 이후 자동 재배포</span></div>
@@ -933,7 +913,7 @@ Desktop Commander로 백그라운드 실행해줘.
           <p>터미널 없이 GitHub 사이트에서 파일을 바로 올릴 수 있습니다. 방금 만든 빈 저장소 화면에서 진행합니다.</p>
           <ol class="substeps">
             <li>저장소 화면의 <strong>"Add file" → "Upload files"</strong>를 클릭합니다.</li>
-            <li><code>hello-page</code> 폴더에서 <strong><code>index.html</code>·<code>재정경제부.svg</code>·<code>api</code> 폴더(그 안의 <code>chat.js</code> 포함)</strong>를 끌어다 놓거나 "choose your files"로 선택합니다.<span class="note">(⚠️ <code>.env</code>는 절대 올리지 마세요 — API Key가 그대로 노출됩니다. <code>server.js</code>는 로컬 테스트 전용이라 올려도 안 올려도 상관없습니다.)</span></li>
+            <li><code>hello-page</code> 폴더에서 <strong><code>index.html</code>·<code>chatbot.html</code>·<code>재정경제부.svg</code>·<code>api</code> 폴더(그 안의 <code>chat.js</code> 포함)</strong>를 끌어다 놓거나 "choose your files"로 선택합니다.<span class="note">(⚠️ <code>.env</code>는 절대 올리지 마세요 — API Key가 그대로 노출됩니다. <code>server.js</code>는 로컬 테스트 전용이라 올려도 안 올려도 상관없습니다.)</span></li>
             <li>아래 <strong>"Commit changes"</strong> 버튼을 눌러 업로드를 확정합니다.</li>
             <li>저장소에 파일들이 올라온 것을 확인합니다.</li>
           </ol>
@@ -991,7 +971,7 @@ Desktop Commander로 백그라운드 실행해줘.
       <ol class="step-list">
         <li><div class="step-content">
           <strong>왜 필요한가</strong>
-          <p>지금까지는 <code>server.js</code>가 내 컴퓨터의 <code>.env</code> 파일을 읽어서 <code>index.html</code>의 챗봇 섹션에 답해 왔습니다. 하지만 <code>.env</code>는 방금 GitHub에 올리지 않았으므로, <strong>Vercel 서버(<code>api/chat.js</code>)에는 API 키가 없는 상태</strong>입니다. 이 상태에서는 배포된 챗봇이 "API 키가 없습니다" 오류를 보여줍니다.</p>
+          <p>지금까지는 <code>server.js</code>가 내 컴퓨터의 <code>.env</code> 파일을 읽어서 <code>chatbot.html</code>의 챗봇에 답해 왔습니다. 하지만 <code>.env</code>는 방금 GitHub에 올리지 않았으므로, <strong>Vercel 서버(<code>api/chat.js</code>)에는 API 키가 없는 상태</strong>입니다. 이 상태에서는 배포된 챗봇이 "API 키가 없습니다" 오류를 보여줍니다.</p>
         </div></li>
         <li><div class="step-content">
           <strong>환경 변수 등록</strong>
@@ -1009,7 +989,7 @@ Desktop Commander로 백그라운드 실행해줘.
         </div></li>
         <li><div class="step-content">
           <strong>배포된 챗봇 확인</strong>
-          <p>재배포가 끝나면 <code>https://hello-page-xxxx.vercel.app</code>에 접속해, 자기소개·시계 아래의 챗봇 섹션까지 로컬에서 확인했던 것과 똑같이 동작하는지 확인합니다.</p>
+          <p>재배포가 끝나면 <code>https://hello-page-xxxx.vercel.app/chatbot.html</code>에 접속해, 챗봇이 로컬에서 확인했던 것과 똑같이 동작하는지 확인합니다.</p>
         </div></li>
       </ol>
 

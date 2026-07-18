@@ -32,7 +32,12 @@
     dl.gloss { margin: 0; }
     dl.gloss dt { font-weight: 700; color: var(--text); margin-top: 14px; scroll-margin-top: 20px; }
     dl.gloss dd { margin: 2px 0 0; color: var(--text-dim); font-size: 13.5px; line-height: 1.6; }
-    dl.gloss code {
+    /* 용어 제목(dt) 안의 코드는 나머지 용어와 동일하게 — 검정·같은 글꼴·같은 크기 */
+    dl.gloss dt code {
+      font: inherit; color: inherit; background: none; border: none; padding: 0;
+    }
+    /* 설명(dd) 안의 인라인 코드만 칩 스타일 유지 */
+    dl.gloss dd code {
       font-family: 'SFMono-Regular','Consolas',monospace; font-size: 12px;
       background: var(--bg2); border: 1px solid var(--border); border-radius: 4px;
       padding: 1px 6px; color: #cf222e; font-weight: 400;
