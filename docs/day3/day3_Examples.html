@@ -180,6 +180,14 @@
       content: '⚠️ 주의'; display: block; font-weight: 700; color: #7d4e00;
       margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
     }
+    .info-box {
+      background: #eef2f6; border: 1px solid #b6c2cf; border-radius: 6px;
+      padding: 12px 16px; margin: 14px 0; font-size: 13.5px; color: #2d333b;
+    }
+    .info-box::before {
+      content: 'ℹ️ 안내'; display: block; font-weight: 700; color: #4a5560;
+      margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
+    }
     .related-cmds {
       border-top: 1px solid var(--border); padding-top: 14px; margin-top: 16px;
       font-size: 13px; color: var(--text-dim);
@@ -204,16 +212,14 @@
   <div class="nav-title">Day 3 · 실습</div>
 
   <div class="nav-group">Claude Code 확장</div>
-  <a href="#step-1"><span class="dot dot-g"></span>STEP 1 · 스킬·플러그인 써 보기</a>
-  <a href="#step-2"><span class="dot dot-g"></span>STEP 2 · MCP로 외부 도구 연결</a>
+  <a href="#step-1"><span class="dot dot-g"></span>STEP 1 · 스킬·플러그인·서브에이전트</a>
 
   <div class="nav-group">하네스 엔지니어링</div>
-  <a href="#step-3"><span class="dot dot-b"></span>STEP 3 · 불안정성 관찰</a>
-  <a href="#step-4"><span class="dot dot-b"></span>STEP 4 · 규칙·검증 체계 구축</a>
+  <a href="#step-2"><span class="dot dot-b"></span>STEP 2 · 규칙·검증 루프 구축</a>
 
   <div class="nav-group">PDCA로 계획·설계</div>
-  <a href="#step-5"><span class="dot dot-p"></span>STEP 5 · PDCA 사이클 설계</a>
-  <a href="#step-6"><span class="dot dot-p"></span>STEP 6 · Plan·Design 작성</a>
+  <a href="#step-3"><span class="dot dot-p"></span>STEP 3 · Plan·Design 작성</a>
+  <a href="#step-4"><span class="dot dot-p"></span>STEP 4 · PRD·계획·설계 정합성 검토</a>
 
   <div class="nav-group">바로가기</div>
   <a href="day3_Manual.html">📖 Day 3 이론 문서로 →</a>
@@ -222,16 +228,16 @@
 <!-- ── 본문 ── -->
 <main>
   <h1>Day 3 · Claude Code 심화 — 스킬·플러그인·하네스·PDCA (실습)</h1>
-  <p class="subtitle">이론에서 익힌 스킬·플러그인·MCP·하네스·PDCA를 Claude Code에서 직접 설정하고 적용하는 실습입니다. STEP 1부터 순서대로 진행하십시오.<br>개념이 헷갈리면 각 단계의 "관련 이론" 링크로 <a href="day3_Manual.html">이론 문서</a>를 참고하세요.</p>
+  <p class="subtitle">이론에서 익힌 스킬·플러그인·하네스·PDCA를 Claude Code에서 직접 설정하고 적용하는 실습입니다. STEP 1부터 순서대로 진행하십시오.<br>개념이 헷갈리면 각 단계의 "관련 이론" 링크로 <a href="day3_Manual.html">이론 문서</a>를 참고하세요.</p>
 
   <div class="version-box">
-    <div class="version-row"><span class="vlabel">진행 순서</span><span>STEP 1·2 확장 → STEP 3·4 하네스 → STEP 5·6 PDCA 계획·설계</span></div>
-    <div class="version-row"><span class="vlabel">사용 도구</span><span><strong>Claude Code(CLI)</strong> — 설치되어 있다고 가정합니다</span></div>
+    <div class="version-row"><span class="vlabel">진행 순서</span><span>STEP 1 확장 → STEP 2 하네스 → STEP 3·4 계획·설계·검토</span></div>
+    <div class="version-row"><span class="vlabel">사용 도구</span><span><strong>Claude Desktop</strong>의 <strong>Code 탭</strong> — Day 1에서 설치(앱 상단 Chat / Cowork / <strong>Code</strong> 중 "Code")</span></div>
     <div class="version-row"><span class="vlabel">오늘의 결과물</span><span><code>CLAUDE.md</code>(규칙) · <code>PLAN.md</code> · <code>DESIGN.md</code></span></div>
   </div>
 
-  <div class="warning-box">
-    Day 3은 Day 1·2에서 쓴 Claude Desktop 대신 <strong>Claude Code(터미널)</strong>를 사용합니다. 설치되어 있다고 가정하며, 미설치라면 <a href="https://code.claude.com/docs" target="_blank">Claude Code 공식 문서</a>를 참고해 먼저 설치하세요. 작업 폴더는 Day 2의 <code>doc-qa-bot</code>을 이어서 씁니다.
+  <div class="info-box">
+    작업 폴더는 <code>PRD.md</code>가 있는 Day 2의 <code>rag-chatbot</code>을 이어서 씁니다.
   </div>
 
   <!-- ══════════════════════════════ Claude Code 확장 ══════════════════════════════ -->
@@ -246,12 +252,12 @@
     <div class="card-header">
       <span class="card-id">STEP 1</span>
       <span class="badge badge-g">스킬·플러그인</span>
-      <strong class="card-title">스킬을 확인하고 플러그인 설치해 보기</strong>
+      <strong class="card-title">스킬·플러그인·서브에이전트 확인하고 설치하기</strong>
     </div>
     <div class="card-body">
 
       <div class="situation">
-        Claude Code를 실행해 지금 쓸 수 있는 명령·스킬을 살펴보고, 마켓플레이스에서 플러그인을 하나 설치해 봅니다.<br>"매번 설명하던 것을 한 번 정의해 재사용"하는 감을 잡는 단계입니다.
+        Code 탭에서 지금 쓸 수 있는 명령·스킬을 살펴보고, 이 과정의 핵심 도구인 <strong>bkit 플러그인</strong>을 설치합니다. bkit은 Day 3 STEP 2~4·Day 4에서 쓸 <strong>PDCA 하네스 엔진</strong>입니다 — "매번 설명하던 것을 한 번 정의해 재사용"하는 플러그인의 힘을 이걸로 체감합니다.
       </div>
 
       <div class="cmd-list">
@@ -264,103 +270,44 @@
       <div class="steps-title">단계별 실행</div>
       <ol class="step-list">
         <li><div class="step-content">
-          <strong>작업 폴더에서 Claude Code 실행</strong>
-          <p>터미널에서 Day 2의 <code>doc-qa-bot</code> 폴더로 이동한 뒤 <code>claude</code>를 실행합니다.</p>
-          <div class="code-wrap">
-            <pre class="code-block"><span class="c-cmd">cd</span> doc-qa-bot
-<span class="c-cmd">claude</span></pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
+          <strong>Code 탭에서 새 세션 시작 (작업 폴더 지정)</strong>
+          <p>Claude Desktop을 실행하고 상단 <strong>Code</strong> 탭을 클릭합니다. <strong>+ New session</strong>(또는 <code>Ctrl+N</code>)으로 새 세션을 열고, 프롬프트 영역에서 <strong>Environment: Local</strong> · <strong>Project folder: Day 2의 <code>rag-chatbot</code> 선택</strong>을 지정한 뒤 프롬프트를 입력합니다.<span class="note">이후 모든 프롬프트·명령은 이 Code 탭 화면에서 진행합니다 — 검은 터미널을 따로 열 필요가 없습니다.</span></p>
         </div></li>
         <li><div class="step-content">
-          <strong>쓸 수 있는 명령·스킬 살펴보기</strong>
-          <p>대화가 시작되면 <code>/help</code>로 명령 목록을 보고, 지금 쓸 수 있는 스킬을 Claude에게 직접 물어봅니다.</p>
+          <strong>bkit 플러그인 설치</strong>
+          <p>이 과정의 핵심 도구인 <strong>bkit</strong>을 설치합니다. Code 탭 프롬프트에 아래 세 명령을 <strong>한 줄씩 차례로</strong> 입력합니다 — ① bkit 마켓플레이스 추가 → ② bkit 설치 → ③ 새로고침으로 활성화. 중간에 권한을 물으면 <strong>본인이 승인</strong>합니다.</p>
           <div class="code-wrap">
-            <pre class="code-block">/help</pre>
+            <pre class="code-block">/plugin marketplace add popup-studio-ai/bkit-claude-code
+/plugin install bkit
+/reload-plugins</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
-          <span class="prompt-label">프롬프트</span>
-          <div class="code-wrap">
-            <pre class="code-block">지금 이 프로젝트에서 내가 쓸 수 있는 스킬과
-슬래시 명령에는 어떤 것들이 있어? 간단히 설명해줘.</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
+          <span class="note">참고: 다른 플러그인은 <strong>+ 버튼 → Plugins</strong> 브라우저에서 GUI로도 둘러보고 설치할 수 있습니다.</span>
         </div></li>
         <li><div class="step-content">
-          <strong>플러그인 마켓플레이스 열기</strong>
-          <p><code>/plugin</code>을 입력해 플러그인 마켓플레이스를 엽니다. 어떤 플러그인이 있는지 목록을 둘러봅니다.</p>
+          <strong>설치 확인 — bkit이 데려온 스킬·서브에이전트 보기</strong>
+          <p>프롬프트에 <code>/</code>를 입력해 bkit이 추가한 <strong>새 슬래시 명령</strong>이 보이는지 확인한 뒤, 아래 <strong>두 프롬프트를 차례로</strong> 물어 bkit이 함께 데려온 <strong>스킬</strong>과 <strong>서브에이전트</strong>(특정 작업을 위임받는 보조 에이전트)를 확인합니다 — 지금은 <strong>"이런 게 있다"는 것만 눈으로 확인</strong>하면 됩니다. 이 명령·스킬·에이전트들이 Day 3 STEP 2~4·Day 4의 PDCA를 돌리는 도구가 됩니다.</p>
+          <span class="prompt-label">프롬프트 ① 스킬 확인</span>
           <div class="code-wrap">
-            <pre class="code-block">/plugin</pre>
+            <pre class="code-block">지금 이 프로젝트에서 내가 쓸 수 있는 스킬에는
+어떤 것들이 있어? 각각 무슨 일을 하는지 한 줄로 설명해줘.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
-        </div></li>
-        <li><div class="step-content">
-          <strong>플러그인 하나 설치해 보기</strong>
-          <p>마음에 드는 플러그인을 하나 골라 안내에 따라 설치합니다. 설치 후 어떤 슬래시 명령·스킬이 새로 생겼는지 <code>/help</code>로 다시 확인합니다.<span class="note">(플러그인은 명령·스킬·MCP·훅을 한 번에 추가하므로, 설치 전 무엇이 추가되는지 설명을 확인하세요.)</span></p>
+          <span class="prompt-label">프롬프트 ② 서브에이전트 확인</span>
+          <div class="code-wrap">
+            <pre class="code-block">지금 이 프로젝트에서 쓸 수 있는 서브에이전트에는
+어떤 것들이 있어? 각각 무슨 일을 하는지 한 줄로 알려줘.</pre>
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
+          </div>
         </div></li>
       </ol>
+
+      <div class="flow-box">
+        방금 설치한 <strong>bkit</strong>이 이 과정의 하네스입니다 — 규칙·PDCA·검증 절차를 담고 있어 Day 3 STEP 2~4와 Day 4가 이 위에서 돌아갑니다. "플러그인 하나를 설치했을 뿐인데" 과정 전체의 뼈대가 깔린 셈입니다.
+      </div>
 
       <div class="tip-box">
         스킬은 대부분 <strong>상황에 맞을 때 Claude가 알아서 꺼내 씁니다.</strong> 억지로 외워 부르기보다, "이런 작업엔 이런 스킬이 있다"는 지도만 익혀 두면 됩니다.
-      </div>
-
-    </div>
-  </div>
-
-  <!-- STEP 2 -->
-  <div class="scenario-card" id="step-2">
-    <div class="card-header">
-      <span class="card-id">STEP 2</span>
-      <span class="badge badge-g">MCP</span>
-      <strong class="card-title">MCP로 외부 도구·데이터 연결하기</strong>
-    </div>
-    <div class="card-body">
-
-      <div class="situation">
-        Claude Code에 MCP 서버를 하나 연결해, Claude가 바깥 도구·데이터에 접근하게 합니다. 여기서는 안전한 예로 <strong>파일시스템 서버</strong>를 연결해 봅니다.
-      </div>
-
-      <div class="cmd-list">
-        <div class="cmd-list-title">관련 이론</div>
-        <div class="cmd-chips">
-          <a class="cmd-chip" href="day3_Manual.html#section-2">외부 도구·데이터 연결 (MCP)</a>
-        </div>
-      </div>
-
-      <div class="steps-title">단계별 실행</div>
-      <ol class="step-list">
-        <li><div class="step-content">
-          <strong>현재 연결된 MCP 서버 확인</strong>
-          <p>Claude Code 대화에서 <code>/mcp</code>를 입력하면 지금 연결된 서버 목록과 상태를 볼 수 있습니다.</p>
-          <div class="code-wrap">
-            <pre class="code-block">/mcp</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-        </div></li>
-        <li><div class="step-content">
-          <strong>파일시스템 MCP 서버 추가</strong>
-          <p>새 터미널(또는 Claude Code를 잠시 종료)에서 아래 명령으로 <code>doc-qa-bot</code> 폴더에 접근하는 파일시스템 서버를 추가합니다.<span class="note">(경로는 본인 <code>doc-qa-bot</code>의 전체 경로로 바꿉니다.)</span></p>
-          <div class="code-wrap">
-            <pre class="code-block"><span class="c-cmd">claude</span> mcp add filesystem \
-  -- npx -y @modelcontextprotocol/server-filesystem C:\Users\사용자명\doc-qa-bot</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-          <p class="code-caption">▲ macOS는 경로를 <code>/Users/사용자명/doc-qa-bot</code> 로 씁니다.</p>
-        </div></li>
-        <li><div class="step-content">
-          <strong>연결 확인</strong>
-          <p>다시 <code>claude</code>를 실행하고 <code>/mcp</code>로 <strong>filesystem</strong> 서버가 연결됐는지 확인합니다. 그 뒤 아래처럼 서버를 통해 파일을 다루게 해 봅니다.</p>
-          <span class="prompt-label">프롬프트</span>
-          <div class="code-wrap">
-            <pre class="code-block">filesystem 서버로 이 폴더의 파일 목록을 보여주고,
-PRD.md의 핵심 기능 부분을 요약해줘.</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-        </div></li>
-      </ol>
-
-      <div class="warning-box">
-        MCP 서버는 Claude에게 실제 권한을 줍니다. <strong>실습 폴더처럼 꼭 필요한 범위만</strong> 연결하고, 출처가 불분명한 서버는 연결하지 마십시오.
       </div>
 
     </div>
@@ -373,67 +320,24 @@ PRD.md의 핵심 기능 부분을 요약해줘.</pre>
     <span class="level-desc">결과를 반복 가능하고 안정적으로 만듭니다</span>
   </div>
 
-  <!-- STEP 3 -->
-  <div class="scenario-card" id="step-3">
+  <!-- STEP 2 -->
+  <div class="scenario-card" id="step-2">
     <div class="card-header">
-      <span class="card-id">STEP 3</span>
-      <span class="badge badge-b">개념 체험</span>
-      <strong class="card-title">불안정성을 직접 관찰하기</strong>
-    </div>
-    <div class="card-body">
-
-      <div class="situation">
-        하네스가 왜 필요한지 몸으로 느끼는 단계입니다. 같은 요청을 두 번 실행해, 결과가 조금씩 달라지는 것을 직접 확인합니다.
-      </div>
-
-      <div class="cmd-list">
-        <div class="cmd-list-title">관련 이론</div>
-        <div class="cmd-chips">
-          <a class="cmd-chip" href="day3_Manual.html#section-3">하네스 엔지니어링 ① — 왜 필요한가</a>
-        </div>
-      </div>
-
-      <div class="steps-title">단계별 실행</div>
-      <ol class="step-list">
-        <li><div class="step-content">
-          <strong>같은 요청을 두 번 하기</strong>
-          <p>새 대화를 두 번 열어(또는 <code>/clear</code> 후) 아래 같은 요청을 각각 실행하고, 결과 파일을 비교합니다.</p>
-          <span class="prompt-label">프롬프트 (두 번 실행)</span>
-          <div class="code-wrap">
-            <pre class="code-block">doc-qa-bot 폴더에 sample.html을 만들어줘.
-"안녕하세요"를 보여주는 간단한 안내 페이지야.</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-        </div></li>
-        <li><div class="step-content">
-          <strong>차이 관찰하기</strong>
-          <p>두 결과가 <strong>구조·스타일·문구·파일 구성</strong> 면에서 어떻게 다른지 봅니다. 큰 틀은 같아도 세부는 매번 다릅니다 — 이것이 규칙 없는 상태의 불안정성입니다.</p>
-          <div class="flow-box">
-            결과가 달라지는 것은 고장이 아니라 LLM의 <strong>본래 성질</strong>입니다. 그래서 "매번 같은 기준"이 필요하고, 그 기준을 문서로 고정하는 것이 다음 단계(하네스 구축)입니다.
-          </div>
-        </div></li>
-      </ol>
-
-    </div>
-  </div>
-
-  <!-- STEP 4 -->
-  <div class="scenario-card" id="step-4">
-    <div class="card-header">
-      <span class="card-id">STEP 4</span>
+      <span class="card-id">STEP 2</span>
       <span class="badge badge-b">하네스 구축</span>
-      <strong class="card-title">규칙(CLAUDE.md)과 검증 절차 만들기</strong>
+      <strong class="card-title">규칙(CLAUDE.md)과 검증 루프 만들기</strong>
     </div>
     <div class="card-body">
 
       <div class="situation">
-        불안정성을 줄이기 위해 <strong>규칙 → 작업 → 절차 → 검증</strong>의 하네스를 세웁니다. 프로젝트 규칙서(<code>CLAUDE.md</code>)를 만들고, 변경 뒤 검증하는 절차를 정합니다.
+        같은 지시라도 결과가 들쭉날쭉한 이유(불안정성)와 하네스가 왜 필요한지는 <a href="day3_Manual.html#section-3">이론 3장</a>에서 다룹니다. 여기서는 그 불안정성을 줄이는 <strong>규칙 → 작업 → 절차 → 검증</strong>의 하네스를 실제로 세웁니다. 프로젝트 규칙서(<code>CLAUDE.md</code>)를 만들고, 변경 뒤 스스로 검증하는 <strong>검증 루프</strong>를 절차로 심습니다.
       </div>
 
       <div class="cmd-list">
         <div class="cmd-list-title">관련 이론</div>
         <div class="cmd-chips">
-          <a class="cmd-chip" href="day3_Manual.html#section-4">하네스 엔지니어링 ② — 구축</a>
+          <a class="cmd-chip" href="day3_Manual.html#section-3">하네스 ① — 왜 필요한가</a>
+          <a class="cmd-chip" href="day3_Manual.html#section-4">하네스 ② — 규칙·검증 루프</a>
         </div>
       </div>
 
@@ -449,32 +353,41 @@ PRD.md의 핵심 기능 부분을 요약해줘.</pre>
         </div></li>
         <li><div class="step-content">
           <strong>규칙 추가하기</strong>
-          <p>내 프로젝트에 맞는 규칙을 덧붙입니다. 아래처럼 요청해 <code>CLAUDE.md</code>에 규칙을 채웁니다.</p>
+          <p>내 프로젝트에 맞는 규칙을 덧붙입니다. 아래처럼 요청해 <code>CLAUDE.md</code>에 규칙을 채웁니다. 맨 아래 <strong>서브에이전트 규칙</strong>은 보조 에이전트가 함부로 늘어나지 않도록, <strong>사용자 허락이나 직접 요청이 있을 때만</strong> 만들게 하는 안전장치입니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
             <pre class="code-block">CLAUDE.md에 아래 규칙을 추가해줘.
 - 모든 설명과 주석은 한국어로 작성한다.
-- 새 파일은 doc-qa-bot 폴더 안에만 만든다.
+- 새 파일은 rag-chatbot 폴더 안에만 만든다.
 - 코드를 바꾸면 반드시 무엇을 왜 바꿨는지 한 줄로 알려준다.
-- .env 등 비밀 정보 파일은 절대 커밋하지 않는다.</pre>
+- .env 등 비밀 정보 파일은 절대 커밋하지 않는다.
+- 서브에이전트는 메인 에이전트가 필요하다고 판단해 사용자 허락을 받았을 때,
+  또는 사용자가 직접 요청했을 때만 만든다.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
         </div></li>
         <li><div class="step-content">
-          <strong>검증 절차 정하기</strong>
-          <p>변경 뒤 항상 거칠 <strong>확인 절차</strong>를 정해 규칙으로 적어 둡니다. 지금은 코드가 많지 않으니 "브라우저로 열어 동작 확인 + 리뷰"를 기본 절차로 삼습니다.</p>
+          <strong>검증 루프 만들기 — "루프 엔지니어링"</strong>
+          <p>변경할 때마다 <strong>결과를 스스로 확인하고, 문제가 있으면 고치는 것</strong>까지 한 묶음으로 돌게 만듭니다. 이렇게 <strong>변경 → 검증 → 수정</strong>을 하나의 반복 고리로 설계하는 것을 <strong>루프 엔지니어링(loop engineering)</strong> — 곧 <strong>"검증을 루프로"</strong> 만드는 일 — 이라고 합니다. 아래처럼 요청해 이 검증 루프를 <code>CLAUDE.md</code>의 작업 절차로 심어 둡니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">CLAUDE.md에 "작업 절차" 섹션을 추가해줘.
-1) 변경 → 2) 결과를 직접 확인(브라우저/실행) →
-3) 스스로 코드 리뷰 → 4) 무엇을 왜 바꿨는지 요약
-이 순서를 항상 따르도록 적어줘.</pre>
+            <pre class="code-block">CLAUDE.md에 "작업 절차(검증 루프)" 섹션을 추가해줘.
+아래를 매번 반복(루프)하도록 적어줘.
+1) 변경한다 → 2) 결과를 직접 확인한다(브라우저로 열기/실행)
+→ 3) 스스로 코드 리뷰한다 → 4) 문제가 있으면 고치고 다시 1)로
+→ 통과하면 무엇을 왜 바꿨는지 한 줄로 요약한다.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
         </div></li>
         <li><div class="step-content">
-          <strong>하네스 효과 확인</strong>
-          <p>STEP 3의 요청을 다시 실행해 봅니다. 이제 <code>CLAUDE.md</code> 규칙(한국어·폴더·요약)이 <strong>매번 지켜지는지</strong> 확인합니다. 규칙이 결과를 일정하게 잡아 줍니다.</p>
+          <strong>규칙·검증 루프가 지켜지는지 확인</strong>
+          <p>간단한 변경을 하나 요청해, 이제 <code>CLAUDE.md</code>의 규칙(한국어·폴더·요약)과 검증 루프가 <strong>매번 자동으로 지켜지는지</strong> 확인합니다. 규칙과 루프가 결과를 일정하게 잡아 줍니다. (여기서 만든 임시 파일은 STEP 4에서 정리합니다.)</p>
+          <span class="prompt-label">프롬프트</span>
+          <div class="code-wrap">
+            <pre class="code-block">rag-chatbot 폴더에 test.html을 만들어줘.
+"안녕하세요"를 보여주는 간단한 안내 페이지야.</pre>
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
+          </div>
         </div></li>
       </ol>
 
@@ -492,69 +405,78 @@ PRD.md의 핵심 기능 부분을 요약해줘.</pre>
     <span class="level-desc">PRD를 계획과 설계로 좁혀 갑니다</span>
   </div>
 
-  <!-- STEP 5 -->
-  <div class="scenario-card" id="step-5">
+  <!-- STEP 3 -->
+  <div class="scenario-card" id="step-3">
     <div class="card-header">
-      <span class="card-id">STEP 5</span>
-      <span class="badge badge-p">PDCA</span>
-      <strong class="card-title">내 프로젝트로 PDCA 한 사이클 설계하기</strong>
-    </div>
-    <div class="card-body">
-
-      <div class="situation">
-        PDCA(Plan-Do-Check-Act)를 내 앱(<code>doc-qa-bot</code>)에 대입해, 첫 한 바퀴를 어떻게 돌릴지 정리합니다. 이 과정을 <strong>bkit</strong>(PDCA 기반 개발 흐름)이라 부릅니다.
-      </div>
-
-      <div class="cmd-list">
-        <div class="cmd-list-title">관련 이론</div>
-        <div class="cmd-chips">
-          <a class="cmd-chip" href="day3_Manual.html#section-5">PDCA 방법론</a>
-        </div>
-      </div>
-
-      <div class="steps-title">단계별 실행</div>
-      <ol class="step-list">
-        <li><div class="step-content">
-          <strong>PDCA 4단계를 내 앱에 대입</strong>
-          <p>PRD의 핵심 기능 중 <strong>가장 작은 동작 버전(MVP) 하나</strong>를 골라, 그것을 한 사이클로 돌린다고 보고 아래 표를 채웁니다. Claude에게 도움을 받아도 됩니다.</p>
-          <span class="prompt-label">프롬프트</span>
-          <div class="code-wrap">
-            <pre class="code-block">PRD.md를 참고해서, 첫 PDCA 한 사이클 계획을 세워줘.
-가장 작은 동작 버전(MVP) 하나를 정하고,
-Plan / Do / Check / Act 각각에서 무엇을 할지
-표로 정리해줘. 아직 파일은 만들지 말고 표만 보여줘.</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-        </div></li>
-        <li><div class="step-content">
-          <strong>한 사이클의 목표 정하기</strong>
-          <p>이번 바퀴에서 <strong>"무엇이 되면 성공"</strong>인지 한 문장으로 정합니다. 너무 크게 잡지 말고, 하루 안에 확인 가능한 크기로 좁힙니다.</p>
-          <div class="doc-box">
-            <div class="doc-title">예시 — 첫 사이클 목표</div>
-            <b>MVP:</b> 문서 1개를 올리면, 그 문서 내용으로 질문에 답하는 최소 화면.<br>
-            <b>성공 기준:</b> 샘플 문서를 올려 질문 3개에 근거와 함께 답하면 성공.
-          </div>
-        </div></li>
-      </ol>
-
-      <div class="tip-box">
-        PDCA의 핵심은 <strong>작게 돌리는 것</strong>입니다. "앱 전체"가 아니라 "기능 하나"를 한 바퀴로 잡아야 Check·Act가 빨리 돌아 개선이 쌓입니다.
-      </div>
-
-    </div>
-  </div>
-
-  <!-- STEP 6 -->
-  <div class="scenario-card" id="step-6">
-    <div class="card-header">
-      <span class="card-id">STEP 6</span>
+      <span class="card-id">STEP 3</span>
       <span class="badge badge-p">Plan·Design</span>
       <strong class="card-title">PRD 기반 Plan·Design 문서 작성하기</strong>
     </div>
     <div class="card-body">
 
       <div class="situation">
-        PDCA의 <strong>Plan(계획)</strong>과 <strong>Design(설계)</strong>을 실제 문서로 남깁니다. Day 2의 <code>PRD.md</code>를 입력으로, <code>PLAN.md</code>와 <code>DESIGN.md</code>를 만듭니다.
+        PDCA 첫 바퀴의 <strong>Plan(계획)</strong>과 <strong>Design(설계)</strong>을 실제 문서로 남깁니다. Day 2의 <code>PRD.md</code>를 입력으로, <code>PLAN.md</code>와 <code>DESIGN.md</code>를 만듭니다.
+      </div>
+
+      <div class="cmd-list">
+        <div class="cmd-list-title">관련 이론</div>
+        <div class="cmd-chips">
+          <a class="cmd-chip" href="day3_Manual.html#section-5">PDCA 방법론</a>
+          <a class="cmd-chip" href="day3_Manual.html#section-6">PDCA의 Plan·Design</a>
+        </div>
+      </div>
+
+      <div class="steps-title">단계별 실행</div>
+      <ol class="step-list">
+        <li><div class="step-content">
+          <strong>Plan 만들기 — 작업을 순서로</strong>
+          <p>PRD의 기능·개발 단위를 <strong>만들 순서가 있는 작업 목록</strong>으로 바꿔 <code>PLAN.md</code>에 저장합니다. 이 과정의 <code>PRD.md</code>는 <strong>이미 MVP 규모로 좁혀 둔 것</strong>이므로, 범위를 더 잘라내지 말고 <strong>PRD 전체를 한 번에 계획으로 옮깁니다</strong> — 대신 <strong>만들 순서</strong>만 "먼저 되면 나머지가 쉬워지는 것부터"로 잡습니다.</p>
+          <span class="prompt-label">프롬프트</span>
+          <div class="code-wrap">
+            <pre class="code-block">PRD.md를 읽고, PRD에 정의된 기능 전체를 만들기 위한
+PLAN.md를 만들어줘.
+(이 PRD는 이미 MVP 범위라 따로 잘라내지 말고 전체를 담아줘.)
+- 해야 할 작업을 만들 순서대로 번호로 정리
+- 각 작업은 한 줄, 먼저 되면 나머지가 쉬워지는 것부터
+- 맨 위에 이번 사이클 목표와 성공 기준을 적어줘</pre>
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
+          </div>
+        </div></li>
+        <li><div class="step-content">
+          <strong>Design 만들기 — 어떻게 구현할지</strong>
+          <p>각 작업을 <strong>어떻게</strong> 만들지(화면 구성, 데이터 흐름, 기술 선택)를 <code>DESIGN.md</code>로 정리합니다. 스택에 정답은 없습니다 — <strong>내 PRD에 맞게</strong>, 다음 날(Do) 실제로 작업할 <strong>기술 스택을 고릅니다</strong>.</p>
+          <span class="prompt-label">프롬프트</span>
+          <div class="code-wrap">
+            <pre class="code-block">PLAN.md를 바탕으로 DESIGN.md를 만들어줘.
+- 화면 구성(무엇이 어디에 보이는지)
+- 데이터 흐름(입력 → 처리 → 출력)
+- 기술 선택: 내 PRD에 어울리는 기술을 자유롭게 제안해줘.
+  제안은 구현 난이도별로, 비개발자인 내가 이해할 수 있는
+  쉬운 설명 1줄로 3가지 옵션을 제시해줘.</pre>
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
+          </div>
+        </div></li>
+      </ol>
+
+      <div class="tip-box">
+        핵심은 <strong>PRD 범위를 넘어 새 기능을 더하지 않는 것</strong>입니다. 이 PRD는 이미 하루 안에 만들 수 있는 <strong>MVP 크기</strong>로 좁혀 둔 것이니, Plan·Design에서는 범위를 늘리지 말고 <strong>만들 순서와 구현 방법</strong>에만 집중하면 다음 날 Do(만들기)가 3시간 안에 끝납니다.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="scenario-card" id="step-4">
+    <div class="card-header">
+      <span class="card-id">STEP 4</span>
+      <span class="badge badge-p">정합성 검토</span>
+      <strong class="card-title">PRD·Plan·Design 정합성 검토하기</strong>
+    </div>
+    <div class="card-body">
+
+      <div class="situation">
+        지금까지 만든 <code>PRD.md</code> · <code>PLAN.md</code> · <code>DESIGN.md</code> 세 문서가 <strong>서로 어긋나는 곳 없이 일치하는지</strong> 검토하고, 오늘 산출물을 정리합니다.
+        <span class="note">참고: PDCA의 <b>Check</b>(계획대로 동작하는지 검증)는 실제로 만들어 본 뒤라야 가능하므로 <b>Day 4의 Do 다음</b>에 진행합니다. 오늘은 세 문서의 <b>정합성</b>만 맞춥니다.</span>
       </div>
 
       <div class="cmd-list">
@@ -567,46 +489,31 @@ Plan / Do / Check / Act 각각에서 무엇을 할지
       <div class="steps-title">단계별 실행</div>
       <ol class="step-list">
         <li><div class="step-content">
-          <strong>Plan 만들기 — 작업을 순서로</strong>
-          <p>PRD의 기능·개발 단위를 <strong>만들 순서가 있는 작업 목록</strong>으로 바꿔 <code>PLAN.md</code>에 저장합니다.</p>
+          <strong>세 문서 정합성 검토</strong>
+          <p><code>PRD.md</code>가 정한 "무엇을·왜"와, <code>PLAN.md</code>의 "순서", <code>DESIGN.md</code>의 "어떻게"가 <strong>서로 어긋나거나 빠진 곳</strong>이 없는지 함께 검토합니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">PRD.md를 읽고, STEP 5에서 정한 MVP를 만들기 위한
-PLAN.md를 만들어줘.
-- 해야 할 작업을 만들 순서대로 번호로 정리
-- 각 작업은 한 줄, 가장 작은 것부터
-- 맨 위에 이번 사이클 목표와 성공 기준을 적어줘</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-        </div></li>
-        <li><div class="step-content">
-          <strong>Design 만들기 — 어떻게 구현할지</strong>
-          <p>각 작업을 <strong>어떻게</strong> 만들지(화면 구성, 데이터 흐름)를 <code>DESIGN.md</code>로 정리합니다.</p>
-          <span class="prompt-label">프롬프트</span>
-          <div class="code-wrap">
-            <pre class="code-block">PLAN.md를 바탕으로 DESIGN.md를 만들어줘.
-- 화면 구성(무엇이 어디에 보이는지)
-- 데이터 흐름(문서 업로드 → 저장 → 검색 → 답변)
-- 사용할 기술의 큰 선택
-초보자가 이해할 수준으로 간단히 적어줘.</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-        </div></li>
-        <li><div class="step-content">
-          <strong>검토·정리</strong>
-          <p><code>PLAN.md</code>와 <code>DESIGN.md</code>를 열어, PRD와 어긋나는 곳이 없는지 확인합니다. 애매한 부분은 아래처럼 다시 다듬습니다.</p>
-          <span class="prompt-label">프롬프트</span>
-          <div class="code-wrap">
-            <pre class="code-block">PLAN.md와 DESIGN.md가 PRD.md와 어긋나는 부분,
-또는 빠진 부분이 있는지 검토해서 알려줘.
+            <pre class="code-block">PRD.md · PLAN.md · DESIGN.md 세 문서를 함께 읽고,
+서로 어긋나는 부분이나 빠진 부분이 있는지 검토해서 알려줘.
 반영할 것을 고르면 파일을 업데이트해줘.</pre>
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
+          </div>
+        </div></li>
+        <li><div class="step-content">
+          <strong>오늘 산출물 확인하고 정리하기</strong>
+          <p><code>CLAUDE.md</code> · <code>PLAN.md</code> · <code>DESIGN.md</code>가 모두 있는지 확인하고, 실습 중 만든 임시 파일(예: STEP 2의 <code>test.html</code>)은 지워 작업 폴더를 깨끗이 둡니다.</p>
+          <span class="prompt-label">프롬프트</span>
+          <div class="code-wrap">
+            <pre class="code-block">작업 폴더에 CLAUDE.md, PLAN.md, DESIGN.md가 모두 있는지 확인해줘.
+그리고 실습 중 만든 test.html 같은 임시 파일이 있으면 지워서
+폴더를 깨끗하게 정리해줘.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
         </div></li>
       </ol>
 
       <div class="related-cmds">
-        <strong>오늘의 마무리:</strong> Claude Code를 하네스로 다잡고, PRD를 <code>PLAN.md</code>·<code>DESIGN.md</code>로 좁혔습니다. 이제 다음은 PDCA의 <strong>Do(만들기)</strong> — 계획대로 실제 앱을 구현하는 단계입니다.
+        <strong>오늘의 마무리:</strong> Claude Code를 하네스로 다잡고, PRD를 <code>PLAN.md</code>·<code>DESIGN.md</code>로 좁힌 뒤 세 문서의 정합성까지 맞췄습니다. 이제 다음은 PDCA의 <strong>Do(만들기)</strong> — 계획대로 실제 앱을 구현하고 <strong>Check</strong>로 검증하는 단계입니다.
       </div>
 
     </div>
@@ -633,7 +540,6 @@ function copyCode(btn) {
 </script>
 <script src="../assets/roadmap.js" defer></script>
 <script src="../assets/autolink.js" defer></script>
-<script src="../assets/glossary.js" defer></script>
 <script src="../assets/inpage-search.js" defer></script>
 </body>
 </html>

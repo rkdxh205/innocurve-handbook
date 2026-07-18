@@ -148,7 +148,7 @@
   <div class="version-box">
     <div class="version-row"><span class="vlabel">다루는 개념</span><span class="vvalue">스킬 · 플러그인 · MCP · 하네스 엔지니어링 · 규칙(CLAUDE.md) · 검증 · PDCA · Plan · Design</span></div>
     <div class="version-row"><span class="vlabel">짝 문서(실습)</span><span class="vvalue"><a href="day3_Examples.html">day3_Examples.html</a> — 개념을 Claude Code에서 직접 설정·적용</span></div>
-    <div class="version-row"><span class="vlabel">준비물</span><span class="vvalue"><strong>Claude Code(CLI)</strong>가 설치되어 있다고 가정합니다 · Day 2의 <code>PRD.md</code>(<code>doc-qa-bot</code>)</span></div>
+    <div class="version-row"><span class="vlabel">준비물</span><span class="vvalue">Day 1에서 설치한 <strong>Claude Desktop의 Code 탭</strong> · Day 2의 <code>PRD.md</code>(<code>rag-chatbot</code>)</span></div>
   </div>
 
   <!-- ── 인트로 ── -->
@@ -157,11 +157,11 @@
   <div class="tree-box"><pre>
 Day 3 · 이론 → 실습 대응표
 ├── <span class="cmd">1. 스킬과 플러그인</span>            <span class="desc">→ 실습 STEP 1</span>
-├── <span class="cmd">2. 외부 도구·데이터 연결(MCP)</span>   <span class="desc">→ 실습 STEP 2</span>
-├── <span class="cmd">3. 하네스 엔지니어링 ①(왜)</span>     <span class="desc">→ 실습 STEP 3</span>
-├── <span class="cmd">4. 하네스 엔지니어링 ②(구축)</span>   <span class="desc">→ 실습 STEP 4</span>
-├── <span class="cmd">5. PDCA 방법론</span>              <span class="desc">→ 실습 STEP 5</span>
-└── <span class="cmd">6. PDCA의 Plan·Design</span>       <span class="desc">→ 실습 STEP 6 (PRD 기반 계획·설계)</span>
+├── <span class="cmd">2. 외부 도구·데이터 연결(MCP)</span>   <span class="desc">→ 개념만 (실습 생략)</span>
+├── <span class="cmd">3. 하네스 엔지니어링 ①(왜)</span>     <span class="desc">→ 이론만 (실습은 STEP 2에서 규칙부터)</span>
+├── <span class="cmd">4. 하네스 엔지니어링 ②(구축)</span>   <span class="desc">→ 실습 STEP 2</span>
+├── <span class="cmd">5. PDCA 방법론</span>              <span class="desc">→ 실습 STEP 3·4</span>
+└── <span class="cmd">6. PDCA의 Plan·Design</span>       <span class="desc">→ 실습 STEP 3·4 (계획·설계·정합성 검토)</span>
 </pre></div>
 
   <hr>
@@ -171,7 +171,7 @@ Day 3 · 이론 → 실습 대응표
   <p>Claude Code는 기본 상태로도 강력하지만, <strong>스킬</strong>과 <strong>플러그인</strong>으로 능력을 넓힐 수 있습니다. 둘 다 "Claude에게 새로운 능력·절차를 얹는" 장치이지만 규모가 다릅니다.</p>
 
   <h3><code>Skill</code> — 반복 절차를 담은 능력 꾸러미</h3>
-  <p>스킬(Skill)은 <strong>특정 작업을 하는 방법을 정리한 설명서 묶음</strong>입니다. "코드 리뷰는 이런 순서로", "배포는 이런 절차로" 같은 정형 절차를 담아 두면, Claude Code가 <strong>상황에 맞을 때 알아서 그 스킬을 꺼내 쓰거나</strong>, 사용자가 직접 불러 쓸 수 있습니다. 매번 길게 설명하지 않아도 같은 품질의 절차가 재현된다는 것이 핵심입니다.</p>
+  <p>스킬(Skill)은 <strong>특정 작업을 하는 방법을 정리한 설명서 묶음</strong>입니다. 실제로는 <strong>마크다운(<code>.md</code>) 파일 한 장</strong>에 "코드 리뷰는 이런 순서로", "배포는 이런 절차로" 같은 정형 절차를 적어 둔 것이며 — 사람이 읽는 업무 매뉴얼과 똑같이 생겼습니다. 이렇게 담아 두면 Claude Code가 <strong>상황에 맞을 때 알아서 그 스킬을 꺼내 쓰거나</strong>, 사용자가 직접 불러 쓸 수 있습니다. 매번 길게 설명하지 않아도 같은 품질의 절차가 재현된다는 것이 핵심입니다.</p>
 
   <h3><code>Plugin</code> — 능력을 묶은 확장 패키지</h3>
   <p>플러그인(Plugin)은 <strong>슬래시 명령·서브에이전트·스킬·MCP 서버·훅을 하나로 묶은 패키지</strong>입니다. 마켓플레이스에서 골라 설치하면 여러 능력이 한 번에 추가됩니다. 스킬이 "레시피 카드 한 장"이라면, 플러그인은 <strong>"레시피북 + 도구 세트"</strong>에 가깝습니다.</p>
@@ -187,30 +187,15 @@ Day 3 · 이론 → 실습 대응표
 
   <p class="keyline">💡 <strong>핵심 한 줄:</strong> 스킬·플러그인은 <strong>"매번 설명하던 것을 한 번 정의해 재사용"</strong>하게 해 주는 장치입니다 — 하네스의 재료가 됩니다.</p>
 
-  <div class="practice-box">Claude Code에서 사용 가능한 스킬을 확인하고 플러그인을 설치해 보는 과정은 <a href="day3_Examples.html#step-1">실습 STEP 1</a>에서 진행합니다.</div>
+  <div class="practice-box">사용 가능한 스킬을 확인하고, 이 과정의 하네스인 <strong>bkit 플러그인</strong>을 설치하는 과정은 <a href="day3_Examples.html#step-1">실습 STEP 1</a>에서 진행합니다.</div>
 
   <hr>
 
   <!-- ── 섹션 2 ── -->
   <h2 id="section-2">2. 외부 도구·데이터 연결 — MCP</h2>
-  <p>MCP(Model Context Protocol)는 Claude를 <strong>내 컴퓨터·외부 서비스의 도구와 데이터에 잇는 표준 규격</strong>입니다. Day 1에서 Claude Desktop에 "로컬 폴더"를 지정한 것도 사실은 <strong>파일시스템 MCP</strong>의 한 형태였습니다.</p>
-
-  <h3><code>MCP 서버</code> — 능력을 제공하는 연결 상대</h3>
-  <p>MCP는 "서버"가 도구(tool)와 자원(resource)을 제공하고, Claude가 필요할 때 그것을 <strong>호출</strong>하는 방식으로 동작합니다. 덕분에 Claude 혼자서는 못 하는 일 — 내 파일 읽고 쓰기, GitHub 저장소 다루기, 데이터베이스 조회, 외부 API 호출 — 을 <strong>연결된 서버에 위임</strong>할 수 있습니다.</p>
-  <table>
-    <thead><tr><th>MCP 서버 예</th><th>연결하면 할 수 있는 일</th></tr></thead>
-    <tbody>
-      <tr><td><code>filesystem</code></td><td>지정한 폴더의 파일 읽기·쓰기</td></tr>
-      <tr><td><code>github</code></td><td>이슈·PR·저장소 내용 다루기</td></tr>
-      <tr><td>데이터베이스</td><td>사내 DB에 질의하고 결과 받기</td></tr>
-      <tr><td>웹·검색</td><td>최신 정보를 찾아 답에 반영</td></tr>
-    </tbody>
-  </table>
-  <div class="warning-box">MCP 서버는 Claude에게 실제 권한을 넘겨줍니다. <strong>신뢰할 수 있는 서버만</strong>, 그리고 <strong>꼭 필요한 범위(폴더·권한)만</strong> 연결하십시오.</div>
-
-  <p class="keyline">💡 <strong>핵심 한 줄:</strong> MCP는 <strong>"Claude가 바깥세상과 연결되는 표준 콘센트"</strong>입니다 — 플러그인이 이 서버들을 함께 담아 오기도 합니다.</p>
-
-  <div class="practice-box">MCP 서버를 하나 연결하고 <code>/mcp</code>로 상태를 확인하는 과정은 <a href="day3_Examples.html#step-2">실습 STEP 2</a>에서 진행합니다.</div>
+  <p>MCP(Model Context Protocol)는 Claude를 <strong>내 컴퓨터·외부 서비스의 도구와 데이터에 잇는 표준 규격</strong>입니다. Day 1에서 Claude Desktop에 "로컬 폴더"를 지정한 것도 사실은 <strong>파일시스템 MCP</strong>의 한 형태였습니다. 이 규격 덕분에 Claude 혼자서는 못 하는 일 — GitHub 저장소 다루기, 데이터베이스 조회, 사내 시스템 연결 — 을 <strong>연결된 서버에 위임</strong>할 수 있습니다.</p>
+  <p>다만 이 과정의 <code>rag-chatbot</code>은 <strong>Code 탭이 이미 접근하는 작업 폴더 안에서</strong> 끝나므로, 실습에서 <strong>따로 MCP 서버를 붙이지는 않습니다</strong>(이미 되는 것을 다시 연결할 뿐이라 배울 게 없습니다). 나중에 GitHub·Slack처럼 <strong>실제 외부 시스템</strong>이 필요해지면, 그때 <strong><code>+</code> 버튼 → Connectors</strong>에서 GUI로 연결하면 됩니다. MCP 서버는 Claude에게 실제 권한을 주므로 <strong>신뢰할 수 있는 서버만, 꼭 필요한 범위만</strong> 붙이는 것이 원칙입니다.</p>
+  <p class="keyline">💡 <strong>핵심 한 줄:</strong> MCP는 <strong>"Claude가 바깥세상과 연결되는 표준 콘센트"</strong>입니다 — 지금 당장은 필요 없지만, 앱을 키울 때 꺼내 쓰는 확장 통로입니다.</p>
 
   <hr>
 
@@ -231,7 +216,7 @@ Day 3 · 이론 → 실습 대응표
 
   <p class="keyline">💡 <strong>핵심 한 줄:</strong> 하네스 엔지니어링의 목표는 <strong>"천재적인 한 방"이 아니라 "믿을 수 있는 반복"</strong>입니다.</p>
 
-  <div class="practice-box">같은 요청을 두 번 실행해 결과가 달라지는 것을 직접 관찰하고, 왜 하네스가 필요한지 체감하는 과정은 <a href="day3_Examples.html#step-3">실습 STEP 3</a>에서 진행합니다.</div>
+  <div class="practice-box">이 불안정성을 <code>CLAUDE.md</code> 규칙과 <strong>검증 루프</strong>로 잡는 실습은 <a href="day3_Examples.html#step-2">실습 STEP 2</a>에서 이어집니다.</div>
 
   <hr>
 
@@ -248,21 +233,61 @@ Day 3 · 이론 → 실습 대응표
     </tbody>
   </table>
 
+  <p>이 네 기둥을 실제로 채우는 재료가 바로 <a href="#section-1">1장에서 배운 확장 기능</a>입니다. 하네스는 새로 발명하는 것이 아니라, 그 부품들을 목적에 맞게 끼워 맞추는 일입니다.</p>
+  <table>
+    <thead><tr><th>하네스 부품</th><th>정체</th><th>맡는 기둥</th></tr></thead>
+    <tbody>
+      <tr><td><code>CLAUDE.md</code></td><td>프로젝트 규칙을 적은 마크다운 파일</td><td>① 규칙</td></tr>
+      <tr><td>스킬(Skill)</td><td>반복 절차를 적은 <code>.md</code> 파일 한 장</td><td>② 작업</td></tr>
+      <tr><td>서브에이전트(Subagent)</td><td>특정 단계를 위임받는 보조 에이전트</td><td>③ 절차</td></tr>
+      <tr><td>플러그인(Plugin)</td><td>위 셋과 훅·MCP를 한 벌로 묶은 패키지</td><td>①~④ 전체</td></tr>
+    </tbody>
+  </table>
+  <p class="keyline">💡 <strong>핵심 한 줄:</strong> <strong>스킬·서브에이전트는 <code>.md</code> 파일로 만드는 하네스의 부품</strong>이고, <strong>플러그인은 그 부품 한 벌을 통째로 배포하는 그릇</strong>입니다 — 이 과정의 <code>bkit</code>이 바로 그런 플러그인입니다.</p>
+
   <h3><code>CLAUDE.md</code> — 프로젝트의 규칙서</h3>
-  <p><code>CLAUDE.md</code>는 Claude Code가 매 작업에서 참고하는 <strong>프로젝트 규칙 문서</strong>입니다. 사용할 언어·코드 스타일·폴더 구조·해서는 안 되는 일 등을 적어 두면, 매번 지시하지 않아도 그 규칙 위에서 작업합니다.</p>
+  <p><code>CLAUDE.md</code>는 Claude Code가 <strong>매 작업을 시작할 때마다 자동으로 먼저 읽는 프로젝트 규칙 문서</strong>입니다. 프로젝트 폴더 맨 위에 두는 <strong>마크다운(<code>.md</code>) 파일 한 장</strong>으로, 스킬과 마찬가지로 특별한 문법이 아니라 <strong>사람이 읽는 글로</strong> 규칙을 적습니다. 사람으로 치면 새 직원에게 매번 말로 일러 주던 "우리 팀은 이렇게 일합니다"를 <strong>한 번 문서로 붙여 둔 사내 규정</strong>과 같아서, 다시 설명하지 않아도 Claude가 그 규정 위에서 작업합니다. 하네스의 <strong>① 규칙(Rules)</strong> 기둥을 담당하는 핵심 파일입니다.</p>
+  <p>보통 다음 네 가지를 적어 둡니다. 처음부터 완벽하게 채울 필요 없이, <strong>짧고 분명하게</strong> 시작해 작업하며 늘려 가는 것이 좋습니다.</p>
+  <table>
+    <thead><tr><th>적는 것</th><th>예</th></tr></thead>
+    <tbody>
+      <tr><td>프로젝트 개요</td><td>"이 앱은 사내 문서에 답하는 Q&amp;A 챗봇이다"</td></tr>
+      <tr><td>기술·스타일 규칙</td><td>"HTML/JS만 쓴다", "주석은 한국어로", "새 라이브러리는 추가하지 않는다"</td></tr>
+      <tr><td>폴더·파일 구조</td><td>"화면은 <code>index.html</code>, 서버 함수는 <code>api/</code> 아래에 둔다"</td></tr>
+      <tr><td>금지·주의사항</td><td>"<code>.env</code>·API 키는 절대 코드에 넣지 않는다", "물어보지 않고 파일을 지우지 않는다"</td></tr>
+    </tbody>
+  </table>
+  <div class="flow-diagram"><pre>
+# CLAUDE.md  (프로젝트 폴더 맨 위)
+
+## 이 프로젝트
+사내 문서에 근거를 들어 답하는 Q&amp;A 챗봇(rag-chatbot)
+
+## 규칙
+- HTML/JS로만 만든다. 새 라이브러리를 함부로 추가하지 않는다.
+- 답변은 반드시 <b>문서의 근거</b>와 함께 낸다.
+- API 키는 코드가 아니라 환경변수로만 다룬다.
+
+## 하지 말 것
+- 확인 없이 파일을 지우거나 폴더 구조를 바꾸지 않는다.
+</pre></div>
+  <p>중요한 것은 <strong>한 번 쓰고 끝이 아니라는 점</strong>입니다. 작업 중 "여기서 또 같은 실수를 하네" 싶은 것을 <code>CLAUDE.md</code>에 <strong>규칙 한 줄로 추가</strong>해 두면, 다음부터 그 실수가 줄어듭니다. 이렇게 <a href="../day4/day4_Manual.html">PDCA를 한 바퀴 돌 때마다 규칙이 쌓이면서</a>, 하네스가 프로젝트에 맞게 점점 단단해집니다.</p>
+
+  <h3><code>검증 루프</code> — "루프 엔지니어링"으로 스스로 확인하게 하기</h3>
+  <p>④ 검증은 <strong>한 번 하고 끝</strong>이 아니라 <strong>반복되는 고리(루프)</strong>로 만들 때 힘을 발휘합니다. <strong>변경 → 결과 확인 → 문제가 있으면 수정 → 다시 확인</strong>을 통과할 때까지 돌게 하면, 사람이 일일이 점검하지 않아도 모델이 <strong>스스로 검증하며 고쳐 나갑니다</strong>. 이렇게 <strong>검증을 루프로</strong> 설계하는 일을 <strong>루프 엔지니어링(loop engineering)</strong>이라고 합니다. 이 절차를 <code>CLAUDE.md</code>에 적어 두면 매 변경마다 검증 루프가 자동으로 돕니다.</p>
 
   <h3><code>Hook</code> — 정해진 순간에 자동으로 실행되는 검증</h3>
   <p>훅(hook)은 <strong>특정 사건이 일어날 때 자동으로 실행되는 명령</strong>입니다. 예를 들어 "코드를 고친 뒤에는 항상 자동으로 검사를 돌린다"처럼, 사람이 잊어도 <strong>검증이 빠지지 않게</strong> 만들어 줍니다.</p>
 
   <p class="keyline">💡 <strong>핵심 한 줄:</strong> 규칙으로 <strong>방향</strong>을, 작업·절차로 <strong>반복</strong>을, 검증으로 <strong>신뢰</strong>를 만듭니다.</p>
 
-  <div class="practice-box"><code>CLAUDE.md</code>로 규칙을 세우고 변경 뒤 검증 절차를 갖추는 과정은 <a href="day3_Examples.html#step-4">실습 STEP 4</a>에서 진행합니다.</div>
+  <div class="practice-box"><code>CLAUDE.md</code>로 규칙을 세우고 <strong>검증 루프</strong>를 절차로 심는 과정은 <a href="day3_Examples.html#step-2">실습 STEP 2</a>에서 진행합니다.</div>
 
   <hr>
 
   <!-- ── 섹션 5 ── -->
   <h2 id="section-5">5. PDCA 방법론</h2>
-  <p>하네스가 "틀"이라면, PDCA는 그 틀 위에서 <strong>일을 굴리는 방식</strong>입니다. PDCA(Plan-Do-Check-Act)는 계획하고, 실행하고, 확인하고, 개선하는 것을 <strong>한 바퀴씩 반복</strong>하며 품질을 높이는 오래된 개선 사이클입니다. 이 과정에서는 이 PDCA를 Claude Code 개발에 적용한 흐름을 <strong>bkit</strong>이라 부릅니다.</p>
+  <p>하네스가 "틀"이라면, PDCA는 그 틀 위에서 <strong>일을 굴리는 방식</strong>입니다. PDCA(Plan-Do-Check-Act)는 계획하고, 실행하고, 확인하고, 개선하는 것을 <strong>한 바퀴씩 반복</strong>하며 품질을 높이는 오래된 개선 사이클입니다. 이 과정에서는 이 PDCA를 Claude Code 개발에 적용한 흐름을 <strong>bkit</strong>이라 부르며, <a href="day3_Examples.html#step-1">STEP 1에서 설치하는 <code>bkit</code> 플러그인</a>이 이 흐름(규칙·PDCA·검증)을 실제 도구로 제공합니다.</p>
   <div class="flow-diagram"><pre>
         ┌──────────────────────────────┐
         ▼                              │
@@ -283,7 +308,7 @@ Day 3 · 이론 → 실습 대응표
 
   <p class="keyline">💡 <strong>핵심 한 줄:</strong> PDCA는 <strong>"한 번에 완성"이 아니라 "작게 돌리고 매 바퀴 나아지는"</strong> 개발 리듬입니다.</p>
 
-  <div class="practice-box">PDCA 네 단계를 내 프로젝트(<code>doc-qa-bot</code>)에 대입해 한 사이클을 설계하는 과정은 <a href="day3_Examples.html#step-5">실습 STEP 5</a>에서 진행합니다.</div>
+  <div class="practice-box">PDCA의 <strong>Plan·Design</strong>을 내 프로젝트(<code>rag-chatbot</code>)에 적용해 계획·설계 문서를 만들고 검토하는 과정은 <a href="day3_Examples.html#step-3">실습 STEP 3·4</a>에서 진행합니다.</div>
 
   <hr>
 
@@ -300,14 +325,14 @@ Day 3 · 이론 → 실습 대응표
   </table>
 
   <h3><code>Plan</code> — PRD를 작업 순서로 풀기</h3>
-  <p>PRD의 "핵심 기능"과 "개발 단위"를 <strong>만들 순서가 있는 작업 목록</strong>으로 바꿉니다. 무엇을 먼저 만들면 나머지가 수월해지는지, 한 번에 다 하지 않고 <strong>가장 작은 동작 버전(MVP)</strong>부터 세우는 것이 요령입니다.</p>
+  <p>PRD의 "핵심 기능"과 "개발 단위"를 <strong>만들 순서가 있는 작업 목록</strong>으로 바꿉니다. 무엇을 먼저 만들면 나머지가 수월해지는지 <strong>만들 순서</strong>를 잡는 것이 요령입니다. 이 과정의 PRD는 <strong>이미 MVP 규모</strong>라 범위를 더 자르지 않고 전체를 계획으로 옮깁니다.</p>
 
   <h3><code>Design</code> — 작업을 구현으로 잇기</h3>
-  <p>각 작업을 <strong>어떻게</strong> 만들지 정합니다. 화면 구성, 데이터가 흐르는 순서(문서 업로드 → 저장 → 검색 → 답변), 사용할 기술의 큰 선택을 미리 그려 두면 Do(구현) 단계에서 헤매지 않습니다.</p>
+  <p>각 작업을 <strong>어떻게</strong> 만들지 정합니다. 화면 구성, 데이터가 흐르는 순서(문서 입력 → 질문과 함께 서버로 → LLM 답변), 사용할 기술의 큰 선택을 미리 그려 두면 Do(구현) 단계에서 헤매지 않습니다.</p>
 
   <p class="keyline">💡 <strong>핵심 한 줄:</strong> <strong>PRD(무엇/왜) → Plan(순서) → Design(어떻게)</strong> 순으로 좁혀 가면, 다음 날의 "만들기(Do)"가 훨씬 수월해집니다.</p>
 
-  <div class="practice-box">Day 2의 <code>PRD.md</code>를 바탕으로 <code>PLAN.md</code>와 <code>DESIGN.md</code>를 만드는 과정은 <a href="day3_Examples.html#step-6">실습 STEP 6</a>에서 진행합니다.</div>
+  <div class="practice-box">Day 2의 <code>PRD.md</code>를 바탕으로 <code>PLAN.md</code>·<code>DESIGN.md</code>를 만들고(<a href="day3_Examples.html#step-3">실습 STEP 3</a>), 세 문서의 정합성을 검토하는(<a href="day3_Examples.html#step-4">STEP 4</a>) 과정으로 이어집니다.</div>
 
   <hr>
 
@@ -326,7 +351,6 @@ Day 3 · 이론 → 실습 대응표
 </div>
 <script src="../assets/roadmap.js" defer></script>
 <script src="../assets/autolink.js" defer></script>
-<script src="../assets/glossary.js" defer></script>
 <script src="../assets/inpage-search.js" defer></script>
 </body>
 </html>
