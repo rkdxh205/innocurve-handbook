@@ -169,8 +169,9 @@
   <div class="nav-section">개념</div>
   <a href="#section-1">1. AI 애플리케이션과 RAG 챗봇</a>
   <a href="#section-2">2. PRD란 무엇이고 왜 필요한가</a>
-  <a href="#section-3">3. 좋은 PRD의 구성 (문제·기능·흐름)</a>
-  <a href="#section-4">4. AI를 활용한 PRD 검토·구체화</a>
+  <a href="#section-3">3. PRD Lite로 가볍게 시작하기</a>
+  <a href="#section-4">4. 좋은 PRD의 구성 (문제·기능·흐름)</a>
+  <a href="#section-5">5. AI를 활용한 PRD 검토·구체화</a>
   <div class="nav-section">부록</div>
   <a href="#refs">참고 링크</a>
   <div class="nav-section">바로가기</div>
@@ -184,7 +185,7 @@
 
   <!-- ── 버전 박스 ── -->
   <div class="version-box">
-    <div class="version-row"><span class="vlabel">다루는 개념</span><span class="vvalue">AI 애플리케이션 · RAG · 임베딩 · 벡터 검색 · PRD · 사용자 문제 · 핵심 기능 · 사용자 흐름 · AI 검토</span></div>
+    <div class="version-row"><span class="vlabel">다루는 개념</span><span class="vvalue">AI 애플리케이션 · RAG · 임베딩 · 벡터 검색 · PRD Lite · PRD · 사용자 문제 · 핵심 기능 · 사용자 흐름 · AI 검토</span></div>
     <div class="version-row"><span class="vlabel">짝 문서(실습)</span><span class="vvalue"><a href="day2_Examples.html">day2_Examples.html</a> — 이 개념들을 바탕으로 내 앱의 PRD를 직접 작성</span></div>
     <div class="version-row"><span class="vlabel">준비물</span><span class="vvalue">Day 1에서 설치·구독한 <strong>Claude Desktop(Pro)</strong> — PRD 작성과 검토에 사용</span></div>
   </div>
@@ -195,9 +196,10 @@
   <div class="tree-box"><pre>
 Day 2 · 이론 → 실습 대응표
 ├── <span class="cmd">1. AI 애플리케이션과 RAG 챗봇</span>   <span class="desc">→ 실습 STEP 1 (개념 체험·만들 앱 정하기)</span>
-├── <span class="cmd">2. PRD란 무엇이고 왜 필요한가</span>    <span class="desc">→ 실습 STEP 2 (PRD 뼈대 잡기)</span>
-├── <span class="cmd">3. 좋은 PRD의 구성</span>             <span class="desc">→ 실습 STEP 3 (PRD 직접 작성)</span>
-└── <span class="cmd">4. AI를 활용한 PRD 검토</span>        <span class="desc">→ 실습 STEP 4 (검토·구체화)</span>
+├── <span class="cmd">2. PRD란 무엇이고 왜 필요한가</span>    <span class="desc">→ (개념 기초)</span>
+├── <span class="cmd">3. PRD Lite로 가볍게 시작하기</span>   <span class="desc">→ 실습 STEP 2 (prd_lite.md 작성)</span>
+├── <span class="cmd">4. 좋은 PRD의 구성</span>             <span class="desc">→ 실습 STEP 3 (PRD 직접 작성)</span>
+└── <span class="cmd">5. AI를 활용한 PRD 검토</span>        <span class="desc">→ 실습 STEP 4 (검토·구체화)</span>
 </pre></div>
 
   <hr>
@@ -257,13 +259,60 @@ Day 2 · 이론 → 실습 대응표
 
   <p class="keyline">💡 <strong>핵심 한 줄:</strong> PRD는 AI에게 줄 <strong>"명확한 지시의 토대"</strong>입니다. 잘 쓴 PRD 한 장이 수십 번의 헛된 수정 요청을 줄여 줍니다.</p>
 
-  <div class="practice-box">내 앱의 사용자 문제·핵심 기능·사용자 흐름을 항목별로 정리해 PRD 뼈대를 잡는 과정은 <a href="day2_Examples.html#step-2">실습 STEP 2</a>에서 진행합니다.</div>
+  <div class="practice-box">정식 PRD를 바로 쓰기는 막막합니다. 먼저 가볍게 <strong>PRD Lite</strong>로 감을 잡는 방법을 다음 장에서 설명하고, <a href="day2_Examples.html#step-2">실습 STEP 2</a>에서 직접 만들어 봅니다.</div>
 
   <hr>
 
-  <!-- ── 섹션 3 ── -->
-  <h2 id="section-3">3. 좋은 PRD의 구성 — 문제·기능·흐름</h2>
-  <p>좋은 PRD는 대체로 아래 요소를 담습니다. 처음부터 완벽할 필요는 없으며, <strong>빈칸을 채우듯 항목별로 적어 내려가면</strong> 자연스럽게 한 장이 완성됩니다.</p>
+  <!-- ── 섹션 3 (신규) ── -->
+  <h2 id="section-3">3. PRD Lite로 가볍게 시작하기</h2>
+
+  <h3><code>PRD Lite</code> — 정식 PRD 전에 쓰는 가벼운 기획서</h3>
+  <p>정식 PRD는 담아야 할 항목이 많아, 백지에서 바로 쓰려면 막막합니다. <strong>PRD Lite</strong>는 그 전 단계로, 핵심만 다섯 항목으로 가볍게 정리하는 짧은 기획서입니다. 완벽한 문장이 아니어도 되고, Claude와 대화하며 <strong>둘이서 함께 채워 나가는 것</strong>을 전제로 합니다 — 나 혼자 다 채우는 문서가 아닙니다.</p>
+
+  <table>
+    <thead><tr><th>구분</th><th>PRD Lite</th><th>정식 PRD</th></tr></thead>
+    <tbody>
+      <tr><td>목적</td><td>감 잡기 · 방향 합의</td><td>개발 착수의 기준 문서</td></tr>
+      <tr><td>분량</td><td>다섯 항목, 짧은 문장</td><td>일곱 항목, 구체적 서술</td></tr>
+      <tr><td>작성 방식</td><td>Claude와 대화하며 항목별로 함께</td><td>PRD Lite를 재료 삼아 Claude가 확장</td></tr>
+      <tr><td>완성도</td><td>초안 수준이어도 충분</td><td>개발 전 반드시 확인할 질문까지 정리</td></tr>
+    </tbody>
+  </table>
+
+  <h3><code>다섯 항목</code> — PRD Lite가 담는 것</h3>
+  <p>PRD Lite는 아래 다섯 항목으로 구성됩니다. 앞의 두 항목은 <strong>"무엇을·누구를 위해"</strong>를 정하고, 가운데 두 항목은 <strong>"무엇을 만들고, 무엇을 안 만들지"</strong>를 정하고, 마지막 항목은 <strong>"어떤 느낌으로"</strong>를 정합니다.</p>
+  <table>
+    <thead><tr><th>항목</th><th>무엇을 적나</th></tr></thead>
+    <tbody>
+      <tr><td>1. 한 마디 정의</td><td>이 앱을 한 문장으로 설명하면?</td></tr>
+      <tr><td>2. 사용자와 이유</td><td>누가 쓰고, 어떤 불편을 해결하는가</td></tr>
+      <tr><td>3. 핵심 기능 (딱 2개)</td><td>가장 중요한 기능 2개 + 각 기능마다 <strong>AI가 지킬 규칙</strong></td></tr>
+      <tr><td>4. 안 만들 기능</td><td>이번엔 하지 않을 것 (욕심 버리기)</td></tr>
+      <tr><td>5. 디자인 느낌</td><td>분위기·색상·화면 크기</td></tr>
+    </tbody>
+  </table>
+
+  <h3><code>AI가 지킬 규칙</code> — 기능을 숫자·조건으로 쪼개기</h3>
+  <p>"업로드 기능을 만들어 줘"처럼 두루뭉술하게 적으면 AI도 두루뭉술하게 만듭니다. PRD Lite의 핵심 기교는 기능마다 <strong>AI가 코드로 옮길 수 있는 구체적 규칙</strong>을 함께 적는 것입니다. 숫자·조건이 들어갈수록 좋습니다.</p>
+  <table>
+    <thead><tr><th>두루뭉술한 설명</th><th>AI가 지킬 규칙(예시)</th></tr></thead>
+    <tbody>
+      <tr><td>재고를 보여주는 기능</td><td>재고는 50개로 시작해서 주문마다 1개씩 줄어들게 해줘. 5개 이하면 "품절 임박"을 주황색으로 표시해줘. 0개면 버튼을 눌러도 주문이 안 되게 막아줘.</td></tr>
+      <tr><td>문서 기반 답변 기능</td><td>문서에 없는 내용은 "문서에서 찾을 수 없습니다"라고 답해줘. 답변마다 근거가 된 조항 위치를 함께 표시해줘.</td></tr>
+    </tbody>
+  </table>
+
+  <p>동시에 <strong>"이번엔 안 만들 기능"</strong>을 미리 선언하는 것도 같은 이유입니다. 범위를 명시적으로 좁혀 두지 않으면, AI가 요청하지 않은 기능(로그인, 결제, 다국어 등)까지 알아서 만들다가 오히려 핵심 기능이 부실해지는 경우가 많습니다.</p>
+
+  <p class="keyline">💡 <strong>핵심 한 줄:</strong> PRD Lite는 "완벽한 문서"가 아니라, <strong>AI에게 명확한 규칙을 주기 위한 최소한의 합의</strong>입니다.</p>
+
+  <div class="practice-box">Claude의 <strong>Plan 모드</strong>로 항목마다 함께 의견을 주고받으며 <code>prd_lite.md</code>를 완성하는 과정은 <a href="day2_Examples.html#step-2">실습 STEP 2</a>에서 진행합니다.</div>
+
+  <hr>
+
+  <!-- ── 섹션 4 (기존 섹션 3) ── -->
+  <h2 id="section-4">4. 좋은 PRD의 구성 — 문제·기능·흐름</h2>
+  <p>PRD Lite에서 다섯 항목으로 가볍게 감을 잡았다면, 이제 그것을 재료 삼아 <strong>개발 착수 기준이 되는 정식 PRD</strong>로 확장할 차례입니다. 좋은 PRD는 대체로 아래 요소를 담습니다. 처음부터 완벽할 필요는 없으며, <strong>빈칸을 채우듯 항목별로 적어 내려가면</strong> 자연스럽게 한 장이 완성됩니다.</p>
   <table>
     <thead><tr><th>구성 요소</th><th>무엇을 적나</th><th>문서 Q&amp;A 챗봇 예시</th></tr></thead>
     <tbody>
@@ -274,6 +323,7 @@ Day 2 · 이론 → 실습 대응표
       <tr><td>⑤ 범위·비범위</td><td>이번에 할 것과 안 할 것</td><td>(범위) 한국어 텍스트 문서 / (비범위) 이미지·표 인식, 로그인</td></tr>
     </tbody>
   </table>
+  <p>실습에서는 여기에 <strong>현행 방식과 한계</strong>(지금은 어떻게 처리하고 있나), <strong>보안·개인정보 검토</strong>(문서 공개등급·API 키 관리) 두 항목을 더해 총 <strong>일곱 항목</strong>의 <code>PRD.md</code>로 작성합니다. PRD Lite의 "안 만들 기능"은 여기서 ⑤ 범위·비범위의 비범위로, "핵심 기능+AI가 지킬 규칙"은 ③ 핵심 기능으로 그대로 이어집니다.</p>
 
   <h3><code>사용자 흐름</code> — 기능을 "쓰는 순서"로 그려 보기</h3>
   <p>핵심 기능을 나열하는 것에서 그치지 않고, 사용자가 실제로 <strong>어떤 순서로 화면을 거치는지</strong>를 그려 보면 빠진 기능이 드러납니다. 예를 들어 아래 흐름을 그리다 보면 "답을 못 찾았을 때는 뭐라고 보여 주지?" 같은 빈틈을 미리 발견할 수 있습니다.</p>
@@ -289,8 +339,8 @@ Day 2 · 이론 → 실습 대응표
 
   <hr>
 
-  <!-- ── 섹션 4 ── -->
-  <h2 id="section-4">4. AI를 활용한 PRD 검토·구체화</h2>
+  <!-- ── 섹션 5 (기존 섹션 4) ── -->
+  <h2 id="section-5">5. AI를 활용한 PRD 검토·구체화</h2>
 
   <h3><code>Review</code> — 초안을 AI에게 검토받기</h3>
   <p>혼자 쓴 PRD에는 반드시 <strong>빠진 것, 모호한 것, 미처 생각 못 한 경우</strong>가 있습니다. 초안을 Claude Desktop에 주고 "검토해 달라"고 하면, 마치 동료가 읽어 주듯 <strong>빠진 기능·모호한 표현·엣지 케이스</strong>를 짚어 줍니다. 스스로 답하기 어려운 질문을 대신 던져 주는 것이 AI 검토의 핵심 가치입니다.</p>
