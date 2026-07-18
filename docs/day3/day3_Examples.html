@@ -237,7 +237,7 @@
   </div>
 
   <div class="info-box">
-    작업 폴더는 <code>PRD.md</code>가 있는 Day 2의 <code>rag-chatbot</code>을 이어서 씁니다.
+    작업 폴더는 <code>PRD.md</code>가 있는 Day 2의 <code>my-app</code>을 이어서 씁니다.
   </div>
 
   <!-- ══════════════════════════════ Claude Code 확장 ══════════════════════════════ -->
@@ -271,7 +271,7 @@
       <ol class="step-list">
         <li><div class="step-content">
           <strong>Code 탭에서 새 세션 시작 (작업 폴더 지정)</strong>
-          <p>Claude Desktop을 실행하고 상단 <strong>Code</strong> 탭을 클릭합니다. <strong>+ New session</strong>(또는 <code>Ctrl+N</code>)으로 새 세션을 열고, 프롬프트 영역에서 <strong>Environment: Local</strong> · <strong>Project folder: Day 2의 <code>rag-chatbot</code> 선택</strong>을 지정한 뒤 프롬프트를 입력합니다.<span class="note">이후 모든 프롬프트·명령은 이 Code 탭 화면에서 진행합니다 — 검은 터미널을 따로 열 필요가 없습니다.</span></p>
+          <p>Claude Desktop을 실행하고 상단 <strong>Code</strong> 탭을 클릭합니다. <strong>+ New session</strong>(또는 <code>Ctrl+N</code>)으로 새 세션을 열고, 프롬프트 영역에서 <strong>Environment: Local</strong> · <strong>Project folder: Day 2의 <code>my-app</code> 선택</strong>을 지정한 뒤 프롬프트를 입력합니다.<span class="note">이후 모든 프롬프트·명령은 이 Code 탭 화면에서 진행합니다 — 검은 터미널을 따로 열 필요가 없습니다.</span></p>
         </div></li>
         <li><div class="step-content">
           <strong>bkit 플러그인 설치</strong>
@@ -358,7 +358,7 @@
           <div class="code-wrap">
             <pre class="code-block">CLAUDE.md에 아래 규칙을 추가해줘.
 - 모든 설명과 주석은 한국어로 작성한다.
-- 새 파일은 rag-chatbot 폴더 안에만 만든다.
+- 새 파일은 my-app 폴더 안에만 만든다.
 - 코드를 바꾸면 반드시 무엇을 왜 바꿨는지 한 줄로 알려준다.
 - .env 등 비밀 정보 파일은 절대 커밋하지 않는다.
 - 서브에이전트는 메인 에이전트가 필요하다고 판단해 사용자 허락을 받았을 때,
@@ -384,7 +384,7 @@
           <p>간단한 변경을 하나 요청해, 이제 <code>CLAUDE.md</code>의 규칙(한국어·폴더·요약)과 검증 루프가 <strong>매번 자동으로 지켜지는지</strong> 확인합니다. 규칙과 루프가 결과를 일정하게 잡아 줍니다. (여기서 만든 임시 파일은 STEP 4에서 정리합니다.)</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">rag-chatbot 폴더에 test.html을 만들어줘.
+            <pre class="code-block">my-app 폴더에 test.html을 만들어줘.
 "안녕하세요"를 보여주는 간단한 안내 페이지야.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
