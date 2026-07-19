@@ -185,7 +185,7 @@
 
   <!-- ── 버전 박스 ── -->
   <div class="version-box">
-    <div class="version-row"><span class="vlabel">다루는 개념</span><span class="vvalue">AI 애플리케이션 · RAG · 임베딩 · 벡터 검색 · PRD Lite · PRD · 사용자 문제 · 핵심 기능 · 사용자 흐름 · AI 검토</span></div>
+    <div class="version-row"><span class="vlabel">다루는 개념</span><span class="vvalue">AI 애플리케이션 · RAG(문서 근거로 답하기) · 연결 파일(키 숨김) · 대화 세션 저장 · PRD Lite · PRD · 사용자 문제 · 핵심 기능 · 사용자 흐름 · AI 검토</span></div>
     <div class="version-row"><span class="vlabel">짝 문서(실습)</span><span class="vvalue"><a href="day2_Examples.html">day2_Examples.html</a> — 이 개념들을 바탕으로 내 앱의 PRD를 직접 작성</span></div>
     <div class="version-row"><span class="vlabel">준비물</span><span class="vvalue">Day 1에서 설치·구독한 <strong>Claude Desktop(Pro)</strong> — PRD 작성과 검토에 사용</span></div>
   </div>
@@ -207,36 +207,42 @@ Day 2 · 이론 → 실습 대응표
   <!-- ── 섹션 1 ── -->
   <h2 id="section-1">1. AI 애플리케이션과 RAG 챗봇</h2>
 
-  <h3><code>AI Application</code> — LLM을 얹어 문제를 푸는 프로그램</h3>
-  <p>Day 1의 헬로페이지는 정해진 내용을 보여 주기만 하는 정적 웹페이지였습니다. <strong>AI 애플리케이션</strong>은 여기에서 한 걸음 나아가, 프로그램 안에 Claude 같은 <strong>LLM을 부품처럼 얹어</strong> 사용자의 질문에 답하거나 글을 만들어 주는 등 "생각이 필요한 일"을 처리하는 프로그램입니다. 이번 과정에서 우리가 목표로 하는 앱은 <strong>문서를 올리면 그 문서 내용으로 답해 주는 질의응답(Q&amp;A) 챗봇</strong>입니다.</p>
+  <h3>AI 애플리케이션 — "생각하는 부품(AI)"을 얹은 프로그램</h3>
+  <p>Day 1의 헬로페이지는 정해진 내용을 <strong>보여 주기만</strong> 하는 웹페이지였습니다. <strong>AI 애플리케이션</strong>은 여기서 한 걸음 나아가, 프로그램 안에 Claude 같은 <strong>AI를 부품처럼 얹어</strong> 질문에 답하거나 글을 만들어 주는 "생각이 필요한 일"을 처리합니다. 이번 Day 2에서 만들 앱은 <strong>문서를 올리면 그 문서 내용으로 답해 주는 질의응답(Q&amp;A) 챗봇</strong>입니다.</p>
 
-  <h3><code>RAG</code> — 내 문서를 근거로 답하게 하는 방식</h3>
-  <p>RAG(Retrieval-Augmented Generation, 검색 증강 생성)는 LLM이 답을 만들기 <strong>전에</strong> 관련 문서를 먼저 <strong>찾아서(Retrieval)</strong>, 그 내용을 근거로 <strong>답을 생성(Generation)</strong>하게 하는 방식입니다. LLM은 학습하지 않은 최신 정보나 우리 조직 내부 문서는 알지 못하고, 모르는 것을 그럴듯하게 지어내는 <a href="../day1/day1_Manual.html#section-1">환각</a>의 위험도 있습니다. RAG는 "답하기 전에 내가 준 문서를 먼저 읽고 그 안에서 답하라"고 시키는 것이라, <strong>정확도가 높아지고 최신·내부 정보를 반영</strong>할 수 있습니다.</p>
+  <h3>RAG — "내가 준 문서를 먼저 읽고 답하기"</h3>
+  <p><strong>RAG</strong>는 AI가 답을 만들기 <strong>전에 내가 준 문서를 먼저 읽고</strong>, 그 안에서 근거를 찾아 답하게 하는 방식입니다. 왜 이렇게 할까요? AI는 <strong>우리 회사 내부 문서나 최신 자료는 알지 못하고</strong>, 모르는 것을 그럴듯하게 <a href="../day1/day1_Manual.html#section-1">지어내기도</a>(환각) 합니다. "답하기 전에 이 문서부터 읽고, 문서에 있는 내용으로만 답해"라고 시키면 <strong>답이 정확해지고 내 자료를 반영</strong>할 수 있습니다.<br><span style="color:var(--text-dim);font-size:13px;">(RAG는 영어 <em>Retrieval-Augmented Generation</em>의 약자로, "먼저 찾아보고(retrieval) 답을 만든다(generation)"는 뜻입니다. 이름은 어렵지만 개념은 "문서 보고 답하기"입니다.)</span></p>
 
-  <h3><code>동작 원리</code> — 문서가 답이 되기까지</h3>
-  <p>문서 Q&amp;A 챗봇은 대략 아래 네 단계로 동작합니다. 지금은 <strong>흐름만 이해</strong>하면 충분하며, 실제 구현은 이후 과정에서 다룹니다.</p>
+  <h3>이 실습의 방식 — PDF 글자를 통째로 근거로 주기</h3>
+  <p>문서를 근거로 답하게 하는 방법은 여러 가지인데, 이번 실습은 <strong>가장 단순한 방법</strong>을 씁니다. 아래 세 단계면 끝입니다.</p>
   <div class="flow-diagram"><pre>
-① 문서 쪼개기        긴 문서를 문단 단위 조각(청크)으로 나눔
+① PDF에서 글자 뽑기     올린 PDF에서 글자만 뽑아냄 (브라우저가 직접 처리)
         │
-② 임베딩·저장        각 조각을 의미를 담은 숫자 벡터로 바꿔 벡터 DB에 저장
+② 문서 + 질문 보내기    뽑은 문서 글자 전체를 질문과 함께 연결 파일로 전달
         │
-③ 질문 검색          질문도 벡터로 바꿔, 의미가 가까운 조각을 찾아냄
-        │
-④ 답 생성            찾은 조각 + 질문을 함께 LLM에 넣어 근거 있는 답을 생성
+③ 근거로 답하기         AI가 그 글자 안에서 근거를 찾아 답을 생성
 </pre></div>
+  <p>이 방법은 <strong>따로 저장고(데이터베이스)나 복잡한 설치 없이</strong> 파일 몇 개로 끝나 이해하기 쉽습니다. 대신 <strong>아주 긴 문서는 한 번에 다 넣기 어려워</strong>, 실습은 짧은 문서 한두 개로 시작합니다.</p>
+  <div class="warning-box">문서가 <strong>아주 많거나 매우 길면</strong>, 문서를 조각내 '의미를 담은 숫자'로 바꿔 <strong>질문과 비슷한 조각만 골라</strong> 넣는 방식(임베딩·벡터 검색)을 씁니다. 이번 과정에서는 쓰지 않지만, 용어만 알아 두면 나중에 도움이 됩니다.</div>
+
+  <h3>챗봇을 이루는 세 조각 — 화면 · 연결 파일 · 저장소</h3>
+  <p>실습에서 만드는 챗봇은 아래 <strong>세 조각</strong>으로 이뤄집니다. 각 조각이 왜 필요한지 알면 실습에서 그 파일을 왜 만드는지 이해가 쉽습니다.</p>
   <table>
-    <thead><tr><th>용어</th><th>한 줄 정의</th><th>비유</th></tr></thead>
+    <thead><tr><th>조각</th><th>하는 일</th><th>비밀 키</th></tr></thead>
     <tbody>
-      <tr><td><code>청크(chunk)</code></td><td>문서를 나눈 작은 조각</td><td>책을 문단 단위로 잘라 놓은 쪽지</td></tr>
-      <tr><td><code>임베딩(embedding)</code></td><td>글의 의미를 담은 숫자 벡터</td><td>문장을 좌표로 바꾼 것</td></tr>
-      <tr><td><code>벡터 검색</code></td><td>의미가 가까운 조각을 찾기</td><td>비슷한 뜻의 쪽지 골라내기</td></tr>
-      <tr><td><code>컨텍스트(context)</code></td><td>답의 근거로 함께 넣는 조각</td><td>답안 옆에 붙여 준 참고 자료</td></tr>
+      <tr><td><strong>화면</strong><br>(<code>index.html</code>)</td><td>사람이 보고 누르는 부분. Day 1 헬로페이지에 "문서 Q&amp;A" 칸을 이어 붙입니다.</td><td>없음 · 안전</td></tr>
+      <tr><td><strong>연결 파일</strong><br>(<code>api/chat.js</code>)</td><td>화면 뒤에서 조용히 도는 작은 파일. 화면이 보낸 문서·질문을 받아 AI를 대신 불러 줍니다.</td><td>키를 숨겨 대신 호출</td></tr>
+      <tr><td><strong>저장소</strong><br>(Supabase)</td><td>대화를 저장해 두는 무료 클라우드. 껐다 켜도 대화가 남습니다.</td><td>키는 연결 파일만 사용</td></tr>
     </tbody>
   </table>
+  <p><strong>왜 "연결 파일"을 따로 두나요?</strong> 화면(브라우저)에서 AI를 곧바로 부르면 <strong>API 키가 화면 코드에 그대로 노출</strong>됩니다. 그러면 그 페이지를 본 누구나 내 키를 훔쳐 쓰거나, 배포된 챗봇을 아무나 사용해 <strong>내 비용이 새어 나갈</strong> 수 있습니다. 그래서 키는 <strong>연결 파일만 알고</strong>, 화면에는 키를 한 글자도 두지 않습니다. (Day 1의 <a href="../day1/day1_Manual.html#section-2">API 키·보안</a>에서 배운 원칙을 챗봇에 그대로 적용한 것입니다.)</p>
 
-  <p class="keyline">💡 <strong>핵심 한 줄:</strong> RAG는 "아는 척 답하는 AI"가 아니라 <strong>"내가 준 문서를 먼저 읽고 근거를 대며 답하는 AI"</strong>입니다.</p>
+  <h3>대화 세션 저장 — "껐다 켜도 남는 대화"</h3>
+  <p>기본 챗봇은 <strong>새로고침하면 지금까지의 대화가 사라집니다.</strong> 그래서 대화 한 묶음(주고받은 메시지 + 올린 문서)을 <strong>저장소(Supabase)에 저장</strong>해 두고, 나중에 목록에서 <strong>골라 다시 불러오게</strong> 만듭니다. 이렇게 대화를 여러 개 저장·전환할 수 있는 것을 <strong>멀티세션</strong>이라고 합니다. 저장에는 Day 1 로그인에서 준비해 둔 Supabase를 그대로 이어서 씁니다.</p>
 
-  <div class="practice-box">Claude Desktop에 실제 문서를 올려 Q&amp;A를 체험하고, 내가 만들 문서 Q&amp;A 앱의 주제를 정하는 과정은 <a href="day2_Examples.html#step-1">실습 STEP 1</a>에서 진행합니다.</div>
+  <p class="keyline">💡 <strong>핵심 한 줄:</strong> RAG 챗봇은 "아는 척 답하는 AI"가 아니라, <strong>"내가 준 문서를 먼저 읽고 근거를 대며 답하고, 그 대화를 저장해 두는 AI"</strong>입니다.</p>
+
+  <div class="practice-box">Claude Desktop에 문서를 올려 Q&amp;A를 체험한 뒤, Day 1 헬로페이지에 문서 Q&amp;A 칸을 이어 붙이고 대화 저장까지 직접 만드는 과정은 <a href="day2_Examples.html#step-1">실습 STEP 1</a>에서 진행합니다.</div>
 
   <hr>
 
@@ -352,7 +358,7 @@ Day 2 · 이론 → 실습 대응표
     <tbody>
       <tr><td>빠진 요소 찾기</td><td>"이 PRD에서 빠졌거나 더 정해야 할 부분을 짚어 줘"</td></tr>
       <tr><td>모호함 없애기</td><td>"모호하게 적힌 문장을 구체적인 문장으로 다시 써 줘"</td></tr>
-      <tr><td>엣지 케이스</td><td>"사용자가 겪을 수 있는 예외 상황을 5가지 알려 줘"</td></tr>
+      <tr><td>예외 상황(엣지 케이스)</td><td>"사용자가 겪을 수 있는 예외 상황을 5가지 알려 줘"</td></tr>
       <tr><td>기능 쪼개기</td><td>"핵심 기능을 만들기 좋은 작은 단위로 나눠 줘"</td></tr>
     </tbody>
   </table>

@@ -249,18 +249,18 @@ Day 1 · 이론 → 실습 대응표
 
   <div class="practice-box">세 계정을 실제로 가입하고 API Key를 발급하는 과정은 <a href="day1_Examples.html#step-1">실습 STEP 1</a>에서 진행합니다.</div>
 
-  <h3><code>Supabase</code> — 로그인·데이터를 저장하는 클라우드 데이터베이스</h3>
+  <h3><code>Supabase</code> — 데이터를 저장하는 클라우드 데이터베이스</h3>
   <p>위 세 서비스가 "코드 보관 · 배포 · AI 호출"을 맡는다면, <strong>Supabase</strong>는 회원 정보나 앱의 데이터를 인터넷 너머에 저장해 두는 <strong>클라우드 데이터베이스(백엔드) 서비스</strong>입니다. 내 컴퓨터를 꺼도 데이터가 남아 있어, 여러 사람이 각자 <strong>로그인</strong>해서 자기 데이터를 보고 쓰는 앱을 만들 수 있습니다. 무료로 시작할 수 있으며, 접속에는 <code>Project URL</code>과 <code>anon public</code> 키(환경변수 <code>SUPABASE_URL</code>·<code>SUPABASE_ANON_KEY</code>)를 사용합니다.</p>
 
   <p><strong>이 키들이 정확히 무엇인가요?</strong> 프로젝트를 만들면 대시보드 <strong>Project Settings → API</strong> 화면에 접속 정보가 모여 있습니다. 우리 실습에서 쓰는 건 앞의 두 개(<code>SUPABASE_URL</code>·<code>SUPABASE_ANON_KEY</code>)이고, 함께 보이는 나머지 키들은 아래 표로 정리합니다.</p>
   <table>
     <thead><tr><th>키</th><th>위치</th><th>성격</th><th>설명 · 이 과정에서의 쓰임</th></tr></thead>
     <tbody>
-      <tr><td><code>Project URL</code><br>(<code>SUPABASE_URL</code>)</td><td>Settings → API</td><td>공개</td><td>내 프로젝트의 주소(예: <code>https://xxxx.supabase.co</code>). 앱이 이 주소로 데이터베이스에 요청을 보냅니다. <strong>실습에서 사용.</strong></td></tr>
-      <tr><td><code>anon public</code><br>(<code>SUPABASE_ANON_KEY</code>)</td><td>Settings → API</td><td>공개(제한적)</td><td>익명(anon) 접속용 키. 원래 브라우저 노출을 전제로 설계됐지만, 이 과정에서는 <code>.env</code>·<code>api/</code>에서만 다룹니다. <strong>실습에서 사용.</strong></td></tr>
-      <tr><td><code>service_role</code></td><td>Settings → API</td><td><strong>비밀 · 노출 금지</strong></td><td>모든 권한을 가진 <strong>관리자 키</strong>. 보안 규칙(RLS)을 무시하므로 서버에서만 쓰고, 브라우저·공개 저장소에는 절대 두지 않습니다. <em>이 과정에서는 쓰지 않습니다.</em></td></tr>
-      <tr><td>JWT Secret</td><td>Settings → API</td><td>비밀</td><td>로그인 토큰(JWT)을 서명·검증하는 열쇠. <em>이 과정에서는 직접 다루지 않습니다.</em></td></tr>
-      <tr><td>DB Password ·<br>Connection string</td><td>Settings → Database</td><td>비밀</td><td>Postgres 데이터베이스에 직접 접속하는 비밀번호·주소. <em>이 과정에서는 쓰지 않습니다.</em></td></tr>
+      <tr><td><code>Project URL</code><br>(<code>SUPABASE_URL</code>)</td><td>Settings → API</td><td>공개</td><td>내 저장소가 있는 <strong>인터넷 주소</strong>예요(예: <code>https://xxxx.supabase.co</code>). 앱이 이 주소를 보고 <strong>어디에 저장·조회할지</strong> 찾아갑니다. <strong>실습에서 사용.</strong></td></tr>
+      <tr><td><code>anon public</code><br>(<code>SUPABASE_ANON_KEY</code>)</td><td>Settings → API</td><td>공개(제한적)</td><td>저장소에 드나들 때 쓰는 <strong>일반 출입 열쇠</strong>. 권한이 제한돼 있어 비교적 안전하지만, 이 과정에서는 그래도 <code>.env</code> 파일 안에만 보관합니다. <strong>실습에서 사용.</strong></td></tr>
+      <tr><td><code>service_role</code></td><td>Settings → API</td><td><strong>비밀 · 노출 금지</strong></td><td>무엇이든 다 할 수 있는 <strong>관리자 열쇠</strong>. 이게 새어 나가면 남이 <strong>내 저장소를 통째로 열어보고 지울 수</strong> 있어 아주 위험합니다. <em>이 과정에서는 쓰지 않습니다.</em></td></tr>
+      <tr><td><code>JWT Secret</code></td><td>Settings → API</td><td>비밀</td><td>로그인한 사람에게 주는 <strong>출입증(토큰)</strong>이 진짜인지 확인하는 열쇠예요. 서버가 "이 사람 로그인한 게 맞네" 하고 알아보는 데 씁니다. <em>이 과정에서는 직접 다루지 않습니다.</em></td></tr>
+      <tr><td><code>DB Password</code> ·<br><code>Connection string</code></td><td>Settings → Database</td><td>비밀</td><td>저장소에 <strong>직접 로그인하는 비밀번호와 주소</strong>. 관리자 열쇠만큼 강력해서 남에게 알려주면 안 됩니다. <em>이 과정에서는 쓰지 않습니다.</em></td></tr>
     </tbody>
   </table>
   <div class="security-box"><strong><code>service_role</code>·JWT Secret·DB 비밀번호는 절대 브라우저나 GitHub에 올리지 마세요.</strong> 이 키들이 유출되면 남이 내 데이터베이스를 통째로 읽고 지울 수 있습니다. 공개용인 <code>anon public</code>조차도 이 과정에서는 로컬은 <code>.env</code>, 배포는 <strong>Vercel 환경 변수</strong>에만 보관합니다.</div>
@@ -275,6 +275,26 @@ Day 1 · 이론 → 실습 대응표
   </table>
 
   <div class="security-box">Supabase 키도 API Key처럼 코드·공개 저장소에 직접 적지 않습니다. 로컬에서는 <code>.env</code>, 인터넷 배포에서는 <strong>Vercel 환경 변수</strong>에 보관합니다.</div>
+
+  <h3 id="why-login">로그인(멀티유저)은 왜 필요한가 — 배포된 챗봇과 API 비용</h3>
+  <p>챗봇처럼 <strong>내 API Key로 동작하는 앱을 인터넷에 배포</strong>하면, 그 주소를 아는 <strong>누구나 그 챗봇을 사용할 수 있습니다.</strong> 그런데 다른 사람이 챗봇을 쓸 때마다 <strong>내 OpenAI 키가 호출되어 요금은 나에게 청구</strong>됩니다. 로그인 장치가 없으면 링크를 받은 사람은 물론 우연히 주소를 발견한 사람까지 <strong>내 비용으로</strong> 챗봇을 마음껏 쓸 수 있고, 누군가 악의적으로 대량 호출하면 <strong>요금이 순식간에 눈덩이처럼 불어날</strong> 수 있습니다.</p>
+  <p><strong>여기서 헷갈리기 쉬운 두 가지를 나눠서 봐야 합니다.</strong></p>
+  <ul>
+    <li><strong>① 열쇠(키)를 도둑맞는 문제</strong> — 뒤(<a href="#section-5">5장</a>)에서 배울 <code>.env</code>·<code>.gitignore</code>는 <strong>비밀 키가 코드에 그대로 적혀 남에게 보이는 것</strong>을 막아, 남이 내 키를 <strong>복사해 가져가지</strong> 못하게 해 줍니다.</li>
+    <li><strong>② 내 열쇠로 아무나 드나드는 문제</strong> — 키를 아무리 잘 숨겨도, <strong>인터넷에 공개한 챗봇을 아무나 쓸 수 있으면</strong> 그 사람들이 챗봇을 쓸 때마다 <strong>내 키로 요금이 빠져나갑니다.</strong> 누가 키를 훔친 게 아닌데도, 결국 <strong>내 돈으로 남이 AI를 쓰는</strong> 셈이죠.</li>
+  </ul>
+  <p>즉, 키를 <strong>숨기는 것(<code>.env</code>)만으로는 ②를 막을 수 없습니다.</strong> 인터넷에 공개할 때는 <strong>"누가 쓸 수 있는지"까지 정하는 장치</strong>가 따로 필요합니다.</p>
+  <p>그래서 <strong>로그인(멀티유저)</strong>을 넣습니다. 가입·로그인한 사람만 챗봇을 쓰게 하면 <strong>아무나 내 API를 소모하지 못하도록 문을 잠글</strong> 수 있습니다. Supabase로 <code>user</code> 테이블을 만들어 회원을 관리하는 이유가 바로 이것입니다.</p>
+  <table>
+    <thead><tr><th>구분</th><th>로그인 없이 배포</th><th>로그인(멀티유저) 적용</th></tr></thead>
+    <tbody>
+      <tr><td>누가 쓸 수 있나</td><td>주소를 아는 <strong>누구나</strong></td><td>가입·로그인한 사람만</td></tr>
+      <tr><td>API 비용</td><td>타인이 써도 <strong>내가 부담</strong> · 폭탄 위험</td><td>허용된 사용자로 한정</td></tr>
+      <tr><td>막는 것</td><td>—</td><td>무단 사용(비용 소모)</td></tr>
+    </tbody>
+  </table>
+  <div class="security-box"><code>.env</code>·<code>.gitignore</code>가 <strong>키를 훔쳐 가지 못하게</strong> 막는다면, <strong>로그인</strong>은 <strong>아무나 내 키를 써서 비용을 발생시키지 못하게</strong> 막습니다. 배포하는 순간 "주소를 아는 누구나 접속 가능"해지므로, 내 API로 동작하는 앱에는 <strong>접근을 제한하는 로그인</strong>이 사실상 필수입니다.</div>
+
   <div class="practice-box">Supabase 가입(GitHub 연동)은 <a href="day1_Examples.html#step-1">실습 STEP 1</a>에서, 프로젝트 생성과 로그인·멀티유저 붙이기는 <a href="day1_Examples.html#step-6">STEP 6</a>에서 진행합니다.</div>
 
   <hr>
@@ -359,7 +379,7 @@ Day 1 · 이론 → 실습 대응표
   </table>
 
   <h3><code>deploy</code> — 로컬과 배포의 차이</h3>
-  <p>내 컴퓨터 안의 파일을 브라우저로 여는 것은 "로컬(local)" 상태로, 나만 볼 수 있습니다. 이 파일을 Vercel 같은 서비스로 올려 인터넷 주소를 부여하는 것을 "배포(deploy)"라 하며, 그 순간부터 그 주소를 아는 누구나 접속할 수 있습니다. 실습의 마지막 단계에서 헬로페이지를 실제로 배포해, <code>로컬 → 인터넷 공개</code>의 전 과정을 경험합니다.</p>
+  <p>내 컴퓨터 안의 파일을 브라우저로 여는 것은 "로컬(local)" 상태로, 나만 볼 수 있습니다. 이 파일을 Vercel 같은 서비스로 올려 인터넷 주소를 부여하는 것을 "배포(deploy)"라 하며, 그 순간부터 그 주소를 아는 누구나 접속할 수 있습니다. 실습의 마지막 단계에서 헬로페이지를 실제로 배포해, <code>로컬 → 인터넷 공개</code>의 전 과정을 경험합니다.<br><span class="note">"누구나 접속 가능"은 편리하지만, <strong>내 API Key로 동작하는 챗봇</strong>이라면 아무나 써서 <strong>내 비용이 새어 나갈</strong> 수 있습니다 — 그래서 로그인으로 접근을 제한합니다(<a href="#why-login">2장 "로그인은 왜 필요한가"</a> 참고).</span></p>
 
   <h3><code>.env</code> — 비밀 값을 코드와 분리해 보관하는 파일</h3>
   <p>API Key나 비밀번호 같은 <strong>민감한 값</strong>을 코드 안에 직접 적어 두면, 그 코드를 공유하거나 배포하는 순간 값도 함께 노출됩니다. 그래서 이런 값은 <code>.env</code>(environment, 환경변수)라는 별도 파일에 <code>OPENAI_API_KEY=sk-...</code>처럼 <strong>이름=값</strong> 형태로 따로 적어 두고, 코드는 그 파일에서 값을 읽어 쓰도록 만듭니다. 이렇게 하면 <strong>비밀 값과 코드가 분리</strong>되어, 코드를 고치거나 공유할 때 실수로 키가 딸려 나갈 위험이 줄어듭니다.<br><span class="note">참고로 <code>.env</code> 파일은 <strong>서버 프로그램(예: Node.js)이 실행 중일 때</strong> 그 서버가 읽어옵니다. 그래서 이번 실습에서도 <strong>로컬 서버를 켜서(<code>localhost</code>)</strong> <code>.env</code>의 키를 읽어 챗봇을 동작시키고, 인터넷에 배포할 때는 <code>.env</code> 대신 <strong>Vercel의 환경변수(Environment Variables)</strong>에 같은 키를 등록합니다 — 형태만 다를 뿐 "비밀 값은 서버가 읽는다"는 원리는 같습니다.</span></p>

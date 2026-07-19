@@ -254,10 +254,13 @@
   <div class="nav-group">개념 이해</div>
   <a href="#step-1"><span class="dot dot-g"></span>STEP 1 · RAG 챗봇 체험·직접 만들기</a>
 
+  <div class="nav-group">배포</div>
+  <a href="#step-2"><span class="dot dot-p"></span>STEP 2 · Vercel 배포</a>
+
   <div class="nav-group">PRD 작성</div>
-  <a href="#step-2"><span class="dot dot-p"></span>STEP 2 · Claude와 PRD Lite 만들기</a>
-  <a href="#step-3"><span class="dot dot-p"></span>STEP 3 · 내 앱 PRD 직접 작성</a>
-  <a href="#step-4"><span class="dot dot-p"></span>STEP 4 · AI로 PRD 검토·구체화</a>
+  <a href="#step-3"><span class="dot dot-p"></span>STEP 3 · Claude와 PRD Lite 만들기</a>
+  <a href="#step-4"><span class="dot dot-p"></span>STEP 4 · 내 앱 PRD 직접 작성</a>
+  <a href="#step-5"><span class="dot dot-p"></span>STEP 5 · AI로 PRD 검토·구체화</a>
 
   <div class="nav-group">바로가기</div>
   <a href="day2_Manual.html">📖 Day 2 이론 문서로 →</a>
@@ -269,7 +272,7 @@
   <p class="subtitle">이론에서 익힌 RAG·PRD 개념을 바탕으로, 내가 만들 문서 Q&amp;A 앱의 설계도(PRD)를 직접 완성하는 실습입니다. STEP 1부터 순서대로 진행하십시오.<br>개념이 헷갈리면 각 단계의 "관련 이론" 링크로 <a href="day2_Manual.html">이론 문서</a>를 참고하세요.</p>
 
   <div class="version-box">
-    <div class="version-row"><span class="vlabel">진행 순서</span><span>STEP 1 체험·직접 구현 → STEP 2 PRD Lite → STEP 3 PRD 작성 → STEP 4 AI 검토·구체화</span></div>
+    <div class="version-row"><span class="vlabel">진행 순서</span><span>STEP 1 체험·직접 구현 → STEP 2 배포 → STEP 3 PRD Lite → STEP 4 PRD 작성 → STEP 5 AI 검토·구체화</span></div>
     <div class="version-row"><span class="vlabel">사용 도구</span><span>Day 1에서 설치·구독한 <strong>Claude Desktop(Pro)</strong></span></div>
     <div class="version-row"><span class="vlabel">오늘의 결과물</span><span>내 앱의 <code>PRD.md</code> 한 편 (다음 개발의 지도)</span></div>
   </div>
@@ -365,7 +368,7 @@
    그러나 내용은 빠뜨리지 말고 모두 답해줘. 첨부 문서에 없는 내용은
    지어내지 말고 '문서에 없습니다'라고 답해줘. 존댓말 한글로."
 - Authorization 헤더용 키는 process.env.OPENAI_API_KEY 를 써줘.
-  (로컬에서는 vercel dev가 .env 값을 자동으로 채워주니
+  (배포하면 Vercel이 환경 변수 값을 자동으로 채워주니
    코드에서 .env를 직접 읽을 필요는 없어.)
 - 키가 없으면 { error: "API 키가 없습니다" } 를 응답
 - POST가 아닌 요청은 405로 응답</pre>
@@ -458,33 +461,12 @@
         </div></li>
       </ol>
 
-      <div class="env-head">5️⃣ 로컬에서 바로 확인 <span class="env-note" style="color:#0550ae;">— vercel dev</span></div>
-      <ol class="step-list">
-        <li><div class="step-content">
-          <strong>vercel dev 실행 요청</strong>
-          <p><code>vercel dev</code>가 <code>index.html</code>과 <code>api/*.js</code>(chat·sessions)를 함께 띄워, 챗봇이 실제로 동작합니다. (<code>vercel</code> 도구가 없다면 <a href="../day1/day1_Examples.html#step-6">Day 1 STEP 6</a>에서 준비한 방법 그대로 설치하면 됩니다.)</p>
-          <span class="prompt-label">프롬프트</span>
-          <div class="code-wrap">
-            <pre class="code-block">hello-page 폴더에서 vercel dev를
-백그라운드로 실행해줘.
-처음이라 설정 질문이 나오면 전부 기본값(Enter)으로 진행해줘.
-실행됐는지 확인해서 알려줘.</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-        </div></li>
-        <li><div class="step-content">
-          <strong>브라우저로 확인</strong>
-          <p>브라우저에서 <code>http://localhost:3000</code> 으로 접속합니다. 자기소개·시계 아래에 <strong>문서 Q&amp;A 섹션</strong>이 보이고, PDF를 하나 이상 올려 "문서 준비 완료"가 뜨는지, 그 문서 내용을 물었을 때 근거를 바탕으로 답하는지, 문서에 없는 것을 물으면 "문서에 없습니다"라고 정직하게 답하는지 확인합니다. 마지막으로 <strong>[세션저장]</strong>을 누른 뒤 <code>vercel dev</code>를 껐다 켜거나 새로고침해도 사이드바에서 그 세션을 <strong>다시 불러올 수</strong> 있으면 성공입니다.</p>
-          <p class="note" style="padding-left:2px;">오류가 나면 화면에 뜬 오류 메시지를 그대로 Claude에게 붙여넣어 "이 오류 고쳐줘"라고 요청하면 됩니다. 코드를 고친 뒤엔 "vercel dev 다시 실행해줘"라고 한 뒤 새로고침(F5)하세요.</p>
-        </div></li>
-      </ol>
-
       <div class="tip-box">
         방금 Claude에 문서를 첨부해 물어본 것을, <strong>Day 1 헬로페이지에 이어 붙여</strong> 내 웹앱으로 만든 것이 이 문서 Q&amp;A입니다. 여기에 <strong>대화를 저장·불러오는 멀티세션(Supabase)</strong>까지 갖췄습니다. 세부사항(화면 문구 등)이 마음에 안 들면 이어서 말로 요청해 다듬으면 됩니다.
       </div>
 
       <div class="security-box">
-        <code>OPENAI_API_KEY</code>·<code>SUPABASE_URL</code>·<code>SUPABASE_ANON_KEY</code>는 <code>.env</code>에만 두고 <code>index.html</code>·<code>api/*.js</code>에 직접 적지 마세요. GPT 호출은 <strong>API 사용료가 조금씩 과금</strong>됩니다(문서를 근거로 함께 보내므로 문서가 길수록 비용이 늘어납니다). 이 앱을 인터넷에 공개 배포할 계획이면 <a href="../day1/day1_Examples.html#step-7">Day 1 STEP 7</a>처럼 <code>.gitignore</code>에 <code>.env</code>를 추가하고, Vercel 프로젝트 설정의 환경 변수에 세 키를 모두 등록해야 합니다.
+        <code>OPENAI_API_KEY</code>·<code>SUPABASE_URL</code>·<code>SUPABASE_ANON_KEY</code>는 <code>.env</code>에만 두고 <code>index.html</code>·<code>api/*.js</code>에 직접 적지 마세요. GPT 호출은 <strong>API 사용료가 조금씩 과금</strong>됩니다(문서를 근거로 함께 보내므로 문서가 길수록 비용이 늘어납니다). 이 앱을 인터넷에 공개 배포할 때는 <code>.gitignore</code>에 <code>.env</code>를 추가하고, Vercel 프로젝트 설정의 환경 변수에 세 키를 모두 등록해야 합니다.
       </div>
 
       <div class="steps-title" style="margin-top:28px;">마지막으로 — 내가 만들 앱 주제 정하기</div>
@@ -505,7 +487,92 @@
       </ol>
 
       <div class="tip-box">
-        주제는 <strong>내가 실제로 겪는 불편</strong>에서 고를수록 뒤의 PRD가 잘 나옵니다. 남의 문제가 아니라 내 문제를 고르세요. 이 주제가 <strong>STEP 2부터의 my-app</strong>이 됩니다.
+        주제는 <strong>내가 실제로 겪는 불편</strong>에서 고를수록 뒤의 PRD가 잘 나옵니다. 남의 문제가 아니라 내 문제를 고르세요. 이 주제가 <strong>STEP 3부터의 my-app</strong>이 됩니다.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════ 배포 ══════════════════════════════ -->
+  <div class="level-header">
+    <span class="badge badge-p">● 배포</span>
+    <span class="level-title level-title-p">Deploy</span>
+    <span class="level-desc">만든 결과물을 인터넷에 공개합니다</span>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="scenario-card" id="step-2">
+    <div class="card-header">
+      <span class="card-id">STEP 2</span>
+      <span class="badge badge-p">실습</span>
+      <strong class="card-title">🚀 hello-page를 인터넷에 공개(배포)하기</strong>
+    </div>
+    <div class="card-body">
+
+      <div class="situation">
+        방금 만든 <strong>RAG 챗봇</strong>까지 더해진 <code>hello-page</code>(자기소개·시계·로그인·문서 Q&amp;A 챗봇)를 누구나 접속할 수 있는 인터넷 주소로 공개합니다. <strong>터미널 없이</strong> GitHub와 Vercel 사이트에서 클릭만으로 진행합니다. 로그인은 <strong>Supabase</strong>, 챗봇은 <strong>OpenAI</strong>를 쓰므로 <code>api/</code> 폴더까지 함께 올리고 — 비밀 키가 담긴 <code>.env</code>는 <strong>올리지 말고</strong> <strong>Vercel 환경 변수에 키를 등록</strong>해 안전하게 공개합니다.
+      </div>
+
+      <div class="cmd-list">
+        <div class="cmd-list-title">관련 이론</div>
+        <div class="cmd-chips">
+          <a class="cmd-chip" href="../day1/day1_Manual.html#section-5">배포(deploy)의 개념</a>
+          <a class="cmd-chip" href="../day1/day1_Manual.html#section-2">Vercel의 이해</a>
+        </div>
+      </div>
+
+      <div class="env-head">1️⃣ GitHub에 올리기 <span class="env-note" style="color:#0550ae;">— .env는 제외</span></div>
+      <ol class="step-list">
+        <li><div class="step-content">
+          <strong>GitHub에 새 저장소(repository) 만들기</strong>
+          <p>Day 1 STEP 1에서 만든 GitHub 계정으로 로그인한 뒤, 코드를 올려 둘 빈 저장소를 하나 만듭니다.</p>
+          <ol class="substeps">
+            <li>github.com 우측 상단의 <strong>"+"</strong> → <strong>"New repository"</strong>를 선택합니다.</li>
+            <li><strong>Repository name</strong>에 <code>hello-page</code>를 입력하고, 공개 범위는 <strong>"Public"</strong>으로 둡니다.<span class="note">(다른 항목은 비워 둡니다.)</span></li>
+            <li><strong>"Create repository"</strong>를 클릭합니다.</li>
+          </ol>
+        </div></li>
+        <li><div class="step-content">
+          <strong>결과물을 GitHub에 업로드하기 (.env 제외)</strong>
+          <p>터미널 없이 GitHub 사이트에서 파일을 바로 올립니다.</p>
+          <ol class="substeps">
+            <li>저장소 화면의 <strong>"Add file" → "Upload files"</strong>를 클릭합니다.</li>
+            <li><code>hello-page</code> 폴더에서 <strong><code>index.html</code>·<code>재정경제부.svg</code>·<code>api/</code> 폴더·<code>package.json</code></strong>을 올립니다.<span class="note">(<code>.gitignore</code>에 <code>.env</code>가 있으면 자동으로 빠집니다. 목록에 <code>.env</code>가 보이면 반드시 제외하세요.)</span></li>
+            <li>아래 <strong>"Commit changes"</strong>로 업로드를 확정합니다.</li>
+          </ol>
+        </div></li>
+      </ol>
+
+      <div class="env-head env-ide">2️⃣ Vercel Import + 환경 변수 등록 <span class="env-note" style="color:#0550ae;">— 키는 Vercel에</span></div>
+      <ol class="step-list">
+        <li><div class="step-content">
+          <strong>저장소 연결 · 키 등록 · 배포</strong>
+          <p>키를 코드가 아니라 <strong>Vercel 설정</strong>에 넣습니다. 로컬 <code>.env</code>와 <strong>같은 값</strong>을 등록하면 됩니다.</p>
+          <ol class="substeps">
+            <li>vercel.com에 로그인하고 <strong>"Add New… → Project"</strong>로 <code>hello-page</code> 저장소를 <strong>"Import"</strong>합니다.<span class="note">(목록에 없으면 "Adjust GitHub App Permissions"로 접근을 허용합니다.)</span></li>
+            <li>Deploy 누르기 전에 <strong>"Environment Variables"</strong>를 펼쳐 아래 세 개를 이름·값으로 추가합니다.
+              <div class="code-wrap" style="margin-top:6px;">
+                <pre class="code-block">SUPABASE_URL        = (Supabase Project URL)
+SUPABASE_ANON_KEY   = (Supabase anon public 키)
+OPENAI_API_KEY      = (Day 1 STEP 1의 sk- 키)</pre>
+                <button class="copy-btn" onclick="copyCode(this)">복사</button>
+              </div>
+            </li>
+            <li>이제 <strong>"Deploy"</strong>를 클릭합니다. 잠시 뒤 공개 주소가 나타납니다.</li>
+          </ol>
+        </div></li>
+        <li><div class="step-content">
+          <strong>공개 주소에서 확인</strong>
+          <p>배포된 <code>https://hello-page-xxxx.vercel.app</code>에 접속해 <strong>회원가입·로그인 → 문서 질문</strong>이 인터넷에서도 되면 성공입니다. 앞으로 코드를 고쳐 GitHub에 다시 올리면 <strong>자동으로 재배포</strong>됩니다.</p>
+        </div></li>
+      </ol>
+
+      <div class="security-box">
+        ① <code>.env</code>는 <strong>절대 GitHub에 올리지 마세요.</strong> 키는 로컬에선 <code>.env</code>, 공개 배포에선 <strong>Vercel 환경 변수</strong> — 두 곳에 같은 값을 둡니다. ② 공개하면 누구나 접속·질문할 수 있어 <strong>OpenAI 사용료가 과금</strong>되니, 필요하면 가입·사용 범위를 제한하세요. ③ 배포 후 오류가 나면 Vercel의 <strong>"Logs"</strong> 메시지를 그대로 붙여넣어 "이 오류 고쳐줘"라고 요청하면 됩니다.
+      </div>
+
+      <div class="related-cmds">
+        <strong>정리:</strong> Day 1에서 만든 페이지에 <strong>RAG 챗봇</strong>을 더해 <strong>인터넷 공개</strong>까지 마쳤습니다. 이어서 STEP 3부터는 <strong>내 앱(my-app)</strong>의 설계도(PRD)를 직접 써 봅니다.
       </div>
 
     </div>
@@ -518,10 +585,10 @@
     <span class="level-desc">만들 앱의 설계도를 글로 완성합니다</span>
   </div>
 
-  <!-- STEP 2 -->
-  <div class="scenario-card" id="step-2">
+  <!-- STEP 3 -->
+  <div class="scenario-card" id="step-3">
     <div class="card-header">
-      <span class="card-id">STEP 2</span>
+      <span class="card-id">STEP 3</span>
       <span class="badge badge-p">PRD</span>
       <strong class="card-title">Claude와 함께 PRD Lite 만들기</strong>
     </div>
@@ -610,11 +677,11 @@
           <p>Claude가 파일을 만들어도 되는지 물으면 <strong>"허용(Allow)"</strong>을 누릅니다.</p>
         </div></li>
         <li><div class="step-content">
-          <strong>"STEP 2 진행해줘" — Plan 모드로 항목마다 함께 채우기</strong>
+          <strong>"STEP 3 진행해줘" — Plan 모드로 항목마다 함께 채우기</strong>
           <p>이어서 아래 프롬프트를 붙여넣습니다. Claude가 한 번에 계획을 세우고 끝내는 게 아니라, <strong>항목 하나마다 먼저 의견을 제안하고 내 생각을 물어본 뒤</strong>, 합의된 내용만 그때그때 파일에 반영하고 다음 항목으로 넘어갑니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">STEP 2 진행해줘.
+            <pre class="code-block">STEP 3 진행해줘.
 
 Plan 모드로, prd_lite.md의 다섯 항목을
 아래 순서로 나와 함께 하나씩 채워나가자.
@@ -668,17 +735,17 @@ Plan 모드로, prd_lite.md의 다섯 항목을
     </div>
   </div>
 
-  <!-- STEP 3 -->
-  <div class="scenario-card" id="step-3">
+  <!-- STEP 4 -->
+  <div class="scenario-card" id="step-4">
     <div class="card-header">
-      <span class="card-id">STEP 3</span>
+      <span class="card-id">STEP 4</span>
       <span class="badge badge-p">PRD</span>
       <strong class="card-title">내 애플리케이션 PRD 직접 작성하기</strong>
     </div>
     <div class="card-body">
 
       <div class="situation">
-        STEP 2의 <code>prd_lite.md</code>를 뼈대 삼아, Claude Desktop으로 <code>PRD.md</code> 파일을 만들고 일곱 항목으로 고도화합니다.
+        STEP 3의 <code>prd_lite.md</code>를 뼈대 삼아, Claude Desktop으로 <code>PRD.md</code> 파일을 만들고 일곱 항목으로 고도화합니다.
       </div>
 
       <div class="cmd-list">
@@ -777,16 +844,16 @@ prd_lite.md의 "5. 디자인 느낌과 색상"은 PRD.md에는 넣지 말고,
       </ol>
 
       <div class="warning-box">
-        처음부터 완벽하지 않아도 됩니다. 지금은 <strong>일곱 항목이 다 채워진 초안</strong>이면 충분합니다. 다듬기는 STEP 4에서 AI와 함께 합니다.
+        처음부터 완벽하지 않아도 됩니다. 지금은 <strong>일곱 항목이 다 채워진 초안</strong>이면 충분합니다. 다듬기는 STEP 5에서 AI와 함께 합니다.
       </div>
 
     </div>
   </div>
 
-  <!-- STEP 4 -->
-  <div class="scenario-card" id="step-4">
+  <!-- STEP 5 -->
+  <div class="scenario-card" id="step-5">
     <div class="card-header">
-      <span class="card-id">STEP 4</span>
+      <span class="card-id">STEP 5</span>
       <span class="badge badge-p">PRD</span>
       <strong class="card-title">AI를 활용해 PRD 검토·구체화하기</strong>
     </div>

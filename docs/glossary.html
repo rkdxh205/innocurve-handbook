@@ -30,7 +30,7 @@
       color: var(--accent6); margin: 26px 0 6px; padding-bottom: 6px; border-bottom: 1px solid var(--border);
     }
     dl.gloss { margin: 0; }
-    dl.gloss dt { font-weight: 700; color: var(--text); margin-top: 14px; scroll-margin-top: 20px; }
+    dl.gloss dt { font-weight: 700; color: var(--text); margin-top: 14px; scroll-margin-top: 40vh; }
     dl.gloss dd { margin: 2px 0 0; color: var(--text-dim); font-size: 13.5px; line-height: 1.6; }
     /* 용어 제목(dt) 안의 코드는 나머지 용어와 동일하게 — 검정·같은 글꼴·같은 크기 */
     dl.gloss dt code {
@@ -75,6 +75,7 @@
     <dl class="gloss">
       <dt id="g-html">HTML (HyperText Markup Language)</dt><dd>웹페이지의 뼈대(구조)를 만드는 마크업 언어. 제목·문단·이미지·버튼 같은 요소를 정의합니다.</dd>
       <dt id="g-js">자바스크립트(JavaScript)</dt><dd>웹페이지를 움직이게 하는 프로그래밍 언어. 시계·챗봇처럼 화면이 스스로 바뀌거나 반응하는 기능을 담당합니다.</dd>
+      <dt id="g-fetch"><code>fetch</code></dt><dd>인터넷으로 데이터를 주고받을 때(요청을 보내고 응답을 받을 때) 쓰는 자바스크립트 기본 기능. 따로 설치할 필요 없이 바로 쓸 수 있습니다.</dd>
       <dt id="g-setinterval"><code>setInterval</code></dt><dd>자바스크립트에서 정해진 시간마다 코드를 반복 실행하는 명령. 시계가 1초마다 스스로 다시 그려지는 것이 이 기능 덕분입니다.</dd>
       <dt id="g-nodejs"><code>Node.js</code></dt><dd>웹 브라우저 밖에서도 자바스크립트를 실행하게 해주는 도구.</dd>
       <dt id="g-npm"><code>npm</code> (Node Package Manager)</dt><dd>Node.js용 프로그램(패키지)을 설치·관리하는 도구.</dd>
@@ -115,7 +116,10 @@
       <dt id="g-supabase-url">Supabase 접속 주소(<code>Project URL</code> · <code>SUPABASE_URL</code>)</dt><dd>내 Supabase 프로젝트의 주소. 앱이 이 주소로 데이터베이스에 접속합니다. <code>.env</code>·Vercel 환경변수에 <code>SUPABASE_URL</code>이라는 이름으로 보관합니다.</dd>
       <dt id="g-supabase-anon">Supabase 공개 키(<code>anon public</code> · <code>SUPABASE_ANON_KEY</code>)</dt><dd>Supabase에 접속할 때 함께 보내는 공개(anon) 키. <code>SUPABASE_URL</code>과 짝으로 쓰이며 <code>.env</code>·Vercel 환경변수에 보관합니다.</dd>
       <dt id="g-user-table"><code>user</code> 테이블</dt><dd>회원 정보(로그인 아이디·비밀번호 해시 등)를 담으려고 직접 만든 DB 테이블. Supabase의 로그인 기능(Auth) 대신 이 테이블로 회원가입/로그인을 처리합니다.</dd>
+      <dt id="g-sessions-sql"><code>sessions-ref.sql</code></dt><dd>대화 세션(제목·메시지)을 저장할 Supabase 테이블을 만드는 SQL 파일. Supabase의 SQL Editor에 붙여넣어 한 번 실행합니다.</dd>
       <dt id="g-service-role"><code>service_role</code> (Supabase 관리자 키)</dt><dd>Supabase의 <strong>모든 권한</strong>을 가진 관리자 키. 보안 규칙(RLS)을 무시하므로 서버에서만 쓰고, 브라우저·공개 저장소(GitHub)에는 <strong>절대 노출하면 안 됩니다.</strong> 유출되면 남이 내 데이터베이스를 통째로 읽고 지울 수 있습니다. (이 과정에서는 쓰지 않습니다.)</dd>
+      <dt id="g-jwt">JWT · JWT Secret (로그인 토큰)</dt><dd>로그인에 성공한 사람에게 발급되는 <strong>디지털 출입증(토큰)</strong>이 JWT입니다. 이 출입증이 진짜인지 서명·확인하는 열쇠가 <strong>JWT Secret</strong>이고요. 서버가 "이 사람 로그인한 게 맞다"고 알아보는 데 씁니다. (이 과정에서는 직접 다루지 않습니다.)</dd>
+      <dt id="g-db-password">DB 비밀번호 · 접속 문자열(<code>DB Password</code> · <code>Connection string</code>)</dt><dd>데이터베이스(저장소)에 <strong>직접 로그인하는 비밀번호</strong>와 그 <strong>접속 주소</strong>. 관리자 키만큼 강력해서 남에게 알려주면 저장소를 통째로 열어볼 수 있습니다. (이 과정에서는 쓰지 않습니다.)</dd>
     </dl>
 
     <div class="gloss-cat">AI 앱·방법론 (Day 2~4)</div>

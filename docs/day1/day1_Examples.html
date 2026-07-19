@@ -295,9 +295,6 @@
   <div class="nav-group">로그인·멀티유저</div>
   <a href="#step-6"><span class="dot dot-p"></span>STEP 6 · 로그인·회원가입</a>
 
-  <div class="nav-group">배포</div>
-  <a href="#step-7"><span class="dot dot-p"></span>STEP 7 · Vercel 배포</a>
-
   <div class="nav-group">바로가기</div>
   <a href="day1_Manual.html">📖 Day 1 이론 문서로 →</a>
 </nav>
@@ -308,7 +305,7 @@
   <p class="subtitle">이론 문서에서 익힌 개념을 실제 명령어·프롬프트로 따라 하는 실습 문서입니다. STEP 1부터 순서대로 진행하십시오.<br>개념이 헷갈리면 각 단계의 "관련 이론" 링크로 <a href="day1_Manual.html">이론 문서</a>를 참고하세요.</p>
 
   <div class="version-box">
-    <div class="version-row"><span class="vlabel">진행 순서</span><span>STEP 1 계정 → STEP 2 Claude Desktop → STEP 3 Node·Git → STEP 4 헬로페이지 → STEP 5 시계 → STEP 6 로그인·멀티유저 → STEP 7 배포</span></div>
+    <div class="version-row"><span class="vlabel">진행 순서</span><span>STEP 1 계정 → STEP 2 Claude Desktop → STEP 3 Node·Git → STEP 4 헬로페이지 → STEP 5 시계 → STEP 6 로그인·멀티유저</span></div>
     <div class="version-row"><span class="vlabel">짝 문서(이론)</span><span><a href="day1_Manual.html">day1_Manual.html</a> — 각 단계에서 쓰는 용어의 개념 설명</span></div>
   </div>
 
@@ -562,7 +559,7 @@ git config --global user.email을 "본인이메일@example.com"으로
   <div class="level-header">
     <span class="badge badge-p">● 헬로페이지</span>
     <span class="level-title level-title-p">Vibe Coding</span>
-    <span class="level-desc">자연어로 웹페이지를 만들고 인터넷에 배포합니다</span>
+    <span class="level-desc">자연어로 웹페이지를 만들고 고칩니다</span>
   </div>
 
   <!-- STEP 4 -->
@@ -759,7 +756,7 @@ API Key가 실수로 업로드되지 않게 해줘.</pre>
       </ol>
 
       <div class="tip-box">
-        "24시간제로 바꿔줘", "요일도 보여줘", "폰트를 더 크게"처럼 이어서 말로 다듬을 수 있습니다. 이 <code>index.html</code>은 맨 마지막 <strong>STEP 7(배포)</strong>에서 Vercel로 그대로 인터넷에 공개할 수 있습니다.
+        "24시간제로 바꿔줘", "요일도 보여줘", "폰트를 더 크게"처럼 이어서 말로 다듬을 수 있습니다. 이 <code>index.html</code>은 <strong>2일차 실습</strong>에서 RAG 챗봇을 더한 뒤 Vercel로 인터넷에 공개(배포)합니다.
       </div>
 
       <div class="tip-box">
@@ -846,7 +843,7 @@ SUPABASE_ANON_KEY=
         </div></li>
       </ol>
 
-      <div class="env-head">3️⃣ 로그인·회원가입 붙이기 <span class="env-note" style="color:#0550ae;">— api/auth.js + index.html</span></div>
+      <div class="env-head">3️⃣ 로그인·회원가입 기능 추가하기 <span class="env-note" style="color:#0550ae;">— api/auth.js + index.html</span></div>
       <ol class="step-list">
         <li><div class="step-content">
           <strong>Supabase 연결 + 인증 처리(api/auth.js) 요청</strong>
@@ -881,126 +878,12 @@ SUPABASE_ANON_KEY=
         </div></li>
       </ol>
 
-      <div class="env-head env-ide">4️⃣ 로컬에서 확인 <span class="env-note" style="color:#0550ae;">— vercel dev</span></div>
-      <ol class="step-list">
-        <li><div class="step-content">
-          <strong>Vercel CLI 준비 (처음 한 번만)</strong>
-          <p>로컬에서 로그인을 확인하려면 <code>vercel</code> 도구가 필요합니다. 터미널을 열지 않고 아래 프롬프트로 설치·로그인을 맡깁니다. (이미 해 두었다면 건너뜁니다.)</p>
-          <span class="prompt-label">프롬프트</span>
-          <div class="code-wrap">
-            <pre class="code-block">vercel CLI가 설치돼 있는지 확인하고, 없으면
-npm install -g vercel 를 실행해 설치해줘.
-그다음 vercel login도 실행해줘.
-로그인 중 브라우저 창이 열리면 내가 Vercel 계정으로 승인할게.</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-          <p class="note" style="padding-left:2px;">로그인 확인 창이 브라우저에 뜨면, STEP 1에서 만든 Vercel 계정으로 "승인(Confirm)"을 눌러 주세요.</p>
-        </div></li>
-        <li><div class="step-content">
-          <strong>실행 & 검증</strong>
-          <p><code>vercel dev</code>로 <code>index.html</code>과 <code>api/auth.js</code>를 함께 띄웁니다.</p>
-          <span class="prompt-label">프롬프트</span>
-          <div class="code-wrap">
-            <pre class="code-block">hello-page 폴더에서 vercel dev를 백그라운드로 실행해줘.
-필요한 패키지가 있으면 설치하고, package.json에 의존성을 정리해줘.
-설정 질문이 나오면 전부 기본값(Enter)으로 진행하고,
-실행됐는지 확인해서 알려줘.</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-          <p class="note" style="padding-left:2px;">브라우저에서 <code>http://localhost:3000</code> 접속 → 계정 <strong>두 개</strong>로 회원가입·로그인해 보세요. 각 계정으로 로그인이 되고, 로그아웃하면 다시 로그인 폼이 나오면 성공입니다.</p>
-        </div></li>
-      </ol>
-
       <div class="tip-box">
-        로그인·회원가입 기초가 완성됐습니다. <strong>2일차 RAG 챗봇</strong>에서는 이 로그인을 그대로 이어받아, 사용자별로 <strong>자기 대화·문서만</strong> 보이도록 확장합니다.
+        로그인·회원가입 <strong>코드</strong>가 완성됐습니다. 직접 <strong>실행해 확인</strong>하는 것과 <strong>인터넷 공개(배포)</strong>는 <strong>2일차</strong>에서 <code>vercel</code>로 한 번에 진행합니다(1일차는 여기까지 만들어 둡니다). 2일차 RAG 챗봇에서는 이 로그인을 그대로 이어받아, 사용자별로 <strong>자기 대화·문서만</strong> 보이도록 확장합니다.
       </div>
 
       <div class="security-box">
-        ① 비밀번호는 <strong>반드시 해시로 저장</strong>하고 평문으로 두지 마세요. ② <code>SUPABASE_URL</code>·<code>SUPABASE_ANON_KEY</code>는 <code>.env</code>에 두고 <code>index.html</code>에는 직접 적지 마세요(<code>api/*.js</code>만 <code>process.env</code>로 읽습니다). ③ 인터넷 <strong>공개 배포</strong>는 다음 STEP 7에서 다룹니다(키는 Vercel 환경 변수로 등록). ④ 오류가 나면 메시지를 그대로 붙여넣어 "이 오류 고쳐줘"라고 요청하면 됩니다.
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════ 배포 ══════════════════════════════ -->
-  <div class="level-header">
-    <span class="badge badge-p">● 배포</span>
-    <span class="level-title level-title-p">Deploy</span>
-    <span class="level-desc">완성한 결과물을 인터넷에 공개합니다</span>
-  </div>
-
-  <!-- STEP 7 -->
-  <div class="scenario-card" id="step-7">
-    <div class="card-header">
-      <span class="card-id">STEP 7</span>
-      <span class="badge badge-p">실습</span>
-      <strong class="card-title">🚀 마무리 — hello-page를 인터넷에 공개(배포)하기</strong>
-    </div>
-    <div class="card-body">
-
-      <div class="situation">
-        마지막으로, 내 컴퓨터에만 있던 <strong>hello-page(자기소개·시계·로그인)</strong>를 누구나 접속할 수 있는 인터넷 주소로 공개합니다. <strong>터미널 없이</strong> GitHub와 Vercel 사이트에서 클릭만으로 진행합니다. 로그인이 <strong>Supabase</strong>를 쓰므로 <code>api/</code> 폴더까지 함께 올리고 — 비밀 키가 담긴 <code>.env</code>는 <strong>올리지 말고</strong> <strong>Vercel 환경 변수에 Supabase 키를 등록</strong>해 안전하게 공개합니다.
-      </div>
-
-      <div class="cmd-list">
-        <div class="cmd-list-title">관련 이론</div>
-        <div class="cmd-chips">
-          <a class="cmd-chip" href="day1_Manual.html#section-5">배포(deploy)의 개념</a>
-          <a class="cmd-chip" href="day1_Manual.html#section-2">Vercel의 이해</a>
-        </div>
-      </div>
-
-      <div class="env-head">1️⃣ GitHub에 올리기 <span class="env-note" style="color:#0550ae;">— .env는 제외</span></div>
-      <ol class="step-list">
-        <li><div class="step-content">
-          <strong>GitHub에 새 저장소(repository) 만들기</strong>
-          <p>STEP 1에서 만든 GitHub 계정으로 로그인한 뒤, 코드를 올려 둘 빈 저장소를 하나 만듭니다.</p>
-          <ol class="substeps">
-            <li>github.com 우측 상단의 <strong>"+"</strong> → <strong>"New repository"</strong>를 선택합니다.</li>
-            <li><strong>Repository name</strong>에 <code>hello-page</code>를 입력하고, 공개 범위는 <strong>"Public"</strong>으로 둡니다.<span class="note">(다른 항목은 비워 둡니다.)</span></li>
-            <li><strong>"Create repository"</strong>를 클릭합니다.</li>
-          </ol>
-        </div></li>
-        <li><div class="step-content">
-          <strong>결과물을 GitHub에 업로드하기 (.env 제외)</strong>
-          <p>터미널 없이 GitHub 사이트에서 파일을 바로 올립니다.</p>
-          <ol class="substeps">
-            <li>저장소 화면의 <strong>"Add file" → "Upload files"</strong>를 클릭합니다.</li>
-            <li><code>hello-page</code> 폴더에서 <strong><code>index.html</code>·<code>재정경제부.svg</code>·<code>api/</code> 폴더·<code>package.json</code></strong>을 올립니다.<span class="note">(<code>.gitignore</code>에 <code>.env</code>가 있으면 자동으로 빠집니다. 목록에 <code>.env</code>가 보이면 반드시 제외하세요.)</span></li>
-            <li>아래 <strong>"Commit changes"</strong>로 업로드를 확정합니다.</li>
-          </ol>
-        </div></li>
-      </ol>
-
-      <div class="env-head env-ide">2️⃣ Vercel Import + 환경 변수 등록 <span class="env-note" style="color:#0550ae;">— 키는 Vercel에</span></div>
-      <ol class="step-list">
-        <li><div class="step-content">
-          <strong>저장소 연결 · 키 등록 · 배포</strong>
-          <p>키를 코드가 아니라 <strong>Vercel 설정</strong>에 넣습니다. 로컬 <code>.env</code>와 <strong>같은 값</strong>을 등록하면 됩니다.</p>
-          <ol class="substeps">
-            <li>vercel.com에 로그인하고 <strong>"Add New… → Project"</strong>로 <code>hello-page</code> 저장소를 <strong>"Import"</strong>합니다.<span class="note">(목록에 없으면 "Adjust GitHub App Permissions"로 접근을 허용합니다.)</span></li>
-            <li>Deploy 누르기 전에 <strong>"Environment Variables"</strong>를 펼쳐 아래 두 개를 이름·값으로 추가합니다.
-              <div class="code-wrap" style="margin-top:6px;">
-                <pre class="code-block">SUPABASE_URL        = (Supabase Project URL)
-SUPABASE_ANON_KEY   = (Supabase anon public 키)</pre>
-                <button class="copy-btn" onclick="copyCode(this)">복사</button>
-              </div>
-            </li>
-            <li>이제 <strong>"Deploy"</strong>를 클릭합니다. 잠시 뒤 공개 주소가 나타납니다.</li>
-          </ol>
-        </div></li>
-        <li><div class="step-content">
-          <strong>공개 주소에서 확인</strong>
-          <p>배포된 <code>https://hello-page-xxxx.vercel.app</code>에 접속해 <strong>회원가입 → 로그인</strong>이 인터넷에서도 되면 성공입니다. 앞으로 코드를 고쳐 GitHub에 다시 올리면 <strong>자동으로 재배포</strong>됩니다.</p>
-        </div></li>
-      </ol>
-
-      <div class="security-box">
-        ① <code>.env</code>는 <strong>절대 GitHub에 올리지 마세요.</strong> 키는 로컬에선 <code>.env</code>, 공개 배포에선 <strong>Vercel 환경 변수</strong> — 두 곳에 같은 값을 둡니다. ② 공개하면 누구나 회원가입할 수 있으니, 필요하면 나중에 가입 범위를 제한하세요. ③ 배포 후 오류가 나면 Vercel의 <strong>"Logs"</strong> 메시지를 그대로 붙여넣어 "이 오류 고쳐줘"라고 요청하면 됩니다.
-      </div>
-
-      <div class="related-cmds">
-        <strong>오늘의 마무리:</strong> "자연어로 만들고 → 고치고 → 로그인까지 붙이고 → 세상에 공개(배포)"까지 한 바퀴를 완성했습니다. <strong>2일차</strong>에서는 이 로그인 위에 <strong>RAG·멀티세션 챗봇</strong>을 얹어, 문서를 기억하고 대화를 저장하는 앱으로 키웁니다.
+        ① 비밀번호는 <strong>반드시 해시로 저장</strong>하고 평문으로 두지 마세요. ② <code>SUPABASE_URL</code>·<code>SUPABASE_ANON_KEY</code>는 <code>.env</code>에 두고 <code>index.html</code>에는 직접 적지 마세요(<code>api/*.js</code>만 <code>process.env</code>로 읽습니다). ③ 인터넷 <strong>공개 배포</strong>는 <strong>2일차 실습</strong>에서 다룹니다(키는 Vercel 환경 변수로 등록). ④ 오류가 나면 메시지를 그대로 붙여넣어 "이 오류 고쳐줘"라고 요청하면 됩니다.
       </div>
 
     </div>
