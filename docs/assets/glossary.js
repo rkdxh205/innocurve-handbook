@@ -21,6 +21,7 @@
     '.env':            { id: 'g-env',            desc: 'API 키 같은 비밀 값을 코드와 분리해 보관하는 파일.' },
     '.gitignore':      { id: 'g-gitignore',      desc: 'Git이 저장소에 올리지 않을 파일 목록.' },
     'html':            { id: 'g-html',           desc: '웹페이지의 구조를 만드는 마크업 언어(HyperText Markup Language).' },
+    'setinterval':     { id: 'g-setinterval',    desc: '자바스크립트에서 정해진 시간마다 코드를 반복 실행하는 명령. 시계가 1초마다 스스로 갱신되게 합니다.' },
     'index.html':      { id: 'g-index',          desc: '웹사이트 접속 시 가장 먼저 열리는 시작 페이지.' },
     'api/chat.js':     { id: 'g-api-relay',      desc: '브라우저가 못 읽는 .env 키를 대신 읽어 OpenAI를 호출해 주는 작은 연결 파일. 키가 화면으로 노출되지 않게 함.' },
     'node.js':         { id: 'g-nodejs',         desc: '브라우저 밖에서도 자바스크립트를 실행하게 해주는 도구.' },
