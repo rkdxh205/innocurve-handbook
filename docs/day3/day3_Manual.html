@@ -185,7 +185,38 @@ Day 3 · 이론 → 실습 대응표
     </tbody>
   </table>
 
-  <p class="keyline">💡 <strong>핵심 한 줄:</strong> 스킬·플러그인은 <strong>"매번 설명하던 것을 한 번 정의해 재사용"</strong>하게 해 주는 장치입니다 — 하네스의 재료가 됩니다.</p>
+  <h3><code>스킬 = 진입점</code> · <code>서브에이전트 = 자동으로 붙는 일손</code></h3>
+  <p>스킬과 서브에이전트가 이렇게 많은데, <strong>쓸 때마다 내가 하나하나 골라 지정해야 할까요?</strong> 대부분은 <strong>아닙니다.</strong> 이 둘은 <strong>"불리는 방식"이 서로 다르기</strong> 때문에, 역할을 나눠서 이해하면 훨씬 쉽습니다.</p>
+
+  <p><strong>① 스킬은 "진입점"입니다 — 내가 켜거나, 자연어로 자동 발동됩니다.</strong> 스킬은 두 가지 방식으로 시작됩니다. 하나는 <strong>내가 직접 부르는 것</strong>(예: <code>/pdca plan my-app</code>처럼 슬래시 명령), 다른 하나는 <strong>Claude가 알아서 꺼내 쓰는 것</strong>입니다. 스킬 파일에는 "언제 이 스킬을 써야 하는지"를 알려 주는 <strong>설명과 신호 단어(트리거)</strong>가 함께 적혀 있어서, 내 말이 그 상황과 맞으면 Claude가 스스로 그 스킬을 발동합니다. 예를 들어 bkit의 <code>pdca</code> 스킬에는 <em>계획·설계·분석·보고서</em> 같은 신호 단어가 등록돼 있어, "이 기능 분석해줘"라고만 해도 자동으로 켜질 수 있습니다. 다만 이 <strong>자동 발동은 그때그때 모델의 판단</strong>에 달려 있어 <strong>매번 100% 보장되지는 않습니다.</strong> 그래서 결과를 확실히 하고 싶을 때 — 특히 배우는 단계에서는 — <strong>스킬을 직접 이름으로 부르는 편이 안전</strong>합니다.</p>
+
+  <p><strong>② 서브에이전트는 "자동으로 붙는 전담 일손"입니다 — 내가 지정할 필요가 없습니다.</strong> 서브에이전트는 스킬과 성격이 다릅니다. 내가 이름을 대며 불러오는 대상이 아니라, <strong>스킬(또는 전체를 지휘하는 메인 에이전트)이 "이 일은 저 전문가에게 맡기자"고 판단할 때 자동으로 위임</strong>되는 보조 일꾼입니다. 특히 bkit의 PDCA는 <strong>각 단계마다 담당 서브에이전트가 미리 배선(고정 연결)</strong>되어 있습니다.</p>
+  <table>
+    <thead><tr><th>PDCA 단계 (스킬 명령)</th><th>자동으로 나서는 서브에이전트</th><th>맡는 일</th></tr></thead>
+    <tbody>
+      <tr><td><code>/pdca analyze</code> (Check)</td><td><code>gap-detector</code></td><td>설계와 실제 결과가 어긋난 곳을 찾음</td></tr>
+      <tr><td><code>/pdca iterate</code> (Act)</td><td><code>pdca-iterator</code></td><td>발견된 문제를 스스로 고쳐 나감</td></tr>
+      <tr><td><code>/pdca qa</code></td><td><code>qa-lead</code></td><td>테스트 계획·실행·분석을 총괄</td></tr>
+      <tr><td><code>/pdca report</code></td><td><code>report-generator</code></td><td>사이클 완료 보고서를 작성</td></tr>
+      <tr><td><code>/pdca pm</code></td><td><code>pm-lead</code></td><td>다시 조사·전략·리서치·기획서 <strong>4개 에이전트를 병렬로 지휘</strong></td></tr>
+    </tbody>
+  </table>
+  <p>즉 <code>/pdca analyze my-app</code> 한 번이면, 내가 "<code>gap-detector</code> 불러줘"라고 말하지 않아도 그 에이전트가 <strong>알아서 나서서</strong> 검사를 합니다. <strong>진입점(스킬)만 열어 주면, 그 안의 분업(서브에이전트)은 시스템이 알아서 굴립니다.</strong></p>
+
+  <table>
+    <thead><tr><th>구분</th><th>스킬 (Skill)</th><th>서브에이전트 (Subagent)</th></tr></thead>
+    <tbody>
+      <tr><td>불리는 방식</td><td>내가 직접(슬래시) <strong>또는</strong> 자연어로 자동 발동</td><td>스킬·메인 에이전트가 필요할 때 <strong>자동 위임</strong></td></tr>
+      <tr><td>내가 지정?</td><td>진입은 <strong>내가 켜는 걸 권장</strong></td><td><strong>지정 불필요</strong> — 알아서 붙음</td></tr>
+      <tr><td>비유</td><td>내가 누르는 <strong>진입 버튼</strong></td><td>버튼 뒤에서 나서는 <strong>전담 담당자</strong></td></tr>
+    </tbody>
+  </table>
+
+  <p>이것이 바로 <a href="#section-3">하네스</a>가 주는 효과입니다. "무엇을, 언제, 누가 맡을지"를 <strong>한 번 정의해 두면</strong> 매번 지시하지 않아도 같은 분업이 반복됩니다. 그래서 실습에서는 <strong>(1) 스킬은 명시적으로 부르고, (2) 서브에이전트는 따로 건드리지 않는</strong> 것을 권장합니다. 그리고 이 <strong>"지정하지 않았는데 담당자가 자동으로 갈라져 나오는" 장면</strong>은 <a href="day3_Examples.html#step-1">STEP 1에서 켠 <code>agent-flow</code> 화면</a>에 그대로 그려집니다 — 예컨대 <code>analyze</code>를 돌리면 <code>gap-detector</code>가 새 갈래로 나타나는 것을 눈으로 확인할 수 있습니다.</p>
+
+  <p style="font-size:13px; color:var(--text-dim,#636c76);">참고: PDCA의 <code>pm</code>(기획 4인 팀)과 <code>team</code> 모드는 Claude Code의 <strong>실험 기능(Agent Teams)</strong>과 상위 프로젝트 레벨이 필요해, 기본(Starter) 환경에서는 자동으로 다 돌지 않을 수 있습니다. 그래서 이 과정에서는 기획(PRD)을 <a href="day3_Examples.html#step-3">STEP 3의 <code>plan</code> 단계</a>에서 직접 잡습니다. 나머지 단계(plan·design·do·analyze·iterate·report)는 단일 서브에이전트라 문제없이 자동으로 돕니다.</p>
+
+  <p class="keyline">💡 <strong>핵심 한 줄:</strong> 스킬·플러그인은 <strong>"매번 설명하던 것을 한 번 정의해 재사용"</strong>하게 해 주는 장치입니다 — 하네스의 재료가 됩니다. 그리고 <strong>스킬은 내가 여는 진입점, 서브에이전트는 그 뒤에서 자동으로 붙는 일손</strong>입니다.</p>
 
   <div class="practice-box">사용 가능한 스킬을 확인하고, 이 과정의 하네스인 <strong>bkit 플러그인</strong>을 설치하는 과정은 <a href="day3_Examples.html#step-1">실습 STEP 1</a>에서 진행합니다.</div>
 
@@ -204,6 +235,22 @@ Day 3 · 이론 → 실습 대응표
 
   <h3><code>불안정성</code> — 한 번 잘 됐다고 매번 잘 되진 않는다</h3>
   <p>LLM은 <a href="../day1/day1_Manual.html#section-1">그럴듯한 다음 문장을 매번 새로 생성</a>합니다. 그래서 <strong>같은 지시를 줘도 결과가 조금씩 달라지고</strong>, 한 번 잘 나온 결과가 다음에도 나온다는 보장이 없습니다. 혼자 쓸 때는 넘어갈 수 있지만, 남에게 보여 주거나 반복 운영하는 앱에서는 이 들쭉날쭉함이 문제가 됩니다.</p>
+
+  <h3><code>무상태</code> — AI는 대화를 "기억"하지 않는다</h3>
+  <p>AI는 사람처럼 <strong>어제 한 얘기를 기억</strong>하는 게 아닙니다. <strong>매 요청마다 지금까지의 대화 전체를 처음부터 다시 읽고</strong> 답할 뿐, 모델 자체에는 저장된 기억이 없습니다 — 이를 <strong>무상태(stateless)</strong>라고 합니다. Claude Desktop이 앞 내용을 "기억하는 것처럼" 보이는 건, 사실 <strong>맥락을 매번 다시 넣어 주기 때문</strong>입니다. 즉 <strong>연속성을 만들어 주는 것이 바로 하네스</strong>입니다. 그래서 꼭 지켜야 할 규칙·결정은 <strong>대화가 아니라 파일에 남겨</strong>, 매번 다시 읽히게 해야 합니다 — <em>매번 기억이 초기화되는 동료에게 메모를 붙여 두는 것</em>과 같습니다.</p>
+
+  <h3><code>컨텍스트 압축</code> — 긴 대화는 요약되어 흐려진다</h3>
+  <p>매번 다시 읽는 분량(<strong>컨텍스트</strong>)에는 한계가 있습니다. 그래서 대화가 길어지면 오래된 내용은 <strong>자동으로 요약(압축, compaction)</strong>되어 자리를 비웁니다. 이때 <strong>대화 속 세부는 흐려질 수 있습니다.</strong> 하지만 결정적으로 — <strong>파일에 적어 둔 것</strong>(<code>CLAUDE.md</code>·<code>PLAN.md</code> 등)은 압축돼도 <strong>디스크에서 그대로 다시 불러와집니다.</strong> 즉 <strong>압축에서 살아남는 것은 대화가 아니라 파일</strong>입니다.<span style="display:block; margin-top:4px; font-size:13px; color:var(--text-dim,#636c76);">참고: 직접 정리하고 싶을 땐 <code>/compact</code> 명령으로 대화를 요약할 수도 있습니다.</span></p>
+  <div class="flow-diagram"><pre>
+대화가 길어지면 → 오래된 내용을 자동 요약(압축)
+
+  파일에 적어 둔 것 (CLAUDE.md · PLAN.md · CHECK.md)  → 그대로 살아남음 (다시 주입)
+  대화에만 있던 세부 · 중간 과정                      → 요약되어 흐려짐
+</pre></div>
+
+  <p>그럼 압축된 대화는 어디로 갈까요? <strong>요약본은 지금 대화에 남고, 압축 전 원본 전체는 기록 파일로 따로 보존</strong>됩니다. 다만 나중에 관련 얘기를 다시 꺼내도 그 원본이 <strong>자동으로 되돌아오지는 않습니다</strong> — 필요하면 <strong>파일을 다시 읽게 하거나(예: "<code>PLAN.md</code> 다시 읽어줘"), 예전 세션을 이어가야(resume)</strong> 합니다. 반대로 <code>CLAUDE.md</code>·메모리처럼 <strong>파일로 정리해 둔 규칙·핵심 메모는 매 세션 자동으로 다시 불러와집니다.</strong></p>
+
+  <p>불안정성 · 무상태 · 압축 — 이 셋은 결국 <strong>한 곳</strong>을 가리킵니다: <strong>대화(휘발성)에 기대지 말고, 규칙 · 계획 · 검증을 파일(영속성)로 고정하라.</strong> 압축된 대화 세부는 자동으로 되돌아오지 않지만, <strong>파일에 적어 둔 것은 다시 읽으면 복원되고, 규칙·메모는 자동으로 다시 들어옵니다.</strong> 그 고정 장치가 바로 하네스입니다.</p>
 
   <h3><code>Harness</code> — 모델을 둘러싸는 틀</h3>
   <p>하네스(harness)는 원래 "말이나 장비를 붙들어 매는 마구·안전벨트"를 뜻합니다. <strong>하네스 엔지니어링</strong>은 똑똑하지만 변덕스러운 모델 주위에 <strong>규칙·맥락·도구·검증이라는 틀</strong>을 둘러, 결과를 <strong>반복 가능하고 안정적으로</strong> 만드는 일입니다. 아무리 좋은 요리사도 계량·레시피·간 보기 없이는 매번 맛이 다르듯, 좋은 모델도 하네스 없이는 결과가 흔들립니다.</p>
@@ -279,7 +326,12 @@ Day 3 · 이론 → 실습 대응표
   <h3><code>Hook</code> — 정해진 순간에 자동으로 실행되는 검증</h3>
   <p>훅(hook)은 <strong>특정 사건이 일어날 때 자동으로 실행되는 명령</strong>입니다. 예를 들어 "코드를 고친 뒤에는 항상 자동으로 검사를 돌린다"처럼, 사람이 잊어도 <strong>검증이 빠지지 않게</strong> 만들어 줍니다.</p>
 
-  <p class="keyline">💡 <strong>핵심 한 줄:</strong> 규칙으로 <strong>방향</strong>을, 작업·절차로 <strong>반복</strong>을, 검증으로 <strong>신뢰</strong>를 만듭니다.</p>
+  <h3><code>agent-flow</code> — 하네스가 도는 과정을 눈으로 보기</h3>
+  <p>한마디로 <strong>agent-flow</strong>는, <strong>내가 던진 질문(요청) 하나에 우리 agent들(Claude와 그 일을 나눠 맡는 서브에이전트들)이 어떻게 움직이며 작업하는지</strong>를 그림으로 보여 주는 앱입니다. 지금까지의 <strong>스킬 · 서브에이전트 · 훅</strong>은 대부분 <strong>화면 뒤에서 조용히</strong> 돌아갑니다. 그래서 처음에는 "AI가 안에서 무엇을 하고 있는지" <strong>속이 보이지 않아 답답하게</strong> 느껴지기 쉽습니다. agent-flow는 바로 이 과정을 <strong>작업이 진행되는 대로 이어 그리는 실시간 흐름 그림</strong>으로 펼쳐 보여 줍니다 — 어떤 스킬이 불렸고, 어떤 서브에이전트가 어디로 갈라졌으며, 어떤 도구를 언제 썼는지가 화면에 하나씩 그려집니다.</p>
+  <p>원리는 방금 본 <strong>훅</strong>과 같습니다. Claude가 도구를 쓰거나 서브에이전트를 부를 때마다 그 <strong>사건을 훅이 agent-flow로 흘려보내고</strong>, agent-flow가 그것을 이어 붙여 한 장의 흐름 그림을 완성합니다. 그래서 agent-flow는 <strong>하네스를 새로 만드는 도구가 아니라, 하네스가 제대로 도는지 확인하는 "계기판"</strong>에 가깝습니다. 설계한 절차(계획→구현→검증)가 실제로 그 순서대로 도는지 <strong>눈으로 확인</strong>할 수 있어, PDCA를 처음 익히는 단계에서 특히 도움이 됩니다.</p>
+  <div class="practice-box"><strong>agent-flow</strong>를 자연어 한 줄로 설치·실행해 <strong>실시간 시각화 화면을 띄우는</strong> 과정은 <a href="day3_Examples.html#step-1">실습 STEP 1</a>에서 진행합니다 — 이후 STEP 2부터의 작업이 이 화면에 흐름 그림으로 그려집니다.</div>
+
+  <p class="keyline">💡 <strong>핵심 한 줄:</strong> 규칙으로 <strong>방향</strong>을, 작업·절차로 <strong>반복</strong>을, 검증으로 <strong>신뢰</strong>를 만듭니다. 그리고 <strong>agent-flow</strong>로 그 과정을 <strong>눈으로</strong> 확인합니다.</p>
 
   <div class="practice-box"><code>CLAUDE.md</code>로 규칙을 세우고 <strong>검증 루프</strong>를 절차로 심는 과정은 <a href="day3_Examples.html#step-2">실습 STEP 2</a>에서 진행합니다.</div>
 
