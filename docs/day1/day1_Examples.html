@@ -292,14 +292,11 @@
   <div class="nav-group">AI 앱 맛보기</div>
   <a href="#step-5"><span class="dot dot-p"></span>STEP 5 · 실시간 시계</a>
 
+  <div class="nav-group">로그인·멀티유저</div>
+  <a href="#step-6"><span class="dot dot-p"></span>STEP 6 · 로그인·회원가입</a>
+
   <div class="nav-group">배포</div>
-  <a href="#step-6"><span class="dot dot-p"></span>STEP 6 · Vercel 배포</a>
-
-  <div class="nav-group">멀티세션 RAG</div>
-  <a href="#step-7"><span class="dot dot-p"></span>STEP 7 · 멀티세션 RAG 챗봇</a>
-
-  <div class="nav-group">멀티유저</div>
-  <a href="#step-8"><span class="dot dot-p"></span>STEP 8 · 멀티유저(로그인)</a>
+  <a href="#step-7"><span class="dot dot-p"></span>STEP 7 · Vercel 배포</a>
 
   <div class="nav-group">바로가기</div>
   <a href="day1_Manual.html">📖 Day 1 이론 문서로 →</a>
@@ -311,7 +308,7 @@
   <p class="subtitle">이론 문서에서 익힌 개념을 실제 명령어·프롬프트로 따라 하는 실습 문서입니다. STEP 1부터 순서대로 진행하십시오.<br>개념이 헷갈리면 각 단계의 "관련 이론" 링크로 <a href="day1_Manual.html">이론 문서</a>를 참고하세요.</p>
 
   <div class="version-box">
-    <div class="version-row"><span class="vlabel">진행 순서</span><span>STEP 1 계정 → STEP 2 Claude Desktop → STEP 3 Node·Git → STEP 4 헬로페이지 → STEP 5 시계 → STEP 6 배포 → STEP 7 멀티세션 RAG → STEP 8 멀티유저</span></div>
+    <div class="version-row"><span class="vlabel">진행 순서</span><span>STEP 1 계정 → STEP 2 Claude Desktop → STEP 3 Node·Git → STEP 4 헬로페이지 → STEP 5 시계 → STEP 6 로그인·멀티유저 → STEP 7 배포</span></div>
     <div class="version-row"><span class="vlabel">짝 문서(이론)</span><span><a href="day1_Manual.html">day1_Manual.html</a> — 각 단계에서 쓰는 용어의 개념 설명</span></div>
   </div>
 
@@ -753,7 +750,7 @@ API Key가 실수로 업로드되지 않게 해줘.</pre>
       </ol>
 
       <div class="tip-box">
-        "24시간제로 바꿔줘", "요일도 보여줘", "폰트를 더 크게"처럼 이어서 말로 다듬을 수 있습니다. 이 <code>index.html</code>은 <strong>STEP 6(배포)</strong>에서 Vercel로 그대로 인터넷에 공개할 수 있습니다.
+        "24시간제로 바꿔줘", "요일도 보여줘", "폰트를 더 크게"처럼 이어서 말로 다듬을 수 있습니다. 이 <code>index.html</code>은 맨 마지막 <strong>STEP 7(배포)</strong>에서 Vercel로 그대로 인터넷에 공개할 수 있습니다.
       </div>
 
       <div class="tip-box">
@@ -763,11 +760,11 @@ API Key가 실수로 업로드되지 않게 해줘.</pre>
     </div>
   </div>
 
-  <!-- ══════════════════════════════ 배포 ══════════════════════════════ -->
+  <!-- ══════════════════════════════ 로그인·멀티유저 ══════════════════════════════ -->
   <div class="level-header">
-    <span class="badge badge-p">● 배포</span>
-    <span class="level-title level-title-p">Deploy</span>
-    <span class="level-desc">웹 결과물을 인터넷에 공개합니다</span>
+    <span class="badge badge-p">● 로그인·멀티유저</span>
+    <span class="level-title level-title-p">Multi-User</span>
+    <span class="level-desc">로그인·회원가입으로 사용자를 구분합니다 (Supabase)</span>
   </div>
 
   <!-- STEP 6 -->
@@ -775,124 +772,17 @@ API Key가 실수로 업로드되지 않게 해줘.</pre>
     <div class="card-header">
       <span class="card-id">STEP 6</span>
       <span class="badge badge-p">실습</span>
-      <strong class="card-title">결과물을 Vercel로 배포하기</strong>
+      <strong class="card-title">👥 로그인·회원가입 — Supabase로 멀티유저 만들기</strong>
     </div>
     <div class="card-body">
 
       <div class="situation">
-        내 컴퓨터에만 있던 <strong>웹 결과물(자기소개·시계가 담긴 <code>index.html</code>)</strong>을 누구나 접속할 수 있는 인터넷 주소로 배포합니다. "자연어로 만들고 → 고치고 → 세상에 공개"까지 한 바퀴를 여기서 완성합니다.<span class="note">(비밀 키가 필요 없는 정적 페이지라, <code>index.html</code>과 로고 파일만 올리면 됩니다.)</span>
-      </div>
-
-      <div class="cmd-list">
-        <div class="cmd-list-title">관련 이론</div>
-        <div class="cmd-chips">
-          <a class="cmd-chip" href="day1_Manual.html#section-5">배포(deploy)의 개념</a>
-          <a class="cmd-chip" href="day1_Manual.html#section-2">Vercel의 이해</a>
-        </div>
-      </div>
-
-      <p style="font-size:13.5px; color:var(--text-dim); margin-bottom:4px;">완성된 웹 페이지(<code>index.html</code>)를 인터넷에 배포합니다. <strong>터미널 없이</strong>, GitHub와 Vercel 사이트에서 클릭만으로 진행합니다.</p>
-
-      <!-- GitHub + Vercel 사이트 -->
-      <div class="env-head">🌐 GitHub 업로드 후 Vercel 사이트에서 배포 <span class="env-note" style="color:#0550ae;">— 이후 자동 재배포</span></div>
-      <ol class="step-list">
-        <li><div class="step-content">
-          <strong>GitHub에 새 저장소(repository) 만들기</strong>
-          <p>STEP 1에서 만든 GitHub 계정으로 로그인한 뒤, 코드를 올려 둘 빈 저장소를 하나 만듭니다.</p>
-          <ol class="substeps">
-            <li>github.com 우측 상단의 <strong>"+"</strong> 아이콘을 클릭하고 <strong>"New repository"</strong>를 선택합니다.</li>
-            <li><strong>Repository name</strong>에 <code>hello-page</code>를 입력합니다.</li>
-            <li>공개 범위는 <strong>"Public"</strong>을 선택합니다.<span class="note">(README 등 다른 항목은 체크하지 않고 비워 둡니다.)</span></li>
-            <li><strong>"Create repository"</strong>를 클릭합니다. 다음 화면에 나오는 저장소 주소(<code>https://github.com/사용자명/hello-page.git</code>)를 복사해 둡니다.</li>
-          </ol>
-        </div></li>
-        <li><div class="step-content">
-          <strong>결과물을 GitHub에 업로드하기</strong>
-          <p>터미널 없이 GitHub 사이트에서 파일을 바로 올릴 수 있습니다. 방금 만든 빈 저장소 화면에서 진행합니다.</p>
-          <ol class="substeps">
-            <li>저장소 화면의 <strong>"Add file" → "Upload files"</strong>를 클릭합니다.</li>
-            <li><code>hello-page</code> 폴더에서 <strong><code>index.html</code>·<code>재정경제부.svg</code></strong>를 끌어다 놓거나 "choose your files"로 선택합니다.<span class="note">(자기소개·시계만 있는 정적 페이지라 이 두 파일이면 됩니다.)</span></li>
-            <li>아래 <strong>"Commit changes"</strong> 버튼을 눌러 업로드를 확정합니다.</li>
-            <li>저장소에 파일들이 올라온 것을 확인합니다.</li>
-          </ol>
-        </div></li>
-        <li><div class="step-content">
-          <strong>Vercel 사이트에서 저장소 연결·배포</strong>
-          <p>vercel.com 대시보드에서 GitHub 저장소를 그대로 불러와 배포합니다.</p>
-          <ol class="substeps">
-            <li>vercel.com에 로그인하고 <strong>"Add New…" → "Project"</strong>를 클릭합니다.</li>
-            <li>GitHub 저장소 목록에서 <strong><code>hello-page</code></strong>를 찾아 <strong>"Import"</strong>를 클릭합니다.<span class="note">(목록에 없으면 "Adjust GitHub App Permissions"로 저장소 접근을 허용합니다.)</span></li>
-            <li>설정은 <strong>기본값 그대로 두고</strong> <strong>"Deploy"</strong>를 클릭합니다.</li>
-            <li>잠시 기다리면 배포가 완료되고 축하 화면과 함께 공개 주소가 나타납니다.</li>
-          </ol>
-        </div></li>
-        <li><div class="step-content">
-          <strong>공개 주소 접속</strong>
-          <p>Vercel이 만들어 준 <code>https://hello-page-xxxx.vercel.app</code> 주소로 접속해, 내가 만든 페이지가 인터넷에 공개된 것을 확인합니다. 이 주소는 다른 사람에게 공유해도 그대로 접속됩니다.</p>
-          <div class="tip-box">
-            이 방식은 <strong>GitHub 저장소와 연결</strong>되어 있어, 앞으로 코드를 수정해 GitHub에 다시 올리기만 하면 Vercel이 자동으로 다시 배포합니다.
-          </div>
-        </div></li>
-      </ol>
-
-      <div class="flow-box">
-        Vercel은 GitHub에 올린 파일을 인터넷상의 자기 저장 공간에 올리고, 누구나 접속할 수 있는 고유 주소를 자동으로 만들어 줍니다. 한 번 연결해 두면, 앞으로 코드를 고쳐 <strong>GitHub에 다시 올리기만 하면</strong> Vercel이 자동으로 다시 배포합니다.
-      </div>
-
-      <div class="related-cmds">
-        <strong>정리:</strong> "자연어로 만들고 → 고치고 → 세상에 공개(배포)"까지 한 바퀴를 돌았습니다. 다음 STEP 7부터는 이 흐름 위에 <strong>AI 챗봇(RAG·멀티세션)</strong>을 얹어, 문서를 기억하고 대화를 저장하는 앱으로 키웁니다.
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════ 멀티세션 RAG ══════════════════════════════ -->
-  <div class="level-header">
-    <span class="badge badge-p">● 멀티세션 RAG</span>
-    <span class="level-title level-title-p">Multi-Session</span>
-    <span class="level-desc">문서를 근거로 답하고, 대화를 저장·불러오는 RAG 챗봇 (Supabase)</span>
-  </div>
-
-  <!-- STEP 7 -->
-  <div class="scenario-card" id="step-7">
-    <div class="card-header">
-      <span class="card-id">STEP 7</span>
-      <span class="badge badge-p">실습</span>
-      <strong class="card-title">📚 멀티세션 RAG 챗봇 — 문서를 기억하고 대화를 저장하기</strong>
-    </div>
-    <div class="card-body">
-
-      <div class="situation">
-        STEP 6까지 만든 페이지는 대화를 나눌 수 없습니다. 이번에는 본격적인 <strong>AI 챗봇</strong>을 만드는데, 그냥 챗봇이 아니라 두 가지를 갖춥니다. ① 내 <strong>PDF 문서를 올려 그 내용을 근거로 답하는 RAG</strong>, ② 대화를 <strong>클라우드 DB에 저장</strong>해 껐다 켜도 이어서 볼 수 있는 <strong>멀티세션</strong>. 파이썬·Streamlit 없이, 지금까지처럼 <strong>정적 <code>index.html</code></strong>로 화면을 만들고, 키를 안전하게 다루는 <strong>작은 <code>api/*.js</code> 연결 파일</strong>과 저장용 <strong>Supabase(무료 클라우드 DB)</strong>를 더합니다. STEP 4에서 만든 <strong>헬로페이지 폴더(<code>hello-page</code>)</strong>에서 이어서 진행합니다 — 새 폴더를 따로 만들지 않고, 지금까지의 <code>index.html</code>(자기소개·시계) <strong>아래에 챗봇 섹션을 이어 붙입니다</strong>.
+        지금까지의 페이지는 <strong>누구나 똑같이</strong> 봅니다. 이번에는 <strong>로그인·회원가입</strong>을 더해 <strong>각자 자기 계정으로 접속</strong>하게 만듭니다. 저장은 <strong>Supabase(무료 클라우드 DB)</strong>를 쓰되, Supabase의 로그인 기능(Auth)은 쓰지 않고 <strong>직접 만든 <code>user</code> 테이블</strong>로 처리합니다. 비밀번호는 반드시 <strong>해시(암호화)로 저장</strong>합니다. 파이썬 없이, 지금까지처럼 <strong>hello-page의 <code>index.html</code></strong>에 로그인 화면을 이어 붙이고, 키를 안전하게 다루는 작은 <strong><code>api/*.js</code></strong>를 곁들입니다.<br><span class="note">(여기서 만든 로그인은 <strong>2일차 RAG 챗봇</strong>에서 그대로 이어받아 "내 대화·문서만 보기"로 확장합니다.)</span>
       </div>
 
       <div class="security-box">
-        <strong>Q. RAG가 뭐죠? 왜 DB가 필요하죠?</strong><br>
-        A. <strong>RAG</strong>는 내 문서를 잘게 쪼개 <strong>'임베딩(벡터)'</strong>이라는 숫자 묶음으로 바꿔 DB에 저장해 두고, 질문이 오면 <strong>질문과 가장 비슷한 조각들을 찾아 그 내용을 근거로</strong> 답하게 하는 방식입니다. <strong>세션</strong>은 대화 한 묶음(제목 + 주고받은 메시지들)을 말하며, 이걸 DB에 저장해 두면 나중에 <strong>목록에서 골라 다시 불러올</strong> 수 있습니다. 대화와 문서 벡터를 모두 담아 둘 곳이 필요해서 <code>index.html</code> 뒤에 Supabase를 두는 것입니다. (브라우저는 DB 키를 읽지 못하므로, 화면 뒤에서 도는 <code>api/*.js</code>가 대신 접근합니다.)
-      </div>
-
-      <div class="concept">
-        <div class="concept-h">🧩 개념 한눈에 — 이 앱을 이루는 세 조각</div>
-        <div class="concept-body">
-          <div class="concept-card">
-            <h4>🖥️ 화면 파일 · <code>index.html</code></h4>
-            <p>채팅 UI + 사이드바(세션 목록 · 버튼들) + 문서 업로드. 사람이 보고 누르는 부분이라 비밀 키는 두지 않습니다.</p>
-            <span class="ctag safe">비밀 키 없음 · 안전</span>
-          </div>
-          <div class="concept-card">
-            <h4>🔑 연결 파일 · <code>api/*.js</code></h4>
-            <p>업로드·질문·세션 저장을 대신 처리. OpenAI 키와 Supabase 키는 <code>.env</code>에서 이 파일들만 읽어 씁니다.</p>
-            <span class="ctag hide">키를 숨겨 대신 호출</span>
-          </div>
-          <div class="concept-card">
-            <h4>🗄️ 저장소 · Supabase</h4>
-            <p>대화(<code>chat_sessions</code>·<code>chat_messages</code>)와 문서 벡터(<code>vector_documents</code>)를 담는 클라우드 DB. 무료로 시작합니다.</p>
-            <span class="ctag safe">껐다 켜도 유지</span>
-          </div>
-        </div>
-        <div class="concept-key">
-          🔎 <strong>흐름 한 줄 요약</strong> — 문서 올리기 → <code>api</code>가 조각내 <strong>임베딩으로 바꿔 Supabase에 저장</strong> → 질문하면 <code>api</code>가 <strong>비슷한 조각을 찾아 근거로 삼아</strong> gpt-4o-mini로 답 → 대화는 버튼 한 번으로 <strong>세션째 저장·불러오기</strong>.
-        </div>
+        <strong>Q. 비밀번호를 그냥 저장하면 안 되나요?</strong><br>
+        A. 절대 안 됩니다. 비밀번호를 <strong>평문(그대로)으로 저장하면</strong>, DB가 유출될 때 모든 사용자의 비밀번호가 그대로 새어 나갑니다. 그래서 되돌릴 수 없는 <strong>해시</strong>로 바꿔 저장하고, 로그인할 때는 입력값을 같은 방식으로 해시해서 <strong>비교만</strong> 합니다. 이 실습에서도 해시 저장을 필수로 요청합니다.
       </div>
 
       <div class="steps-title">단계별 실행</div>
@@ -906,160 +796,80 @@ API Key가 실수로 업로드되지 않게 해줘.</pre>
         </div></li>
         <li><div class="step-content">
           <strong>.env에 키 추가 요청</strong>
-          <p>STEP 4에서 만든 <code>.env</code>에 Supabase 키 두 개를 더합니다. 값은 <strong>내가 직접 붙여넣는 방법(방법 A)을 권장</strong>합니다.</p>
+          <p>STEP 4에서 만든 <code>.env</code>에 Supabase 키 두 개를 더합니다. 값은 <strong>내가 직접 붙여넣는 방법을 권장</strong>합니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
             <pre class="code-block">hello-page 폴더의 .env 파일에 아래 두 줄을 추가해줘.
-(OPENAI_API_KEY는 STEP 4에서 이미 넣었어.)
 값 부분은 내가 직접 채울 테니 비워 둬:
 SUPABASE_URL=
 SUPABASE_ANON_KEY=
 그리고 .gitignore에 .env가 들어 있는지 확인해줘.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
-          <p class="note" style="padding-left:2px;">파일이 열리면 <code>OPENAI_API_KEY</code>는 STEP 1 값, 나머지 둘은 Supabase에서 복사한 값을 직접 붙여넣으세요.</p>
+          <p class="note" style="padding-left:2px;">파일이 열리면 Supabase에서 복사한 <code>Project URL</code>·<code>anon public</code> 값을 각각 붙여넣으세요.</p>
         </div></li>
       </ol>
 
-      <div class="env-head env-ide">2️⃣ DB 테이블·벡터DB 세팅 <span class="env-note" style="color:#0550ae;">— SQL 한 번 실행</span></div>
+      <div class="env-head env-ide">2️⃣ user 테이블 만들기 <span class="env-note" style="color:#0550ae;">— SQL 한 번 실행</span></div>
       <ol class="step-list">
         <li><div class="step-content">
           <strong>세팅용 SQL 만들기 요청</strong>
-          <p>대화와 문서 벡터를 담을 테이블을 한 번에 만드는 SQL을 Claude에게 맡깁니다.</p>
+          <p>회원 정보를 담을 <code>user</code> 테이블 하나만 만듭니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">hello-page 폴더에 multi-session-ref.sql 파일을 만들어줘.
-처음 시작한 빈 Supabase 프로젝트라고 생각하고, 테이블 생성부터 끝까지 담아줘.
-- pgvector 확장 활성화 (create extension if not exists vector)
-- chat_sessions: id, title, created_at
-- chat_messages: id, session_id(FK), role, content, created_at
-- vector_documents: id, session_id, file_name(NOT NULL), content,
-  embedding vector(1536)   ← OpenAI text-embedding-3-small 기준
-- 세션별 유사도 검색용 RPC 함수 match_vector_documents(
-    query_embedding, match_count, filter_session_id)를 만들어서
-  같은 session_id 안에서만 코사인 유사도로 검색하게 해줘.
-이미 같은 이름의 객체가 있으면 지우고 다시 만드는 형태로 써줘.</pre>
+            <pre class="code-block">hello-page 폴더에 user-ref.sql 파일을 만들어줘.
+- user 테이블: id, login_id(unique), password_hash, created_at
+- Supabase Auth(auth.users)는 쓰지 말고, 이 user 테이블만 쓰는 형태로.
+이미 같은 이름의 테이블이 있으면 지우고 다시 만드는 형태로 써줘.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
         </div></li>
         <li><div class="step-content">
           <strong>Supabase에서 실행 (사람이 직접)</strong>
-          <p>Supabase 대시보드 왼쪽 <strong>SQL Editor</strong>를 열고, 방금 만든 <code>multi-session-ref.sql</code> 내용을 <strong>전체 복사해 붙여넣고 Run</strong> 합니다. 초록색 성공 메시지가 뜨면 테이블·벡터DB 준비 끝입니다.</p>
+          <p>Supabase 대시보드 왼쪽 <strong>SQL Editor</strong>를 열고, 방금 만든 <code>user-ref.sql</code> 내용을 <strong>전체 복사해 붙여넣고 Run</strong> 합니다. 초록색 성공 메시지가 뜨면 준비 끝입니다.</p>
         </div></li>
       </ol>
 
-      <div class="env-head">3️⃣ 헬로페이지에 챗봇 섹션 이어 붙이기 <span class="env-note" style="color:#0550ae;">— index.html + Supabase 연결</span></div>
+      <div class="env-head">3️⃣ 로그인·회원가입 붙이기 <span class="env-note" style="color:#0550ae;">— api/auth.js + index.html</span></div>
       <ol class="step-list">
         <li><div class="step-content">
-          <strong>화면(index.html 섹션) 요청</strong>
-          <p>헬로페이지 <code>index.html</code> 아래에 챗봇 섹션(사이드바=세션 관리, 가운데=채팅)을 이어 붙입니다.</p>
+          <strong>Supabase 연결 + 인증 처리(api/auth.js) 요청</strong>
+          <p>브라우저가 DB 키를 직접 다루지 않도록, 회원가입·로그인을 대신 처리하는 작은 연결 파일을 둡니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">hello-page 폴더의 index.html에 새 섹션을 이어 붙여줘.
-기존 자기소개·시계는 그대로 두고, 그 아래에 "멀티세션 RAG 챗봇" 섹션을 추가해줘.
-- 왼쪽 사이드바: 저장된 세션 목록(선택 가능) +
-  버튼 5개 [세션저장] [세션로드] [세션삭제] [화면초기화] [vectordb]
-- 가운데: 메시지 목록 + 입력창 + 전송 버튼 + PDF 파일 업로드 버튼
-- 사이드바에서 세션을 선택하면 그 세션 전체 내용이 화면에 나오게 해줘
-- 전체적으로 파란색 계열의 깔끔한 카드형 UI로</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-        </div></li>
-        <li><div class="step-content">
-          <strong>Supabase 연결 공통부 요청</strong>
-          <p><code>api/*.js</code>들이 공통으로 쓸 Supabase·OpenAI 접속 준비를 만듭니다.</p>
-          <span class="prompt-label">프롬프트</span>
-          <div class="code-wrap">
-            <pre class="code-block">hello-page에 api 폴더를 만들고, Supabase에 접속하는 공통 부분을 준비해줘.
+            <pre class="code-block">hello-page에 api/auth.js를 만들어줘.
 - @supabase/supabase-js 로 클라이언트를 만들고
   URL·키는 process.env.SUPABASE_URL / SUPABASE_ANON_KEY 에서 읽어줘
-- OpenAI 키도 process.env.OPENAI_API_KEY 에서 읽어줘
-- 필요한 패키지(package.json)도 함께 준비해줘
+- 회원가입: login_id, password를 받아 password는 해시로 바꿔
+  user 테이블에 저장(평문 저장 금지). 같은 login_id는 중복 불가.
+- 로그인: login_id, password를 받아, 저장된 해시와 비교해서
+  맞으면 그 사용자의 id·login_id를 돌려줘.
+- 필요한 패키지(package.json)도 함께 준비해줘.
 (로컬에서는 vercel dev가 .env 값을 process.env에 자동으로 채워줘.)</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
         </div></li>
-      </ol>
-
-      <div class="env-head env-ide">4️⃣ 문서 업로드 → 벡터로 저장</div>
-      <ol class="step-list">
         <li><div class="step-content">
-          <strong>업로드 처리(api/upload.js) 요청</strong>
-          <p>올린 PDF를 조각내 임베딩으로 바꿔 Supabase에 저장합니다. (한 번 임베딩한 문서는 그대로 재사용됩니다.)</p>
+          <strong>로그인 화면 요청</strong>
+          <p>hello-page의 <code>index.html</code>에 로그인/회원가입 화면을 더합니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">hello-page에 api/upload.js를 만들어줘.
-- 업로드된 PDF에서 텍스트를 뽑아 적당한 크기로 잘라(청크)
-- 각 청크를 OpenAI text-embedding-3-small 로 임베딩하고
-- vector_documents 테이블에 저장해줘.
-  이때 file_name, session_id, content, embedding 을 반드시 함께 채워줘
-  (file_name이 비어(NULL) 저장되면 오류가 나니, 파일마다 파일명을 명시적으로 넣어줘)
-- 성능을 위해 10개씩 배치로 저장해줘.
-- process.env의 OPENAI_API_KEY / SUPABASE_* 를 사용해줘.</pre>
+            <pre class="code-block">hello-page의 index.html을 고쳐줘.
+- 로그인 전에는 로그인/회원가입 폼(login_id, password)만 보이게
+- 폼은 /api/auth 로 요청을 보내 처리해줘
+- 로그인에 성공하면 기존 자기소개·시계 화면이 보이고,
+  맨 위에 "○○님 환영합니다"와 로그아웃 버튼을 보여줘
+- 기존 파란색 계열 디자인은 그대로 유지해줘.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
         </div></li>
       </ol>
 
-      <div class="env-head">5️⃣ 질문 → RAG 답변 <span class="env-note" style="color:#0550ae;">— 스트림 + 후속질문 3개</span></div>
-      <ol class="step-list">
-        <li><div class="step-content">
-          <strong>답변 생성(api/chat.js) 요청</strong>
-          <p>질문과 비슷한 문서 조각을 찾아 근거로 삼아 답하고, 답을 <strong>기다리지 않고 생성되는 즉시</strong> 흘려보냅니다(스트림).</p>
-          <span class="prompt-label">프롬프트</span>
-          <div class="code-wrap">
-            <pre class="code-block">hello-page에 api/chat.js를 만들어줘.
-- 사용자의 질문을 text-embedding-3-small 로 임베딩하고
-- Supabase RPC match_vector_documents 를 직접 호출해서
-  현재 session_id 안의 비슷한 문서 조각을 가져와줘
-  (as_retriever의 filter는 쓰지 말고 RPC를 직접 불러줘)
-- 그 조각들을 근거(context)로 넣어 gpt-4o-mini 로 답을 생성하되,
-  답이 다 만들어질 때까지 기다리지 말고 stream 모드로 흘려보내줘
-- 답변 맨 끝에 "이어서 물어볼 만한 질문 3개"를 만들어 붙여줘.
-- 모델 이름은 반드시 gpt-4o-mini 그대로 써줘.</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-        </div></li>
-        <li><div class="step-content">
-          <strong>화면에서 스트림 표시 요청</strong>
-          <p>같은 대화에서 화면 쪽도 스트림에 맞춰 다듬습니다.</p>
-          <span class="prompt-label">프롬프트</span>
-          <div class="code-wrap">
-            <pre class="code-block">index.html에서 전송 버튼을 누르면 /api/chat 으로 질문을 보내고,
-돌아오는 답을 한 번에 기다리지 말고 글자가 생성되는 대로
-바로바로 채팅 화면에 이어서 표시하게 해줘(스트리밍).
-업로드 버튼을 누르면 /api/upload 로 PDF를 보내 저장하게 해줘.</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-        </div></li>
-      </ol>
-
-      <div class="env-head env-ide">6️⃣ 세션 저장 · 로드 · 삭제 · vectordb</div>
-      <ol class="step-list">
-        <li><div class="step-content">
-          <strong>세션 관리(api/sessions.js) 요청</strong>
-          <p>사이드바 버튼 5개가 실제로 동작하게 만듭니다.</p>
-          <span class="prompt-label">프롬프트</span>
-          <div class="code-wrap">
-            <pre class="code-block">hello-page에 api/sessions.js를 만들고, index.html의 버튼과 연결해줘.
-- [세션저장] 첫 질문과 답을 gpt-4o-mini로 짧게 요약해 세션 제목을 만들고,
-  chat_sessions·chat_messages에 INSERT. 기존에 저장된 세션은 그대로 두고
-  새로 추가해서, 목록에 모든 세션이 남게 해줘. (문서 처리·대화 후 자동 저장도)
-- [세션로드] 선택한 세션의 메시지를 화면에 다시 띄우고,
-  그 세션의 vector_documents 도 다시 검색에 쓸 수 있게 해줘.
-- [세션삭제] 현재 선택된 세션과 Supabase에 저장된 그 세션 데이터를 지워줘.
-- [화면초기화] DB는 건드리지 말고 현재 화면만 비워 처음부터 시작.
-- [vectordb] 현재 vector_documents에 저장된 파일명(file_name) 목록을 보여줘.</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-        </div></li>
-      </ol>
-
-      <div class="env-head">7️⃣ 로컬에서 확인 <span class="env-note" style="color:#0550ae;">— vercel dev</span></div>
+      <div class="env-head env-ide">4️⃣ 로컬에서 확인 <span class="env-note" style="color:#0550ae;">— vercel dev</span></div>
       <ol class="step-list">
         <li><div class="step-content">
           <strong>Vercel CLI 준비 (처음 한 번만)</strong>
-          <p>로컬에서 앱을 확인하려면 <code>vercel</code>이라는 도구가 필요합니다. STEP 3에서 Node·Git을 설치했던 것처럼, <strong>터미널을 열지 않고</strong> 아래 프롬프트로 Claude에게 설치·로그인을 맡깁니다. (이미 해 두었다면 건너뜁니다.)</p>
+          <p>로컬에서 로그인을 확인하려면 <code>vercel</code> 도구가 필요합니다. 터미널을 열지 않고 아래 프롬프트로 설치·로그인을 맡깁니다. (이미 해 두었다면 건너뜁니다.)</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
             <pre class="code-block">vercel CLI가 설치돼 있는지 확인하고, 없으면
@@ -1071,147 +881,110 @@ npm install -g vercel 를 실행해 설치해줘.
           <p class="note" style="padding-left:2px;">로그인 확인 창이 브라우저에 뜨면, STEP 1에서 만든 Vercel 계정으로 "승인(Confirm)"을 눌러 주세요.</p>
         </div></li>
         <li><div class="step-content">
-          <strong>실행 요청</strong>
-          <p><code>vercel dev</code>로 <code>index.html</code>과 <code>api/*.js</code>를 함께 띄웁니다.</p>
+          <strong>실행 & 검증</strong>
+          <p><code>vercel dev</code>로 <code>index.html</code>과 <code>api/auth.js</code>를 함께 띄웁니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
             <pre class="code-block">hello-page 폴더에서 vercel dev를 백그라운드로 실행해줘.
+필요한 패키지가 있으면 설치하고, package.json에 의존성을 정리해줘.
 설정 질문이 나오면 전부 기본값(Enter)으로 진행하고,
 실행됐는지 확인해서 알려줘.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
-          <p class="note" style="padding-left:2px;">브라우저에서 <code>http://localhost:3000</code> 접속 → PDF 올리고 질문 → 답이 나오면 [세션저장]을 눌러 보세요. <code>vercel dev</code>를 껐다 다시 켜도 사이드바에서 그 세션을 다시 불러올 수 있으면 성공입니다.</p>
+          <p class="note" style="padding-left:2px;">브라우저에서 <code>http://localhost:3000</code> 접속 → 계정 <strong>두 개</strong>로 회원가입·로그인해 보세요. 각 계정으로 로그인이 되고, 로그아웃하면 다시 로그인 폼이 나오면 성공입니다.</p>
         </div></li>
       </ol>
 
       <div class="tip-box">
-        이제 <strong>문서를 근거로 답하고(RAG), 대화를 통째로 저장·불러오는(멀티세션)</strong> 챗봇이 완성됐습니다. 다음 STEP 8에서는 여기에 <strong>로그인</strong>을 더해, 사용자마다 자기 세션·문서만 보이도록 나눕니다.
+        로그인·회원가입 기초가 완성됐습니다. <strong>2일차 RAG 챗봇</strong>에서는 이 로그인을 그대로 이어받아, 사용자별로 <strong>자기 대화·문서만</strong> 보이도록 확장합니다.
       </div>
 
       <div class="security-box">
-        ① <code>OPENAI_API_KEY</code>·<code>SUPABASE_*</code> 키는 <code>.env</code>에만 두고 <code>index.html</code>에는 절대 적지 마세요(<code>api/*.js</code>만 <code>process.env</code>로 읽습니다). ② 임베딩·GPT 호출은 <strong>API 사용료가 조금씩 과금</strong>됩니다(STEP 1의 $5 한도 안에서). ③ 나중에 인터넷에 <strong>공개 배포</strong>하려면, STEP 6의 방식으로 <code>api/</code>까지 GitHub에 올리되 — <code>.env</code>는 올리지 말고 <strong>Vercel 프로젝트 설정의 환경 변수에 <code>OPENAI_API_KEY</code>·<code>SUPABASE_URL</code>·<code>SUPABASE_ANON_KEY</code>를 등록</strong>한 뒤 재배포하세요. ④ 오류가 나면 메시지를 그대로 붙여넣어 "이 오류 고쳐줘"라고 요청하면 됩니다.
+        ① 비밀번호는 <strong>반드시 해시로 저장</strong>하고 평문으로 두지 마세요. ② <code>SUPABASE_URL</code>·<code>SUPABASE_ANON_KEY</code>는 <code>.env</code>에 두고 <code>index.html</code>에는 직접 적지 마세요(<code>api/*.js</code>만 <code>process.env</code>로 읽습니다). ③ 인터넷 <strong>공개 배포</strong>는 다음 STEP 7에서 다룹니다(키는 Vercel 환경 변수로 등록). ④ 오류가 나면 메시지를 그대로 붙여넣어 "이 오류 고쳐줘"라고 요청하면 됩니다.
       </div>
 
     </div>
   </div>
 
-  <!-- ══════════════════════════════ 멀티유저 ══════════════════════════════ -->
+  <!-- ══════════════════════════════ 배포 ══════════════════════════════ -->
   <div class="level-header">
-    <span class="badge badge-p">● 멀티유저</span>
-    <span class="level-title level-title-p">Multi-User</span>
-    <span class="level-desc">로그인해서 사용자별로 세션·문서를 분리합니다</span>
+    <span class="badge badge-p">● 배포</span>
+    <span class="level-title level-title-p">Deploy</span>
+    <span class="level-desc">완성한 결과물을 인터넷에 공개합니다</span>
   </div>
 
-  <!-- STEP 8 -->
-  <div class="scenario-card" id="step-8">
+  <!-- STEP 7 -->
+  <div class="scenario-card" id="step-7">
     <div class="card-header">
-      <span class="card-id">STEP 8</span>
+      <span class="card-id">STEP 7</span>
       <span class="badge badge-p">실습</span>
-      <strong class="card-title">👥 멀티유저 — 로그인해서 내 세션·문서만 보기</strong>
+      <strong class="card-title">🚀 마무리 — hello-page를 인터넷에 공개(배포)하기</strong>
     </div>
     <div class="card-body">
 
       <div class="situation">
-        STEP 7의 멀티세션 앱은 <strong>모두가 같은 대화·문서를 공유</strong>합니다. 이번에는 <strong>로그인</strong>을 더해, 사용자마다 <strong>자기 세션·문서만</strong> 보이도록 나눕니다. Supabase의 로그인 기능(Auth)은 쓰지 않고, 우리가 <strong>직접 만든 <code>user</code> 테이블</strong>로 회원가입/로그인을 처리합니다. 비밀번호는 반드시 <strong>해시(암호화)로 저장</strong>하고, 모든 조회·저장·삭제는 <strong>로그인한 사용자(<code>user_id</code>) 기준으로만</strong> 이뤄지게 합니다. STEP 7에서 만든 <code>hello-page</code>의 챗봇을 그대로 확장하며, 챗봇 이름은 <strong>"ENA RAG 챗봇"</strong>으로 바꿉니다.
+        마지막으로, 내 컴퓨터에만 있던 <strong>hello-page(자기소개·시계·로그인)</strong>를 누구나 접속할 수 있는 인터넷 주소로 공개합니다. <strong>터미널 없이</strong> GitHub와 Vercel 사이트에서 클릭만으로 진행합니다. 로그인이 <strong>Supabase</strong>를 쓰므로 <code>api/</code> 폴더까지 함께 올리고 — 비밀 키가 담긴 <code>.env</code>는 <strong>올리지 말고</strong> <strong>Vercel 환경 변수에 Supabase 키를 등록</strong>해 안전하게 공개합니다.
       </div>
+
+      <div class="cmd-list">
+        <div class="cmd-list-title">관련 이론</div>
+        <div class="cmd-chips">
+          <a class="cmd-chip" href="day1_Manual.html#section-5">배포(deploy)의 개념</a>
+          <a class="cmd-chip" href="day1_Manual.html#section-2">Vercel의 이해</a>
+        </div>
+      </div>
+
+      <div class="env-head">1️⃣ GitHub에 올리기 <span class="env-note" style="color:#0550ae;">— .env는 제외</span></div>
+      <ol class="step-list">
+        <li><div class="step-content">
+          <strong>GitHub에 새 저장소(repository) 만들기</strong>
+          <p>STEP 1에서 만든 GitHub 계정으로 로그인한 뒤, 코드를 올려 둘 빈 저장소를 하나 만듭니다.</p>
+          <ol class="substeps">
+            <li>github.com 우측 상단의 <strong>"+"</strong> → <strong>"New repository"</strong>를 선택합니다.</li>
+            <li><strong>Repository name</strong>에 <code>hello-page</code>를 입력하고, 공개 범위는 <strong>"Public"</strong>으로 둡니다.<span class="note">(다른 항목은 비워 둡니다.)</span></li>
+            <li><strong>"Create repository"</strong>를 클릭합니다.</li>
+          </ol>
+        </div></li>
+        <li><div class="step-content">
+          <strong>결과물을 GitHub에 업로드하기 (.env 제외)</strong>
+          <p>터미널 없이 GitHub 사이트에서 파일을 바로 올립니다.</p>
+          <ol class="substeps">
+            <li>저장소 화면의 <strong>"Add file" → "Upload files"</strong>를 클릭합니다.</li>
+            <li><code>hello-page</code> 폴더에서 <strong><code>index.html</code>·<code>재정경제부.svg</code>·<code>api/</code> 폴더·<code>package.json</code></strong>을 올립니다.<span class="note">(<code>.gitignore</code>에 <code>.env</code>가 있으면 자동으로 빠집니다. 목록에 <code>.env</code>가 보이면 반드시 제외하세요.)</span></li>
+            <li>아래 <strong>"Commit changes"</strong>로 업로드를 확정합니다.</li>
+          </ol>
+        </div></li>
+      </ol>
+
+      <div class="env-head env-ide">2️⃣ Vercel Import + 환경 변수 등록 <span class="env-note" style="color:#0550ae;">— 키는 Vercel에</span></div>
+      <ol class="step-list">
+        <li><div class="step-content">
+          <strong>저장소 연결 · 키 등록 · 배포</strong>
+          <p>키를 코드가 아니라 <strong>Vercel 설정</strong>에 넣습니다. 로컬 <code>.env</code>와 <strong>같은 값</strong>을 등록하면 됩니다.</p>
+          <ol class="substeps">
+            <li>vercel.com에 로그인하고 <strong>"Add New… → Project"</strong>로 <code>hello-page</code> 저장소를 <strong>"Import"</strong>합니다.<span class="note">(목록에 없으면 "Adjust GitHub App Permissions"로 접근을 허용합니다.)</span></li>
+            <li>Deploy 누르기 전에 <strong>"Environment Variables"</strong>를 펼쳐 아래 두 개를 이름·값으로 추가합니다.
+              <div class="code-wrap" style="margin-top:6px;">
+                <pre class="code-block">SUPABASE_URL        = (Supabase Project URL)
+SUPABASE_ANON_KEY   = (Supabase anon public 키)</pre>
+                <button class="copy-btn" onclick="copyCode(this)">복사</button>
+              </div>
+            </li>
+            <li>이제 <strong>"Deploy"</strong>를 클릭합니다. 잠시 뒤 공개 주소가 나타납니다.</li>
+          </ol>
+        </div></li>
+        <li><div class="step-content">
+          <strong>공개 주소에서 확인</strong>
+          <p>배포된 <code>https://hello-page-xxxx.vercel.app</code>에 접속해 <strong>회원가입 → 로그인</strong>이 인터넷에서도 되면 성공입니다. 앞으로 코드를 고쳐 GitHub에 다시 올리면 <strong>자동으로 재배포</strong>됩니다.</p>
+        </div></li>
+      </ol>
 
       <div class="security-box">
-        <strong>Q. 비밀번호를 그냥 저장하면 안 되나요?</strong><br>
-        A. 절대 안 됩니다. 비밀번호를 <strong>평문(그대로)으로 저장하면</strong>, DB가 유출될 때 모든 사용자의 비밀번호가 그대로 새어 나갑니다. 그래서 되돌릴 수 없는 <strong>해시</strong>로 바꿔 저장하고, 로그인할 때는 입력값을 같은 방식으로 해시해서 <strong>비교만</strong> 합니다. 이 실습에서도 해시 저장을 필수로 요청합니다.
-      </div>
-
-      <div class="steps-title">단계별 실행</div>
-
-      <div class="env-head">1️⃣ DB 스키마 확장 <span class="env-note" style="color:#0550ae;">— user 테이블 + user_id</span></div>
-      <ol class="step-list">
-        <li><div class="step-content">
-          <strong>스키마 확장 SQL 요청</strong>
-          <p>사용자 테이블을 더하고, 기존 테이블에 <code>user_id</code>를 붙입니다.</p>
-          <span class="prompt-label">프롬프트</span>
-          <div class="code-wrap">
-            <pre class="code-block">hello-page에 multi-user-ref.sql 파일을 만들어줘.
-- user 테이블: id, login_id(unique), password_hash, created_at
-- chat_sessions 에 user_id 컬럼 추가 (NOT NULL, user.id 참조 FK)
-- chat_messages 에 user_id 컬럼 추가 (NOT NULL, user.id 참조 FK)
-- 인덱스 추가: (user_id), (user_id, session_id)
-Supabase Auth(auth.users)는 쓰지 말고, 이 user 테이블만 쓰는 형태로 해줘.</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-          <p class="note" style="padding-left:2px;">만들어진 SQL을 STEP 7처럼 Supabase <strong>SQL Editor</strong>에 붙여넣고 <strong>Run</strong> 하세요.</p>
-        </div></li>
-      </ol>
-
-      <div class="env-head env-ide">2️⃣ 로그인 · 회원가입</div>
-      <ol class="step-list">
-        <li><div class="step-content">
-          <strong>인증 처리(api/auth.js) 요청</strong>
-          <span class="prompt-label">프롬프트</span>
-          <div class="code-wrap">
-            <pre class="code-block">hello-page에 api/auth.js를 만들어줘.
-- 회원가입: login_id, password를 받아 password는 해시로 바꿔
-  user 테이블에 저장(평문 저장 금지). 같은 login_id는 중복 불가.
-- 로그인: login_id, password를 받아, 저장된 해시와 비교해서
-  맞으면 그 사용자의 id를 돌려줘.
-- process.env의 SUPABASE_* 를 사용해줘.</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-        </div></li>
-        <li><div class="step-content">
-          <strong>로그인 화면 요청</strong>
-          <span class="prompt-label">프롬프트</span>
-          <div class="code-wrap">
-            <pre class="code-block">index.html을 고쳐줘. 챗봇 이름을 "ENA RAG 챗봇"으로 바꾸고,
-- 로그인 전에는 로그인/회원가입 폼(login_id, password)만 보이게
-- 로그인에 성공하면 그 사용자로 챗봇 화면(사이드바+채팅)이 보이게
-- 로그아웃 버튼도 넣어줘. 기존 파란색 계열 디자인은 유지해줘.</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-        </div></li>
-      </ol>
-
-      <div class="env-head">3️⃣ 사용자별 데이터 분리 <span class="env-note" style="color:#0550ae;">— 모든 쿼리에 user_id</span></div>
-      <ol class="step-list">
-        <li><div class="step-content">
-          <strong>필터 일괄 적용 요청</strong>
-          <span class="prompt-label">프롬프트</span>
-          <div class="code-wrap">
-            <pre class="code-block">api/chat.js, api/upload.js, api/sessions.js 를 모두 고쳐서,
-세션·메시지·문서 벡터의 조회/저장/삭제가 항상 로그인한 사용자의
-user_id 조건으로만 이뤄지게 해줘.
-- 저장할 때 user_id를 함께 넣고
-- 목록/로드/삭제/검색할 때 user_id로 필터링해서
-  다른 사용자의 데이터는 절대 보이지 않게 해줘.</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-        </div></li>
-      </ol>
-
-      <div class="env-head env-ide">4️⃣ 로컬 확인 · 배포 고려</div>
-      <ol class="step-list">
-        <li><div class="step-content">
-          <strong>실행 & 검증</strong>
-          <p>STEP 7과 같이 <code>hello-page</code>에서 <code>vercel dev</code>를 실행합니다. 계정 <strong>두 개</strong>로 회원가입해 서로 대화·문서를 올려 보고, <strong>상대의 세션이 서로 보이지 않으면</strong> 사용자 분리가 성공한 것입니다.</p>
-          <span class="prompt-label">프롬프트</span>
-          <div class="code-wrap">
-            <pre class="code-block">hello-page 폴더에서 vercel dev를 백그라운드로 실행해줘.
-필요한 패키지가 있으면 설치하고,
-requirements 대신 package.json에 의존성을 정리해줘.
-실행됐는지 확인해서 알려줘.</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-        </div></li>
-      </ol>
-
-      <div class="tip-box">
-        여기까지 오면 <strong>로그인 → 문서 업로드(RAG) → 대화 → 세션 저장/로드/삭제</strong>가 사용자별로 나뉘어 도는 완전한 앱입니다. STEP 6의 방식으로 GitHub에 올리고 Vercel 환경 변수만 등록하면 그대로 <strong>인터넷에 공개 배포</strong>할 수 있습니다.
-      </div>
-
-      <div class="security-box">
-        ① 비밀번호는 <strong>반드시 해시로 저장</strong>하고 평문으로 두지 마세요. ② 모든 데이터 접근은 <strong><code>user_id</code> 조건</strong>을 빠뜨리지 마세요(빠지면 남의 데이터가 보입니다). ③ 공개 배포 시 키는 <code>.env</code>가 아니라 <strong>Vercel 프로젝트 환경 변수</strong>(<code>OPENAI_API_KEY</code>·<code>SUPABASE_URL</code>·<code>SUPABASE_ANON_KEY</code>)에 등록하세요. ④ 로컬은 <code>.env</code>, 배포는 Vercel 환경 변수 — 두 곳을 같은 값으로 맞추면 됩니다.
+        ① <code>.env</code>는 <strong>절대 GitHub에 올리지 마세요.</strong> 키는 로컬에선 <code>.env</code>, 공개 배포에선 <strong>Vercel 환경 변수</strong> — 두 곳에 같은 값을 둡니다. ② 공개하면 누구나 회원가입할 수 있으니, 필요하면 나중에 가입 범위를 제한하세요. ③ 배포 후 오류가 나면 Vercel의 <strong>"Logs"</strong> 메시지를 그대로 붙여넣어 "이 오류 고쳐줘"라고 요청하면 됩니다.
       </div>
 
       <div class="related-cmds">
-        <strong>오늘의 확장:</strong> "정적 페이지 → 챗봇 → RAG·멀티세션 → 멀티유저"까지, <strong>코드를 직접 쓰지 않고 자연어 프롬프트만으로</strong> 실제 서비스 형태의 앱을 완성했습니다.
+        <strong>오늘의 마무리:</strong> "자연어로 만들고 → 고치고 → 로그인까지 붙이고 → 세상에 공개(배포)"까지 한 바퀴를 완성했습니다. <strong>2일차</strong>에서는 이 로그인 위에 <strong>RAG·멀티세션 챗봇</strong>을 얹어, 문서를 기억하고 대화를 저장하는 앱으로 키웁니다.
       </div>
 
     </div>

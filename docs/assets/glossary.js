@@ -75,6 +75,8 @@
     'supabase_url':    { id: 'g-supabase-url',  desc: 'Supabase 프로젝트의 접속 주소(환경변수 이름).' },
     'anon public':     { id: 'g-supabase-anon', desc: 'Supabase 접속에 쓰는 공개(anon) 키.' },
     'supabase_anon_key': { id: 'g-supabase-anon', desc: 'Supabase 접속용 공개(anon) 키(환경변수 이름).' },
+    'user':            { id: 'g-user-table',    desc: '회원 정보(로그인 아이디·비밀번호 해시)를 담으려고 직접 만든 DB 테이블. Supabase Auth 대신 이 테이블로 로그인/회원가입을 처리.' },
+    'api/*.js':        { id: 'g-api-folder',    desc: '화면 뒤에서 도는 작은 연결 파일들(api 폴더). .env 키를 대신 읽어 Supabase·OpenAI를 호출.' },
     'vercel login':    { id: 'g-vercel-cli',     desc: '터미널에서 Vercel에 로그인하는 명령.' },
     'vercel env add':  { id: 'g-vercel-cli',     desc: 'Vercel에 환경변수(비밀 키)를 등록하는 명령.' },
     'vercel --prod':   { id: 'g-vercel-cli',     desc: 'Vercel에 인터넷 공개(프로덕션) 배포하는 명령.' },
