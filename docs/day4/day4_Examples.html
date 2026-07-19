@@ -220,7 +220,6 @@
 
   <div class="nav-group">bkit PDCA 완성</div>
   <a href="#step-1"><span class="dot dot-g"></span>STEP 1 · Do — 기능 구현</a>
-  <a href="#ref-code"><span class="dot dot-g"></span>참고 · 예시 앱(문서 Q&amp;A 봇)</a>
   <a href="#step-2"><span class="dot dot-b"></span>STEP 2 · Check — Gap 분석·검증</a>
   <a href="#step-3"><span class="dot dot-p"></span>STEP 3 · Act — 개선·고도화</a>
 
@@ -332,86 +331,6 @@
         막히면 통째로 다시 만들라고 하기보다, <strong>"방금 바꾼 부분에서 무엇이 문제인지"</strong>를 물어보세요. 작게 나눠 왔기 때문에 원인을 좁히기 쉽습니다.
       </div>
 
-    </div>
-  </div>
-
-  <!-- 참고 · 예시 앱 문서Q&A봇 (드라이런으로 검증된 뼈대) -->
-  <div class="scenario-card" id="ref-code">
-    <div class="card-header">
-      <span class="card-id">참고</span>
-      <span class="badge badge-g">참고 예시</span>
-      <strong class="card-title">참고 예시 앱 — 문서 Q&amp;A 봇(RAG-lite): 내 앱이 "외부 API 호출" 구조면 대조용</strong>
-    </div>
-    <div class="card-body">
-      <div class="situation">
-        이건 <b>여러 앱 유형 중 하나의 예시</b>입니다 — "문서를 올리면 그 내용으로 답하는" 문서 Q&amp;A 봇. 내 앱도 <b>서버에서 외부 API를 부르는 구조</b>라면, 막힐 때 아래 <b>검증된 최소 예시</b>와 대조해 보세요(파일은 딱 둘 — 화면 <code>index.html</code>·서버리스 함수 <code>api/ask.js</code>). 그대로 베끼기보다 <b>내 코드와 무엇이 다른지 비교</b>하는 용도이며, <b>정적 앱이라면 넘어가도 됩니다.</b>
-      </div>
-
-      <span class="prompt-label">api/ask.js — 서버리스 함수 (OpenAI 호출)</span>
-      <div class="code-wrap">
-        <pre class="code-block">module.exports = async (req, res) =&gt; {
-  if (req.method !== 'POST') { res.status(405).json({ error: 'POST만 지원합니다.' }); return; }
-
-  const apiKey = process.env.OPENAI_API_KEY;              // 키는 환경변수로만
-  if (!apiKey) { res.status(500).json({ error: 'OPENAI_API_KEY가 없습니다.' }); return; }
-
-  let body = req.body;
-  if (typeof body === 'string') { try { body = JSON.parse(body); } catch { body = {}; } }
-  const { document = '', question = '' } = body || {};
-  if (!question.trim()) { res.status(400).json({ error: '질문을 입력하세요.' }); return; }
-
-  const prompt = '아래 문서만 근거로 한국어로 답하세요. 없으면 "문서에서 찾을 수 없습니다".\n\n'
-               + '[문서]\n' + document + '\n\n[질문]\n' + question;
-
-  const r = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + apiKey },
-    body: JSON.stringify({ model: 'gpt-4o-mini', messages: [{ role: 'user', content: prompt }] })
-  });
-  const data = await r.json();
-  if (!r.ok) { res.status(502).json({ error: 'OpenAI 호출 실패', detail: data }); return; }
-  res.status(200).json({ answer: data.choices[0].message.content });
-};</pre>
-        <button class="copy-btn" onclick="copyCode(this)">복사</button>
-      </div>
-
-      <div class="doc-box">
-        <div class="doc-title">이 함수가 하는 일 (한눈에)</div>
-        <ul>
-          <li><b>POST 요청만 받기</b> — 화면에서 보낸 질문을 받습니다(그 외 방식은 거절).</li>
-          <li><b>환경변수에서 키 읽기</b> — <code>OPENAI_API_KEY</code>를 코드가 아니라 환경변수에서 가져옵니다(없으면 오류 안내).</li>
-          <li><b>프롬프트 만들기</b> — "이 문서만 근거로 답해줘" 형태로 문서와 질문을 하나로 묶습니다.</li>
-          <li><b>OpenAI 호출</b> — 그 프롬프트를 OpenAI에 보내 답을 받습니다.</li>
-          <li><b>답 돌려주기</b> — 받은 답(또는 오류 메시지)을 화면으로 보냅니다.</li>
-        </ul>
-      </div>
-
-      <span class="prompt-label">index.html — 화면에서 함수를 호출하는 핵심 부분</span>
-      <div class="code-wrap">
-        <pre class="code-block">const doc = document.getElementById('doc').value;
-const question = document.getElementById('q').value;
-const r = await fetch('/api/ask', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ document: doc, question })
-});
-const data = await r.json();
-out.textContent = data.answer || ('⚠️ ' + (data.error || '알 수 없는 오류'));</pre>
-        <button class="copy-btn" onclick="copyCode(this)">복사</button>
-      </div>
-
-      <div class="doc-box">
-        <div class="doc-title">이 코드가 하는 일 (한눈에)</div>
-        <ul>
-          <li>입력칸에서 <b>문서와 질문을 읽어</b>,</li>
-          <li>내 서버 함수 <code>/api/ask</code>에 <b>보내고</b>,</li>
-          <li>돌아온 <b>답을 화면에 표시</b>합니다(오류면 ⚠️ 메시지).</li>
-        </ul>
-      </div>
-
-      <div class="warning-box">
-        모델명(<code>gpt-4o-mini</code>)은 <b>교육 시점의 최신·저가 모델</b>로 바꿀 수 있습니다. 이 예시는 "정답"이 아니라 <b>최소 뼈대</b>이며, 근거 표시·예외 처리 같은 개선은 Act 단계에서 각자 다듬습니다.
-      </div>
     </div>
   </div>
 

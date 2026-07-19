@@ -237,7 +237,7 @@
   </div>
 
   <div class="info-box">
-    작업 폴더는 <code>PRD.md</code>가 있는 Day 2의 <code>my-app</code>을 이어서 씁니다.
+    작업 폴더는 <code>PRD.md</code>가 있는 Day 2의 <code>doc-qa-bot</code>을 이어서 씁니다.
   </div>
 
   <!-- ══════════════════════════════ Claude Code 확장 ══════════════════════════════ -->
@@ -271,18 +271,22 @@
       <ol class="step-list">
         <li><div class="step-content">
           <strong>Code 탭에서 새 세션 시작 (작업 폴더 지정)</strong>
-          <p>Claude Desktop을 실행하고 상단 <strong>Code</strong> 탭을 클릭합니다. <strong>+ New session</strong>(또는 <code>Ctrl+N</code>)으로 새 세션을 열고, 프롬프트 영역에서 <strong>Environment: Local</strong> · <strong>Project folder: Day 2의 <code>my-app</code> 선택</strong>을 지정한 뒤 프롬프트를 입력합니다.<span class="note">이후 모든 프롬프트·명령은 이 Code 탭 화면에서 진행합니다 — 검은 터미널을 따로 열 필요가 없습니다.</span></p>
+          <p>Claude Desktop을 실행하고 상단 <strong>Code</strong> 탭을 클릭합니다. <strong>+ New session</strong>(또는 <code>Ctrl+N</code>)으로 새 세션을 열고, 프롬프트 영역에서 <strong>Environment: Local</strong> · <strong>Project folder: Day 2의 <code>doc-qa-bot</code> 선택</strong>을 지정한 뒤 프롬프트를 입력합니다.<span class="note">이후 모든 프롬프트·명령은 이 Code 탭 화면에서 진행합니다 — 검은 터미널을 따로 열 필요가 없습니다.</span></p>
         </div></li>
         <li><div class="step-content">
           <strong>bkit 플러그인 설치</strong>
-          <p>이 과정의 핵심 도구인 <strong>bkit</strong>을 설치합니다. Code 탭 프롬프트에 아래 세 명령을 <strong>한 줄씩 차례로</strong> 입력합니다 — ① bkit 마켓플레이스 추가 → ② bkit 설치 → ③ 새로고침으로 활성화. 중간에 권한을 물으면 <strong>본인이 승인</strong>합니다.</p>
+          <p>이 과정의 핵심 도구인 <strong>bkit</strong>을 설치합니다. 개발자용 명령을 외울 필요 없이, 아래처럼 <strong>자연어로 부탁</strong>하면 됩니다 — Claude가 ① 마켓플레이스 추가 → ② 설치 → ③ 활성화를 순서대로 진행합니다. 중간에 권한을 물으면 <strong>본인이 승인</strong>합니다.</p>
+          <span class="prompt-label">프롬프트 (자연어로 설치 요청)</span>
           <div class="code-wrap">
-            <pre class="code-block">/plugin marketplace add popup-studio-ai/bkit-claude-code
-/plugin install bkit
-/reload-plugins</pre>
+            <pre class="code-block">bkit 플러그인을 설치하고 싶어.
+아래 주소의 마켓플레이스를 추가한 뒤
+bkit을 설치하고, 활성화(새로고침)까지 해줘.
+
+주소: popup-studio-ai/bkit-claude-code</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
-          <span class="note">참고: 다른 플러그인은 <strong>+ 버튼 → Plugins</strong> 브라우저에서 GUI로도 둘러보고 설치할 수 있습니다.</span>
+          <p class="code-caption">▲ <code>popup-studio-ai/bkit-claude-code</code>는 bkit의 <strong>설치 주소</strong>입니다 — 이 값만 있으면 Claude가 알아서 <code>/plugin marketplace add</code> → <code>/plugin install bkit</code> → <code>/reload-plugins</code>를 순서대로 실행합니다.</p>
+          <span class="note">직접 하고 싶으면 — 위 세 명령을 프롬프트에 <strong>한 줄씩 차례로</strong> 입력하거나, <strong>+ 버튼 → Plugins</strong> 브라우저에서 <strong>bkit</strong>을 검색해 <strong>GUI로 설치</strong>할 수도 있습니다.</span>
         </div></li>
         <li><div class="step-content">
           <strong>설치 확인 — bkit이 데려온 스킬·서브에이전트 보기</strong>
@@ -303,12 +307,192 @@
       </ol>
 
       <div class="flow-box">
-        방금 설치한 <strong>bkit</strong>이 이 과정의 하네스입니다 — 규칙·PDCA·검증 절차를 담고 있어 Day 3 STEP 2~4와 Day 4가 이 위에서 돌아갑니다. "플러그인 하나를 설치했을 뿐인데" 과정 전체의 뼈대가 깔린 셈입니다.
+        방금 설치한 <strong>bkit</strong>에는 "이렇게 일해라" 하는 <strong>작업 방식·순서·점검 방법</strong>이 미리 담겨 있습니다. 그래서 Day 3의 다음 단계들과 Day 4가 모두 이 위에서 편하게 진행됩니다 — <strong>플러그인 하나 깔았을 뿐인데, 앞으로 쓸 준비물이 한 번에 갖춰진 셈</strong>입니다.
       </div>
 
       <div class="tip-box">
         스킬은 대부분 <strong>상황에 맞을 때 Claude가 알아서 꺼내 씁니다.</strong> 억지로 외워 부르기보다, "이런 작업엔 이런 스킬이 있다"는 지도만 익혀 두면 됩니다.
       </div>
+
+      <details class="guide-box" style="margin-top:14px; border:1px solid var(--border,#d0d7de); border-radius:8px; padding:12px 14px; background:#fbfcfd;">
+        <summary style="cursor:pointer; font-weight:700;">🧭 직접 불러 쓰고 싶다면 — 스킬·에이전트 사용 가이드 (펼치기)</summary>
+        <div style="margin-top:12px; line-height:1.7;">
+
+          <p><strong>① 먼저 "뭐가 있는지" 본다</strong><br>
+          위 STEP 1의 두 프롬프트(<a href="#step-1">스킬 확인 · 서브에이전트 확인</a>)를 물으면, Claude가 <strong>지금 쓸 수 있는 목록과 각각이 하는 일</strong>을 한 줄씩 알려줍니다. 여기서 이름을 확인한 뒤 아래처럼 부르면 됩니다.</p>
+
+          <p><strong>② 부르는 방법은 3가지</strong></p>
+          <ul style="margin:6px 0 10px 0; padding-left:20px;">
+            <li><strong>이름 대며 말하기</strong> — "○○ 스킬로 이거 해줘", "이 작업은 ○○ 에이전트한테 맡겨줘"</li>
+            <li><strong>슬래시 목록에서 고르기</strong> — 프롬프트에 <code>/</code> 만 입력하면 쓸 수 있는 명령이 뜹니다. 그중 골라 실행합니다.</li>
+            <li><strong>그냥 하고 싶은 일만 말하기</strong> — 이름을 몰라도 "PLAN.md 만들어줘"처럼 말하면, Claude가 <strong>맞는 스킬·에이전트를 알아서 골라</strong> 씁니다. <em>평소엔 이 방식이면 충분합니다.</em></li>
+          </ul>
+
+          <p><strong>③ 이 과정에서는 이런 상황에 이렇게</strong></p>
+          <ul style="margin:6px 0 10px 0; padding-left:20px;">
+            <li><strong>규칙을 정하고 싶다</strong> → "이 프로젝트 규칙서(<code>CLAUDE.md</code>) 초안 만들어줘" <span class="note" style="display:inline;">— 스킬이 처리</span></li>
+            <li><strong>작업 순서를 짜고 싶다</strong> → "PRD 읽고 만들 순서대로 <code>PLAN.md</code> 만들어줘" <span class="note" style="display:inline;">— 스킬이 처리</span></li>
+            <li><strong>설계를 하고 싶다</strong> → "PLAN을 바탕으로 <code>DESIGN.md</code> 만들어줘" <span class="note" style="display:inline;">— 스킬이 처리</span></li>
+            <li><strong>문서끼리 안 맞는 곳을 찾고 싶다</strong> → "PRD·PLAN·DESIGN을 함께 읽고 어긋난 곳을 찾아줘" <span class="note" style="display:inline;">— 검토 서브에이전트가 처리</span></li>
+            <li><strong>(Day 4) 코드를 만들고 싶다</strong> → "DESIGN대로 구현해줘" <span class="note" style="display:inline;">— 스킬·에이전트가 처리</span></li>
+            <li><strong>(Day 4) 설계대로 됐는지 확인</strong> → "설계와 실제 코드가 다른 곳(Gap)을 찾아줘" <span class="note" style="display:inline;">— 검증 서브에이전트가 처리</span></li>
+          </ul>
+
+          <p class="note" style="display:block;">스킬·에이전트의 <strong>이름과 개수는 설치된 버전에 따라 다를 수 있습니다.</strong> 그러니 헷갈릴 땐 항상 <strong>①</strong>로 실제 목록을 먼저 확인하세요.</p>
+        </div>
+      </details>
+
+      <details class="guide-box" style="margin-top:12px; border:1px solid var(--border,#d0d7de); border-radius:8px; padding:12px 14px; background:#fbfcfd;">
+        <summary style="cursor:pointer; font-weight:700;">📖 bkit 스킬 전체 목록 (카탈로그 · 펼치기)</summary>
+        <div style="margin-top:12px; line-height:1.7;">
+
+          <div class="tip-box" style="margin:0 0 12px 0;">
+            <strong>처음엔 다 외울 필요 없습니다.</strong> 이 과정(Day 3~4)에서 주로 만나는 건 몇 개뿐입니다 —
+            <code>pdca</code>(계획→검증까지 전체 사이클) · <code>plan-plus</code>(계획 세우기) · <code>starter</code>(정적 웹 만들기) · <code>code-review</code>(검증). 나머지는 "이런 것도 있구나" 하고 <strong>필요할 때 찾아 쓰는 사전</strong>으로 보세요.
+          </div>
+
+          <p style="margin:10px 0 4px;"><strong>🧭 PDCA / Sprint 핵심 워크플로우</strong></p>
+          <ul style="margin:0 0 10px 0; padding-left:20px;">
+            <li><code>bkit</code> — bkit 사용법을 한눈에 보여 주는 안내판 — 무엇부터 시작할지 알려 줍니다</li>
+            <li><code>pdca</code> — 기능 하나를 '계획→설계→만들기→점검→고치기→보고'까지 처음부터 끝까지 챙겨 주는 진행 도우미</li>
+            <li><code>pdca-batch</code> — 여러 기능을 서로 안 섞이게, 따로따로 동시에 진행 관리</li>
+            <li><code>pdca-fast-track</code> — 결과가 충분히 믿을 만하면 중간 확인을 건너뛰고 빠르게 진행하는 모드</li>
+            <li><code>pdca-watch</code> — 지금 어디까지 진행됐는지 실시간으로 보여 주는 현황판</li>
+            <li><code>sprint</code> — 여러 기능을 한 묶음(하나의 목표·분량)으로 잡고 한꺼번에 진행 관리</li>
+            <li><code>plan-plus</code> — "진짜 필요한 것만" 추려 가며 아이디어를 정리해 계획을 세워 줌</li>
+            <li><code>control</code> — Claude에게 얼마나 알아서 맡길지(자동화 수준)와 안전장치를 조절</li>
+            <li><code>rollback</code> — 중간중간 저장해 두고, 문제가 생기면 이전 상태로 되돌리기</li>
+            <li><code>audit</code> — 무슨 결정을 왜 했는지, 지난 작업 기록을 되돌아보기</li>
+          </ul>
+
+          <p style="margin:10px 0 4px;"><strong>🏗️ 9단계 개발 파이프라인</strong></p>
+          <ul style="margin:0 0 10px 0; padding-left:20px;">
+            <li><code>development-pipeline</code> — 앱 만들기의 처음(구조 잡기)부터 끝(공개)까지 9단계 전체 길잡이</li>
+            <li><code>phase-1-schema</code> — 앱에서 쓸 용어와 정보 구조를 먼저 정리 (예: '회원'에 어떤 정보가 들어가나)</li>
+            <li><code>phase-2-convention</code> — 코드를 어떤 규칙으로 통일해 쓸지 정하기</li>
+            <li><code>phase-3-mockup</code> — 실제로 만들기 전에 화면 밑그림(초안)을 먼저 만들어 보기</li>
+            <li><code>phase-4-api</code> — 화면 뒤에서 정보를 주고받는 부분(서버 기능)을 설계·구현</li>
+            <li><code>phase-5-design-system</code> — 버튼·색·글꼴 같은 디자인 요소를 한 벌로 통일해 정리</li>
+            <li><code>phase-6-ui-integration</code> — 눈에 보이는 화면을 만들고, 뒤의 서버 기능과 연결</li>
+            <li><code>phase-7-seo-security</code> — 검색에 잘 뜨게(SEO) + 보안을 튼튼하게 보강</li>
+            <li><code>phase-8-review</code> — 완성된 코드가 규칙대로·앞뒤 맞게 됐는지 점검</li>
+            <li><code>phase-9-deployment</code> — 실제 사용자에게 공개(배포)</li>
+          </ul>
+
+          <p style="margin:10px 0 4px;"><strong>📋 기획 / QA</strong></p>
+          <ul style="margin:0 0 10px 0; padding-left:20px;">
+            <li><code>pm-discovery</code> — 기획 도우미 여럿이 함께 "무엇을, 왜 만들지"를 정리하고 기획서(PRD)까지 작성</li>
+            <li><code>qa-phase</code> — 기능 하나를 여러 수준으로 테스트할 계획을 세우고 실제로 돌려 결과 보고</li>
+            <li><code>code-review</code> — 만든 코드를 검사해 문제(버그)를 찾고 개선점을 알려 줌</li>
+            <li><code>zero-script-qa</code> — 따로 코드를 짜지 않고, 앱이 남기는 기록을 보며 문제를 찾는 테스트</li>
+          </ul>
+
+          <p style="margin:10px 0 4px;"><strong>📱 앱 유형별 가이드</strong></p>
+          <ul style="margin:0 0 10px 0; padding-left:20px;">
+            <li><code>starter</code> — 초보자용 — 서버 없이 화면만 있는 간단한 웹사이트 만들기 (이 과정에서 쓰는 방식)</li>
+            <li><code>dynamic</code> — 로그인·데이터 저장 같은 기능이 있는 본격 웹앱 만들기</li>
+            <li><code>mobile-app</code> — 스마트폰 앱 만들기 안내</li>
+            <li><code>desktop-app</code> — 윈도우·맥에서 실행하는 컴퓨터 프로그램 만들기 안내</li>
+            <li><code>enterprise</code> — 대기업용 아주 크고 복잡한 시스템 만들기</li>
+          </ul>
+
+          <p style="margin:10px 0 4px;"><strong>🔌 bkend.ai 백엔드 서비스</strong></p>
+          <ul style="margin:0 0 10px 0; padding-left:20px;">
+            <li><code>bkend-quickstart</code> — bkend.ai 처음 시작하기 (연결하고 첫 프로젝트 만들기)</li>
+            <li><code>bkend-auth</code> — 회원 로그인(이메일·소셜 로그인) 붙이기</li>
+            <li><code>bkend-data</code> — 데이터(글·회원 정보 등)를 저장하고 불러오고 검색하기</li>
+            <li><code>bkend-storage</code> — 사진·파일 올리고 내려받기</li>
+            <li><code>bkend-cookbook</code> — bkend.ai 따라 하기 예제와 문제 해결 모음</li>
+          </ul>
+
+          <p style="margin:10px 0 4px;"><strong>🛠️ bkit 자체 관리 도구</strong></p>
+          <ul style="margin:0 0 4px 0; padding-left:20px;">
+            <li><code>bkit-explore</code> — 지금 쓸 수 있는 bkit 스킬·에이전트 목록 둘러보기</li>
+            <li><code>bkit-rules</code> — 이 과정의 핵심 규칙과 품질 기준 모음</li>
+            <li><code>bkit-templates</code> — 계획서·설계서·보고서 등 문서 서식(빈 양식) 모음</li>
+            <li><code>bkit-evals</code> — 스킬이 잘 작동하는지 점검하고 결과 기록</li>
+            <li><code>skill-create</code> — 내 프로젝트만의 맞춤 스킬을 대화하며 새로 만들기</li>
+            <li><code>skill-status</code> — 지금 어떤 스킬이 켜져 있는지, 겹치거나 빠진 건 없는지 보기</li>
+            <li><code>deploy</code> — 만든 것을 테스트용/실제용 등 원하는 곳에 올리기(배포)</li>
+            <li><code>cc-version-analysis</code> — Claude Code가 업데이트되면 뭐가 달라지는지 미리 살펴보기</li>
+            <li><code>claude-code-learning</code> — Claude Code 사용법·팁 배우기를 돕는 도우미</li>
+            <li><code>btw</code> — 작업하다 떠오른 개선 아이디어를 바로 메모해 모아 두기</li>
+          </ul>
+
+          <p class="note" style="display:block;">목록은 <code>bkit-explore</code> 스킬로 언제든 다시 볼 수 있습니다("설치된 스킬 목록 보여줘").</p>
+        </div>
+      </details>
+
+      <details class="guide-box" style="margin-top:12px; border:1px solid var(--border,#d0d7de); border-radius:8px; padding:12px 14px; background:#fbfcfd;">
+        <summary style="cursor:pointer; font-weight:700;">🤖 bkit 서브에이전트 전체 목록 (카탈로그 · 펼치기)</summary>
+        <div style="margin-top:12px; line-height:1.7;">
+
+          <div class="tip-box" style="margin:0 0 12px 0;">
+            <strong>서브에이전트는 특정 단계를 대신 맡는 "전담 보조원"</strong>입니다. 스킬처럼 대부분 <strong>Claude가 필요할 때 알아서 부릅니다.</strong> 이 과정(Day 3~4)에서 특히 마주치는 건 —
+            <code>starter-guide</code>(초보자 안내) · <code>product-manager</code>(계획 문서) · <code>design-validator</code>(설계 검증) · <code>gap-detector</code>(설계↔구현 격차) · <code>report-generator</code>(완료 리포트) 정도입니다.
+          </div>
+
+          <p style="margin:10px 0 4px;"><strong>👔 총괄 / 오케스트레이션</strong></p>
+          <ul style="margin:0 0 10px 0; padding-left:20px;">
+            <li><code>cto-lead</code> — 개발 총책임자 역할 — 전체 진행을 지휘·조율</li>
+            <li><code>enterprise-expert</code> — 대기업용 대규모 개발을 이끄는 전문가 도우미</li>
+            <li><code>pdca-iterator</code> — 결과를 스스로 점검하고 더 나아질 때까지 자동으로 반복해 다듬기</li>
+            <li><code>pipeline-guide</code> — 9단계 개발 과정을 한 단계씩 옆에서 안내</li>
+            <li><code>starter-guide</code> — 비개발자·초보자에게 쉬운 말로 친절히 안내 (이 과정에서 자주 만남)</li>
+            <li><code>self-healing</code> — 오류가 나면 원인을 찾아 스스로 고치기</li>
+          </ul>
+
+          <p style="margin:10px 0 4px;"><strong>📋 PM / 기획</strong></p>
+          <ul style="margin:0 0 10px 0; padding-left:20px;">
+            <li><code>pm-lead</code> — 기획 도우미 팀 전체를 이끄는 팀장</li>
+            <li><code>pm-discovery</code> — 제품 아이디어를 단계별로 파고들어 "무엇을 만들지"를 발굴</li>
+            <li><code>pm-research</code> — 시장 조사 — 어떤 사용자가·경쟁 서비스는·시장 크기는</li>
+            <li><code>pm-strategy</code> — 전략 짜기 — 이 제품이 주는 가치와 사업 그림 정리</li>
+            <li><code>pm-prd</code> — 위 기획 내용을 모두 모아 완성된 기획서(PRD) 작성</li>
+            <li><code>pm-lead-skill-patch</code> — 기획서가 나온 뒤, 그 프로젝트에 필요한 스킬을 뽑아 보태기</li>
+            <li><code>product-manager</code> — 기능 하나의 요구사항을 정리하고 계획서 작성 (이 과정에서 만남)</li>
+            <li><code>skill-needs-extractor</code> — 기획서를 보고 이 프로젝트에 필요한 스킬을 자동으로 찾아 줌</li>
+          </ul>
+
+          <p style="margin:10px 0 4px;"><strong>🏗️ 아키텍처 / 설계</strong></p>
+          <ul style="margin:0 0 10px 0; padding-left:20px;">
+            <li><code>frontend-architect</code> — 눈에 보이는 화면 쪽 구조를 설계하는 전문가</li>
+            <li><code>infra-architect</code> — 서비스가 돌아갈 서버·시설을 설계하는 전문가</li>
+            <li><code>security-architect</code> — 해킹·보안 위험을 막는 설계 전문가</li>
+            <li><code>design-validator</code> — 설계 문서가 빠짐없이·앞뒤 맞게 됐는지 검증 (이 과정에서 만남)</li>
+            <li><code>gap-detector</code> — 설계한 대로 실제로 만들어졌는지, 어긋난 곳을 찾아냄 (Day 4 검증)</li>
+            <li><code>code-analyzer</code> — 코드가 규칙과 좋은 구조를 지켰는지 분석</li>
+          </ul>
+
+          <p style="margin:10px 0 4px;"><strong>🧪 QA / 검증</strong></p>
+          <ul style="margin:0 0 10px 0; padding-left:20px;">
+            <li><code>qa-lead</code> — 품질검사(테스트) 팀을 이끄는 팀장 — 계획·실행·분석 총괄</li>
+            <li><code>qa-strategist</code> — 어떻게 테스트할지 전략과 품질 기준 정하기</li>
+            <li><code>qa-test-planner</code> — 설계 문서를 보고 테스트 계획을 여러 수준으로 세우기</li>
+            <li><code>qa-test-generator</code> — 그 계획대로 실제 테스트를 만들어 줌</li>
+            <li><code>qa-debug-analyst</code> — 오류가 왜 났는지 기록을 설계하고 분석</li>
+            <li><code>qa-monitor</code> — 앱이 돌아가는 기록을 실시간으로 지켜보며 문제를 정리</li>
+          </ul>
+
+          <p style="margin:10px 0 4px;"><strong>🏃 Sprint (다기능 묶음 관리)</strong></p>
+          <ul style="margin:0 0 10px 0; padding-left:20px;">
+            <li><code>sprint-master-planner</code> — 여러 기능을 한 번에 진행할 큰 계획과 기획·설계 문서 만들기</li>
+            <li><code>sprint-orchestrator</code> — 그 묶음 작업의 시작부터 끝까지 전 과정을 조율</li>
+            <li><code>sprint-qa-flow</code> — 여러 기능이 데이터를 주고받는 흐름이 어긋나지 않는지 점검</li>
+            <li><code>sprint-report-writer</code> — 묶음 작업이 끝난 뒤 결과 보고서 작성</li>
+          </ul>
+
+          <p style="margin:10px 0 4px;"><strong>🔧 전문 도구 / 리포트</strong></p>
+          <ul style="margin:0 0 4px 0; padding-left:20px;">
+            <li><code>bkend-expert</code> — bkend.ai(로그인·데이터 저장 같은 '뒷단 기능' 서비스) 전문가 도우미</li>
+            <li><code>bkit-impact-analyst</code> — bkit 플러그인 구조와 그 영향을 분석하는 전문가</li>
+            <li><code>cc-version-researcher</code> — Claude Code가 새 버전에서 뭐가 바뀌었는지 조사</li>
+            <li><code>report-generator</code> — 한 사이클이 끝나면 완료 보고서를 자동으로 만들어 줌 (이 과정에서 만남)</li>
+          </ul>
+
+          <p class="note" style="display:block;">에이전트는 앞서 배운 규칙대로 <strong>Claude가 필요하다고 판단해 승인을 받거나, 사용자가 직접 요청할 때만</strong> 동작합니다. 목록은 "쓸 수 있는 서브에이전트 목록 보여줘"로 언제든 다시 볼 수 있습니다.</p>
+        </div>
+      </details>
 
     </div>
   </div>
@@ -345,22 +529,27 @@
       <ol class="step-list">
         <li><div class="step-content">
           <strong>CLAUDE.md 초안 만들기</strong>
-          <p>Claude Code에서 <code>/init</code>을 실행하면 프로젝트를 살펴 <code>CLAUDE.md</code> 초안을 만들어 줍니다.</p>
+          <p>아래처럼 <strong>자연어로 부탁</strong>하면 Claude가 프로젝트를 살펴 <code>CLAUDE.md</code> 초안을 만들어 줍니다.</p>
+          <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">/init</pre>
+            <pre class="code-block">이 프로젝트를 살펴보고, 프로젝트 규칙서인
+CLAUDE.md 초안을 만들어줘.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
+          <p class="code-caption">▲ 같은 일을 하는 명령: <code>/init</code> — 프롬프트에 이렇게 입력해도 됩니다.</p>
         </div></li>
         <li><div class="step-content">
           <strong>규칙 추가하기</strong>
-          <p>내 프로젝트에 맞는 규칙을 덧붙입니다. 아래처럼 요청해 <code>CLAUDE.md</code>에 규칙을 채웁니다. 맨 아래 <strong>서브에이전트 규칙</strong>은 보조 에이전트가 함부로 늘어나지 않도록, <strong>사용자 허락이나 직접 요청이 있을 때만</strong> 만들게 하는 안전장치입니다.</p>
+          <p>내 프로젝트에 맞는 규칙을 덧붙입니다. 아래처럼 요청해 <code>CLAUDE.md</code>에 규칙을 채웁니다. <strong>trash-can 규칙</strong>은 Claude가 파일을 <strong>바로 지우지 않고</strong> 휴지통 폴더에 모아만 두게 해, <strong>실수로 삭제되는 일을 막는</strong> 안전장치입니다. 맨 아래 <strong>서브에이전트 규칙</strong>은 보조 에이전트가 함부로 늘어나지 않도록, <strong>사용자 허락이나 직접 요청이 있을 때만</strong> 만들게 하는 안전장치입니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
             <pre class="code-block">CLAUDE.md에 아래 규칙을 추가해줘.
 - 모든 설명과 주석은 한국어로 작성한다.
-- 새 파일은 my-app 폴더 안에만 만든다.
+- 새 파일은 doc-qa-bot 폴더 안에만 만든다.
 - 코드를 바꾸면 반드시 무엇을 왜 바꿨는지 한 줄로 알려준다.
 - .env 등 비밀 정보 파일은 절대 커밋하지 않는다.
+- 파일을 지워야 할 때는 바로 삭제하지 말고, trash-can 폴더를 만들어
+  그 안으로 옮겨만 둔다. 작업이 끝난 뒤 내가 직접 확인하고 삭제하겠다.
 - 서브에이전트는 메인 에이전트가 필요하다고 판단해 사용자 허락을 받았을 때,
   또는 사용자가 직접 요청했을 때만 만든다.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
@@ -384,7 +573,7 @@
           <p>간단한 변경을 하나 요청해, 이제 <code>CLAUDE.md</code>의 규칙(한국어·폴더·요약)과 검증 루프가 <strong>매번 자동으로 지켜지는지</strong> 확인합니다. 규칙과 루프가 결과를 일정하게 잡아 줍니다. (여기서 만든 임시 파일은 STEP 4에서 정리합니다.)</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">my-app 폴더에 test.html을 만들어줘.
+            <pre class="code-block">doc-qa-bot 폴더에 test.html을 만들어줘.
 "안녕하세요"를 보여주는 간단한 안내 페이지야.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>

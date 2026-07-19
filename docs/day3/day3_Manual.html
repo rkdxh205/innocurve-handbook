@@ -148,7 +148,7 @@
   <div class="version-box">
     <div class="version-row"><span class="vlabel">다루는 개념</span><span class="vvalue">스킬 · 플러그인 · MCP · 하네스 엔지니어링 · 규칙(CLAUDE.md) · 검증 · PDCA · Plan · Design</span></div>
     <div class="version-row"><span class="vlabel">짝 문서(실습)</span><span class="vvalue"><a href="day3_Examples.html">day3_Examples.html</a> — 개념을 Claude Code에서 직접 설정·적용</span></div>
-    <div class="version-row"><span class="vlabel">준비물</span><span class="vvalue">Day 1에서 설치한 <strong>Claude Desktop의 Code 탭</strong> · Day 2의 <code>PRD.md</code>(<code>my-app</code>)</span></div>
+    <div class="version-row"><span class="vlabel">준비물</span><span class="vvalue">Day 1에서 설치한 <strong>Claude Desktop의 Code 탭</strong> · Day 2의 <code>PRD.md</code>(<code>doc-qa-bot</code>)</span></div>
   </div>
 
   <!-- ── 인트로 ── -->
@@ -194,7 +194,7 @@ Day 3 · 이론 → 실습 대응표
   <!-- ── 섹션 2 ── -->
   <h2 id="section-2">2. 외부 도구·데이터 연결 — MCP</h2>
   <p>MCP(Model Context Protocol)는 Claude를 <strong>내 컴퓨터·외부 서비스의 도구와 데이터에 잇는 표준 규격</strong>입니다. Day 1에서 Claude Desktop에 "로컬 폴더"를 지정한 것도 사실은 <strong>파일시스템 MCP</strong>의 한 형태였습니다. 이 규격 덕분에 Claude 혼자서는 못 하는 일 — GitHub 저장소 다루기, 데이터베이스 조회, 사내 시스템 연결 — 을 <strong>연결된 서버에 위임</strong>할 수 있습니다.</p>
-  <p>다만 이 과정의 <code>my-app</code>은 <strong>Code 탭이 이미 접근하는 작업 폴더 안에서</strong> 끝나므로, 실습에서 <strong>따로 MCP 서버를 붙이지는 않습니다</strong>(이미 되는 것을 다시 연결할 뿐이라 배울 게 없습니다). 나중에 GitHub·Slack처럼 <strong>실제 외부 시스템</strong>이 필요해지면, 그때 <strong><code>+</code> 버튼 → Connectors</strong>에서 GUI로 연결하면 됩니다. MCP 서버는 Claude에게 실제 권한을 주므로 <strong>신뢰할 수 있는 서버만, 꼭 필요한 범위만</strong> 붙이는 것이 원칙입니다.</p>
+  <p>다만 이 과정의 <code>doc-qa-bot</code>은 <strong>Code 탭이 이미 접근하는 작업 폴더 안에서</strong> 끝나므로, 실습에서 <strong>따로 MCP 서버를 붙이지는 않습니다</strong>(이미 되는 것을 다시 연결할 뿐이라 배울 게 없습니다). 나중에 GitHub·Slack처럼 <strong>실제 외부 시스템</strong>이 필요해지면, 그때 <strong><code>+</code> 버튼 → Connectors</strong>에서 GUI로 연결하면 됩니다. MCP 서버는 Claude에게 실제 권한을 주므로 <strong>신뢰할 수 있는 서버만, 꼭 필요한 범위만</strong> 붙이는 것이 원칙입니다.</p>
   <p class="keyline">💡 <strong>핵심 한 줄:</strong> MCP는 <strong>"Claude가 바깥세상과 연결되는 표준 콘센트"</strong>입니다 — 지금 당장은 필요 없지만, 앱을 키울 때 꺼내 쓰는 확장 통로입니다.</p>
 
   <hr>
@@ -261,7 +261,7 @@ Day 3 · 이론 → 실습 대응표
 # CLAUDE.md  (프로젝트 폴더 맨 위)
 
 ## 이 프로젝트
-사내 문서에 근거를 들어 답하는 Q&amp;A 챗봇(my-app)
+사내 문서에 근거를 들어 답하는 Q&amp;A 챗봇(doc-qa-bot)
 
 ## 규칙
 - HTML/JS로만 만든다. 새 라이브러리를 함부로 추가하지 않는다.
@@ -308,7 +308,7 @@ Day 3 · 이론 → 실습 대응표
 
   <p class="keyline">💡 <strong>핵심 한 줄:</strong> PDCA는 <strong>"한 번에 완성"이 아니라 "작게 돌리고 매 바퀴 나아지는"</strong> 개발 리듬입니다.</p>
 
-  <div class="practice-box">PDCA의 <strong>Plan·Design</strong>을 내 프로젝트(<code>my-app</code>)에 적용해 계획·설계 문서를 만들고 검토하는 과정은 <a href="day3_Examples.html#step-3">실습 STEP 3·4</a>에서 진행합니다.</div>
+  <div class="practice-box">PDCA의 <strong>Plan·Design</strong>을 내 프로젝트(<code>doc-qa-bot</code>)에 적용해 계획·설계 문서를 만들고 검토하는 과정은 <a href="day3_Examples.html#step-3">실습 STEP 3·4</a>에서 진행합니다.</div>
 
   <hr>
 
