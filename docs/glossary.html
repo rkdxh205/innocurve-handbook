@@ -61,26 +61,31 @@
 
     <div class="gloss-cat">AI 기본 개념</div>
     <dl class="gloss">
-      <dt id="g-genai">생성형 AI</dt><dd>글·이미지·코드처럼 새로운 결과물을 만들어 내는 AI.</dd>
-      <dt id="g-llm">LLM (거대 언어 모델)</dt><dd>방대한 글로 학습해 사람처럼 말을 이해하고 만들어 내는 AI 모델.</dd>
+      <dt id="g-genai">생성형 AI (Generative AI)</dt><dd>글·이미지·코드처럼 새로운 결과물을 만들어 내는 AI. (AI = Artificial Intelligence, 인공지능)</dd>
+      <dt id="g-llm">LLM (Large Language Model · 거대 언어 모델)</dt><dd>방대한 글로 학습해 사람처럼 말을 이해하고 만들어 내는 AI 모델.</dd>
       <dt id="g-prompt">프롬프트(Prompt)</dt><dd>AI에게 주는 지시문. 역할·구체성·제약을 담아 구체적으로 쓸수록 결과가 좋아집니다.</dd>
       <dt id="g-vibe">바이브 코딩(Vibe Coding)</dt><dd>문법을 직접 타이핑하는 대신 자연어로 지시해 AI가 코드를 대신 짜게 하는 방식.</dd>
       <dt id="g-context">맥락(컨텍스트)</dt><dd>AI가 답을 만들 때 참고하는 대화·첨부 파일 같은 배경 정보.</dd>
+      <dt id="g-hallucination">환각(Hallucination)</dt><dd>AI가 사실이 아닌 내용을 그럴듯하게 지어내는 현상. 결과의 사실관계는 사람이 최종 확인해야 합니다.</dd>
       <dt id="g-token">토큰(Token)</dt><dd>AI가 글을 처리하는 최소 단위. 사용량과 요금의 기준이 됩니다.</dd>
+      <dt id="g-ai-trend">AI 트렌드</dt><dd>ChatGPT·Gemini·Claude 등 주요 AI 모델·서비스의 최신 동향.</dd>
     </dl>
 
     <div class="gloss-cat">개발 도구</div>
     <dl class="gloss">
+      <dt id="g-html">HTML (HyperText Markup Language)</dt><dd>웹페이지의 뼈대(구조)를 만드는 마크업 언어. 제목·문단·이미지·버튼 같은 요소를 정의합니다.</dd>
       <dt id="g-js">자바스크립트(JavaScript)</dt><dd>웹페이지를 움직이게 하는 프로그래밍 언어. 시계·챗봇처럼 화면이 스스로 바뀌거나 반응하는 기능을 담당합니다.</dd>
       <dt id="g-nodejs"><code>Node.js</code></dt><dd>웹 브라우저 밖에서도 자바스크립트를 실행하게 해주는 도구.</dd>
-      <dt id="g-npm"><code>npm</code></dt><dd>Node.js용 프로그램(패키지)을 설치·관리하는 도구.</dd>
+      <dt id="g-npm"><code>npm</code> (Node Package Manager)</dt><dd>Node.js용 프로그램(패키지)을 설치·관리하는 도구.</dd>
       <dt id="g-git"><code>Git</code></dt><dd>파일의 변경 이력을 기록·관리하는 버전 관리 도구.</dd>
       <dt id="g-commit">커밋(commit)</dt><dd>변경한 내용을 하나의 기록으로 저장하는 것.</dd>
       <dt id="g-terminal">터미널</dt><dd>명령어를 입력해 컴퓨터에 지시하는 창(Windows는 PowerShell 등).</dd>
       <dt id="g-claude-desktop">Claude Desktop</dt><dd>내 컴퓨터에 설치해 쓰는 Claude 앱. 파일·도구 연결이 가능합니다.</dd>
       <dt id="g-claude-code">Claude Code</dt><dd>코드를 읽고 쓰고 실행하는 Claude 개발 도구(Day 3~4에서 사용).</dd>
-      <dt id="g-connector">커넥터·확장 프로그램</dt><dd>Claude에 파일·터미널 같은 외부 기능을 붙이는 부가 기능(예: Filesystem, Desktop Commander).</dd>
-      <dt id="g-mcp">MCP</dt><dd>AI가 외부 도구·데이터에 표준 방식으로 연결되게 하는 규격.</dd>
+      <dt id="g-connector">커넥터·확장 프로그램</dt><dd>Claude에 파일·터미널 같은 외부 기능을 붙이는 부가 기능(예: Filesystem).</dd>
+      <dt id="g-mcp">MCP (Model Context Protocol)</dt><dd>AI가 외부 도구·데이터에 표준 방식으로 연결되게 하는 규격.</dd>
+      <dt id="g-md">마크다운 · <code>.md</code></dt><dd>제목·목록·강조 등을 간단한 기호로 표시하는 텍스트 문서 형식. <code>CLAUDE.md</code>·<code>PRD.md</code> 같은 파일이 이 형식입니다.</dd>
+      <dt id="g-hello-page"><code>hello-page</code></dt><dd>이 과정의 실습 작업 폴더 이름. 파일 생성·수정이 모두 이 폴더 안에서 이뤄집니다.</dd>
     </dl>
 
     <div class="gloss-cat">인터넷·배포</div>
@@ -90,22 +95,53 @@
       <dt id="g-vercel">Vercel</dt><dd>만든 웹페이지를 인터넷 주소로 올려주는 배포·호스팅 서비스.</dd>
       <dt id="g-deploy">배포(deploy)</dt><dd>내 컴퓨터의 결과물을 인터넷에 올려 누구나 접속할 수 있게 하는 것.</dd>
       <dt id="g-localhost">로컬·<code>localhost</code></dt><dd>인터넷이 아니라 내 컴퓨터 안에서만 도는 상태/주소(예: http://localhost:3000).</dd>
+      <dt id="g-vercel-dev"><code>vercel dev</code></dt><dd>로컬에서 Vercel 개발 서버를 띄워, 인터넷에 배포하기 전에 <code>index.html</code>·<code>api/chat.js</code>를 내 컴퓨터(<code>http://localhost:3000</code>)에서 미리 확인하는 명령.</dd>
       <dt id="g-server">서버</dt><dd>요청을 받아 처리하고 응답을 돌려주는 프로그램(또는 컴퓨터).</dd>
+      <dt id="g-serverless">서버리스 함수(Serverless Function)</dt><dd>서버를 직접 만들거나 관리하지 않아도, 요청이 올 때만 잠깐 실행되는 코드 조각. Vercel 같은 서비스가 서버 운영을 대신 맡아 줍니다.</dd>
+      <dt id="g-index">인덱스 · <code>index.html</code></dt><dd>웹사이트에 접속했을 때 가장 먼저 보여지는 시작 페이지(홈). 폴더 안에 이 이름의 파일이 있으면 브라우저·서버가 자동으로 그 파일을 엽니다.</dd>
+      <dt id="g-api-folder"><code>api/</code> 폴더</dt><dd>서버리스 함수(예: <code>api/chat.js</code>)를 두는 폴더. Vercel이 이 폴더의 파일을 자동으로 서버 기능으로 실행합니다.</dd>
+      <dt id="g-vercel-cli">Vercel CLI (<code>vercel login</code>·<code>vercel env add</code>·<code>vercel --prod</code>)</dt><dd>터미널에서 Vercel에 로그인하고, 비밀 키를 환경변수로 등록하고, 인터넷에 공개 배포(<code>vercel --prod</code>)하는 명령 모음.</dd>
     </dl>
 
     <div class="gloss-cat">보안·설정 파일</div>
     <dl class="gloss">
+      <dt id="g-apikey">API Key (Application Programming Interface Key · API 키)</dt><dd>프로그램이 외부 AI·서비스를 불러 쓸 때 "누가 요청했는지"를 증명하는 비밀 열쇠(예: OpenAI 키는 <code>sk-</code>로 시작). 비밀번호와 같아 코드·채팅·공개 저장소에 노출하면 안 됩니다.</dd>
       <dt id="g-env"><code>.env</code></dt><dd>API 키 같은 비밀 값을 코드와 분리해 보관하는 파일. 서버가 이 파일을 읽어 씁니다.</dd>
       <dt id="g-gitignore"><code>.gitignore</code></dt><dd>Git이 저장소에 올리지 않을 파일 목록. 여기에 <code>.env</code>를 적어 키 유출을 막습니다.</dd>
       <dt id="g-env-var">환경변수(Environment Variables)</dt><dd>프로그램이 읽어 쓰는 설정 값. 로컬에서는 <code>.env</code>, 인터넷 배포에서는 Vercel 환경변수를 사용합니다.</dd>
+      <dt id="g-api-relay">챗봇 연결 파일(<code>api/chat.js</code>)</dt><dd>화면(<code>index.html</code>) 뒤에서 조용히 도는 작은 파일. 브라우저는 보안상 <code>.env</code>를 읽지 못하므로, 이 파일이 대신 <code>.env</code>의 API 키를 읽어 OpenAI를 호출하고 답만 화면에 돌려줍니다. 덕분에 키가 브라우저로 노출되지 않습니다. 직접 켜서 관리하지 않아도 Vercel이 자동으로 실행해 줍니다(로컬은 <code>vercel dev</code>).</dd>
     </dl>
 
     <div class="gloss-cat">AI 앱·방법론 (Day 2~4)</div>
     <dl class="gloss">
-      <dt id="g-rag">RAG</dt><dd>내가 올린 문서를 근거로 답하게 하는 방식(문서 Q&amp;A 챗봇의 핵심).</dd>
+      <dt id="g-ai-app">AI 애플리케이션(AI Application)</dt><dd>정적 웹페이지를 넘어, 프로그램 안에 LLM을 부품처럼 얹어 질문에 답하거나 글을 만드는 등 "생각이 필요한 일"을 처리하는 프로그램.</dd>
+      <dt id="g-rag">RAG (Retrieval-Augmented Generation · 검색 증강 생성)</dt><dd>내가 올린 문서를 근거로 답하게 하는 방식(문서 Q&amp;A 챗봇의 핵심).</dd>
+      <dt id="g-chunk">청크(chunk)</dt><dd>긴 문서를 검색하기 좋은 크기로 잘게 나눈 조각. RAG에서 문서를 조각내는 첫 단계입니다.</dd>
       <dt id="g-embedding">임베딩(Embedding)</dt><dd>글을 의미가 담긴 숫자(벡터)로 바꿔, 비슷한 내용을 찾는 데 쓰는 것.</dd>
-      <dt id="g-prd">PRD</dt><dd>무엇을 왜 어떻게 만들지 정리한 제품요구사항 문서.</dd>
-      <dt id="g-pdca">PDCA</dt><dd>계획(Plan)·실행(Do)·점검(Check)·개선(Act)을 반복하며 완성해 가는 방법론.</dd>
+      <dt id="g-vector-search">벡터 검색</dt><dd>임베딩(숫자 벡터)끼리 비교해 의미가 가까운 청크를 찾아내는 검색 방식.</dd>
+      <dt id="g-prd">PRD (Product Requirements Document · 제품요구사항 문서)</dt><dd>무엇을 왜 어떻게 만들지 정리한 제품요구사항 문서.</dd>
+      <dt id="g-prd-lite">PRD Lite (Product Requirements Document Lite)</dt><dd>정식 PRD를 쓰기 전에, 핵심만 다섯 항목으로 가볍게 정리하는 짧은 기획서. Claude와 대화하며 함께 채워 나갑니다.</dd>
+      <dt id="g-review">검토(Review)</dt><dd>혼자 쓴 PRD 초안을 AI에게 주고, 빠진 기능·모호한 표현·엣지 케이스를 짚어 받는 것.</dd>
+      <dt id="g-iterate">반복 개선(Iterate)</dt><dd>초안 → AI 피드백 → 보완을 두세 번 반복하며 문서를 단단하게 다듬는 과정.</dd>
+      <dt id="g-pdca">PDCA (Plan-Do-Check-Act)</dt><dd>계획(Plan)·실행(Do)·점검(Check)·개선(Act)을 반복하며 완성해 가는 방법론.</dd>
+      <dt id="g-plan">Plan · <code>PLAN.md</code></dt><dd>PDCA의 계획 단계. PRD의 기능을 "어떤 작업을, 어떤 순서로" 할지 정한 작업 목록·순서 문서.</dd>
+      <dt id="g-design">Design · <code>DESIGN.md</code></dt><dd>PDCA의 설계 단계. 각 작업을 "어떻게" 구현할지(구조·데이터 흐름·화면)를 정한 문서.</dd>
+      <dt id="g-gap">Gap 분석</dt><dd>설계 문서와 실제 구현을 나란히 놓고 어긋난 곳(틈·차이)을 찾는 작업. PDCA Check(점검)의 핵심 도구입니다.</dd>
+      <dt id="g-mvp">MVP (Minimum Viable Product)</dt><dd>핵심 기능만 담아 가장 빠르게 만들어 보는 최소 기능 제품.</dd>
+    </dl>
+
+    <div class="gloss-cat">Claude Code 확장·하네스 (Day 3)</div>
+    <dl class="gloss">
+      <dt id="g-skill">스킬(Skill)</dt><dd>반복하는 절차를 한 번 정의해 재사용하는 "능력 꾸러미". Claude에게 새 작업 절차를 얹는 장치입니다(레시피 카드 한 장).</dd>
+      <dt id="g-plugin">플러그인(Plugin)</dt><dd>슬래시 명령·서브에이전트·스킬·MCP 서버·훅을 하나로 묶은 확장 패키지. 마켓플레이스에서 설치하면 여러 능력이 한 번에 추가됩니다(레시피북 + 도구 세트).</dd>
+      <dt id="g-harness">하네스(Harness)</dt><dd>모델(LLM) 주위를 규칙·도구·절차·검증으로 둘러싸, 매번 안정적인 결과가 나오게 만드는 틀. 이렇게 설계하는 일을 "하네스 엔지니어링"이라 합니다.</dd>
+      <dt id="g-claude-md"><code>CLAUDE.md</code></dt><dd>프로젝트의 규칙·컨벤션·금지사항을 적어 두는 마크다운 파일. Claude Code가 매 작업을 시작할 때마다 자동으로 읽어, 그 규칙 위에서 작업합니다.</dd>
+      <dt id="g-verify-loop">검증 루프</dt><dd>결과를 한 번 확인하고 끝내지 않고, 규칙·의도를 통과할 때까지 반복해서 확인하게 만드는 절차("루프 엔지니어링").</dd>
+      <dt id="g-hook">훅(Hook)</dt><dd>특정 사건이 일어날 때 자동으로 실행되는 명령. 사람이 잊어도 검증 같은 절차가 빠지지 않게 해 줍니다.</dd>
+      <dt id="g-bkit"><code>bkit</code></dt><dd>이 과정에서 사용하는 하네스 플러그인. PDCA 방법론·스킬·서브에이전트 등을 한 벌로 묶어 제공합니다.</dd>
+      <dt id="g-myapp"><code>my-app</code></dt><dd>이 과정에서 내가 만드는 앱(프로젝트)을 가리키는 이름. Day 2에서 정한 PRD 주제가 그대로 my-app이 됩니다.</dd>
+      <dt id="g-slash">슬래시 명령(Slash)</dt><dd>Claude Code에서 <code>/이름</code> 형태로 부르는, 미리 정해진 명령. 자주 쓰는 작업을 한 단어로 실행합니다.</dd>
+      <dt id="g-subagent">서브에이전트(Subagent)</dt><dd>특정 일을 위임받아 대신 처리하는 보조 AI 일꾼. 하네스의 부품으로 <code>.md</code> 파일로 정의합니다.</dd>
     </dl>
 
     <footer>← <a href="index.html">가이드북 홈으로 돌아가기</a></footer>

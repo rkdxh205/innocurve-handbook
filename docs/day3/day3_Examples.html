@@ -8,7 +8,7 @@
     :root {
       --bg: #ffffff; --bg2: #f6f8fa; --bg3: #eef1f4; --border: #d0d7de;
       --text: #1f2328; --text-dim: #636c76; --accent: #0969da;
-      --accent-g: #1a7f37; --accent-o: #953800; --accent-p: #6639ba; --accent-r: #cf222e;
+      --accent-g: #0969da; --accent-o: #0969da; --accent-p: #0969da; --accent-r: #cf222e;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -38,9 +38,9 @@
       border-top: 1px solid var(--border);
     }
     .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .dot-g { background: #1a7f37; }
+    .dot-g { background: #0969da; }
     .dot-b { background: #0969da; }
-    .dot-p { background: #6639ba; }
+    .dot-p { background: #0969da; }
     main { flex: 1; max-width: 880px; padding: 40px 52px; }
     h1 { font-size: 1.9rem; font-weight: 700; color: #1f2328; margin-bottom: 6px; }
     .subtitle { color: var(--text-dim); font-size: 13px; margin-bottom: 24px; }
@@ -57,18 +57,18 @@
       margin: 48px 0 20px; padding-bottom: 10px; border-bottom: 2px solid var(--border);
     }
     .level-title { font-size: 1.3rem; font-weight: 700; }
-    .level-title-g { color: #1a7f37; }
+    .level-title-g { color: #0969da; }
     .level-title-b { color: #0969da; }
-    .level-title-p { color: #6639ba; }
+    .level-title-p { color: #0969da; }
     .level-desc { font-size: 13px; color: var(--text-dim); }
     .badge {
       display: inline-flex; align-items: center; gap: 4px; font-size: 10.5px;
       font-weight: 700; padding: 3px 10px; border-radius: 20px;
       text-transform: uppercase; letter-spacing: .05em;
     }
-    .badge-g { background: #dafbe1; color: #116329; border: 1px solid #a2d9b1; }
+    .badge-g { background: #ddf4ff; color: #0550ae; border: 1px solid #a5d5f7; }
     .badge-b { background: #ddf4ff; color: #0550ae; border: 1px solid #a5d5f7; }
-    .badge-p { background: #fbefff; color: #6639ba; border: 1px solid #d2b9ff; }
+    .badge-p { background: #ddf4ff; color: #0969da; border: 1px solid #a5d5f7; }
     .scenario-card { border: 1px solid var(--border); border-radius: 10px; margin-bottom: 36px; overflow: hidden; }
     .card-header {
       display: flex; align-items: center; gap: 12px; padding: 16px 22px;
@@ -142,8 +142,8 @@
     .copy-btn.copied { color: #7ee787; border-color: #238636; }
     .code-caption { font-size: 12px; color: var(--text-dim); margin: 6px 0 0 2px; }
     .prompt-label {
-      display: inline-block; font-size: 11px; font-weight: 700; color: #6639ba;
-      background: #fbefff; border: 1px solid #d2b9ff; border-radius: 5px;
+      display: inline-block; font-size: 11px; font-weight: 700; color: #0969da;
+      background: #ddf4ff; border: 1px solid #a5d5f7; border-radius: 5px;
       padding: 2px 8px; margin: 4px 0 2px;
     }
     .doc-box {
@@ -733,6 +733,7 @@ function copyCode(btn) {
 </script>
 <script src="../assets/roadmap.js" defer></script>
 <script src="../assets/autolink.js" defer></script>
+<script src="../assets/glossary.js" defer></script>
 <script src="../assets/inpage-search.js" defer></script>
 </body>
 </html>

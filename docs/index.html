@@ -14,7 +14,7 @@
       --text-dim: #636c76;
       --accent: #0969da;
       --accent2: #1a7f37;
-      --accent4: #6639ba;
+      --accent4: #0969da;
       --accent6: #0550ae;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -257,6 +257,34 @@
       .roadmap-num { margin: 0; flex-shrink: 0; }
     }
 
+    /* ── 핵심 가치 워딩 (순차 등장 애니메이션) ── */
+    .value-props {
+      display: flex; justify-content: center; align-items: center;
+      gap: 20px; flex-wrap: wrap; margin: 24px 0 10px;
+    }
+    .value-props .vp-word {
+      font-size: 16.5px; font-weight: 800; letter-spacing: .01em;
+      background: linear-gradient(90deg, #0969da, #0550ae);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: #0969da;
+      opacity: 0; animation: vp-reveal .6s cubic-bezier(.2,.7,.2,1) forwards;
+    }
+    .value-props .vp-sep {
+      width: 5px; height: 5px; border-radius: 50%; background: #a5d5f7;
+      opacity: 0; animation: vp-reveal .6s cubic-bezier(.2,.7,.2,1) forwards;
+    }
+    @keyframes vp-reveal { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .value-props > :nth-child(1) { animation-delay: .15s; }
+    .value-props > :nth-child(2) { animation-delay: .45s; }
+    .value-props > :nth-child(3) { animation-delay: .70s; }
+    .value-props > :nth-child(4) { animation-delay: 1.00s; }
+    .value-props > :nth-child(5) { animation-delay: 1.25s; }
+    @media (prefers-reduced-motion: reduce) {
+      .value-props .vp-word, .value-props .vp-sep {
+        animation: none !important; opacity: 1 !important; transform: none !important;
+      }
+    }
+
     footer {
       margin-top: 48px;
       padding-top: 20px;
@@ -317,6 +345,14 @@
       <figcaption style="text-align:center;font-size:12px;color:var(--text-dim);margin-top:6px;">그림 1. 4일 로드맵 — Day 1 환경 구축부터 Day 4 앱 완성·배포·수료까지의 전체 흐름입니다.</figcaption>
     </figure>
 
+    <div class="value-props">
+      <span class="vp-word">편리하게</span>
+      <span class="vp-sep" aria-hidden="true"></span>
+      <span class="vp-word">안전하게</span>
+      <span class="vp-sep" aria-hidden="true"></span>
+      <span class="vp-word">확장 가능하게</span>
+    </div>
+
     <div class="meta">
       대상 <strong>Node.js · Git · GitHub · Vercel · OpenAI · Claude.ai · Claude Desktop · Claude Code</strong><br>공식 문서:
       각 장별 공식 문서 모음 (하단 참고 링크 참조)
@@ -325,7 +361,7 @@
     </div>
 
     <a class="card" href="glossary.html" style="display:block;margin:0 0 22px;">
-      <span class="tag" style="background:#fbefff;color:#6639ba;border:1px solid #d2b9ff;">용어집</span>
+      <span class="tag" style="background:#ddf4ff;color:#0969da;border:1px solid #a5d5f7;">용어집</span>
       <h2>📖 용어집 · 단어 모음집</h2>
       <p>문서를 읽다 모르는 단어가 나오면 여기서 뜻을 확인하세요. AI 기본 개념부터 개발 도구·인터넷·배포·보안까지 핵심 용어를 한곳에 정리했습니다. 각 문서 본문의 <strong style="color:#cf222e">빨간 글씨 용어</strong>를 눌러도 이 용어집으로 이동합니다.</p>
       <div class="go">용어집 열기 →</div>
@@ -361,7 +397,7 @@
         <a class="card" href="day2/day2_Examples.html">
           <span class="tag tag-ex">실습</span>
           <h2>AI 앱 개념과 PRD 작성 실습</h2>
-          <p>Claude Desktop으로 RAG(문서 Q&amp;A 챗봇)를 체험하고, 그 예를 바탕으로 내가 만들 앱의 PRD를 직접 작성한 뒤 AI로 검토·구체화해 <code>PRD.md</code> 한 편을 완성하는 실습입니다.</p>
+          <p>Claude Desktop으로 RAG를 체험하고, 내가 만들 문서 Q&amp;A 앱의 PRD를 직접 작성한 뒤 AI로 검토·구체화해 <code>PRD.md</code> 한 편을 완성하는 실습입니다.</p>
           <div class="go">실습 열기 →</div>
         </a>
       </div>
@@ -379,7 +415,7 @@
         <a class="card" href="day3/day3_Examples.html">
           <span class="tag tag-ex">실습</span>
           <h2>Claude Code 심화·PDCA 실습</h2>
-          <p>스킬·플러그인·서브에이전트를 다루고, <code>CLAUDE.md</code> 규칙과 검증 루프로 하네스를 세운 뒤, Day 2의 PRD를 <code>PLAN.md</code>·<code>DESIGN.md</code>로 계획·설계하고 정합성까지 검토하는 실습입니다.</p>
+          <p>스킬·플러그인·MCP를 직접 다루고, <code>CLAUDE.md</code>로 하네스를 세운 뒤, Day 2의 PRD를 <code>PLAN.md</code>·<code>DESIGN.md</code>로 계획·설계하는 실습입니다.</p>
           <div class="go">실습 열기 →</div>
         </a>
       </div>
@@ -397,7 +433,7 @@
         <a class="card" href="day4/day4_Examples.html">
           <span class="tag tag-ex">실습</span>
           <h2>PDCA 완성·배포·발표 실습</h2>
-          <p>Day 3의 계획·설계(<code>PLAN.md</code>·<code>DESIGN.md</code>)대로 내 앱을 구현하고, Gap 분석·성공 기준으로 검증·개선해 첫 PDCA 한 바퀴를 완성한 뒤, Vercel에 배포(Claude가 실행)·발표·수료로 마무리하는 실습입니다.</p>
+          <p>Day 3의 <code>PLAN.md</code>·<code>DESIGN.md</code>로 <code>doc-qa-bot</code>을 구현·검증·개선해 첫 PDCA 한 바퀴를 완성하고, Vercel 배포·발표·수료로 마무리하는 실습입니다.</p>
           <div class="go">실습 열기 →</div>
         </a>
       </div>

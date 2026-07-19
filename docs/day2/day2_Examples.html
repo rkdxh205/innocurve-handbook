@@ -8,7 +8,7 @@
     :root {
       --bg: #ffffff; --bg2: #f6f8fa; --bg3: #eef1f4; --border: #d0d7de;
       --text: #1f2328; --text-dim: #636c76; --accent: #0969da;
-      --accent-g: #1a7f37; --accent-o: #953800; --accent-p: #6639ba; --accent-r: #cf222e;
+      --accent-g: #0969da; --accent-o: #0969da; --accent-p: #0969da; --accent-r: #cf222e;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -41,9 +41,9 @@
       border-top: 1px solid var(--border);
     }
     .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .dot-g { background: #1a7f37; }
+    .dot-g { background: #0969da; }
     .dot-b { background: #0969da; }
-    .dot-p { background: #6639ba; }
+    .dot-p { background: #0969da; }
 
     /* ── 본문 ── */
     main { flex: 1; max-width: 880px; padding: 40px 52px; }
@@ -53,10 +53,10 @@
 
     /* ── 버전 박스 ── */
     .version-box {
-      background: #f0f7ff; border: 1px solid #a5d5f7; border-left: 4px solid #0969da;
+      background: #ddf4ff; border: 1px solid #a5d5f7; border-left: 4px solid #0969da;
       border-radius: 6px; padding: 14px 18px; margin-bottom: 36px; font-size: 13px;
     }
-    .version-row { display: flex; gap: 12px; padding: 3px 0; border-bottom: 1px solid #d0e8ff; }
+    .version-row { display: flex; gap: 12px; padding: 3px 0; border-bottom: 1px solid #a5d5f7; }
     .version-row:last-child { border-bottom: none; }
     .vlabel { min-width: 160px; font-weight: 600; color: #0550ae; flex-shrink: 0; }
 
@@ -66,9 +66,9 @@
       margin: 48px 0 20px; padding-bottom: 10px; border-bottom: 2px solid var(--border);
     }
     .level-title { font-size: 1.3rem; font-weight: 700; }
-    .level-title-g { color: #1a7f37; }
+    .level-title-g { color: #0969da; }
     .level-title-b { color: #0969da; }
-    .level-title-p { color: #6639ba; }
+    .level-title-p { color: #0969da; }
     .level-desc { font-size: 13px; color: var(--text-dim); }
 
     /* ── 레벨 배지 ── */
@@ -77,9 +77,9 @@
       font-weight: 700; padding: 3px 10px; border-radius: 20px;
       text-transform: uppercase; letter-spacing: .05em;
     }
-    .badge-g { background: #dafbe1; color: #116329; border: 1px solid #a2d9b1; }
+    .badge-g { background: #ddf4ff; color: #0550ae; border: 1px solid #a5d5f7; }
     .badge-b { background: #ddf4ff; color: #0550ae; border: 1px solid #a5d5f7; }
-    .badge-p { background: #fbefff; color: #6639ba; border: 1px solid #d2b9ff; }
+    .badge-p { background: #ddf4ff; color: #0550ae; border: 1px solid #a5d5f7; }
 
     /* ── 시나리오 카드 ── */
     .scenario-card { border: 1px solid var(--border); border-radius: 10px; margin-bottom: 36px; overflow: hidden; }
@@ -127,11 +127,11 @@
     .env-head {
       display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
       font-size: 14px; font-weight: 700; color: #0550ae;
-      background: #eef4fb; border: 1px solid #cfe0f5; border-left: 4px solid #0969da;
+      background: #ddf4ff; border: 1px solid #a5d5f7; border-left: 4px solid #0969da;
       border-radius: 6px; padding: 10px 14px; margin: 26px 0 14px;
     }
-    .env-head.env-ide { color: #6639ba; background: #f7f2fd; border-color: #e0d3f5; border-left-color: #6639ba; }
-    .env-head .env-note { font-size: 12px; font-weight: 600; color: #6639ba; }
+    .env-head.env-ide { color: #0969da; background: #ddf4ff; border-color: #a5d5f7; border-left-color: #0969da; }
+    .env-head .env-note { font-size: 12px; font-weight: 600; color: #0969da; }
     .step-list { list-style: none; counter-reset: step-counter; margin: 0 0 20px; }
     .step-list > li {
       counter-increment: step-counter; display: flex; gap: 14px;
@@ -139,7 +139,7 @@
     }
     .step-list > li::before {
       content: counter(step-counter); min-width: 26px; height: 26px;
-      background: #6639ba; color: #fff; border-radius: 50%;
+      background: #0969da; color: #fff; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
     }
@@ -175,8 +175,8 @@
 
     /* ── 프롬프트 라벨 ── */
     .prompt-label {
-      display: inline-block; font-size: 11px; font-weight: 700; color: #6639ba;
-      background: #fbefff; border: 1px solid #d2b9ff; border-radius: 5px;
+      display: inline-block; font-size: 11px; font-weight: 700; color: #0969da;
+      background: #ddf4ff; border: 1px solid #a5d5f7; border-radius: 5px;
       padding: 2px 8px; margin: 4px 0 2px;
     }
 
@@ -194,7 +194,7 @@
 
     /* ── 흐름/팁/경고 박스 ── */
     .flow-box {
-      background: #f0f7ff; border: 1px solid #a5d5f7; border-radius: 6px;
+      background: #ddf4ff; border: 1px solid #a5d5f7; border-radius: 6px;
       padding: 14px 18px; margin: 16px 0; font-size: 13.5px;
     }
     .flow-box::before {
@@ -359,11 +359,11 @@
       <ol class="step-list">
         <li><div class="step-content">
           <strong>Claude Desktop 채팅으로 설치 요청</strong>
-          <p><code>rag-chatbot</code> 폴더가 작업 폴더로 지정된 대화에서, 아래 프롬프트로 RAG 구현에 필요한 패키지를 한 번에 설치합니다.</p>
+          <p><code>rag-chatbot</code> 폴더에서 작업하는 대화에서, 아래 프롬프트로 RAG 구현에 필요한 패키지를 한 번에 설치합니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
             <pre class="code-block">rag-chatbot 폴더에서 아래 명령들을
-Desktop Commander로 순서대로 직접 실행해줘.
+순서대로 직접 실행해줘.
 
 npm init -y
 npm install express multer dotenv
@@ -448,11 +448,11 @@ LangChain.js를 활용해서 RAG 챗봇 서버를 구현해줘.
       <ol class="step-list">
         <li><div class="step-content">
           <strong>서버 실행 요청</strong>
-          <p>아래처럼 요청하면 Claude가 Desktop Commander로 서버를 백그라운드에서 실행합니다.</p>
+          <p>아래처럼 요청하면 Claude가 서버를 백그라운드에서 실행합니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
             <pre class="code-block">rag-chatbot 폴더에서 node server.js를
-Desktop Commander로 백그라운드 실행해줘.
+백그라운드로 실행해줘.
 서버가 켜졌는지 확인해서 알려줘.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
@@ -499,7 +499,7 @@ Desktop Commander로 백그라운드 실행해줘.
   <!-- ══════════════════════════════ PRD 작성 ══════════════════════════════ -->
   <div class="level-header">
     <span class="badge badge-p">● PRD 작성</span>
-    <span class="level-title level-title-p">Design</span>
+    <span class="level-title level-title-p">Blueprint</span>
     <span class="level-desc">만들 앱의 설계도를 글로 완성합니다</span>
   </div>
 

@@ -8,7 +8,7 @@
     :root {
       --bg: #ffffff; --bg2: #f6f8fa; --bg3: #eef1f4; --border: #d0d7de;
       --text: #1f2328; --text-dim: #636c76; --accent: #0969da;
-      --accent-g: #1a7f37; --accent-o: #953800; --accent-p: #6639ba; --accent-r: #cf222e;
+      --accent-g: #0969da; --accent-o: #0969da; --accent-p: #0969da; --accent-r: #cf222e;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -41,9 +41,9 @@
       border-top: 1px solid var(--border);
     }
     .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .dot-g { background: #1a7f37; }
+    .dot-g { background: #0969da; }
     .dot-b { background: #0969da; }
-    .dot-p { background: #6639ba; }
+    .dot-p { background: #0969da; }
 
     /* ── 본문 ── */
     main { flex: 1; max-width: 880px; padding: 40px 52px; }
@@ -66,9 +66,9 @@
       margin: 48px 0 20px; padding-bottom: 10px; border-bottom: 2px solid var(--border);
     }
     .level-title { font-size: 1.3rem; font-weight: 700; }
-    .level-title-g { color: #1a7f37; }
+    .level-title-g { color: #0969da; }
     .level-title-b { color: #0969da; }
-    .level-title-p { color: #6639ba; }
+    .level-title-p { color: #0969da; }
     .level-desc { font-size: 13px; color: var(--text-dim); }
 
     /* ── 레벨 배지 ── */
@@ -77,9 +77,9 @@
       font-weight: 700; padding: 3px 10px; border-radius: 20px;
       text-transform: uppercase; letter-spacing: .05em;
     }
-    .badge-g { background: #dafbe1; color: #116329; border: 1px solid #a2d9b1; }
+    .badge-g { background: #ddf4ff; color: #0550ae; border: 1px solid #a5d5f7; }
     .badge-b { background: #ddf4ff; color: #0550ae; border: 1px solid #a5d5f7; }
-    .badge-p { background: #fbefff; color: #6639ba; border: 1px solid #d2b9ff; }
+    .badge-p { background: #ddf4ff; color: #0969da; border: 1px solid #a5d5f7; }
 
     /* ── 시나리오 카드 ── */
     .scenario-card { border: 1px solid var(--border); border-radius: 10px; margin-bottom: 36px; overflow: hidden; }
@@ -130,8 +130,8 @@
       background: #eef4fb; border: 1px solid #cfe0f5; border-left: 4px solid #0969da;
       border-radius: 6px; padding: 10px 14px; margin: 26px 0 14px;
     }
-    .env-head.env-ide { color: #6639ba; background: #f7f2fd; border-color: #e0d3f5; border-left-color: #6639ba; }
-    .env-head .env-note { font-size: 12px; font-weight: 600; color: #6639ba; }
+    .env-head.env-ide { color: #0969da; background: #ddf4ff; border-color: #a5d5f7; border-left-color: #0969da; }
+    .env-head .env-note { font-size: 12px; font-weight: 600; color: #0969da; }
     .step-list { list-style: none; counter-reset: step-counter; margin: 0 0 20px; }
     .step-list > li {
       counter-increment: step-counter; display: flex; gap: 14px;
@@ -196,8 +196,8 @@
 
     /* ── 프롬프트 라벨 ── */
     .prompt-label {
-      display: inline-block; font-size: 11px; font-weight: 700; color: #6639ba;
-      background: #fbefff; border: 1px solid #d2b9ff; border-radius: 5px;
+      display: inline-block; font-size: 11px; font-weight: 700; color: #0969da;
+      background: #ddf4ff; border: 1px solid #a5d5f7; border-radius: 5px;
       padding: 2px 8px; margin: 4px 0 2px;
     }
 
@@ -210,6 +210,19 @@
       content: '⚙️ 내부 동작'; display: block; font-weight: 700; color: #0550ae;
       margin-bottom: 8px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
     }
+
+    /* ── 개념 한눈에 보기 ── */
+    .concept { background:#fff; border:1px solid #cfe4fb; border-radius:8px; margin:16px 0; overflow:hidden; }
+    .concept-h { background:#eaf3ff; padding:10px 16px; font-weight:700; color:#0550ae; font-size:12.5px; border-bottom:1px solid #cfe4fb; }
+    .concept-body { display:flex; gap:12px; padding:14px 16px 6px; flex-wrap:wrap; align-items:stretch; }
+    .concept-card { flex:1 1 240px; border:1px solid #d0d7de; border-radius:8px; padding:12px 14px; background:#f9fbff; }
+    .concept-card h4 { font-size:13.5px; margin:0 0 6px; color:#1f2328; }
+    .concept-card p { font-size:12.8px; color:#57606a; line-height:1.6; margin:0; }
+    .concept-card .ctag { display:inline-block; font-size:11px; font-weight:700; border-radius:5px; padding:1px 8px; margin-top:9px; }
+    .ctag.safe { background:#dafbe1; border:1px solid #a2d9b1; color:#116329; }
+    .ctag.hide { background:#fff1e5; border:1px solid #f3c08b; color:#8a4b00; }
+    .concept-key { padding:4px 16px 14px; font-size:12.8px; color:#0550ae; line-height:1.6; }
+    .concept-key strong { color:#033d8a; }
 
     /* ── 팁 박스 ── */
     .tip-box {
@@ -384,12 +397,12 @@
     <div class="card-header">
       <span class="card-id">STEP 2</span>
       <span class="badge badge-b">설치</span>
-      <strong class="card-title">Claude 구독 + Claude Desktop 준비 (커넥터 연결·작업 폴더 생성)</strong>
+      <strong class="card-title">Claude 구독 + Claude Desktop 준비 (작업 폴더 생성)</strong>
     </div>
     <div class="card-body">
 
       <div class="situation">
-        이번 과정의 작업 도구인 Claude Desktop을 쓸 수 있게 만듭니다.<br>Claude를 Pro로 구독하고 앱을 설치한 뒤, <strong>Desktop Commander 커넥터</strong> 하나를 연결해 <strong>작업 폴더(<code>hello-page</code>) 생성부터 파일 만들기·명령 실행까지 전부 채팅으로</strong> 할 수 있게 만듭니다.<span class="note">(앞으로의 모든 실습은 이 Claude Desktop 환경에서 진행합니다.)</span>
+        이번 과정의 작업 도구인 Claude Desktop을 쓸 수 있게 만듭니다.<br>Claude를 Pro로 구독하고 앱을 설치하면, <strong>작업 폴더(<code>hello-page</code>) 생성부터 파일 만들기·명령 실행까지 전부 채팅으로</strong> 할 수 있습니다. Claude Desktop은 내 컴퓨터의 파일과 명령을 <strong>이 채팅창에서 직접 다룰 수 있어</strong>, 따로 설치할 도구 없이 바로 시작합니다.<span class="note">(앞으로의 모든 실습은 이 Claude Desktop 채팅창에서 진행합니다.)</span>
       </div>
 
       <div class="cmd-list">
@@ -436,18 +449,8 @@
           </ol>
         </div></li>
         <li><div class="step-content">
-          <strong>Desktop Commander 커넥터 연결하기</strong>
-          <p>다음 단계에서 <strong>폴더 생성·프로그램 설치를 전부 채팅으로</strong> 하기 위해, Claude가 내 컴퓨터에서 명령을 대신 실행하게 해주는 <strong>"Desktop Commander"</strong> 커넥터를 먼저 연결합니다.</p>
-          <ol class="substeps">
-            <li><strong>앱 설정을 엽니다.</strong> 창 <strong>왼쪽 맨 아래의 내 이름(프로필)</strong>을 클릭한 뒤 <strong>"설정"</strong>을 누릅니다.<span class="note">(키보드로 <code>Ctrl</code> + <code>,</code>(쉼표)를 눌러도 열립니다. 채팅창 안의 톱니바퀴가 아니라 앱 전체 설정이어야 합니다.)</span></li>
-            <li>왼쪽 메뉴에서 <strong>"데스크톱 앱" 아래의 "확장 프로그램"</strong>을 클릭한 뒤, 오른쪽 위 <strong>"확장 프로그램 찾아보기"</strong>를 누릅니다. "디렉터리" 화면이 열리면 왼쪽에서 <strong>"커넥터"</strong> 탭을 선택합니다.</li>
-            <li>검색창에 <strong>"Desktop Commander"</strong>를 입력합니다. "Build, explore, and automate on your local machine with access to files and terminal."이라고 설명된 카드의 오른쪽 <strong>"+"</strong> 버튼을 눌러 설치하고, 권한 안내가 나오면 그대로 승인합니다.</li>
-            <li>설치가 끝나면 <strong>Claude Desktop을 완전히 종료했다가 다시 실행</strong>합니다. 대화창 아래 입력칸 왼쪽의 <strong><code>+</code> 버튼</strong>을 눌러 <strong>"커넥터"</strong> 목록에 <strong>Desktop Commander</strong>가 보이면 연결된 것입니다.</li>
-          </ol>
-        </div></li>
-        <li><div class="step-content">
           <strong>자연어로 작업 폴더(hello-page) 만들기</strong>
-          <p>폴더도 손으로 만들 필요 없이 Claude에게 시키면 됩니다. 새 대화창에 아래 프롬프트를 붙여넣으면, 방금 연결한 Desktop Commander가 실제로 폴더를 만들어 줍니다.</p>
+          <p>폴더도 손으로 만들 필요 없이 Claude에게 시키면 됩니다. 새 대화창에 아래 프롬프트를 붙여넣으면, Claude Desktop이 실제로 폴더를 만들어 줍니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
             <pre class="code-block">바탕화면에 hello-page 라는 폴더를 직접 만들어줘.
@@ -460,11 +463,11 @@
       </ol>
 
       <div class="security-box">
-        <strong>Desktop Commander는 권한이 넓습니다.</strong> 파일뿐 아니라 <strong>명령까지 실행</strong>할 수 있어 컴퓨터 전반에 접근할 수 있으니, Claude가 파일 작업·명령을 실행하기 전에 뜨는 <strong>"허용" 팝업</strong>을 매번 확인하세요. 낯선 명령이 보이면 바로 허용하지 말고 무슨 명령인지 먼저 물어보는 것이 안전합니다.
+        <strong>Claude Desktop은 권한이 넓습니다.</strong> 파일뿐 아니라 <strong>명령까지 실행</strong>할 수 있어 컴퓨터 전반에 접근할 수 있으니, Claude가 파일 작업·명령을 실행하기 전에 뜨는 <strong>"허용" 팝업</strong>을 매번 확인하세요. 낯선 명령이 보이면 바로 허용하지 말고 무슨 명령인지 먼저 물어보는 것이 안전합니다.
       </div>
 
       <div class="tip-box">
-        앞으로의 모든 실습(STEP 4부터)은 이 <strong>Claude Desktop 환경</strong>에서 진행합니다. 대화창에 한국어로 지시하면, Desktop Commander가 <code>hello-page</code> 폴더에 <strong>파일을 직접 만들고 명령을 실행</strong>해 줍니다.
+        앞으로의 모든 실습(STEP 4부터)은 이 <strong>Claude Desktop 채팅창</strong>에서 진행합니다. 대화창에 한국어로 지시하면, Claude Desktop이 <code>hello-page</code> 폴더에 <strong>파일을 직접 만들고 명령을 실행</strong>해 줍니다.
       </div>
 
     </div>
@@ -480,7 +483,7 @@
     <div class="card-body">
 
       <div class="situation">
-        모든 실습의 토대인 Node.js와 Git을 준비합니다.<br>STEP 2에서 연결한 <strong>Desktop Commander</strong> 덕분에, 이제 <strong>터미널을 전혀 열지 않고</strong> Node.js 설치부터 Git 설치·버전 확인까지 전부 채팅으로 끝낼 수 있습니다.
+        모든 실습의 토대인 Node.js와 Git을 준비합니다.<br>Claude Desktop이 명령을 직접 실행해 주므로, 이제 <strong>터미널을 전혀 열지 않고</strong> Node.js 설치부터 Git 설치·버전 확인까지 전부 채팅으로 끝낼 수 있습니다.
       </div>
 
       <div class="cmd-list">
@@ -496,11 +499,11 @@
       <ol class="step-list">
         <li><div class="step-content">
           <strong>Claude Desktop 채팅으로 설치 요청</strong>
-          <p>이제 대화창에 아래처럼 요청하면 Claude가 Desktop Commander를 통해 실제로 설치 명령을 대신 실행합니다.</p>
+          <p>이제 대화창에 아래처럼 요청하면 Claude가 실제로 설치 명령을 대신 실행합니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
             <pre class="code-block">Node.js LTS 버전이랑 Git이 설치되어 있는지 확인해줘.
-없으면 Desktop Commander로 직접 설치해줘.
+없으면 직접 설치해줘.
 (Windows면 winget install OpenJS.NodeJS.LTS,
 winget install Git.Git /
 macOS면 brew install node git)</pre>
@@ -534,7 +537,7 @@ git config --global user.email을 "본인이메일@example.com"으로
       </ol>
 
       <div class="tip-box">
-        Desktop Commander는 이후 실습(STEP 5~6의 앱 제작)에서도 계속 쓰입니다. <strong>파일 생성·수정</strong>부터 <code>npm install</code> 같은 <strong>설치·실행 명령</strong>까지, 필요한 작업을 전부 채팅으로 대신 해주는 도구입니다.
+        Claude Desktop은 이후 실습(STEP 5~6의 앱 제작)에서도 계속 이렇게 쓰입니다. <strong>파일 생성·수정</strong>부터 <code>npm install</code> 같은 <strong>설치·실행 명령</strong>까지, 필요한 작업을 전부 채팅으로 대신 해줍니다.
       </div>
 
       <div class="security-box">
@@ -561,7 +564,7 @@ git config --global user.email을 "본인이메일@example.com"으로
     <div class="card-body">
 
       <div class="situation">
-        코드를 한 줄도 쓰지 않고 한국어 지시(프롬프트)만으로 첫 웹페이지를 만듭니다.<br>STEP 2에서 작업 폴더로 지정한 <code>hello-page</code> 폴더를 향해, Claude Desktop 대화창에 "이런 페이지를 만들어 줘"라고 말하는 것이 전부입니다.
+        코드를 한 줄도 쓰지 않고 한국어 지시(프롬프트)만으로 첫 웹페이지를 만듭니다.<br>STEP 2에서 만든 <code>hello-page</code> 폴더를 향해, Claude Desktop 대화창에 "이런 페이지를 만들어 줘"라고 말하는 것이 전부입니다.
       </div>
 
       <div class="cmd-list">
@@ -575,7 +578,7 @@ git config --global user.email을 "본인이메일@example.com"으로
       <ol class="step-list">
         <li><div class="step-content">
           <strong>Claude Desktop에서 새 대화 시작</strong>
-          <p>Claude Desktop을 실행하고 <strong>새 대화(New chat)</strong>를 엽니다. STEP 2에서 <code>hello-page</code>를 작업 폴더로 지정했으므로, 이 대화에서 하는 지시는 그 폴더에 반영됩니다.<span class="note">(폴더가 지정되어 있지 않으면 STEP 2의 "로컬 작업 폴더 지정"을 먼저 확인하세요.)</span></p>
+          <p>Claude Desktop을 실행하고 <strong>새 대화(New chat)</strong>를 엽니다. STEP 2에서 <code>hello-page</code> 폴더를 만들었으므로, Claude에게 그 폴더에서 작업해 달라고 하면 이 대화의 지시가 그 폴더에 반영됩니다.<span class="note">(폴더가 없으면 STEP 2의 "작업 폴더 만들기"를 먼저 확인하세요.)</span></p>
         </div></li>
         <li><div class="step-content">
           <strong>.env 파일 만들고 OpenAI API Key 넣기</strong>
@@ -711,7 +714,7 @@ API Key가 실수로 업로드되지 않게 해줘.</pre>
     <div class="card-body">
 
       <div class="situation">
-        정적인 페이지를 넘어, <strong>1초마다 스스로 갱신되는</strong> 실시간 시계를 만듭니다. 새 파일을 따로 만들지 않고, STEP 4에서 만든 <code>index.html</code>(헬로페이지)에 <strong>새 섹션으로 추가</strong>합니다. (STEP 6의 챗봇은 성격이 달라, <code>index.html</code>에 섞지 않고 <strong>별도의 <code>chatbot.html</code> 파일로 따로</strong> 만듭니다.)
+        정적인 페이지를 넘어, <strong>1초마다 스스로 갱신되는</strong> 실시간 시계를 만듭니다. 새 파일을 따로 만들지 않고, STEP 4에서 만든 <code>index.html</code>(헬로페이지)에 <strong>새 섹션으로 추가</strong>합니다. (STEP 6의 챗봇도 같은 방식으로, <code>index.html</code>에 <strong>새 섹션으로 이어 붙입니다</strong>.)
       </div>
 
       <div class="steps-title">단계별 실행</div>
@@ -760,102 +763,126 @@ API Key가 실수로 업로드되지 않게 해줘.</pre>
     <div class="card-header">
       <span class="card-id">STEP 6</span>
       <span class="badge badge-p">실습</span>
-      <strong class="card-title">🤖 AI 챗봇 — HTML + 서버 코드로 안전하게 만들기</strong>
+      <strong class="card-title">🤖 AI 챗봇 — 헬로페이지 한 파일에 이어 붙이기</strong>
     </div>
     <div class="card-body">
 
       <div class="situation">
-        이번엔 진짜 <strong>AI 챗봇</strong>을 만듭니다. 화면(HTML)에서 OpenAI를 직접 호출하면 <strong>API 키가 그대로 노출</strong>되어 위험하므로, "화면"과 "키를 대신 보관해 호출해 주는 작은 서버 코드"로 나눠 만듭니다.<br>자기소개 페이지(<code>index.html</code>)와는 섞지 않고, <strong>챗봇만 담은 별도의 <code>chatbot.html</code> 파일로 따로</strong> 만듭니다. 파이썬 설치 없이 지금까지처럼 <strong>Claude Desktop 채팅만으로</strong> 만들고, 만드는 즉시 내 컴퓨터에서 화면을 열어 확인합니다. STEP 1에서 발급한 OpenAI 키와 STEP 4에서 만든 <code>.env</code>를 그대로 씁니다.
+        이번엔 진짜 <strong>AI 챗봇</strong> 섹션을 STEP 4의 <code>index.html</code>(헬로페이지)에 이어 붙여, <strong>자기소개·시계·챗봇을 한 파일에서 모두</strong> 동작하게 만듭니다. 화면(HTML)에서 OpenAI를 직접 호출하면 <strong>API 키가 그대로 노출</strong>되어 위험하므로, 키를 안전하게 대신 다뤄 주는 <strong>아주 작은 연결 파일 <code>api/chat.js</code> 하나</strong>만 곁들입니다. 이 파일이 <code>.env</code>에 넣어 둔 키를 대신 읽어 OpenAI에 전달하므로, 화면 코드(<code>index.html</code>)에는 키를 한 글자도 적지 않습니다.<br>파이썬 설치 없이 지금까지처럼 <strong>Claude Desktop 채팅만으로</strong> 만들고, 로컬 확인은 Vercel CLI의 <code>vercel dev</code> 명령으로 합니다. STEP 1에서 발급한 OpenAI 키와 STEP 4에서 만든 <code>.env</code>를 그대로 씁니다.
       </div>
 
       <div class="security-box">
-        <strong>Q. 페이지(HTML)만 만들면 안 되나요? 서버는 왜 필요하죠?</strong><br>
-        A. 화면(HTML)에서 OpenAI를 직접 부르려면 <strong>API 키를 화면 코드에 그대로 적어야</strong> 합니다. 그러면 브라우저 "소스 보기"로 <strong>누구나 키를 볼 수 있고</strong>, STEP 7에서 인터넷에 공개하면 남이 내 키로 과금까지 할 수 있습니다. 그래서 <strong>키를 대신 숨겨서 호출해 주는 작은 서버</strong>를 두는 겁니다. (시계·자기소개는 비밀 키가 없어 서버 없이 페이지만으로 충분했고, 챗봇은 비밀 키를 쓰기 때문에 서버가 필요합니다.)
+        <strong>Q. 왜 <code>index.html</code> 말고 파일이 하나 더 필요하죠?</strong><br>
+        A. <code>.env</code>에 넣어 둔 키는 <strong>화면(브라우저)에서는 읽을 수 없습니다.</strong> <code>.env</code>를 읽을 수 있는 건 화면 뒤에서 조용히 도는 작은 연결 파일뿐이라, <code>api/chat.js</code>가 그 역할을 합니다. 이 파일이 <code>.env</code>의 키를 대신 읽어 OpenAI를 호출하므로, 브라우저에는 키가 절대 전달되지 않습니다. 만약 이 파일 없이 <code>index.html</code>에서 곧바로 OpenAI를 부르면 <strong>키를 화면 코드에 직접 적어야 하고</strong> — 브라우저 "소스 보기"로 누구나 볼 수 있어, STEP 7에서 공개 배포하면 남이 내 키로 과금까지 할 수 있습니다. (시계·자기소개는 비밀 키가 없어 이 파일 없이 충분했고, 챗봇은 비밀 키를 쓰기 때문에 필요합니다.)
+      </div>
+
+      <div class="concept">
+        <div class="concept-h">🧩 개념 한눈에 — 왜 파일이 둘로 나뉘나?</div>
+        <div class="concept-body">
+          <div class="concept-card">
+            <h4>🖥️ 화면 파일 · <code>index.html</code></h4>
+            <p>사람이 눈으로 보는 부분. 자기소개·시계·챗봇 UI가 모두 여기 한 파일에 들어 있습니다. 브라우저가 그대로 열어 보여주므로, 비밀 키는 두지 않습니다.</p>
+            <span class="ctag safe">비밀 키 없음 · 안전</span>
+          </div>
+          <div class="concept-card">
+            <h4>🔑 연결 파일 · <code>api/chat.js</code></h4>
+            <p>화면 뒤에서 조용히 도는 작은 파일. 화면이 보낸 대화를 받아, <code>.env</code>의 키를 대신 읽어 OpenAI에 요청하고 답만 화면에 돌려줍니다. 키는 이 파일 안에서만 쓰입니다.</p>
+            <span class="ctag hide">키를 숨겨 대신 호출</span>
+          </div>
+        </div>
+        <div class="concept-key">
+          🔎 <strong>왜 굳이 둘로?</strong> — 브라우저(화면)는 보안상 <code>.env</code> 파일을 읽지 못합니다. 그래서 화면에서 OpenAI를 곧바로 부르면 키를 <code>index.html</code>에 직접 적어야 하고 → 공개되면 그대로 노출됩니다. <code>.env</code>를 읽을 수 있는 <code>api/chat.js</code>에게 호출을 <strong>대신</strong> 맡기면, 키가 브라우저로 넘어가지 않아 안전합니다. 이 파일은 우리가 직접 켜서 관리하지 않아도 <strong>Vercel이 알아서 실행</strong>해 줍니다(로컬은 <code>vercel dev</code>).
+        </div>
       </div>
 
       <div class="steps-title">단계별 실행</div>
 
-      <div class="env-head">1️⃣ 서버 코드 만들기 <span class="env-note" style="color:#0550ae;">— API 키를 대신 다루는 부분</span></div>
+      <div class="env-head">1️⃣ 챗봇 연결 파일 만들기 <span class="env-note" style="color:#0550ae;">— api/chat.js, 키를 대신 다루는 부분</span></div>
       <ol class="step-list">
         <li><div class="step-content">
-          <strong>서버 코드 요청</strong>
-          <p>Claude Desktop 대화에 아래 프롬프트를 붙여넣습니다. Node.js만으로 동작하는 로컬 서버(<code>server.js</code>)와, 나중에 STEP 7에서 Vercel에 그대로 배포할 서버 함수(<code>api/chat.js</code>)를 한 번에 만듭니다.</p>
+          <strong>api/chat.js 요청</strong>
+          <p>Claude Desktop 대화에 아래 프롬프트를 붙여넣습니다. <code>index.html</code>이 보낸 메시지를 받아 OpenAI에 전달하고, <code>.env</code>의 키를 대신 읽어 주는 작은 파일 하나만 만듭니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">hello-page 폴더에 아래 두 파일을 직접 만들어줘.
-
-① server.js — Node.js 내장 http 모듈만으로 만드는 로컬 서버
-(추가 라이브러리 설치 없이 동작해야 함):
-- hello-page 폴더의 정적 파일(index.html 등)을 그대로 보여줌
-- POST /api/chat 요청을 받으면 요청 본문의 messages 배열을
+            <pre class="code-block">hello-page 폴더에 api/chat.js 파일을 만들어줘.
+- module.exports = async (req, res) => {...} 형식으로 작성
+- POST 요청의 body에 담긴 messages 배열을 받아
   https://api.openai.com/v1/chat/completions 에 그대로 전달
   (model: gpt-4o-mini), 응답을 그대로 클라이언트에 돌려줌
-- Authorization 헤더용 API 키는 hello-page 폴더의 .env 파일에서
-  OPENAI_API_KEY를 직접 읽어서 사용 (라이브러리 없이 .env를 직접 파싱)
-- 키가 없으면 서버가 죽지 않고 { error: "API 키가 없습니다" }를 응답
-- 포트는 3000번, 서버가 켜지면 콘솔에 "http://localhost:3000" 출력
-
-② api/chat.js — 위와 완전히 같은 로직을 Vercel 서버리스 함수
-형식(module.exports = async (req, res) => {...})으로 작성.
-이건 지금 당장은 실행하지 않고, STEP 7에서 배포할 때 Vercel이
-자동으로 인식해서 사용할 파일이야.</pre>
+- Authorization 헤더용 API 키는 process.env.OPENAI_API_KEY를 사용해줘
+  (로컬에서는 vercel dev가 .env 파일을, 배포 후에는 Vercel 프로젝트의
+  환경 변수를 자동으로 이 값에 채워주니, 코드에서 직접 .env를 읽을 필요는 없어)
+- 키가 없으면 { error: "API 키가 없습니다" }를 응답
+- POST가 아닌 요청은 405 에러로 응답</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
         </div></li>
       </ol>
 
-      <div class="env-head env-ide">2️⃣ 챗봇 페이지(chatbot.html) 따로 만들기</div>
+      <div class="env-head env-ide">2️⃣ 헬로페이지(index.html)에 챗봇 섹션 이어 붙이기</div>
       <ol class="step-list">
         <li><div class="step-content">
-          <strong>챗봇 페이지 요청</strong>
-          <p>자기소개 페이지(<code>index.html</code>)는 그대로 두고, 아래 프롬프트로 챗봇만 담긴 <strong>새 파일 <code>chatbot.html</code></strong>을 따로 만듭니다.</p>
+          <strong>챗봇 섹션 요청</strong>
+          <p>같은 Claude Desktop 대화에서 아래 프롬프트를 붙여넣습니다. 기존 자기소개·시계 내용은 그대로 두고, 그 아래에 챗봇 섹션을 새로 이어 붙입니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">hello-page 폴더에 chatbot.html 파일을 새로 만들어줘.
-(기존 index.html은 건드리지 말고, 챗봇만 담긴 독립 페이지야.)
+            <pre class="code-block">hello-page 폴더의 index.html에 새 섹션을 추가해줘.
+기존 자기소개·시계 내용은 절대 지우지 말고 그 아래에 이어 붙여줘.
+"My First Chatbot"이라는 이름의 채팅 섹션이야.
 요구사항:
-- 페이지 제목은 "My First Chatbot"
 - 메시지 목록 + 입력창 + 전송 버튼으로 된 채팅 UI
 - 지금까지의 대화를 배열로 기억해서(새로고침하면 초기화됨),
-  매번 전체 대화를 함께 서버로 전송
+  매번 전체 대화를 함께 /api/chat 으로 전송
 - 전송 버튼을 누르면 fetch로 /api/chat에 POST 요청을 보내고
   (body는 { messages: [...] } 형태의 JSON),
   응답을 채팅 화면에 표시
 - 응답을 기다리는 동안 "생각 중..." 표시
-- 전체적으로 파란색 계열로 깔끔하게
-- 상단에 hello-page 폴더의 재정경제부.svg 로고를 넣고,
-  그 로고를 누르면 index.html(자기소개)로 돌아가게 해줘</pre>
+- 위쪽 시계 섹션과 어울리게, 전체적으로 파란색 계열의 카드 형태로</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
         </div></li>
       </ol>
 
-      <div class="env-head">3️⃣ 로컬에서 서버 켜고 바로 확인 <span class="env-note" style="color:#0550ae;">— 만드는 즉시 확인</span></div>
+      <div class="env-head">3️⃣ 로컬에서 바로 확인 <span class="env-note" style="color:#0550ae;">— vercel dev로 미리 보기</span></div>
       <ol class="step-list">
         <li><div class="step-content">
-          <strong>서버 실행 요청</strong>
-          <p>터미널을 직접 열지 않고, 아래처럼 요청하면 Claude가 Desktop Commander로 서버를 백그라운드에서 실행합니다.</p>
+          <strong>Vercel CLI 준비 (처음 한 번만)</strong>
+          <p>로컬에서 챗봇을 확인하려면 <code>vercel</code>이라는 도구가 필요합니다. STEP 3에서 Node·Git을 설치했던 것처럼, <strong>터미널을 열지 않고</strong> 아래 프롬프트로 Claude에게 설치·로그인을 맡깁니다. (이미 해 두었다면 건너뜁니다.)</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">hello-page 폴더에서 node server.js를
-Desktop Commander로 백그라운드 실행해줘.
-서버가 켜졌는지 확인해서 알려줘.</pre>
+            <pre class="code-block">vercel CLI가 설치돼 있는지 확인하고, 없으면
+npm install -g vercel 를 실행해 설치해줘.
+그다음 vercel login도 실행해줘.
+로그인 중 브라우저 창이 열리면 내가 Vercel 계정으로 승인할게.</pre>
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
+          </div>
+          <p class="note" style="padding-left:2px;">로그인 확인 창이 브라우저에 뜨면, STEP 1에서 만든 Vercel 계정으로 "승인(Confirm)"을 눌러 주세요.</p>
+        </div></li>
+        <li><div class="step-content">
+          <strong>vercel dev 실행 요청</strong>
+          <p>아래처럼 요청하면 Claude가 <code>vercel dev</code>를 백그라운드에서 실행합니다. 이 명령이 <code>index.html</code>을 보여주면서 <code>api/chat.js</code>도 함께 실행해 주므로, 챗봇이 실제로 답을 받아옵니다.</p>
+          <span class="prompt-label">프롬프트</span>
+          <div class="code-wrap">
+            <pre class="code-block">hello-page 폴더에서 vercel dev를
+백그라운드로 실행해줘.
+처음 실행이라 설정 질문이 나오면 전부 기본값(Enter)으로 진행해줘.
+실행됐는지 확인해서 알려줘.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
         </div></li>
         <li><div class="step-content">
           <strong>브라우저로 확인</strong>
-          <p>브라우저 주소창에 <code>http://localhost:3000/chatbot.html</code>을 입력해 접속합니다. 채팅창이 보이고, 메시지를 입력해 답이 오면 성공입니다. (자기소개 페이지는 <code>http://localhost:3000/</code>에서 따로 열립니다.)</p>
-          <p class="note" style="padding-left:2px;">코드를 고친 뒤에는 Claude에게 "서버 재시작해줘"라고 요청하고 브라우저를 새로고침(F5)하세요. 다 끝나면 "서버 종료해줘"라고 요청하면 됩니다.</p>
+          <p>브라우저 주소창에 <code>http://localhost:3000</code>을 입력해 접속합니다. 자기소개·시계 아래에 챗봇 섹션이 보이고, 메시지를 입력해 답이 오면 성공입니다.</p>
+          <p class="note" style="padding-left:2px;">코드를 고친 뒤에는 Claude에게 "vercel dev 다시 실행해줘"라고 요청하고 브라우저를 새로고침(F5)하세요. 다 끝나면 "vercel dev 종료해줘"라고 요청하면 됩니다.</p>
         </div></li>
       </ol>
 
       <div class="tip-box">
-        <code>server.js</code>(로컬 테스트용)와 <code>api/chat.js</code>(배포용)는 로직이 같아야 합니다. 코드를 고칠 땐 "server.js랑 api/chat.js 둘 다 똑같이 고쳐줘"처럼 <strong>두 파일을 함께</strong> 요청하세요.
+        이제 <code>index.html</code> 하나에 자기소개·시계·챗봇 세 섹션이 모두 들어 있고, 곁들인 <code>api/chat.js</code>는 로컬(<code>vercel dev</code>)과 배포(Vercel) 양쪽에서 <strong>같은 파일 그대로</strong> 쓰입니다. 따로 관리할 코드가 없습니다.
       </div>
 
       <div class="security-box">
-        ① API 키는 <code>.env</code>에만 두고 <code>chatbot.html</code>·<code>server.js</code>에 직접 적지 마세요(서버 코드가 <code>.env</code>를 읽어오는 구조라야 안전합니다). ② GPT 호출은 <strong>API 사용료가 조금씩 과금</strong>됩니다(STEP 1의 $5 한도 안에서). ③ 실제로 인터넷에 공개 배포할 때는(STEP 7) <code>.env</code>가 아니라 <strong>Vercel 프로젝트 설정에 별도로 API 키를 등록</strong>해야 합니다 — STEP 7에서 안내합니다. ④ 오류가 나면 그대로 붙여넣어 "이 오류 고쳐줘"라고 요청하면 됩니다.
+        ① API 키는 <code>.env</code>에만 두고 <code>index.html</code>·<code>api/chat.js</code>에 직접 적지 마세요(<code>api/chat.js</code>가 <code>.env</code>·환경 변수를 자동으로 읽어오는 구조라야 안전합니다). ② GPT 호출은 <strong>API 사용료가 조금씩 과금</strong>됩니다(STEP 1의 $5 한도 안에서). ③ 실제로 인터넷에 공개 배포할 때는(STEP 7) <code>.env</code>가 아니라 <strong>Vercel 프로젝트 설정에 별도로 API 키를 등록</strong>해야 합니다 — STEP 7에서 안내합니다. ④ 오류가 나면 그대로 붙여넣어 "이 오류 고쳐줘"라고 요청하면 됩니다.
       </div>
 
     </div>
@@ -878,7 +905,7 @@ Desktop Commander로 백그라운드 실행해줘.
     <div class="card-body">
 
       <div class="situation">
-        내 컴퓨터에만 있던 <strong>웹 결과물(자기소개·시계가 담긴 <code>index.html</code>과 챗봇 페이지 <code>chatbot.html</code>)</strong>을 누구나 접속할 수 있는 인터넷 주소로 배포합니다. "만들고 → 고치고 → 세상에 공개"의 마지막 단계입니다.<span class="note">(두 페이지와 <code>api/</code> 폴더를 폴더째 한 번에 배포합니다.)</span>
+        내 컴퓨터에만 있던 <strong>웹 결과물(자기소개·시계·챗봇이 모두 담긴 <code>index.html</code>과 챗봇 연결 파일 <code>api/chat.js</code>)</strong>을 누구나 접속할 수 있는 인터넷 주소로 배포합니다. "만들고 → 고치고 → 세상에 공개"의 마지막 단계입니다.<span class="note">(<code>index.html</code>과 <code>api/</code> 폴더를 폴더째 한 번에 배포합니다.)</span>
       </div>
 
       <div class="cmd-list">
@@ -889,10 +916,10 @@ Desktop Commander로 백그라운드 실행해줘.
         </div>
       </div>
 
-      <p style="font-size:13.5px; color:var(--text-dim); margin-bottom:4px;">완성된 웹 페이지·서버 함수(<code>index.html</code>·<code>chatbot.html</code>·<code>api/</code> 폴더)를 인터넷에 배포합니다. 배포 방법은 두 가지가 있으니, <strong>둘 중 편한 방법 하나</strong>를 선택해 진행하면 됩니다.</p>
+      <p style="font-size:13.5px; color:var(--text-dim); margin-bottom:4px;">완성된 웹 페이지·챗봇 연결 파일(<code>index.html</code>·<code>api/</code> 폴더)을 인터넷에 배포합니다. <strong>터미널 없이</strong>, GitHub와 Vercel 사이트에서 클릭만으로 진행합니다.</p>
 
-      <!-- 방법 ①: GitHub + Vercel 사이트 -->
-      <div class="env-head">🌐 방법 ① · GitHub 업로드 후 Vercel 사이트에서 배포 <span class="env-note" style="color:#0550ae;">— 이후 자동 재배포</span></div>
+      <!-- GitHub + Vercel 사이트 -->
+      <div class="env-head">🌐 GitHub 업로드 후 Vercel 사이트에서 배포 <span class="env-note" style="color:#0550ae;">— 이후 자동 재배포</span></div>
       <ol class="step-list">
         <li><div class="step-content">
           <strong>GitHub에 새 저장소(repository) 만들기</strong>
@@ -909,7 +936,7 @@ Desktop Commander로 백그라운드 실행해줘.
           <p>터미널 없이 GitHub 사이트에서 파일을 바로 올릴 수 있습니다. 방금 만든 빈 저장소 화면에서 진행합니다.</p>
           <ol class="substeps">
             <li>저장소 화면의 <strong>"Add file" → "Upload files"</strong>를 클릭합니다.</li>
-            <li><code>hello-page</code> 폴더에서 <strong><code>index.html</code>·<code>chatbot.html</code>·<code>재정경제부.svg</code>·<code>api</code> 폴더(그 안의 <code>chat.js</code> 포함)</strong>를 끌어다 놓거나 "choose your files"로 선택합니다.<span class="note">(⚠️ <code>.env</code>는 절대 올리지 마세요 — API Key가 그대로 노출됩니다. <code>server.js</code>는 로컬 테스트 전용이라 올려도 안 올려도 상관없습니다.)</span></li>
+            <li><code>hello-page</code> 폴더에서 <strong><code>index.html</code>·<code>재정경제부.svg</code>·<code>api</code> 폴더(그 안의 <code>chat.js</code> 포함)</strong>를 끌어다 놓거나 "choose your files"로 선택합니다.<span class="note">(⚠️ <code>.env</code>는 절대 올리지 마세요 — API Key가 그대로 노출됩니다. <code>vercel dev</code>가 만든 <code>.vercel</code> 폴더도 올릴 필요 없습니다.)</span></li>
             <li>아래 <strong>"Commit changes"</strong> 버튼을 눌러 업로드를 확정합니다.</li>
             <li>저장소에 파일들이 올라온 것을 확인합니다.</li>
           </ol>
@@ -933,41 +960,11 @@ Desktop Commander로 백그라운드 실행해줘.
         </div></li>
       </ol>
 
-      <!-- 방법 ②: 터미널(Vercel CLI) -->
-      <div class="env-head env-ide">💻 방법 ② · 터미널(Vercel CLI)로 바로 배포 <span class="env-note">— 명령 한 줄로 빠르게</span></div>
-      <ol class="step-list">
-        <li><div class="step-content">
-          <strong>Vercel CLI 설치 및 로그인</strong>
-          <p><strong>터미널</strong>(Windows는 PowerShell, macOS는 터미널)을 열고, 아래 명령으로 Vercel 도구를 설치한 뒤 STEP 1에서 만든 계정으로 로그인합니다.</p>
-          <div class="code-wrap">
-            <pre class="code-block"><span class="c-cmd">npm</span> install -g vercel
-<span class="c-cmd">vercel</span> login</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-        </div></li>
-        <li><div class="step-content">
-          <strong>배포 실행</strong>
-          <p>같은 터미널에서 <code>hello-page</code> 폴더로 이동한 뒤 아래를 실행합니다. 안내 질문에는 대부분 Enter(기본값)로 진행합니다.<span class="note">(폴더 이동: <code>cd hello-page</code>. 이미 그 폴더에 있으면 생략합니다.)</span></p>
-          <div class="code-wrap">
-            <pre class="code-block"><span class="c-comment"># 미리 보기 배포</span>
-<span class="c-cmd">vercel</span>
-
-<span class="c-comment"># 최종(정식) 배포</span>
-<span class="c-cmd">vercel</span> --prod</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-        </div></li>
-        <li><div class="step-content">
-          <strong>공개 주소 접속</strong>
-          <p>터미널에 출력된 <code>https://hello-page-xxxx.vercel.app</code> 주소를 브라우저에 입력해, 내가 만든 페이지가 인터넷에 공개된 것을 확인합니다. 이 주소는 다른 사람에게 공유해도 그대로 접속됩니다.</p>
-        </div></li>
-      </ol>
-
-      <div class="env-head">🔑 챗봇을 위한 마지막 단계 · Vercel에 API 키 등록 <span class="env-note" style="color:#0550ae;">— 방법 ①·② 공통, 필수</span></div>
+      <div class="env-head">🔑 챗봇을 위한 마지막 단계 · Vercel에 API 키 등록 <span class="env-note" style="color:#0550ae;">— 배포 후 필수</span></div>
       <ol class="step-list">
         <li><div class="step-content">
           <strong>왜 필요한가</strong>
-          <p>지금까지는 <code>server.js</code>가 내 컴퓨터의 <code>.env</code> 파일을 읽어서 <code>chatbot.html</code>의 챗봇에 답해 왔습니다. 하지만 <code>.env</code>는 방금 GitHub에 올리지 않았으므로, <strong>Vercel 서버(<code>api/chat.js</code>)에는 API 키가 없는 상태</strong>입니다. 이 상태에서는 배포된 챗봇이 "API 키가 없습니다" 오류를 보여줍니다.</p>
+          <p>지금까지는 로컬에서 <code>vercel dev</code>가 내 컴퓨터의 <code>.env</code> 파일을 읽어서 <code>index.html</code>의 챗봇에 답해 왔습니다. 하지만 <code>.env</code>는 방금 GitHub에 올리지 않았으므로, <strong>배포된 <code>api/chat.js</code>에는 API 키가 없는 상태</strong>입니다. 이 상태에서는 배포된 챗봇이 "API 키가 없습니다" 오류를 보여줍니다.</p>
         </div></li>
         <li><div class="step-content">
           <strong>환경 변수 등록</strong>
@@ -985,16 +982,16 @@ Desktop Commander로 백그라운드 실행해줘.
         </div></li>
         <li><div class="step-content">
           <strong>배포된 챗봇 확인</strong>
-          <p>재배포가 끝나면 <code>https://hello-page-xxxx.vercel.app/chatbot.html</code>에 접속해, 챗봇이 로컬에서 확인했던 것과 똑같이 동작하는지 확인합니다.</p>
+          <p>재배포가 끝나면 <code>https://hello-page-xxxx.vercel.app</code>에 접속해, 챗봇이 로컬에서 확인했던 것과 똑같이 동작하는지 확인합니다.<span class="note">(챗봇은 별도 주소가 아니라 메인 페이지 안의 한 섹션입니다.)</span></p>
         </div></li>
       </ol>
 
       <div class="security-box">
-        Vercel의 <strong>Environment Variables</strong>에 등록한 키는 서버(함수) 안에서만 쓰이고 브라우저로는 절대 전달되지 않아 안전합니다. 반대로 <code>index.html</code> 같은 화면 코드에 <code>sk-...</code> 키를 직접 적는 것은 절대 금지입니다 — 그건 방금 GitHub에 공개로 올린 파일이라 누구나 볼 수 있습니다.
+        Vercel의 <strong>Environment Variables</strong>에 등록한 키는 연결 파일(<code>api/chat.js</code>) 안에서만 쓰이고 브라우저로는 절대 전달되지 않아 안전합니다. 반대로 <code>index.html</code> 같은 화면 코드에 <code>sk-...</code> 키를 직접 적는 것은 절대 금지입니다 — 그건 방금 GitHub에 공개로 올린 파일이라 누구나 볼 수 있습니다.
       </div>
 
       <div class="flow-box">
-        Vercel은 파일을 자사 서버에 올리고 인터넷에서 접속할 수 있는 고유 주소를 자동으로 만들어 줍니다. 방법 ①은 <strong>GitHub 저장소</strong>를, 방법 ②는 <strong>내 컴퓨터의 폴더</strong>를 곧바로 올린다는 점만 다를 뿐, 결과(공개 URL)는 같습니다. <code>api/</code> 폴더 안의 파일은 Vercel이 자동으로 <strong>서버 함수</strong>로 인식해 실행합니다.
+        Vercel은 GitHub에 올린 파일을 인터넷상의 자기 저장 공간에 올리고, 누구나 접속할 수 있는 고유 주소를 자동으로 만들어 줍니다. 한 번 연결해 두면, 앞으로 코드를 고쳐 <strong>GitHub에 다시 올리기만 하면</strong> Vercel이 자동으로 다시 배포합니다. <code>api/</code> 폴더 안의 파일은 Vercel이 자동으로 인식해 실행합니다.
       </div>
 
       <div class="related-cmds">
