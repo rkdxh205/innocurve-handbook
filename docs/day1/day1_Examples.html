@@ -282,7 +282,7 @@
   <div class="nav-title">Day 1 · 실습</div>
 
   <div class="nav-group">환경 설치</div>
-  <a href="#step-1"><span class="dot dot-g"></span>STEP 1 · GitHub · Vercel · OpenAI 준비</a>
+  <a href="#step-1"><span class="dot dot-g"></span>STEP 1 · GitHub·Vercel·OpenAI·Supabase 준비</a>
   <a href="#step-2"><span class="dot dot-b"></span>STEP 2 · Claude 구독·설치</a>
   <a href="#step-3"><span class="dot dot-g"></span>STEP 3 · Node.js · Git 설치·확인</a>
 
@@ -324,18 +324,18 @@
     <div class="card-header">
       <span class="card-id">STEP 1</span>
       <span class="badge badge-g">계정</span>
-      <strong class="card-title">GitHub · Vercel · OpenAI 계정 3종 준비하기</strong>
+      <strong class="card-title">GitHub · Vercel · OpenAI · Supabase 계정 준비하기</strong>
     </div>
     <div class="card-body">
 
       <div class="situation">
-        아직 아무것도 없는 첫 시작입니다. 이후 실습에서 쓸 온라인 계정 세 가지를 먼저 만들어 둡니다.<br>GitHub(코드 저장), Vercel(배포), OpenAI(API Key)를 순서대로 준비하면 뒤 실습에서 멈추지 않습니다.
+        아직 아무것도 없는 첫 시작입니다. 이후 실습에서 쓸 온라인 계정을 먼저 만들어 둡니다.<br>GitHub(코드 저장), Vercel(배포), OpenAI(API Key), Supabase(로그인·데이터 저장)를 순서대로 준비하면 뒤 실습에서 멈추지 않습니다.<span class="note">(Vercel·Supabase는 GitHub 계정으로 바로 가입하므로 GitHub를 가장 먼저 만듭니다.)</span>
       </div>
 
       <div class="cmd-list">
         <div class="cmd-list-title">관련 이론</div>
         <div class="cmd-chips">
-          <a class="cmd-chip" href="day1_Manual.html#section-2">GitHub·Vercel·OpenAI의 이해</a>
+          <a class="cmd-chip" href="day1_Manual.html#section-2">GitHub·Vercel·OpenAI·Supabase의 이해</a>
         </div>
       </div>
 
@@ -359,6 +359,15 @@
             <li><strong>"Continue with GitHub"</strong> 버튼을 클릭합니다.</li>
             <li>GitHub 로그인 화면이 뜨면 로그인하고, <strong>"Authorize Vercel"</strong>을 클릭해 연동을 허용합니다.</li>
             <li>Vercel 대시보드가 열리면 가입이 완료된 것입니다.</li>
+          </ol>
+        </div></li>
+        <li><div class="step-content">
+          <strong>Supabase 가입 (GitHub 연동)</strong>
+          <p>회원 로그인·데이터 저장에 쓸 <strong>Supabase</strong>도 미리 가입해 둡니다. <a href="https://supabase.com" target="_blank" rel="noopener">supabase.com</a>에 접속해 <strong>"Start your project"</strong>를 클릭합니다.</p>
+          <ol class="substeps">
+            <li><strong>"Continue with GitHub"</strong> 버튼을 클릭합니다.</li>
+            <li>GitHub 로그인 화면이 뜨면 로그인하고, <strong>"Authorize Supabase"</strong>를 클릭해 연동을 허용합니다.</li>
+            <li>Supabase 대시보드가 열리면 가입이 완료된 것입니다.<span class="note">(프로젝트 생성과 키 발급은 실제로 쓰는 <a href="#step-6">STEP 6</a>에서 진행합니다.)</span></li>
           </ol>
         </div></li>
         <li><div class="step-content">
@@ -780,6 +789,13 @@ API Key가 실수로 업로드되지 않게 해줘.</pre>
         지금까지의 페이지는 <strong>누구나 똑같이</strong> 봅니다. 이번에는 <strong>로그인·회원가입</strong>을 더해 <strong>각자 자기 계정으로 접속</strong>하게 만듭니다. 저장은 <strong>Supabase(무료 클라우드 DB)</strong>를 쓰되, Supabase의 로그인 기능(Auth)은 쓰지 않고 <strong>직접 만든 <code>user</code> 테이블</strong>로 처리합니다. 비밀번호는 반드시 <strong>해시(암호화)로 저장</strong>합니다. 파이썬 없이, 지금까지처럼 <strong>hello-page의 <code>index.html</code></strong>에 로그인 화면을 이어 붙이고, 키를 안전하게 다루는 작은 <strong><code>api/*.js</code></strong>를 곁들입니다.<br><span class="note">(여기서 만든 로그인은 <strong>2일차 RAG 챗봇</strong>에서 그대로 이어받아 "내 대화·문서만 보기"로 확장합니다.)</span>
       </div>
 
+      <div class="cmd-list">
+        <div class="cmd-list-title">관련 이론</div>
+        <div class="cmd-chips">
+          <a class="cmd-chip" href="day1_Manual.html#section-2">Supabase의 이해</a>
+        </div>
+      </div>
+
       <div class="security-box">
         <strong>Q. 비밀번호를 그냥 저장하면 안 되나요?</strong><br>
         A. 절대 안 됩니다. 비밀번호를 <strong>평문(그대로)으로 저장하면</strong>, DB가 유출될 때 모든 사용자의 비밀번호가 그대로 새어 나갑니다. 그래서 되돌릴 수 없는 <strong>해시</strong>로 바꿔 저장하고, 로그인할 때는 입력값을 같은 방식으로 해시해서 <strong>비교만</strong> 합니다. 이 실습에서도 해시 저장을 필수로 요청합니다.
@@ -791,7 +807,7 @@ API Key가 실수로 업로드되지 않게 해줘.</pre>
       <ol class="step-list">
         <li><div class="step-content">
           <strong>Supabase 프로젝트 만들기 (사람이 직접)</strong>
-          <p><a href="https://supabase.com" target="_blank" rel="noopener">supabase.com</a>에 가입하고 <strong>New project</strong>로 프로젝트를 하나 만듭니다. 생성 후 <strong>Project Settings → API</strong>에서 <code>Project URL</code>과 <code>anon public</code> 키를 복사해 둡니다. (이 두 값이 STEP 1의 OpenAI 키처럼 앞으로 쓰는 접속 정보입니다.)</p>
+          <p><a href="#step-1">STEP 1</a>에서 GitHub 연동으로 가입한 <strong>Supabase</strong>에 로그인한 뒤, <strong>New project</strong>로 프로젝트를 하나 만듭니다. 생성 후 <strong>Project Settings → API</strong>에서 <code>Project URL</code>과 <code>anon public</code> 키를 복사해 둡니다. (이 두 값이 STEP 1의 OpenAI 키처럼 앞으로 쓰는 접속 정보입니다.)</p>
           <p class="note" style="padding-left:2px;">무료 플랜으로 충분합니다. 프로젝트 준비에 1~2분 걸릴 수 있어요.</p>
         </div></li>
         <li><div class="step-content">

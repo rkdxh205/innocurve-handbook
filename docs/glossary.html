@@ -115,6 +115,7 @@
       <dt id="g-supabase-url">Supabase 접속 주소(<code>Project URL</code> · <code>SUPABASE_URL</code>)</dt><dd>내 Supabase 프로젝트의 주소. 앱이 이 주소로 데이터베이스에 접속합니다. <code>.env</code>·Vercel 환경변수에 <code>SUPABASE_URL</code>이라는 이름으로 보관합니다.</dd>
       <dt id="g-supabase-anon">Supabase 공개 키(<code>anon public</code> · <code>SUPABASE_ANON_KEY</code>)</dt><dd>Supabase에 접속할 때 함께 보내는 공개(anon) 키. <code>SUPABASE_URL</code>과 짝으로 쓰이며 <code>.env</code>·Vercel 환경변수에 보관합니다.</dd>
       <dt id="g-user-table"><code>user</code> 테이블</dt><dd>회원 정보(로그인 아이디·비밀번호 해시 등)를 담으려고 직접 만든 DB 테이블. Supabase의 로그인 기능(Auth) 대신 이 테이블로 회원가입/로그인을 처리합니다.</dd>
+      <dt id="g-service-role"><code>service_role</code> (Supabase 관리자 키)</dt><dd>Supabase의 <strong>모든 권한</strong>을 가진 관리자 키. 보안 규칙(RLS)을 무시하므로 서버에서만 쓰고, 브라우저·공개 저장소(GitHub)에는 <strong>절대 노출하면 안 됩니다.</strong> 유출되면 남이 내 데이터베이스를 통째로 읽고 지울 수 있습니다. (이 과정에서는 쓰지 않습니다.)</dd>
     </dl>
 
     <div class="gloss-cat">AI 앱·방법론 (Day 2~4)</div>
