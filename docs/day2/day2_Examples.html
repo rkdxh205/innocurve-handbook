@@ -332,144 +332,106 @@
         </div></li>
       </ol>
 
-      <div class="steps-title" style="margin-top:28px;">이어서 실행 — RAG 챗봇 직접 만들기</div>
+      <div class="steps-title" style="margin-top:28px;">이어서 실행 — 헬로페이지에 문서 Q&amp;A(RAG) 이어 붙이기</div>
 
-      <div class="env-head">1️⃣ 작업 폴더 만들고 준비물 챙기기</div>
+      <div class="env-head">1️⃣ Day 1 헬로페이지 그대로 열기 <span class="env-note" style="color:#0550ae;">— 새 폴더 없이 재사용</span></div>
       <ol class="step-list">
         <li><div class="step-content">
-          <strong>rag-chatbot 폴더 만들고 작업 폴더로 지정</strong>
-          <p>Day 1과 같은 방식으로, 이번 앱을 위한 새 폴더를 만들고 Claude Desktop의 작업 폴더로 지정합니다.</p>
+          <strong>hello-page 폴더에서 작업 시작</strong>
+          <p>Day 1에서 만든 <code>hello-page</code> 폴더를 그대로 씁니다. 이 폴더엔 이미 <strong><code>index.html</code>(자기소개·시계)</strong>·<strong><code>.env</code>(OpenAI 키)</strong>·<strong><code>재정경제부.svg</code> 로고</strong>가 다 들어 있어, 새로 만들 게 없습니다.</p>
           <ol class="substeps">
-            <li>홈 디렉토리에 <code>rag-chatbot</code> 폴더를 새로 만듭니다.<span class="note">(한글·공백 없는 영문 이름)</span></li>
-            <li>Claude Desktop <strong>Settings</strong>에서 이 <code>rag-chatbot</code> 폴더를 작업 폴더로 지정합니다.<span class="note">(방법이 기억나지 않으면 <a href="../day1/day1_Examples.html#step-2">Day 1 STEP 2</a>를 참고하세요.)</span></li>
+            <li>Claude Desktop <strong>Settings</strong>에서 작업 폴더가 <code>hello-page</code>로 되어 있는지 확인합니다.<span class="note">(바뀌어 있으면 <a href="../day1/day1_Examples.html#step-2">Day 1 STEP 2</a>처럼 다시 지정하세요.)</span></li>
+            <li><code>.env</code>에 <code>OPENAI_API_KEY</code>가 들어 있는지 확인합니다.<span class="note">(없으면 <a href="../day1/day1_Examples.html#step-4">Day 1 STEP 4</a>의 "방법 A"로 넣으세요 — 키가 채팅에 남지 않는 방법입니다.)</span></li>
           </ol>
         </div></li>
-        <li><div class="step-content">
-          <strong>.env 파일 만들고 OpenAI API Key 넣기</strong>
-          <p>Day 1 STEP 4와 같은 방법으로 <code>rag-chatbot</code> 폴더에도 <code>.env</code> 파일을 만들고 API Key를 넣습니다.<span class="note">(방법이 기억나지 않으면 <a href="../day1/day1_Examples.html#step-4">Day 1 STEP 4</a>의 "방법 A"를 참고하세요 — 키가 채팅에 남지 않는 방법입니다.)</span></p>
-        </div></li>
-        <li><div class="step-content">
-          <strong>로고 파일 내려받기</strong>
-          <p>Day 1과 같은 로고를 이 챗봇에도 사용합니다. 아래 링크를 <strong>우클릭 → "다른 이름으로 링크(대상) 저장"</strong> 한 뒤, <strong>파일명을 <code>재정경제부.svg</code> 그대로 두고</strong> <code>rag-chatbot</code> 폴더에 저장하세요.</p>
-          <p style="margin:6px 0 0;"><a href="../assets/logos/재정경제부.svg" download="재정경제부.svg">📥 재정경제부.svg 내려받기</a></p>
-        </div></li>
       </ol>
 
-      <div class="env-head env-ide">2️⃣ 필요 패키지 설치 <span class="env-note">— RAG 구현에 필요한 라이브러리</span></div>
+      <div class="env-head">2️⃣ 챗봇 연결 파일 만들기 <span class="env-note" style="color:#0550ae;">— api/chat.js, 키를 숨기고 문서를 근거로 답</span></div>
       <ol class="step-list">
         <li><div class="step-content">
-          <strong>Claude Desktop 채팅으로 설치 요청</strong>
-          <p><code>rag-chatbot</code> 폴더에서 작업하는 대화에서, 아래 프롬프트로 RAG 구현에 필요한 패키지를 한 번에 설치합니다.</p>
+          <strong>api/chat.js 요청</strong>
+          <p>화면(HTML)에서 OpenAI를 직접 부르면 API 키가 그대로 노출됩니다. 그래서 Day 1과 똑같이, 키를 대신 다뤄 주는 <strong>작은 연결 파일 <code>api/chat.js</code> 하나만</strong> 둡니다. 별도 설치 없이 <strong>Node 기본 기능(fetch)</strong>만 씁니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">rag-chatbot 폴더에서 아래 명령들을
-순서대로 직접 실행해줘.
-
-npm init -y
-npm install express multer dotenv
-npm install langchain @langchain/openai @langchain/community
-npm install faiss-node pdf-parse</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-          <p>Claude가 명령을 실행해도 되는지 물으면 <strong>"허용(Allow)"</strong>을 누릅니다.</p>
-        </div></li>
-      </ol>
-
-      <div class="env-head">3️⃣ RAG 서버 코드 만들기 <span class="env-note" style="color:#0550ae;">— 문서 저장·검색·답변을 전담</span></div>
-      <ol class="step-list">
-        <li><div class="step-content">
-          <strong>서버 코드(server.js) 요청</strong>
-          <p>아래 프롬프트를 붙여넣습니다. RAG 요구사항을 Node.js·LangChain.js 기준으로 정리한 내용입니다.</p>
-          <span class="prompt-label">프롬프트</span>
-          <div class="code-wrap">
-            <pre class="code-block">rag-chatbot 폴더에 server.js를 직접 만들어줘.
-LangChain.js를 활용해서 RAG 챗봇 서버를 구현해줘.
-
-[주의사항]
-- OPENAI_API_KEY는 rag-chatbot 폴더의 .env에서
-  dotenv로 절대경로 기준으로 로드해줘.
-- 환경변수가 없으면 서버가 죽지 않고
-  "API 키가 없습니다" 메시지를 응답하게 해줘.
-- Express로 대화형 웹 API를 제공해줘.
-- 이전 대화는 세션 단위로 기억해야 해.
-- 벡터 DB는 FAISS(faiss-node)를 사용해줘.
-- 여러 개의 PDF 파일을 동시에 받고 처리할 수 있어야 해.
-
-[시스템 메시지]
-답변을 생성할 때 아래 시스템 메시지를 그대로 사용해줘.
-"너는 매우 친절한 선생님이야. 답변은 매우 쉽게 중학생 레벨에서
-이해할 수 있도록 해줘. 그러나 내용은 생략하는 것 없이 모두 답을
-해줘. 모르면 모른다고 답해줘. 말투는 존댓말 한글로 해줘."
-
-[상세 절차]
-1. POST /api/upload — 여러 PDF 파일을 받아 pdf-parse로
-   텍스트를 추출해줘.
-2. 추출된 텍스트를 청크로 나눠줘 (chunk size = 1000, overlap = 200).
-3. 임베딩은 OpenAI Embeddings를 사용해줘.
-4. 텍스트 청크를 FAISS 벡터 스토어에 저장해줘.
-5. 저장이 끝나면 { status: "저장 완료" } 를 응답해줘.
-6. POST /api/chat — 사용자 질문을 받아줘.
-7. 관련 정보를 벡터 스토어에서 검색해줘. 검색은 EnsembleRetriever
-   (키워드 검색 + 벡터 검색을 함께 쓰는 방식)로 해줘.
-8. 검색된 정보와 이전 대화 기록을 바탕으로 위 시스템 메시지를 적용해
-   답변을 생성해줘.</pre>
+            <pre class="code-block">hello-page 폴더에 api/chat.js 파일을 만들어줘.
+- module.exports = async (req, res) => {...} 형식으로 작성
+- 외부 패키지 설치 없이 Node 기본 fetch만 사용해줘.
+- POST 요청 body에서 messages 배열과 docText(문서 전체 글자)를 받아줘.
+- 시스템 메시지와 "다음 문서 내용만 근거로 답해줘:\n" + docText 를
+  맨 앞에 넣고, 이어서 messages를 붙여
+  https://api.openai.com/v1/chat/completions 에 전달해줘 (model: gpt-4o-mini).
+- 시스템 메시지:
+  "너는 매우 친절한 선생님이야. 답변은 중학생도 이해하도록 쉽게,
+   그러나 내용은 빠뜨리지 말고 모두 답해줘. 첨부 문서에 없는 내용은
+   지어내지 말고 '문서에 없습니다'라고 답해줘. 존댓말 한글로."
+- Authorization 헤더용 키는 process.env.OPENAI_API_KEY 를 써줘.
+  (로컬에서는 vercel dev가 .env 값을 자동으로 채워주니
+   코드에서 .env를 직접 읽을 필요는 없어.)
+- 키가 없으면 { error: "API 키가 없습니다" } 를 응답
+- POST가 아닌 요청은 405로 응답</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
         </div></li>
       </ol>
 
-      <div class="env-head env-ide">4️⃣ 챗봇 페이지(rag-chat.html) 만들기</div>
+      <div class="env-head env-ide">3️⃣ index.html에 "문서 Q&amp;A" 섹션 이어 붙이기 <span class="env-note">— PDF는 브라우저에서 바로 읽기</span></div>
       <ol class="step-list">
         <li><div class="step-content">
-          <strong>화면(rag-chat.html) 요청</strong>
-          <p>서버와 통신할 화면을 요청합니다. Day 1의 챗봇 화면과 같은 구조에, PDF 업로드용 사이드바를 더한 형태입니다.</p>
+          <strong>기존 index.html에 섹션 추가 요청</strong>
+          <p>자기소개·시계는 그대로 두고, 그 아래에 <strong>문서 Q&amp;A 섹션</strong>만 이어 붙입니다. PDF 글자 추출까지 브라우저 안에서 처리하므로 설치가 필요 없습니다. (PDF 읽기 도구 <code>pdf.js</code>는 인터넷 주소로 불러옵니다.)</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">rag-chatbot 폴더에 rag-chat.html을 직접 만들어줘.
+            <pre class="code-block">hello-page 폴더의 index.html에 새 섹션을 이어 붙여줘.
+기존 자기소개·시계 내용은 절대 지우지 말고 그 아래에 추가해줘.
+설치 없이 이 파일과 api/chat.js 만으로 도는 "문서 Q&amp;A" 섹션이야.
 
-- 왼쪽 사이드바(side bar)
-  · 상단에 같은 폴더의 재정경제부.svg 로고
-  · 여러 개의 PDF 파일을 선택해 업로드하는 영역
-  · 업로드 후 서버가 "저장 완료"를 응답하면
-    그 메시지만 화면에 표시 (다른 안내 문구 없이)
-- 오른쪽 채팅 영역
-  · 지금까지의 대화가 위에서 아래로 쌓이는 메시지 목록
-  · 질문 입력창과 전송 버튼은 화면 오른쪽 맨 아래 고정
-  · 전송하면 fetch로 /api/chat에 질문을 보내고,
-    답을 기다리는 동안 "생각 중..." 표시
+- pdf.js를 CDN &lt;script&gt;로 불러와줘
+  (cdnjs의 pdf.min.js + pdf.worker.min.js).
+- 여러 개의 PDF를 선택해 올리는 영역
+  · 올리면 pdf.js로 각 PDF의 글자를 브라우저에서 뽑아
+    하나로 합쳐 docText 변수에 보관하고,
+    끝나면 "문서 준비 완료 (N개)"만 표시
+- 그 아래 채팅 UI
+  · 지금까지의 대화가 쌓이는 메시지 목록 + 입력창 + 전송 버튼
+  · 전송하면 fetch로 /api/chat 에 POST 해줘.
+    body는 { messages: [...지금까지 대화...], docText } (JSON)
+  · 답을 기다리는 동안 "생각 중..." 표시
   · 새로고침 전까지 이전 대화를 계속 이어서 기억
-- 전체적으로 파란색 계열로 깔끔하게</pre>
+- API 키를 다루는 코드는 화면에 절대 넣지 말 것 (호출은 api/chat.js가 대신).
+- 위쪽 시계 섹션과 어울리게 파란색 계열 카드로</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
+          <p class="note" style="padding-left:2px;">문서가 아주 길면 한 번에 보낼 수 있는 양에 한계가 있습니다. 실습은 <strong>짧은 문서 1~2개</strong>로 시작하세요.</p>
         </div></li>
       </ol>
 
-      <div class="env-head">5️⃣ 로컬에서 서버 켜고 확인 <span class="env-note" style="color:#0550ae;">— 만드는 즉시 확인</span></div>
+      <div class="env-head">4️⃣ 로컬에서 바로 확인 <span class="env-note" style="color:#0550ae;">— vercel dev</span></div>
       <ol class="step-list">
         <li><div class="step-content">
-          <strong>서버 실행 요청</strong>
-          <p>아래처럼 요청하면 Claude가 서버를 백그라운드에서 실행합니다.</p>
+          <strong>vercel dev 실행 요청</strong>
+          <p><code>vercel dev</code>가 <code>index.html</code>과 <code>api/chat.js</code>를 함께 띄워, 챗봇이 실제로 답을 받아옵니다. (<code>vercel</code> 도구가 없다면 <a href="../day1/day1_Examples.html#step-7">Day 1 STEP 7</a>에서 준비한 방법 그대로 설치하면 됩니다.)</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">rag-chatbot 폴더에서 node server.js를
+            <pre class="code-block">hello-page 폴더에서 vercel dev를
 백그라운드로 실행해줘.
-서버가 켜졌는지 확인해서 알려줘.</pre>
+처음이라 설정 질문이 나오면 전부 기본값(Enter)으로 진행해줘.
+실행됐는지 확인해서 알려줘.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
         </div></li>
         <li><div class="step-content">
           <strong>브라우저로 확인</strong>
-          <p>브라우저에서 서버 주소(예: <code>http://localhost:3000/rag-chat.html</code>)로 접속합니다. PDF를 하나 이상 올려 "저장 완료"가 뜨는지, 그 문서 내용을 물었을 때 근거를 바탕으로 답하는지, 문서에 없는 것을 물으면 "모른다"고 정직하게 답하는지 확인합니다.</p>
-          <p class="note" style="padding-left:2px;">오류가 나면 화면에 뜬 오류 메시지를 그대로 Claude에게 붙여넣어 "이 오류 고쳐줘"라고 요청하면 됩니다.</p>
+          <p>브라우저에서 <code>http://localhost:3000</code> 으로 접속합니다. 자기소개·시계 아래에 <strong>문서 Q&amp;A 섹션</strong>이 보이고, PDF를 하나 이상 올려 "문서 준비 완료"가 뜨는지, 그 문서 내용을 물었을 때 근거를 바탕으로 답하는지, 문서에 없는 것을 물으면 "문서에 없습니다"라고 정직하게 답하는지 확인합니다.</p>
+          <p class="note" style="padding-left:2px;">오류가 나면 화면에 뜬 오류 메시지를 그대로 Claude에게 붙여넣어 "이 오류 고쳐줘"라고 요청하면 됩니다. 코드를 고친 뒤엔 "vercel dev 다시 실행해줘"라고 한 뒤 새로고침(F5)하세요.</p>
         </div></li>
       </ol>
 
       <div class="tip-box">
-        방금 체험한 "문서 근거로 답하기"를 <strong>여러 문서·자동 검색</strong>으로 확장한 것이 이 챗봇입니다. 세부사항(포트 번호, 정확한 문구 등)이 마음에 안 들면 이어서 말로 요청해 다듬으면 됩니다.
+        방금 Claude에 문서를 첨부해 물어본 것을, <strong>Day 1 헬로페이지에 이어 붙여</strong> 내 웹앱으로 만든 것이 이 문서 Q&amp;A입니다. 세부사항(화면 문구 등)이 마음에 안 들면 이어서 말로 요청해 다듬으면 됩니다.
       </div>
 
       <div class="security-box">
-        API 키는 <code>.env</code>에만 두고 <code>rag-chat.html</code>·<code>server.js</code>에 직접 적지 마세요. GPT·임베딩 호출은 <strong>API 사용료가 조금씩 과금</strong>됩니다. 이 앱을 인터넷에 공개 배포할 계획이면 Day 1 STEP 7처럼 <code>.gitignore</code>에 <code>.env</code>를 추가하고, 배포 플랫폼(Vercel 등)의 환경 변수에 키를 별도로 등록해야 합니다.
+        API 키는 <code>.env</code>에만 두고 <code>index.html</code>·<code>api/chat.js</code>에 직접 적지 마세요. GPT 호출은 <strong>API 사용료가 조금씩 과금</strong>됩니다(문서를 근거로 함께 보내므로 문서가 길수록 비용이 늘어납니다). 이 앱을 인터넷에 공개 배포할 계획이면 <a href="../day1/day1_Examples.html#step-6">Day 1 STEP 6</a>처럼 <code>.gitignore</code>에 <code>.env</code>를 추가하고, Vercel 프로젝트 설정의 환경 변수에 <code>OPENAI_API_KEY</code>를 등록해야 합니다.
       </div>
 
       <div class="steps-title" style="margin-top:28px;">마지막으로 — 내가 만들 앱 주제 정하기</div>
@@ -528,7 +490,7 @@ LangChain.js를 활용해서 RAG 챗봇 서버를 구현해줘.
       <ol class="step-list">
         <li><div class="step-content">
           <strong>my-app 폴더 만들고 작업 폴더로 지정</strong>
-          <p>STEP 1의 <code>rag-chatbot</code>은 RAG 개념을 체험해 본 실습용 폴더였고, 여기서부터는 <strong>내가 실제로 계획·설계해 나갈 내 앱 프로젝트</strong>를 위해 새 폴더를 만듭니다.</p>
+          <p>STEP 1에서는 <code>hello-page</code>에 문서 Q&amp;A를 이어 붙여 RAG를 체험했고, 여기서부터는 <strong>내가 실제로 계획·설계해 나갈 내 앱 프로젝트</strong>를 위해 새 폴더를 만듭니다.</p>
           <ol class="substeps">
             <li>홈 디렉토리에 <code>my-app</code> 폴더를 새로 만듭니다.<span class="note">(한글·공백 없는 영문 이름)</span></li>
             <li>Claude Desktop <strong>Settings</strong>에서 이 <code>my-app</code> 폴더를 작업 폴더로 지정합니다.<span class="note">(방법이 기억나지 않으면 <a href="../day1/day1_Examples.html#step-2">Day 1 STEP 2</a>를 참고하세요.)</span></li>
