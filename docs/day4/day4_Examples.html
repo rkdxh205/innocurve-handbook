@@ -396,6 +396,23 @@
           </div>
         </div></li>
         <li><div class="step-content">
+          <strong>보안 관점도 함께 점검하기 — "안전한가?"</strong>
+          <p>Gap 분석이 "계획대로인가"를 본다면, 여기서는 <strong>"안전한가"</strong>를 봅니다. AI가 만든 코드에는 본인도 모르는 <strong>보안 구멍</strong>이 있을 수 있어, 공개 배포 전에 한 번 훑어보게 합니다.</p>
+          <span class="prompt-label">프롬프트</span>
+          <div class="code-wrap">
+            <pre class="code-block">이 앱을 인터넷에 공개하기 전에 보안 관점으로 점검해줘.
+- 비밀 키가 코드나 화면(브라우저)에 노출되는 곳은 없는지
+- 사용자가 입력한 값을 그대로 믿고 쓰는 곳은 없는지
+  (이상한 입력·스크립트가 끼어들 위험)
+- (챗봇이면) "앞의 지시 무시하고…" 같은 프롬프트 인젝션에 대한 대비가 있는지
+- 개인정보를 입력받거나 저장하는 부분이 있는지
+발견한 위험을 심각한 것부터 목록으로 알려주고,
+간단히 고칠 수 있는 건 어떻게 고칠지도 제안해줘.</pre>
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
+          </div>
+          <p class="note" style="padding-left:2px;">나온 항목은 <code>CHECK.md</code>에 함께 적어 두고, 심각한 것은 <a href="#step-3">STEP 3(Act)</a>에서 고칩니다. 실습 범위를 넘는 항목은 "실제 서비스로 만들 때 챙길 것"으로 메모만 해 둬도 됩니다.</p>
+        </div></li>
+        <li><div class="step-content">
           <strong>검증 결과 기록하기 (CHECK.md 최신화)</strong>
           <p>통과/실패와 Gap 목록을 <code>CHECK.md</code>로 남깁니다. Check는 개선하며 <strong>여러 번 돌리므로</strong>, 매번 새 파일을 만들지 말고 <strong>같은 <code>CHECK.md</code>를 최신 결과로 갱신(덮어쓰기)</strong>합니다.</p>
           <span class="prompt-label">프롬프트</span>
@@ -580,6 +597,10 @@ vercel 도구를 설치하고 로그인을 시작해줘.
 
       <div class="warning-box">
         <b>비밀 키는 반드시 Vercel 환경변수로만.</b> 코드나 정적 HTML(브라우저)에 키를 직접 넣으면 배포와 동시에 누구나 볼 수 있습니다. 키는 <strong>Vercel 환경변수</strong>에 두고 서버리스 함수가 그 값을 읽게 하며, <code>.env</code> 파일은 <strong>공유·커밋하지 않습니다.</strong>
+      </div>
+
+      <div class="warning-box">
+        <strong>이 배포본은 발표·시연용입니다.</strong> 공개 주소는 <strong>링크만 알면 누구나 접속</strong>할 수 있고, 이 실습 앱에는 <strong>호출 횟수 제한 같은 오남용 방지 장치가 없습니다</strong> — 외부 API(예: OpenAI)를 쓰는 앱이라면 남이 많이 쓸수록 <strong>내 요금이 늘어납니다.</strong> 그러니 ① <strong>공개 주소를 아무에게나 공유하지 말고</strong>, ② 발표가 끝나 쓰지 않으면 <strong>배포를 내려</strong> 두세요. 이메일·전화번호 등 <strong>개인정보를 입력받는 앱을 공개하면 개인정보보호법 적용 대상</strong>이 되므로, 실습 앱에는 <strong>실제 개인정보를 넣지 마세요.</strong> 실제 업무용 서비스로 만들려면 로그인·접근 제한·호출 제한을 갖춰야 합니다.
       </div>
 
       <div class="tip-box">

@@ -878,8 +878,42 @@ SUPABASE_ANON_KEY=
         </div></li>
       </ol>
 
+      <div class="env-head">4️⃣ 로컬에서 바로 로그인 체험하기 <span class="env-note" style="color:#0550ae;">— vercel dev로 임시 서버 띄우기</span></div>
+      <p class="note" style="padding-left:2px;">코드가 다 만들어졌으니, 인터넷에 공개하기 전에 <strong>내 PC에서 먼저 회원가입·로그인을 눌러</strong> 봅니다. HTML 페이지와 달리 로그인은 <code>api/auth.js</code>(백엔드)가 있어서, 이를 실행해 줄 <strong>작은 임시 서버(<code>vercel dev</code>)</strong>가 필요합니다. <a class="cmd-chip" href="day1_Manual.html#local-server">로컬 서버의 이해</a></p>
+      <ol class="step-list">
+        <li><div class="step-content">
+          <strong>임시 서버 도구(Vercel CLI) 설치</strong>
+          <p>로컬 서버를 띄워 줄 작은 도구를 설치합니다. <a href="#step-3">STEP 3</a>에서 깔아 둔 Node.js가 있으면 바로 됩니다.</p>
+          <span class="prompt-label">프롬프트</span>
+          <div class="code-wrap">
+            <pre class="code-block">로컬에서 로그인을 직접 테스트하고 싶어.
+Vercel CLI를 설치해줘.
+(npm i -g vercel)</pre>
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
+          </div>
+        </div></li>
+        <li><div class="step-content">
+          <strong>임시 서버 실행 (<code>vercel dev</code>)</strong>
+          <p>hello-page 폴더에서 로컬 서버를 켭니다. 이 서버가 <code>index.html</code>을 띄우고 <code>api/auth.js</code>를 실행하며 <code>.env</code>의 Supabase 키를 자동으로 채워 줍니다.</p>
+          <span class="prompt-label">프롬프트</span>
+          <div class="code-wrap">
+            <pre class="code-block">hello-page 폴더에서 vercel dev로 로컬 서버를 띄워줘.
+처음 실행이라 설정을 물으면 기본값(Enter/Y)으로 진행하고,
+Vercel 로그인이 필요하면 알려줘.
+localhost:3000 이 준비되면 알려줘.</pre>
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
+          </div>
+          <p class="note" style="padding-left:2px;">처음 한 번은 <strong>Vercel 로그인(브라우저에서 "승인" 클릭)</strong>과 프로젝트 연결 질문이 나올 수 있습니다. 로그인은 브라우저에서 승인만 누르면 되고, 나머지 질문은 <strong>모두 기본값(Enter/Y)</strong>으로 넘어가면 됩니다. 이 1회만 지나면 다음부터는 바로 떠요.</p>
+        </div></li>
+        <li><div class="step-content">
+          <strong>브라우저에서 회원가입 → 로그인 눌러 보기</strong>
+          <p>브라우저에서 <code>localhost:3000</code>을 열고 ① <strong>회원가입</strong>으로 계정을 하나 만들고 ② <strong>로그아웃</strong>한 뒤 ③ 같은 아이디로 <strong>로그인</strong>해 봅니다. 성공하면 맨 위에 <strong>"○○님 환영합니다"</strong>와 함께 자기소개·시계 화면이 나타납니다.</p>
+          <p class="note" style="padding-left:2px;">Supabase 대시보드의 <code>user</code> 테이블을 새로고침하면, 방금 가입한 계정이 <strong>해시된 비밀번호</strong>로 저장된 것도 눈으로 확인할 수 있습니다. 서버를 멈추려면 터미널에서 <code>Ctrl+C</code>, 다시 띄우려면 "vercel dev 다시 실행해줘"라고 하면 됩니다.</p>
+        </div></li>
+      </ol>
+
       <div class="tip-box">
-        로그인·회원가입 <strong>코드</strong>가 완성됐습니다. 직접 <strong>실행해 확인</strong>하는 것과 <strong>인터넷 공개(배포)</strong>는 <strong>2일차</strong>에서 <code>vercel</code>로 한 번에 진행합니다(1일차는 여기까지 만들어 둡니다). 2일차 RAG 챗봇에서는 이 로그인을 그대로 이어받아, 사용자별로 <strong>자기 대화·문서만</strong> 보이도록 확장합니다.
+        방금 로그인·회원가입을 <strong>내 PC에서 직접 체험</strong>했습니다. 지금은 나만 접속하는 <strong>로컬(임시) 서버</strong>이고, <strong>누구나 인터넷에서 접속하는 공개 배포</strong>는 <strong>2일차</strong>에서 <code>vercel</code>로 진행합니다. 2일차 RAG 챗봇에서는 이 로그인을 그대로 이어받아, 사용자별로 <strong>자기 대화·문서만</strong> 보이도록 확장합니다.
       </div>
 
       <div class="security-box">

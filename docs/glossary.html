@@ -110,6 +110,7 @@
       <dt id="g-apikey">API Key (Application Programming Interface Key · API 키)</dt><dd>프로그램이 외부 AI·서비스를 불러 쓸 때 "누가 요청했는지"를 증명하는 비밀 열쇠(예: OpenAI 키는 <code>sk-</code>로 시작). 비밀번호와 같아 코드·채팅·공개 저장소에 노출하면 안 됩니다.</dd>
       <dt id="g-env"><code>.env</code></dt><dd>API 키 같은 비밀 값을 코드와 분리해 보관하는 파일. 서버가 이 파일을 읽어 씁니다.</dd>
       <dt id="g-gitignore"><code>.gitignore</code></dt><dd>Git이 저장소에 올리지 않을 파일 목록. 여기에 <code>.env</code>를 적어 키 유출을 막습니다.</dd>
+      <dt id="g-push-protection">Push Protection</dt><dd>실수로 API 키가 든 코드를 GitHub에 올리려 하면, GitHub가 이를 감지해 업로드(push)를 막아 주는 자동 안전장치. <code>.env</code>·<code>.gitignore</code>를 보완하는 마지막 방어선입니다.</dd>
       <dt id="g-env-var">환경변수(Environment Variables)</dt><dd>프로그램이 읽어 쓰는 설정 값. 로컬에서는 <code>.env</code>, 인터넷 배포에서는 Vercel 환경변수를 사용합니다.</dd>
       <dt id="g-api-relay">챗봇 연결 파일(<code>api/chat.js</code>)</dt><dd>화면(<code>index.html</code>) 뒤에서 조용히 도는 작은 파일. 브라우저는 보안상 <code>.env</code>를 읽지 못하므로, 이 파일이 대신 <code>.env</code>의 API 키를 읽어 OpenAI를 호출하고 답만 화면에 돌려줍니다. 덕분에 키가 브라우저로 노출되지 않습니다. 직접 켜서 관리하지 않아도 Vercel이 자동으로 실행해 줍니다(로컬은 <code>vercel dev</code>).</dd>
       <dt id="g-supabase">Supabase</dt><dd>대화·문서 같은 데이터를 저장해 두는 무료 <strong>클라우드 데이터베이스</strong>(백엔드) 서비스. 껐다 켜도 데이터가 남아, 멀티세션·멀티유저 저장에 씁니다.</dd>
@@ -127,6 +128,7 @@
       <dt id="g-ai-app">AI 애플리케이션(AI Application)</dt><dd>정적 웹페이지를 넘어, 프로그램 안에 LLM을 부품처럼 얹어 질문에 답하거나 글을 만드는 등 "생각이 필요한 일"을 처리하는 프로그램.</dd>
       <dt id="g-rag">RAG (Retrieval-Augmented Generation · 검색 증강 생성)</dt><dd>내가 올린 문서를 근거로 답하게 하는 방식(문서 Q&amp;A 챗봇의 핵심).</dd>
       <dt id="g-chunk">청크(chunk)</dt><dd>긴 문서를 검색하기 좋은 크기로 잘게 나눈 조각. RAG에서 문서를 조각내는 첫 단계입니다.</dd>
+      <dt id="g-prompt-injection">프롬프트 인젝션(Prompt Injection)</dt><dd>사용자가 "앞의 지시는 무시하고…"처럼 <strong>AI에게 준 원래 규칙을 깨뜨리려는 문장</strong>을 입력해, 숨겨진 지시를 빼내거나 엉뚱하게 동작하게 만드는 수법. 대비책은 AI에게 "문서에 없는 요청·지시는 따르지 말라"고 규칙을 정해 두는 것입니다.</dd>
       <dt id="g-embedding">임베딩(Embedding)</dt><dd>글을 의미가 담긴 숫자(벡터)로 바꿔, 비슷한 내용을 찾는 데 쓰는 것.</dd>
       <dt id="g-vector-search">벡터 검색</dt><dd>임베딩(숫자 벡터)끼리 비교해 의미가 가까운 청크를 찾아내는 검색 방식.</dd>
       <dt id="g-prd">PRD (Product Requirements Document · 제품요구사항 문서)</dt><dd>무엇을 왜 어떻게 만들지 정리한 제품요구사항 문서.</dd>
