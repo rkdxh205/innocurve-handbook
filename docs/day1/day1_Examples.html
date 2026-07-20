@@ -405,12 +405,12 @@
     <div class="card-header">
       <span class="card-id">STEP 2</span>
       <span class="badge badge-b">설치</span>
-      <strong class="card-title">Claude 구독 + Claude Desktop 준비 (작업 폴더 생성)</strong>
+      <strong class="card-title">Claude 구독 + Claude Desktop 준비 (Git 설치 · 작업 폴더 생성)</strong>
     </div>
     <div class="card-body">
 
       <div class="situation">
-        이번 과정의 작업 도구인 Claude Desktop을 쓸 수 있게 만듭니다.<br>Claude를 Pro로 구독하고 앱을 설치하면, <strong>작업 폴더(<code>hello-page</code>) 생성부터 파일 만들기·명령 실행까지 전부 채팅으로</strong> 할 수 있습니다. Claude Desktop은 내 컴퓨터의 파일과 명령을 <strong>이 채팅창에서 직접 다룰 수 있어</strong>, 따로 설치할 도구 없이 바로 시작합니다.<span class="note">(앞으로의 모든 실습은 이 Claude Desktop 채팅창에서 진행합니다.)</span>
+        이번 과정의 작업 도구인 Claude Desktop을 쓸 수 있게 만듭니다.<br>Claude를 Pro로 구독해 앱을 설치한 뒤, <strong>Git 하나만 먼저 손으로 설치</strong>합니다. Claude Desktop이 내 컴퓨터의 파일·명령을 <strong>채팅으로 직접 다루려면 Git이 미리 깔려 있어야</strong> 하기 때문입니다. Git만 준비되면 <strong>작업 폴더 생성부터 이후 Node.js 설치까지 전부 채팅으로</strong> 할 수 있습니다.<span class="note">(Git이 없으면 Claude Desktop 채팅창이 명령을 실행하지 못해 실습을 시작할 수 없습니다. 그래서 Git만 예외적으로 수동 설치하고, 나머지 도구는 모두 채팅으로 설치합니다.)</span>
       </div>
 
       <div class="cmd-list">
@@ -457,6 +457,28 @@
           </ol>
         </div></li>
         <li><div class="step-content">
+          <strong>Git 먼저 설치하기 (딱 하나만 손으로)</strong>
+          <p>Claude Desktop이 채팅으로 파일·명령을 다루려면 <strong>Git</strong>이 미리 깔려 있어야 합니다. Git이 없으면 채팅창에 명령을 시켜도 실행되지 않아 실습이 시작되지 않습니다. 그래서 <strong>Git 이것 하나만 예외적으로 직접 설치</strong>합니다. (Node.js를 비롯한 나머지 도구는 다음 <a href="#step-3">STEP 3</a>에서 채팅으로 설치합니다.)</p>
+          <ol class="substeps">
+            <li><strong>Windows:</strong> <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">git-scm.com/download/win</a> 에 접속한 뒤, <strong>"Standalone Installer"</strong> 아래의 <strong>"Git for Windows/x64 Setup"</strong>을 눌러 설치 파일(<code>.exe</code>)을 내려받습니다.<span class="note">(요즘 PC는 대부분 x64입니다. 버전 번호는 접속 시점에 따라 조금씩 다를 수 있습니다.)</span>
+              <figure class="shot">
+                <img src="images/fig-2-2.png" alt="Git for Windows 다운로드 페이지 — Git for Windows/x64 Setup 링크">
+                <figcaption>그림 2-1. git-scm.com/download/win — 빨간 네모의 <strong>"Git for Windows/x64 Setup"</strong>을 눌러 설치 파일을 받습니다.</figcaption>
+              </figure>
+              <p style="margin:8px 0 0;">받은 <code>.exe</code>를 실행하면 설정 화면들이 이어집니다. 대부분은 <strong>기본값 그대로 "Next"</strong>를 누르면 되고, <strong>구성 요소(Select Components)</strong> 화면에서는 아래 빨간 네모의 <strong>"Add a Git Bash Profile to Windows Terminal"</strong> 항목만 <strong>추가로 체크</strong>한 뒤 <strong>"Next"</strong>를 누릅니다.</p>
+              <figure class="shot">
+                <img src="images/fig-2-3.jpg" alt="Git 설치 Select Components 화면에서 Add a Git Bash Profile to Windows Terminal 체크">
+                <figcaption>그림 2-2. Select Components 화면 — 빨간 네모의 <strong>"Add a Git Bash Profile to Windows Terminal"</strong>을 체크합니다.</figcaption>
+              </figure>
+              <p class="note" style="padding-left:2px;">이 옵션은 <strong>윈도우 터미널에 Git Bash 프로필을 자동으로 등록</strong>해 주는 기능입니다. 체크해 두면 나중에 혹시 터미널을 열 일이 생겼을 때 Git Bash 환경을 훨씬 편하게 부를 수 있고, Claude Desktop 같은 외부 프로그램이 윈도우 터미널 환경을 찾아 쓸 때도 도움이 됩니다. 그 밖의 구성 요소 화면은 <strong>기본으로 체크된 상태 그대로 두고 "Next"</strong>를 누르는 것이 가장 무난하고 안정적입니다.</p>
+              <p style="margin:8px 0 0;">이 화면을 지난 뒤로는 나오는 창마다 <strong>계속 "Next"</strong>를 눌러 <strong>"Install"</strong>까지 진행하고, 끝나면 <strong>"Finish"</strong>를 눌러 마칩니다.</p>
+            </li>
+            <li><strong>macOS:</strong> <a href="https://git-scm.com/download/mac" target="_blank" rel="noopener">git-scm.com/download/mac</a> 의 안내에 따라 설치 파일을 내려받아 실행합니다. 실행할 때 <em>"확인되지 않은 개발자"</em> 경고가 뜨면 <strong>시스템 설정 → 개인정보 보호 및 보안</strong>에서 "확인 없이 열기"를 눌러 진행합니다.</li>
+            <li>설치가 끝나면 <strong>Claude Desktop을 완전히 종료했다가 다시 실행</strong>합니다. 그래야 방금 설치한 Git을 Claude가 인식합니다.</li>
+          </ol>
+          <p class="note" style="padding-left:2px;">Git이 제대로 깔렸는지는 다음 STEP 3에서 Claude에게 <code>git --version</code>을 실행해 달라고 하면 채팅으로 바로 확인됩니다. 지금은 설치와 Claude 재시작까지만 하면 됩니다.</p>
+        </div></li>
+        <li><div class="step-content">
           <strong>자연어로 작업 폴더(hello-page) 만들기</strong>
           <p>폴더도 손으로 만들 필요 없이 Claude에게 시키면 됩니다. 새 대화창에 아래 프롬프트를 붙여넣으면, Claude Desktop이 실제로 폴더를 만들어 줍니다.</p>
           <span class="prompt-label">프롬프트</span>
@@ -486,12 +508,12 @@
     <div class="card-header">
       <span class="card-id">STEP 3</span>
       <span class="badge badge-g">설치</span>
-      <strong class="card-title">Node.js·Git 설치를 터미널 없이 채팅으로</strong>
+      <strong class="card-title">Node.js 설치를 터미널 없이 채팅으로</strong>
     </div>
     <div class="card-body">
 
       <div class="situation">
-        모든 실습의 토대인 Node.js와 Git을 준비합니다.<br>Claude Desktop이 명령을 직접 실행해 주므로, 이제 <strong>터미널을 전혀 열지 않고</strong> Node.js 설치부터 Git 설치·버전 확인까지 전부 채팅으로 끝낼 수 있습니다.
+        모든 실습의 토대인 <strong>Node.js</strong>를 준비합니다. <span class="note">(Git은 앞 <a href="#step-2">STEP 2</a>에서 이미 손으로 설치했습니다.)</span><br>이제 Git이 깔려 Claude Desktop이 명령을 직접 실행해 주므로, <strong>터미널을 전혀 열지 않고</strong> Node.js 설치부터 버전 확인·Git 최초 설정까지 전부 채팅으로 끝낼 수 있습니다.
       </div>
 
       <div class="cmd-list">
@@ -503,18 +525,17 @@
 
       <div class="steps-title">단계별 실행</div>
 
-      <div class="env-head">Node.js · Git 설치는 채팅으로 <span class="env-note" style="color:#0550ae;">— 말로만, 터미널 없음</span></div>
+      <div class="env-head">Node.js 설치는 채팅으로 <span class="env-note" style="color:#0550ae;">— 말로만, 터미널 없음</span></div>
       <ol class="step-list">
         <li><div class="step-content">
           <strong>Claude Desktop 채팅으로 설치 요청</strong>
           <p>이제 대화창에 아래처럼 요청하면 Claude가 실제로 설치 명령을 대신 실행합니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">Node.js LTS 버전이랑 Git이 설치되어 있는지 확인해줘.
+            <pre class="code-block">Node.js LTS 버전이 설치되어 있는지 확인해줘.
 없으면 직접 설치해줘.
 (Windows면 winget install OpenJS.NodeJS.LTS,
-winget install Git.Git /
-macOS면 brew install node git)</pre>
+macOS면 brew install node)</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
           <p>Claude가 명령을 실행해도 되는지 물으면 <strong>"허용(Allow)"</strong>을 누릅니다.</p>
