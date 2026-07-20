@@ -276,6 +276,34 @@ Day 1 · 이론 → 실습 대응표
 
   <div class="security-box">Supabase 키도 API Key처럼 코드·공개 저장소에 직접 적지 않습니다. 로컬에서는 <code>.env</code>, 인터넷 배포에서는 <strong>Vercel 환경 변수</strong>에 보관합니다.</div>
 
+  <h3 id="access-token">Supabase Access Token — Claude Code가 Supabase를 자동으로 다루게 하는 열쇠</h3>
+  <p>앞의 <code>SUPABASE_URL</code>·<code>anon public</code>이 <strong>앱이 평소 데이터에 드나드는 열쇠</strong>라면, <strong>Access Token</strong>(개인 접근 토큰)은 <strong>내 Supabase 계정에서 프로젝트를 새로 만들고 SQL을 실행하는 등 "설정 작업"을 대신 시키기 위한 관리용 열쇠</strong>입니다. Supabase 대시보드 오른쪽 위 <strong>프로필 아바타 → Account → 왼쪽 사이드바 Access Tokens</strong>에서 <strong>Generate new token</strong>으로 발급합니다(토큰은 <code>sbp_</code>로 시작).</p>
+  <p>이 토큰을 <strong>Claude Code에 등록</strong>해 두면(Supabase를 Claude Code에 연결하는 <strong>MCP</strong>라는 방식), 대시보드를 사람이 직접 클릭하지 않아도 <strong>자연어 지시 한 번</strong>으로 Claude Code가 <strong>프로젝트 생성 → 키 추출·<code>.env</code> 저장 → 테이블 생성 SQL 실행</strong>까지 대신 처리합니다. 이 과정(Day 1) 실습이 바로 이 방식으로 Supabase를 자동 설정합니다. <span style="color:var(--text-dim);">(Claude Code에 외부 도구를 연결하는 <strong>MCP</strong>의 자세한 개념·설정법은 <strong>3일차</strong>에서 다룹니다. 1일차에서는 "토큰을 등록하면 Supabase 설정을 자연어로 자동화할 수 있다"는 정도만 이해하면 충분합니다.)</span></p>
+  <table>
+    <thead><tr><th>열쇠</th><th>발급 위치</th><th>쓰임 · 성격</th></tr></thead>
+    <tbody>
+      <tr><td><code>SUPABASE_ANON_KEY</code><br>(anon public)</td><td>Project Settings → API</td><td><strong>앱 실행용.</strong> 배포된 앱이 데이터에 드나들 때 쓰는 제한된 열쇠. <code>.env</code>에 보관</td></tr>
+      <tr><td><strong>Access Token</strong><br>(personal token)</td><td>계정 메뉴 → Access Tokens</td><td><strong>설정 자동화용.</strong> Claude Code가 프로젝트 생성·SQL 실행 등 관리 작업을 대신하게 하는 강력한 열쇠. <strong>Claude Code(MCP) 설정에만 등록</strong></td></tr>
+    </tbody>
+  </table>
+  <div class="security-box"><strong>Access Token은 <code>service_role</code>만큼 강력합니다.</strong> 내 계정의 프로젝트를 만들고 지울 수 있으므로, 유출되면 큰 피해로 이어집니다. 스크린샷·공개 저장소(GitHub)에 노출하거나 남과 공유하지 마세요. (내 Claude Code에 등록하는 용도로만 씁니다.)</div>
+
+  <h3 id="sql">데이터베이스·테이블·SQL의 이해 — 회원 명부는 어떻게 만들어지나</h3>
+  <p><strong>데이터베이스(DB)</strong>는 데이터를 정리해 담아 두는 <strong>창고</strong>이고, 그 안의 데이터는 <strong>표(테이블, table)</strong> 단위로 저장됩니다. <strong>엑셀 시트</strong>를 떠올리면 쉽습니다. 표에는 <strong>열(컬럼, column)</strong>이 있어 "무엇을 담는 칸인지"를 정하고, <strong>행(row·레코드)</strong>이 하나씩 실제 데이터(예: 회원 한 명)를 나타냅니다.</p>
+  <p><strong>SQL</strong>(에스큐엘, <em>Structured Query Language</em>)은 이 데이터베이스에게 내리는 <strong>명령어(언어)</strong>입니다. 사람에게 한국어로 부탁하듯, 데이터베이스에는 SQL로 <strong>"표를 만들어라 · 데이터를 넣어라 · 찾아라 · 고쳐라 · 지워라"</strong>라고 지시합니다. 우리 실습에서는 그중 <strong>"회원 정보를 담을 표(<code>user</code> 테이블)를 만들어라"</strong>라는 명령 하나만 사용합니다.</p>
+  <p>이 명령문을 담아 두는 파일이 <code>user-ref.sql</code>입니다(<code>.sql</code>은 SQL 명령을 적어 두는 파일 형식이고, <code>-ref</code>는 참고·세팅용이라는 뜻으로 붙인 이름입니다). 이 과정에서는 앞서 등록한 <strong>Access Token</strong> 덕분에 <strong>Claude Code가 이 SQL을 직접 작성하고 Supabase에 자동으로 실행(Run)</strong>합니다. 사람이 대시보드를 열 필요가 없습니다. <span style="color:var(--text-dim);">(참고로 Supabase에는 <strong><code>SQL Editor</code></strong>라는, 대시보드 안에서 SQL을 직접 입력해 <strong>Run</strong>으로 실행하는 화면도 있습니다. Access Token을 등록하지 않았다면 이 화면에 <code>user-ref.sql</code> 내용을 붙여넣어 수동으로 실행할 수도 있지만, 우리 실습은 자연어 지시로 자동 실행합니다.)</span> 실행 결과로 데이터베이스 안에 아래 구조의 <code>user</code> 테이블(회원 명부)이 생깁니다.</p>
+  <table>
+    <thead><tr><th>열(컬럼)</th><th>담는 내용</th></tr></thead>
+    <tbody>
+      <tr><td><code>id</code></td><td>회원마다 자동으로 붙는 <strong>고유 번호</strong>(중복되지 않는 일련번호)</td></tr>
+      <tr><td><code>login_id</code></td><td>로그인에 쓰는 <strong>아이디</strong>. 같은 값이 두 번 들어갈 수 없음(<code>unique</code>)</td></tr>
+      <tr><td><code>password_hash</code></td><td>비밀번호를 <strong>해시(암호화)</strong>한 값. 원래 비밀번호는 저장하지 않음</td></tr>
+      <tr><td><code>created_at</code></td><td>가입한 <strong>날짜·시각</strong>이 자동으로 기록됨</td></tr>
+    </tbody>
+  </table>
+  <p>정리하면, <strong>데이터베이스(창고) 안에 SQL(명령)로 <code>user</code> 테이블(회원 명부)을 만들고</strong>, 이후 누군가 회원가입하면 그 표에 <strong>행(회원)이 한 줄씩</strong> 쌓이는 구조입니다. 표를 한 번 만들어 두는 이 SQL은 <strong>처음 딱 한 번만 실행</strong>하면 되고, 그다음부터는 앱이 이 표에 회원을 넣고 찾는 일을 대신합니다.</p>
+  <div class="practice-box">Access Token 발급·등록과, 프로젝트 생성부터 <code>user</code> 테이블 자동 생성까지는 <a href="day1_Examples.html#step-6">실습 STEP 6</a>에서 <strong>자연어 프롬프트 한 번</strong>으로 진행합니다.</div>
+
   <h3 id="why-login">로그인(멀티유저)은 왜 필요한가 — 배포된 챗봇과 API 비용</h3>
   <p>챗봇처럼 <strong>내 API Key로 동작하는 앱을 인터넷에 배포</strong>하면, 그 주소를 아는 <strong>누구나 그 챗봇을 사용할 수 있습니다.</strong> 그런데 다른 사람이 챗봇을 쓸 때마다 <strong>내 OpenAI 키가 호출되어 요금은 나에게 청구</strong>됩니다. 로그인 장치가 없으면 링크를 받은 사람은 물론 우연히 주소를 발견한 사람까지 <strong>내 비용으로</strong> 챗봇을 마음껏 쓸 수 있고, 누군가 악의적으로 대량 호출하면 <strong>요금이 순식간에 눈덩이처럼 불어날</strong> 수 있습니다.</p>
   <p><strong>여기서 헷갈리기 쉬운 두 가지를 나눠서 봐야 합니다.</strong></p>

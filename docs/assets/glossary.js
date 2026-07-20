@@ -91,7 +91,18 @@
     'node -v':         { id: 'g-nodejs',         desc: '설치된 Node.js 버전을 확인하는 명령.' },
     'git --version':   { id: 'g-git',            desc: '설치된 Git 버전을 확인하는 명령.' },
     'claude desktop':  { id: 'g-claude-desktop', desc: '내 컴퓨터에 설치해 쓰는 Claude 앱(파일·도구 연결 가능).' },
-    'claude code':     { id: 'g-claude-code',    desc: '코드를 읽고 쓰고 실행하는 Claude 개발 도구.' }
+    'claude code':     { id: 'g-claude-code',    desc: '코드를 읽고 쓰고 실행하는 Claude 개발 도구.' },
+    'access token':    { id: 'g-access-token',   desc: 'Supabase 계정에서 프로젝트 생성·SQL 실행 등 설정 작업을 자동화하도록 Claude Code(MCP)에 등록하는 관리용 토큰. service_role급으로 강력해 노출 금지.' },
+    'supabase access token': { id: 'g-access-token', desc: 'Supabase 설정 자동화를 위해 Claude Code(MCP)에 등록하는 관리용 개인 접근 토큰.' },
+    'sql':             { id: 'g-sql',             desc: '데이터베이스에 "표를 만들어라·넣어라·찾아라"처럼 지시하는 명령어 언어.' },
+    'sql editor':      { id: 'g-sql-editor',      desc: 'Supabase 대시보드에서 SQL을 입력해 Run으로 실행하는 화면.' },
+    '.sql':            { id: 'g-sql-file',        desc: 'SQL 명령문을 적어 두는 파일 형식(예: user-ref.sql).' },
+    'user-ref.sql':    { id: 'g-user-ref-sql',    desc: '회원용 user 테이블을 만드는 SQL 파일. Claude Code가 작성해 Supabase에 직접 실행.' },
+    'id':              { id: 'g-user-columns',    desc: 'user 테이블에서 회원마다 자동으로 붙는 고유 번호 칸(컬럼).' },
+    'login_id':        { id: 'g-user-columns',    desc: 'user 테이블에서 로그인 아이디를 담는 칸. 같은 값은 중복될 수 없음(unique).' },
+    'password_hash':   { id: 'g-user-columns',    desc: 'user 테이블에서 비밀번호를 해시(암호화)해 저장하는 칸. 원래 비밀번호는 저장하지 않음.' },
+    'created_at':      { id: 'g-user-columns',    desc: 'user 테이블에서 가입한 날짜·시각이 자동 기록되는 칸.' },
+    'unique':          { id: 'g-user-columns',    desc: '같은 값이 두 번 들어갈 수 없게 하는 제약(예: login_id는 회원마다 유일).' }
   };
 
   function ready(fn) {
