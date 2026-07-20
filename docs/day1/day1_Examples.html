@@ -283,8 +283,8 @@
 
   <div class="nav-group">환경 설치</div>
   <a href="#step-1"><span class="dot dot-g"></span>STEP 1 · GitHub·Vercel·OpenAI·Supabase 준비</a>
-  <a href="#step-2"><span class="dot dot-b"></span>STEP 2 · Claude 구독·설치</a>
-  <a href="#step-3"><span class="dot dot-g"></span>STEP 3 · Node.js · Git 설치·확인</a>
+  <a href="#step-2"><span class="dot dot-b"></span>STEP 2 · Claude 구독·Git 설치</a>
+  <a href="#step-3"><span class="dot dot-g"></span>STEP 3 · Node.js 설치·확인</a>
 
   <div class="nav-group">첫 웹페이지 실습</div>
   <a href="#step-4"><span class="dot dot-p"></span>STEP 4 · 헬로페이지 만들고 고치기</a>
@@ -305,7 +305,7 @@
   <p class="subtitle">이론 문서에서 익힌 개념을 실제 명령어·프롬프트로 따라 하는 실습 문서입니다. STEP 1부터 순서대로 진행하십시오.<br>개념이 헷갈리면 각 단계의 "관련 이론" 링크로 <a href="day1_Manual.html">이론 문서</a>를 참고하세요.</p>
 
   <div class="version-box">
-    <div class="version-row"><span class="vlabel">진행 순서</span><span>STEP 1 계정 → STEP 2 Claude Desktop → STEP 3 Node·Git → STEP 4 헬로페이지 → STEP 5 시계 → STEP 6 로그인·멀티유저</span></div>
+    <div class="version-row"><span class="vlabel">진행 순서</span><span>STEP 1 계정 → STEP 2 Claude Desktop·Git → STEP 3 Node.js → STEP 4 헬로페이지 → STEP 5 시계 → STEP 6 로그인·멀티유저</span></div>
     <div class="version-row"><span class="vlabel">짝 문서(이론)</span><span><a href="day1_Manual.html">day1_Manual.html</a> — 각 단계에서 쓰는 용어의 개념 설명</span></div>
   </div>
 
@@ -473,7 +473,7 @@
               <p class="note" style="padding-left:2px;">이 옵션은 <strong>윈도우 터미널에 Git Bash 프로필을 자동으로 등록</strong>해 주는 기능입니다. 체크해 두면 나중에 혹시 터미널을 열 일이 생겼을 때 Git Bash 환경을 훨씬 편하게 부를 수 있고, Claude Desktop 같은 외부 프로그램이 윈도우 터미널 환경을 찾아 쓸 때도 도움이 됩니다. 그 밖의 구성 요소 화면은 <strong>기본으로 체크된 상태 그대로 두고 "Next"</strong>를 누르는 것이 가장 무난하고 안정적입니다.</p>
               <p style="margin:8px 0 0;">이 화면을 지난 뒤로는 나오는 창마다 <strong>계속 "Next"</strong>를 눌러 <strong>"Install"</strong>까지 진행하고, 끝나면 <strong>"Finish"</strong>를 눌러 마칩니다.</p>
             </li>
-            <li><strong>macOS:</strong> <a href="https://git-scm.com/download/mac" target="_blank" rel="noopener">git-scm.com/download/mac</a> 의 안내에 따라 설치 파일을 내려받아 실행합니다. 실행할 때 <em>"확인되지 않은 개발자"</em> 경고가 뜨면 <strong>시스템 설정 → 개인정보 보호 및 보안</strong>에서 "확인 없이 열기"를 눌러 진행합니다.</li>
+            <li><strong>macOS:</strong> <strong>터미널(Terminal)</strong> 앱을 열고 <code>xcode-select --install</code>을 입력해 실행합니다. 잠시 후 뜨는 설치 팝업에서 <strong>"설치(Install)"</strong>를 누르면, Git이 포함된 Apple <strong>명령어 도구(Command Line Tools)</strong>가 설치됩니다.<span class="note">(Homebrew를 이미 쓰고 있다면 터미널에서 <code>brew install git</code>으로 설치해도 됩니다.)</span></li>
             <li>설치가 끝나면 <strong>Claude Desktop을 완전히 종료했다가 다시 실행</strong>합니다. 그래야 방금 설치한 Git을 Claude가 인식합니다.</li>
           </ol>
           <p class="note" style="padding-left:2px;">Git이 제대로 깔렸는지는 다음 STEP 3에서 Claude에게 <code>git --version</code>을 실행해 달라고 하면 채팅으로 바로 확인됩니다. 지금은 설치와 Claude 재시작까지만 하면 됩니다.</p>
