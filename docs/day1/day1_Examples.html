@@ -820,22 +820,29 @@ API Key가 실수로 업로드되지 않게 해줘.</pre>
       </ol>
       <div class="security-box">Access Token은 <code>service_role</code>만큼 <strong>강력한 관리용 열쇠</strong>입니다. 남과 공유하거나 공개 저장소(GitHub)에 <strong>절대 올리지 마세요.</strong> 아래 ①번 자연어 프롬프트에 붙여넣어 Claude Code에 등록하는 용도로만 씁니다.</div>
 
-      <div class="env-head env-ide">2️⃣ 이제부터 전부 자연어 <span class="env-note" style="color:#0550ae;">— MCP 연결부터 테이블 생성까지</span></div>
-      <div class="tip-box">토큰을 받았으면, 나머지는 <strong>Claude Code에 자연어로 시키기만</strong> 하면 됩니다. 먼저 <strong>①</strong> 토큰으로 Supabase를 Claude Code에 연결(MCP)하고, 그다음 <strong>②</strong> 프로젝트·키·<code>user</code> 테이블을 한 번에 만듭니다. <a href="day1_Manual.html#sql" style="color:#0969da;font-weight:600;">→ SQL·테이블 개념은 이론에서</a></div>
+      <div class="env-head env-ide">2️⃣ Supabase 연결·자동 생성 <span class="env-note" style="color:#0550ae;">— 토큰만 직접 등록, 나머지는 자연어</span></div>
+      <div class="tip-box">보안을 위해 <strong>①</strong> 토큰 등록만 <strong>설정 파일에 사람이 직접</strong> 넣고, 그다음 <strong>②</strong> 프로젝트·키·<code>user</code> 테이블 만들기는 <strong>자연어로</strong> Claude Code에 맡깁니다. <a href="day1_Manual.html#sql" style="color:#0969da;font-weight:600;">→ SQL·테이블 개념은 이론에서</a></div>
       <ol class="step-list">
         <li><div class="step-content">
-          <strong>① Supabase 연결(MCP) 프롬프트 — 토큰으로 자동 설치·등록</strong>
-          <p>복사한 토큰을 아래 프롬프트의 <code>sbp_…</code> 자리에 붙여넣고 Claude Code에 실행합니다. Claude Code가 Supabase MCP를 <strong>알아서 설치·등록</strong>합니다.</p>
+          <strong>① Supabase 연결(MCP) 등록 — 토큰은 사람이 직접 입력 (보안)</strong>
+          <p><strong>토큰은 계정 전체를 제어할 수 있는 강력한 열쇠</strong>라, AI 채팅창에 붙여넣지 않고 — <a href="#step-4">STEP 4</a>에서 <code>.env</code>에 키를 넣던 것처럼 — <strong>설정 파일을 열어 사람이 직접</strong> 넣습니다. 터미널은 쓰지 않습니다.</p>
+          <p><strong>먼저, 설정 파일을 Claude가 만들게 합니다</strong>(토큰 값은 비운 채로).</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">내 Supabase Access Token은 아래 값이야.
-이 토큰으로 Supabase MCP 서버를 설치하고 Claude Code에 등록해줘.
-등록이 끝나면 연결을 켜는 방법(재시작 등)도 알려줘.
-
-SUPABASE_ACCESS_TOKEN=sbp_여기에_복사한_토큰_붙여넣기</pre>
+            <pre class="code-block">hello-page 폴더에 Claude Code용 Supabase MCP 설정 파일 .mcp.json을 만들어줘.
+- supabase 서버는 npx -y @supabase/mcp-server-supabase@latest 로 실행
+- env의 SUPABASE_ACCESS_TOKEN 값은 비워 둬(내가 직접 넣을게)
+- .gitignore에 .mcp.json을 추가해서 토큰이 실수로 업로드되지 않게 해줘.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
-          <p class="note" style="padding-left:2px;">등록이 끝나면 안내에 따라 <strong>Claude Code를 한 번 재시작</strong>하세요. 그래야 Supabase 연결이 켜져 다음 ② 프롬프트가 동작합니다.</p>
+          <div class="env-head">✅ 그다음, 내가 직접 토큰 넣기 <span class="env-note" style="color:#0550ae;">— 토큰이 채팅에 남지 않음</span></div>
+          <ol class="substeps">
+            <li><code>hello-page</code> 폴더에서 <code>.mcp.json</code> 파일을 <strong>마우스 오른쪽 → "연결 프로그램" → 메모장</strong>으로 엽니다.<span class="note">(더블클릭으로 안 열리면 메모장을 먼저 켜고 <strong>파일 → 열기</strong>에서 오른쪽 아래를 "모든 파일"로 바꾼 뒤 <code>.mcp.json</code>을 선택하세요.)</span></li>
+            <li><code>"SUPABASE_ACCESS_TOKEN": ""</code> 의 <strong>큰따옴표 <code>""</code> 사이</strong>에 커서를 두고, 복사해 둔 <code>sbp_</code> 토큰을 <strong>붙여넣기(Ctrl+V)</strong> 합니다. 최종적으로 <code>"SUPABASE_ACCESS_TOKEN": "sbp_..."</code> 가 되어야 합니다.</li>
+            <li><strong>저장(Ctrl+S)</strong> 후 메모장을 닫습니다. 토큰은 내 파일에만 저장되고 채팅에는 남지 않습니다.</li>
+            <li><strong>Claude Code를 한 번 재시작</strong>합니다. 그래야 Supabase 연결이 켜져 다음 ② 단계가 동작합니다.</li>
+          </ol>
+          <p class="note" style="padding-left:2px;">잘 됐는지 궁금하면, 재시작 후 Claude에게 <strong>"supabase MCP에 연결됐어?"</strong>라고 물어보면 됩니다. 연결됐으면 바로 다음 ②로 넘어갑니다.</p>
         </div></li>
         <li><div class="step-content">
           <strong>② 프로젝트·키·테이블 자동 생성 프롬프트</strong>
@@ -858,7 +865,7 @@ SUPABASE_ACCESS_TOKEN=sbp_여기에_복사한_토큰_붙여넣기</pre>
           <p class="note" style="padding-left:2px;">프로젝트 이름 <code>hello-page</code>나 테이블 구성은 원하는 대로 바꿔도 됩니다. 완료되면 Supabase 대시보드에서 <code>hello-page</code> 프로젝트와 <code>user</code> 테이블이 생겼는지, <code>.env</code>에 값이 채워졌는지 확인하세요.</p>
         </div></li>
       </ol>
-      <div class="security-box">토큰은 <strong>①의 자연어 프롬프트에 붙여넣는 용도로만</strong> 씁니다(Claude Code가 자기 설정에 저장하며, 앱 <code>.env</code>·GitHub에는 올라가지 않습니다). 자동 생성된 <code>.env</code>(URL·anon 키)도 <code>.gitignore</code>에 포함돼 <strong>공개 저장소에 올라가지 않아야</strong> 합니다.</div>
+      <div class="security-box">토큰은 <strong>①에서 <code>.mcp.json</code> 파일에 사람이 직접</strong> 넣습니다(AI 채팅창에는 넣지 않습니다). 이 <code>.mcp.json</code>은 <code>.gitignore</code>에 넣어 <strong>GitHub에 올라가지 않게</strong> 하고, 자동 생성된 <code>.env</code>(URL·anon 키)도 마찬가지로 <code>.gitignore</code>에 포함돼 <strong>공개 저장소에 올라가지 않아야</strong> 합니다.</div>
 
       <div class="env-head">3️⃣ 로그인·회원가입 기능 추가하기 <span class="env-note" style="color:#0550ae;">— api/auth.js + index.html</span></div>
       <ol class="step-list">

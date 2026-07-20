@@ -302,7 +302,7 @@ Day 1 · 이론 → 실습 대응표
     </tbody>
   </table>
   <p>정리하면, <strong>데이터베이스(창고) 안에 SQL(명령)로 <code>user</code> 테이블(회원 명부)을 만들고</strong>, 이후 누군가 회원가입하면 그 표에 <strong>행(회원)이 한 줄씩</strong> 쌓이는 구조입니다. 표를 한 번 만들어 두는 이 SQL은 <strong>처음 딱 한 번만 실행</strong>하면 되고, 그다음부터는 앱이 이 표에 회원을 넣고 찾는 일을 대신합니다.</p>
-  <div class="practice-box">Access Token 발급·등록과, 프로젝트 생성부터 <code>user</code> 테이블 자동 생성까지는 <a href="day1_Examples.html#step-6">실습 STEP 6</a>에서 <strong>자연어 프롬프트 한 번</strong>으로 진행합니다.</div>
+  <div class="practice-box">Access Token 발급·등록(토큰은 보안상 <code>.mcp.json</code> 설정 파일에 <strong>사람이 직접</strong> 입력)과, 프로젝트 생성부터 <code>user</code> 테이블 자동 생성까지는 <a href="day1_Examples.html#step-6">실습 STEP 6</a>에서 진행합니다.</div>
 
   <h3 id="why-login">로그인(멀티유저)은 왜 필요한가 — 배포된 챗봇과 API 비용</h3>
   <p>챗봇처럼 <strong>내 API Key로 동작하는 앱을 인터넷에 배포</strong>하면, 그 주소를 아는 <strong>누구나 그 챗봇을 사용할 수 있습니다.</strong> 그런데 다른 사람이 챗봇을 쓸 때마다 <strong>내 OpenAI 키가 호출되어 요금은 나에게 청구</strong>됩니다. 로그인 장치가 없으면 링크를 받은 사람은 물론 우연히 주소를 발견한 사람까지 <strong>내 비용으로</strong> 챗봇을 마음껏 쓸 수 있고, 누군가 악의적으로 대량 호출하면 <strong>요금이 순식간에 눈덩이처럼 불어날</strong> 수 있습니다.</p>
