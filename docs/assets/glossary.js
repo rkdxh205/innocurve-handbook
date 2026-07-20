@@ -20,6 +20,7 @@
     'api key':         { id: 'g-apikey',         desc: '프로그램이 외부 AI·서비스를 불러 쓸 때 신원을 증명하는 비밀 열쇠.' },
     '.env':            { id: 'g-env',            desc: 'API 키 같은 비밀 값을 코드와 분리해 보관하는 파일.' },
     '.gitignore':      { id: 'g-gitignore',      desc: 'Git이 저장소에 올리지 않을 파일 목록.' },
+    '.mcp.json':       { id: 'g-mcp-json',       desc: 'Claude Code가 어떤 외부 도구(MCP 서버)에 연결할지 적어 두는 설정 파일. 안의 env 항목에 Access Token을 넣는다. 비밀 값을 담는 .env와는 다른 파일.' },
     'push protection': { id: 'g-push-protection', desc: '실수로 API 키가 든 코드를 올리려 하면 GitHub가 업로드(push)를 막아 주는 자동 안전장치.' },
     '프롬프트 인젝션': { id: 'g-prompt-injection', desc: '사용자가 AI의 원래 규칙을 깨뜨리려고 넣는 유도 입력. "앞의 지시 무시하고…" 같은 문장.' },
     'html':            { id: 'g-html',           desc: '웹페이지의 구조를 만드는 마크업 언어(HyperText Markup Language).' },
