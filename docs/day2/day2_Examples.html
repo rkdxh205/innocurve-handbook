@@ -230,7 +230,7 @@
       padding: 12px 16px; margin: 14px 0; font-size: 13.5px; color: #7d1a13;
     }
     .security-box::before {
-      content: '🔒 안전(Security)'; display: block; font-weight: 700; color: #cf222e;
+      content: '🔒 보안'; display: block; font-weight: 700; color: #cf222e;
       margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
     }
     .related-cmds {
@@ -259,14 +259,14 @@
   <div class="nav-title">Day 2 · 실습</div>
 
   <div class="nav-group">개념 이해</div>
-  <a href="#step-1"><span class="dot dot-g"></span>STEP 1 · RAG 챗봇 체험·직접 만들기</a>
+  <a href="#step-1"><span class="dot dot-g"></span>STEP 1 · RAG 챗봇 직접 만들기</a>
 
   <div class="nav-group">배포</div>
   <a href="#step-2"><span class="dot dot-p"></span>STEP 2 · Vercel 배포</a>
 
   <div class="nav-group">PRD 작성</div>
   <a href="#step-3"><span class="dot dot-p"></span>STEP 3 · Claude와 PRD Lite 만들기</a>
-  <a href="#step-4"><span class="dot dot-p"></span>STEP 4 · 내 앱 PRD 직접 작성</a>
+  <a href="#step-4"><span class="dot dot-p"></span>STEP 4 · 내 애플리케이션 PRD 작성</a>
   <a href="#step-5"><span class="dot dot-p"></span>STEP 5 · AI로 PRD 검토·구체화</a>
 
   <div class="nav-group">바로가기</div>
@@ -279,7 +279,7 @@
   <p class="subtitle">이론에서 익힌 RAG·PRD 개념을 바탕으로, 내가 만들 앱의 설계도(PRD)를 직접 완성하는 실습입니다. STEP 1부터 순서대로 진행하십시오.<br>개념이 헷갈리면 각 단계의 "관련 이론" 링크로 <a href="day2_Manual.html">이론 문서</a>를 참고하세요.</p>
 
   <div class="version-box">
-    <div class="version-row"><span class="vlabel">진행 순서</span><span>STEP 1 체험·직접 구현 → STEP 2 배포 → STEP 3 PRD Lite → STEP 4 PRD 작성 → STEP 5 AI 검토·구체화</span></div>
+    <div class="version-row"><span class="vlabel">진행 순서</span><span>STEP 1 RAG 챗봇 구현 → STEP 2 배포 → STEP 3 PRD Lite → STEP 4 PRD 작성 → STEP 5 AI 검토·구체화</span></div>
     <div class="version-row"><span class="vlabel">사용 도구</span><span>Day 1에서 설치·구독한 <strong>Claude Desktop(Pro)</strong></span></div>
     <div class="version-row"><span class="vlabel">오늘의 결과물</span><span>내 앱의 <code>PRD.md</code> 한 편 (다음 개발의 지도)</span></div>
   </div>
@@ -296,12 +296,12 @@
     <div class="card-header">
       <span class="card-id">STEP 1</span>
       <span class="badge badge-g">개념</span>
-      <strong class="card-title">RAG 챗봇을 직접 체험하고, 내 손으로 직접 만들기</strong>
+      <strong class="card-title">RAG 챗봇 내 손으로 직접 만들기</strong>
     </div>
     <div class="card-body">
 
       <div class="situation">
-        RAG는 글로만 보면 감이 잘 안 옵니다. Claude Desktop에 문서를 직접 올려 "문서 근거로 답하기"를 체험하고, 내가 만들 앱의 주제를 정합니다.
+        Day 1에서 만든 헬로페이지에 <strong>문서를 올려 물어보는 RAG 챗봇</strong>을 직접 만들어 붙입니다. 챗봇은 올린 문서 내용만 근거로 답하고, 대화는 Supabase에 저장해 다시 불러올 수 있게 합니다.
       </div>
 
       <div class="cmd-list">
@@ -312,40 +312,6 @@
       </div>
 
       <div class="steps-title">단계별 실행</div>
-      <ol class="step-list">
-        <li><div class="step-content">
-          <strong>문서 하나 준비하기</strong>
-          <p>내가 잘 아는 내용의 문서를 하나 고릅니다. 사내 규정, 제품 매뉴얼, 회의록, 안내문 등 <strong>PDF나 텍스트 파일</strong>이면 됩니다.<span class="note">(개인정보·기밀이 없는 문서를 사용하세요.)</span></p>
-          <p><strong>준비된 문서가 없다면</strong> 아래 예시 PDF를 내려받아 그대로 사용하세요. 이 실습 내내 예시 문서로 사용합니다.</p>
-          <p><a class="cmd-chip" href="../assets/files/why-language-models-hallucinate.pdf" download>📄 예시 PDF 내려받기 — why-language-models-hallucinate.pdf</a><span class="note">(AI 언어모델이 왜 없는 사실을 지어내는가(환각)를 다룬 공개 논문입니다.)</span></p>
-          <div class="warning-box"><strong>문서를 AI에 첨부하는 것은 그 내용을 외부(AI 서비스)로 보내는 것</strong>입니다. 그러니 실습에는 <strong>개인정보(이름·주민번호·연락처 등)나 대외비·기밀 문서를 올리지 마세요.</strong> 공개돼 있거나 공개해도 되는 안내문·매뉴얼만 쓰고, 마땅한 게 없으면 인터넷의 공개 PDF를 내려받아 사용하세요. <span class="note">(업무에서 AI를 쓸 때도 원칙은 같습니다 — "이 문서를 외부에 보내도 되는가?"를 늘 먼저 확인합니다.)</span></div>
-        </div></li>
-        <li><div class="step-content">
-          <strong>Claude Desktop에 문서 올려 질문하기</strong>
-          <p>Claude Desktop에서 새 대화를 열고, 준비한 문서를 <strong>첨부(＋ 또는 클립 아이콘)</strong>한 뒤 아래처럼 질문합니다.</p>
-          <span class="prompt-label">프롬프트</span>
-          <div class="code-wrap">
-            <pre class="code-block">첨부한 문서 내용만 근거로 답해줘.
-1. 이 문서의 핵심 내용을 3줄로 요약해줘.
-2. (문서에 있을 법한 구체적 질문 하나)를 알려주고,
-   어느 부분을 근거로 했는지도 함께 알려줘.</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-        </div></li>
-        <li><div class="step-content">
-          <strong>어떻게 답하는지 관찰하기</strong>
-          <p>답을 읽으며 아래를 확인합니다. 이것이 바로 RAG(문서 근거로 답하기)의 축소 체험입니다.</p>
-          <ol class="substeps">
-            <li>답이 <strong>문서 안의 내용</strong>을 근거로 하고 있는가?</li>
-            <li>문서에 <strong>없는 것</strong>을 물으면 어떻게 답하는가? (모른다고 하는지 확인)</li>
-          </ol>
-          <div class="flow-box">
-            방금 한 것이 RAG의 핵심입니다 — Claude가 <strong>먼저 첨부 문서를 읽고(검색), 그 내용을 근거로 답(생성)</strong>했습니다. 우리가 만들 앱은 이 과정을 <strong>여러 문서에 대해 자동으로</strong> 해 주는 프로그램입니다.
-          </div>
-        </div></li>
-      </ol>
-
-      <div class="steps-title" style="margin-top:28px;">이어서 실행 — 헬로페이지에 문서 Q&amp;A(RAG) 이어 붙이기</div>
 
       <div class="env-head">1️⃣ Day 1 헬로페이지 그대로 열기 <span class="env-note" style="color:#0550ae;">— 새 폴더 없이 재사용</span></div>
       <ol class="step-list">
@@ -359,85 +325,69 @@
         </div></li>
       </ol>
 
-      <div class="env-head">2️⃣ 챗봇 처리 부분 만들기 <span class="env-note" style="color:#0550ae;">— 키를 숨기고 문서를 근거로 답</span></div>
+      <div class="env-head">2️⃣ 웹페이지에 RAG 챗봇 만들기 <span class="env-note" style="color:#0550ae;">— 바로가기 버튼 + 문서 기반 답변</span></div>
       <ol class="step-list">
         <li><div class="step-content">
-          <strong>챗봇의 뒤쪽 처리 부분 만들기</strong>
-          <p>화면에서 OpenAI를 직접 부르면 API 키가 그대로 노출됩니다. 그래서 Day 1처럼, 키를 대신 다뤄 주는 <strong>작은 처리 부분을 화면 뒤에</strong> 둡니다(따로 설치할 건 없습니다).</p>
+          <strong>Day 1 페이지에 RAG 챗봇 페이지 붙이기</strong>
+          <p>Day 1에서 만든 프로필 페이지에 <strong>"RAG 챗봇" 바로가기 버튼</strong>을 달고, 버튼을 누르면 열리는 <strong>챗봇 페이지</strong>를 새로 만듭니다. 그 페이지에서 문서를 올려, 문서 내용을 근거로 답을 받습니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">문서를 근거로 답하는 챗봇의 "뒤에서 처리하는 부분"을 만들어줘.
+            <pre class="code-block">이 프롬프트는 Day 1에서 만든 웹페이지에 "문서를 올려 물어보는 RAG 챗봇"을
+붙이기 위한 요청입니다. 아래 내용대로 만들어줘.
 
-- 화면에서 OpenAI 키가 노출되지 않게, 화면 뒤에서 대신 OpenAI에 물어봐 주는
-  작은 처리 부분이야. (따로 설치할 건 없이 만들어줘.)
-- 사용자의 질문과 함께, 올린 문서의 "전체 내용"을 근거 자료로 같이 받아서,
-  OpenAI에게 "이 문서 내용만 근거로 답하라"고 전달해줘.
-  (복잡한 검색엔진 없이 문서 내용을 통째로 근거로 넘기는 방식으로, 비용이 적은 gpt-4o-mini 모델을 써줘.)
-- 답변 성격은 이렇게 정해줘:
-  "친절한 선생님처럼 중학생도 이해할 만큼 쉽게, 그러나 내용은 빠뜨리지 말고 모두 답해줘.
-   문서에 없는 내용은 지어내지 말고 '문서에 없습니다'라고 답하고, 존댓말 한국어로 답해줘."
-- OpenAI 키는 .env에 넣어 둔 값을 쓰고, 화면 코드에는 절대 적지 마.
-  (배포하면 Vercel이 그 값을 자동으로 채워줘.)
-- 키가 없거나 엉뚱한 요청이 오면 알기 쉬운 오류 메시지를 돌려줘.</pre>
-            <button class="copy-btn" onclick="copyCode(this)">복사</button>
-          </div>
-        </div></li>
-      </ol>
-
-      <div class="env-head env-ide">3️⃣ 화면에 "문서 Q&amp;A" 섹션 이어 붙이기 <span class="env-note">— PDF는 브라우저에서 바로 읽기</span></div>
-      <ol class="step-list">
-        <li><div class="step-content">
-          <strong>기존 화면에 문서 Q&amp;A 섹션 추가</strong>
-          <p>자기소개·시계는 그대로 두고, 그 아래에 <strong>문서 Q&amp;A 섹션</strong>만 이어 붙입니다. PDF에서 글자 뽑는 것까지 브라우저 안에서 처리하므로 설치가 필요 없습니다.</p>
-          <span class="prompt-label">프롬프트</span>
-          <div class="code-wrap">
-            <pre class="code-block">지금 페이지에 "문서 Q&amp;A" 화면을 이어서 더해줘.
-
-- 기존 자기소개·시계 내용은 절대 지우지 말고, 그 아래에 새 섹션으로 추가해줘.
-- 문서 올리는 영역: PDF 파일을 여러 개 골라 올리면,
-  브라우저 안에서 그 PDF들의 글자를 읽어 하나로 합쳐 두고
-  "문서 준비 완료 (N개)"라고만 표시해줘. (설치 없이 브라우저에서 바로 읽는 방식으로.)
-- 그 아래 채팅 화면: 지금까지의 대화가 쌓이는 목록 + 입력창 + 보내기 버튼.
-  · 질문을 보내면, 방금 만든 "뒤에서 처리하는 부분(챗봇)"에
-    질문과 올린 문서 내용을 함께 전달해 답을 받아줘.
-  · 답을 기다리는 동안 "생각 중..." 을 보여주고,
-  · 새로고침하기 전까지는 이전 대화를 계속 이어서 기억하게 해줘.
-- OpenAI 키를 다루는 코드는 화면에 절대 넣지 마(키는 뒤쪽 처리 부분만 다룸).
-- 위쪽 시계 화면과 어울리게 파란색 계열 카드로 만들어줘.</pre>
+- Day 1에서 만든 프로필 페이지는 그대로 두고,
+  화면 위쪽에 "RAG 챗봇" 바로가기 버튼을 하나 추가해줘.
+  그 버튼을 누르면 챗봇 화면으로 이동하게 해줘.
+- 챗봇 화면에는 이런 것들이 있어야 해:
+  · 문서(PDF)를 올리는 곳 — 여러 개 올려도 되고, 올리면 "문서 준비 완료"라고 표시해줘.
+    (설치 없이 브라우저 안에서 바로 글자를 읽는 방식으로.)
+  · 질문을 입력하는 칸과 보내기 버튼, 그리고 주고받은 대화가 쌓이는 목록.
+  · 질문을 보내면, 올린 문서의 내용만 근거로 삼아 답해줘.
+    문서에 없는 내용은 지어내지 말고 "문서에 없습니다"라고 답하고, 존댓말 한국어로.
+    (친절한 선생님처럼 쉽게, 하지만 내용은 빠뜨리지 말고 모두 답해줘.)
+- 비밀 키(OpenAI 키)는 화면에 절대 적지 말고, 화면 뒤에서만 다루게 해줘.
+  키는 .env에 넣어 둔 값을 쓰고, 비용이 적게 드는 gpt-4o-mini 모델을 써줘.
+- 전체 디자인은 Day 1의 파란색 계열과 어울리게 맞춰줘.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
           <p class="note" style="padding-left:2px;">문서가 아주 길면 한 번에 보낼 수 있는 양에 한계가 있습니다. 실습은 <strong>짧은 문서 1~2개</strong>로 시작하세요.</p>
+          <p style="margin-top:10px;"><strong>테스트할 문서가 없다면</strong> 아래 예시 PDF를 내려받아 사용하세요.</p>
+          <p><a class="cmd-chip" href="../assets/files/why-language-models-hallucinate.pdf" download>📄 예시 PDF 내려받기 — why-language-models-hallucinate.pdf</a><span class="note">(AI 언어모델이 왜 없는 사실을 지어내는가(환각)를 다룬 공개 논문입니다.)</span></p>
+          <div class="security-box"><strong>문서를 챗봇에 올리는 것은 그 내용을 외부(AI 서비스)로 보내는 것</strong>입니다. 그러니 실습에는 <strong>개인정보(이름·주민번호·연락처 등)나 대외비·기밀 문서를 올리지 마세요.</strong> 공개돼 있거나 공개해도 되는 안내문·매뉴얼만 쓰고, 마땅한 게 없으면 위 예시 PDF를 사용하세요. <span class="note">(업무에서 AI를 쓸 때도 원칙은 같습니다 — "이 문서를 외부에 보내도 되는가?"를 늘 먼저 확인합니다.)</span></div>
         </div></li>
       </ol>
 
-      <div class="env-head">4️⃣ 대화 세션 저장 <span class="env-note" style="color:#0550ae;">— Supabase에 저장·불러오기</span></div>
+      <div class="env-head">3️⃣ 대화 세션 저장 <span class="env-note" style="color:#0550ae;">— Supabase에 저장·불러오기</span></div>
       <p style="font-size:13.5px; color:var(--text-dim); margin:2px 0 10px;">지금까지는 새로고침하면 대화가 사라집니다. <a href="../day1/day1_Examples.html#step-6">Day 1 STEP 6(로그인)</a>에서 만든 <strong>Supabase</strong>(계정·키·<code>.env</code>의 <code>SUPABASE_URL</code>·<code>SUPABASE_ANON_KEY</code>)를 그대로 재사용해, 대화와 올린 문서를 <strong>세션째 저장·복원</strong>합니다.</p>
       <ol class="step-list">
         <li><div class="step-content">
-          <strong>① 세션용 테이블 SQL 만들기</strong>
-          <p>대화와 문서를 담을 테이블 두 개를 만드는 SQL을 Claude에게 맡깁니다.</p>
+          <strong>① 대화 저장용 표(테이블) 만들기</strong>
+          <p>이 단계는 <strong>대화 내용과 올린 문서를 저장해 둘 "표"를 데이터베이스에 만들기 위한</strong> 작업입니다. Day 1에서 Supabase 연결(Access Token)을 이미 해 두었으므로, Claude가 <strong>표를 만드는 SQL을 작성하고 Supabase에 실행까지 자동으로</strong> 처리합니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">대화를 저장할 표를 만드는 SQL을 sessions-ref.sql 파일로 만들어줘.
-아래 두 가지 표가 필요해:
-- 대화 세션 표: 세션 번호, 제목, 올린 문서 전체 글자, 만든 시각
-- 메시지 표: 메시지 번호, 어느 세션인지 연결, 보낸 쪽(사용자/AI), 내용, 시각
-실습용이니 anon 키로 저장·조회·삭제가 되도록 해줘.
-이미 같은 표가 있으면 지우고 다시 만드는 형태로 써줘.</pre>
+            <pre class="code-block">이 프롬프트는 대화 내용을 저장할 표(데이터베이스 테이블)를 만들기 위한
+프롬프트입니다. 해당 작업을 시행하기 위해 아래 요청대로 진행해주세요.
+
+- 대화를 저장할 표를 만드는 SQL을 sessions-ref.sql 파일로 만들고,
+  Day 1에서 연결해 둔 Supabase에 그 SQL을 바로 실행까지 해줘.
+- 아래 두 가지 표가 필요해:
+  · 대화 세션 표: 세션 번호, 제목, 올린 문서 전체 글자, 만든 시각
+  · 메시지 표: 메시지 번호, 어느 세션인지 연결, 보낸 쪽(사용자/AI), 내용, 시각
+- 실습용이니 anon 키로 저장·조회·삭제가 되도록 해줘.
+- 이미 같은 표가 있으면 지우고 다시 만드는 형태로 써줘.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
+          <p class="note" style="padding-left:2px;">완료되면 Supabase 대시보드의 <strong>Table Editor</strong>에서 표 두 개가 생겼는지 확인하면 됩니다.<span class="note">(<code>.env</code>에 <code>SUPABASE_URL</code>·<code>SUPABASE_ANON_KEY</code>가 없으면 Day 1 STEP 6에서 쓴 값을 그 두 줄로 추가하세요.)</span></p>
         </div></li>
         <li><div class="step-content">
-          <strong>② Supabase에서 실행 (사람이 직접)</strong>
-          <p>Supabase 대시보드 왼쪽 <strong>SQL Editor</strong>를 열고, 방금 만든 <code>sessions-ref.sql</code> 내용을 <strong>전체 복사해 붙여넣고 Run</strong> 합니다. 초록색 성공 메시지가 뜨면 준비 끝입니다.<span class="note">(<code>.env</code>에 <code>SUPABASE_URL</code>·<code>SUPABASE_ANON_KEY</code>가 없으면 Day 1 STEP 6에서 쓴 값을 그 두 줄로 추가하세요.)</span></p>
-        </div></li>
-        <li><div class="step-content">
-          <strong>③ 대화 저장·불러오기·삭제 기능 붙이기</strong>
-          <p>대화·문서를 저장하고 목록에서 다시 불러오는 기능을 붙입니다. 설치 없이 앞에서 만든 Supabase에 연결합니다.</p>
+          <strong>② 대화 저장·불러오기·삭제 기능 붙이기</strong>
+          <p>이제 챗봇 화면에서 <strong>대화를 저장하고, 목록에서 다시 불러오고, 지우는</strong> 기능을 붙입니다. 앞에서 만든 표에 연결하며, 따로 설치할 것은 없습니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">대화를 저장하고 다시 불러오는 기능을 더해줘.
-저장은 앞에서 만든 Supabase를 쓰고(따로 설치 없이 연결),
+            <pre class="code-block">이 프롬프트는 챗봇에 "대화를 저장하고 다시 불러오는" 기능을 붙이기 위한
+요청입니다. 해당 작업을 시행하기 위해 아래 내용대로 만들어줘.
+
+저장은 앞에서 만든 Supabase 표를 쓰고(따로 설치 없이 연결),
 접속 정보는 .env에 넣어 둔 Supabase 값을 써줘.
 
 [뒤에서 처리하는 부분 — 아래 네 가지]
@@ -464,32 +414,11 @@
       </figure>
 
       <div class="tip-box">
-        방금 Claude에 문서를 첨부해 물어본 것을, <strong>Day 1 헬로페이지에 이어 붙여</strong> 내 웹앱으로 만든 것이 이 문서 Q&amp;A입니다. 여기에 <strong>대화를 저장·불러오는 멀티세션(Supabase)</strong>까지 갖췄습니다. 세부사항(화면 문구 등)이 마음에 안 들면 이어서 말로 요청해 다듬으면 됩니다.
+        <strong>Day 1 헬로페이지에 이어 붙여</strong> 내 웹앱으로 만든 것이 이 RAG 챗봇입니다. 여기에 <strong>대화를 저장·불러오는 멀티세션(Supabase)</strong>까지 갖췄습니다. 세부사항(화면 문구 등)이 마음에 안 들면 이어서 말로 요청해 다듬으면 됩니다.
       </div>
 
       <div class="security-box">
         <code>OPENAI_API_KEY</code>·<code>SUPABASE_URL</code>·<code>SUPABASE_ANON_KEY</code>는 <code>.env</code>에만 두고 <code>index.html</code>·<code>api/*.js</code>에 직접 적지 마세요. GPT 호출은 <strong>API 사용료가 조금씩 과금</strong>됩니다(문서를 근거로 함께 보내므로 문서가 길수록 비용이 늘어납니다). 이 앱을 인터넷에 공개 배포할 때는 <code>.gitignore</code>에 <code>.env</code>를 추가하고, Vercel 프로젝트 설정의 환경 변수에 세 키를 모두 등록해야 합니다. 그리고 <strong>앱 안에 넣어 둔(내장한) 문서는 인터넷에 공개 배포하면 그 주소로 열람될 수 있으니</strong>, 공개할 앱에는 개인정보·대외비 문서를 넣지 마세요.
-      </div>
-
-      <div class="steps-title" style="margin-top:28px;">마지막으로 — 내가 만들 앱 주제 정하기</div>
-      <ol class="step-list">
-        <li><div class="step-content">
-          <strong>내가 만들 앱 주제 정하기</strong>
-          <p>평소 <strong>"이 문서에서 뭐 좀 빨리 찾았으면" 싶던 업무</strong>를 하나 떠올립니다. 아래 예시를 참고해, 내 앱을 한 문장으로 적어 봅니다.</p>
-          <div class="doc-box">
-            <div class="doc-title">주제 예시</div>
-            <ul>
-              <li><b>사내 규정 Q&amp;A</b> — 직원이 복무·경비 규정을 묻으면 관련 조항으로 답</li>
-              <li><b>제품 매뉴얼 Q&amp;A</b> — 고객이 사용법을 물으면 매뉴얼에서 찾아 답</li>
-              <li><b>회의록 Q&amp;A</b> — "지난달 예산 회의 결정사항"을 회의록에서 찾아 답</li>
-            </ul>
-            <b>내 앱 한 문장:</b> "____(누구)____ 가 ____(무슨 문서)____ 에 대해 물으면 근거와 함께 답해 주는 Q&amp;A 챗봇"
-          </div>
-        </div></li>
-      </ol>
-
-      <div class="tip-box">
-        주제는 <strong>내가 실제로 겪는 불편</strong>에서 고를수록 뒤의 PRD가 잘 나옵니다. 남의 문제가 아니라 내 문제를 고르세요. 이 주제가 <strong>STEP 3부터의 my-app</strong>이 됩니다.
       </div>
 
     </div>
@@ -512,7 +441,7 @@
     <div class="card-body">
 
       <div class="situation">
-        방금 만든 <strong>RAG 챗봇</strong>까지 더해진 <code>hello-page</code>(자기소개·시계·로그인·문서 Q&amp;A 챗봇)를 누구나 접속할 수 있는 인터넷 주소로 공개합니다. <strong>터미널 없이</strong> GitHub와 Vercel 사이트에서 클릭만으로 진행합니다. 로그인은 <strong>Supabase</strong>, 챗봇은 <strong>OpenAI</strong>를 쓰므로 <code>api/</code> 폴더까지 함께 올리고 — 비밀 키가 담긴 <code>.env</code>는 <strong>올리지 말고</strong> <strong>Vercel 환경 변수에 키를 등록</strong>해 안전하게 공개합니다.
+        방금 만든 <strong>RAG 챗봇</strong>까지 더해진 <code>hello-page</code>(자기소개·시계·로그인·RAG 챗봇)를 누구나 접속할 수 있는 인터넷 주소로 공개합니다. 지금까지 해 온 것처럼 <strong>프롬프트 하나</strong>로 — GitHub 업로드부터 Vercel 배포, 키 등록까지 Claude가 자동으로 진행합니다. 비밀 키가 담긴 <code>.env</code>는 <strong>GitHub에 올리지 않고</strong>, <strong>Vercel 환경 변수로 등록</strong>해 안전하게 공개합니다.
       </div>
 
       <div class="cmd-list">
@@ -523,49 +452,35 @@
         </div>
       </div>
 
-      <div class="env-head">1️⃣ GitHub에 올리기 <span class="env-note" style="color:#0550ae;">— .env는 제외</span></div>
+      <div class="env-head">1️⃣ 프롬프트 하나로 배포하기 <span class="env-note" style="color:#0550ae;">— GitHub 업로드부터 키 등록까지 자동</span></div>
       <ol class="step-list">
         <li><div class="step-content">
-          <strong>GitHub에 새 저장소(repository) 만들기</strong>
-          <p>Day 1 STEP 1에서 만든 GitHub 계정으로 로그인한 뒤, 코드를 올려 둘 빈 저장소를 하나 만듭니다.</p>
-          <ol class="substeps">
-            <li>github.com 우측 상단의 <strong>"+"</strong> → <strong>"New repository"</strong>를 선택합니다.</li>
-            <li><strong>Repository name</strong>에 <code>hello-page</code>를 입력하고, 공개 범위는 <strong>"Public"</strong>으로 둡니다.<span class="note">(다른 항목은 비워 둡니다.)</span></li>
-            <li><strong>"Create repository"</strong>를 클릭합니다.</li>
-          </ol>
-        </div></li>
-        <li><div class="step-content">
-          <strong>결과물을 GitHub에 업로드하기 (.env 제외)</strong>
-          <p>터미널 없이 GitHub 사이트에서 파일을 바로 올립니다.</p>
-          <ol class="substeps">
-            <li>저장소 화면의 <strong>"Add file" → "Upload files"</strong>를 클릭합니다.</li>
-            <li><code>hello-page</code> 폴더에서 <strong><code>index.html</code>·<code>재정경제부.svg</code>·<code>api/</code> 폴더·<code>package.json</code></strong>을 올립니다.<span class="note">(<code>.gitignore</code>에 <code>.env</code>가 있으면 자동으로 빠집니다. 목록에 <code>.env</code>가 보이면 반드시 제외하세요.)</span></li>
-            <li>아래 <strong>"Commit changes"</strong>로 업로드를 확정합니다.</li>
-          </ol>
-        </div></li>
-      </ol>
+          <strong>배포 요청하기</strong>
+          <p>아래 프롬프트를 붙여넣으면 Claude가 ① 코드를 GitHub 저장소에 올리고(<code>.env</code> 제외), ② Vercel에 연결해 배포하고, ③ <code>.env</code>의 키들을 Vercel 환경 변수로 등록하는 것까지 한 번에 진행합니다.</p>
+          <span class="prompt-label">프롬프트</span>
+          <div class="code-wrap">
+            <pre class="code-block">이 프롬프트는 지금까지 만든 hello-page를 인터넷에 공개(배포)하기 위한
+프롬프트입니다. 해당 작업을 시행하기 위해 아래 요청대로 진행해주세요.
 
-      <div class="env-head env-ide">2️⃣ Vercel Import + 환경 변수 등록 <span class="env-note" style="color:#0550ae;">— 키는 Vercel에</span></div>
-      <ol class="step-list">
-        <li><div class="step-content">
-          <strong>저장소 연결 · 키 등록 · 배포</strong>
-          <p>키를 코드가 아니라 <strong>Vercel 설정</strong>에 넣습니다. 로컬 <code>.env</code>와 <strong>같은 값</strong>을 등록하면 됩니다.</p>
-          <ol class="substeps">
-            <li>vercel.com에 로그인하고 <strong>"Add New… → Project"</strong>로 <code>hello-page</code> 저장소를 <strong>"Import"</strong>합니다.<span class="note">(목록에 없으면 "Adjust GitHub App Permissions"로 접근을 허용합니다.)</span></li>
-            <li>Deploy 누르기 전에 <strong>"Environment Variables"</strong>를 펼쳐 아래 세 개를 이름·값으로 추가합니다.
-              <div class="code-wrap" style="margin-top:6px;">
-                <pre class="code-block">SUPABASE_URL        = (Supabase Project URL)
-SUPABASE_ANON_KEY   = (Supabase anon public 키)
-OPENAI_API_KEY      = (Day 1 STEP 1의 sk- 키)</pre>
-                <button class="copy-btn" onclick="copyCode(this)">복사</button>
-              </div>
-            </li>
-            <li>이제 <strong>"Deploy"</strong>를 클릭합니다. 잠시 뒤 공개 주소가 나타납니다.</li>
-          </ol>
+github에 push하고 vercel로 배포해줘.
+
+- GitHub에 hello-page라는 공개(Public) 저장소를 만들고,
+  지금 폴더의 코드를 올려줘.
+  단, 비밀 키가 든 .env 파일은 절대 올라가면 안 돼(.gitignore 확인해줘).
+- Vercel에 이 저장소를 연결해서 배포해줘.
+- .env에 있는 SUPABASE_URL, SUPABASE_ANON_KEY, OPENAI_API_KEY 세 값을
+  Vercel 환경 변수로 등록해줘.
+  키 값은 채팅 화면에 보여주지 말고, 파일에서 바로 읽어 등록해줘.
+- 중간에 로그인(GitHub·Vercel)이 필요하면 멈추고
+  내가 어떻게 하면 되는지 알려줘.
+- 배포가 끝나면 공개 주소를 알려주고, 접속해서 확인할 항목도 알려줘.</pre>
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
+          </div>
+          <p class="note" style="padding-left:2px;">처음 한 번은 GitHub·Vercel <strong>로그인(인증) 안내</strong>가 나올 수 있습니다. Claude가 알려 주는 대로 브라우저에서 로그인만 해 주면, 이후에는 다시 묻지 않습니다.</p>
         </div></li>
         <li><div class="step-content">
           <strong>공개 주소에서 확인</strong>
-          <p>배포된 <code>https://hello-page-xxxx.vercel.app</code>에 접속해 <strong>회원가입·로그인 → 문서 질문</strong>이 인터넷에서도 되면 성공입니다. 앞으로 코드를 고쳐 GitHub에 다시 올리면 <strong>자동으로 재배포</strong>됩니다.</p>
+          <p>배포된 <code>https://hello-page-xxxx.vercel.app</code>에 접속해 <strong>회원가입·로그인 → 문서 질문</strong>이 인터넷에서도 되면 성공입니다. 앞으로 코드를 고친 뒤 <strong>"github에 다시 올리고 재배포해줘"</strong>라고 하면 바뀐 내용이 자동으로 반영됩니다.</p>
         </div></li>
       </ol>
 
@@ -601,7 +516,7 @@ OPENAI_API_KEY      = (Day 1 STEP 1의 sk- 키)</pre>
     <div class="card-body">
 
       <div class="situation">
-        정식 PRD를 쓰기 전, Claude와 대화하며 <code>prd_lite.md</code>라는 가벼운 기획서를 먼저 정리합니다. "한 마디 정의 · 누가 왜 쓰는지 · 핵심 기능 2개(+AI가 지킬 규칙) · 안 만들 기능 · 디자인 느낌" 다섯 항목을 채웁니다.<br>이번엔 메모장에 직접 적지 않습니다. Claude의 <strong>Plan 모드</strong>를 활용해, 항목 하나하나를 <strong>Claude와 의견을 주고받으며 함께 채워나갑니다</strong> — 미리 계획부터 세우고 시작하는 게 아니라, 매 항목마다 Claude가 먼저 제안하면 내가 다듬고 합의된 내용만 파일에 반영하는 방식입니다.
+        정식 PRD를 쓰기 전, Claude와 대화하며 <code>prd_lite.md</code>라는 가벼운 기획서를 먼저 정리합니다. "한 마디 정의 · 누가 왜 쓰는지 · 핵심 기능 2개(+AI가 지킬 규칙) · 안 만들 기능 · 디자인 느낌" 다섯 항목을 채웁니다.<br>이번엔 메모장에 직접 적지 않습니다. 항목 하나하나를 <strong>Claude와 의견을 주고받으며 함께 계획하고 채워나갑니다</strong> — 미리 계획부터 세우고 시작하는 게 아니라, 매 항목마다 Claude가 먼저 제안하면 내가 다듬고 합의된 내용만 파일에 반영하는 방식입니다.
       </div>
 
       <div class="cmd-list">
@@ -616,10 +531,11 @@ OPENAI_API_KEY      = (Day 1 STEP 1의 sk- 키)</pre>
       <ol class="step-list">
         <li><div class="step-content">
           <strong>my-app 폴더 만들고 작업 폴더로 지정</strong>
-          <p>STEP 1에서는 <code>hello-page</code>에 문서 Q&amp;A를 이어 붙여 RAG를 체험했고, 여기서부터는 <strong>내가 실제로 계획·설계해 나갈 내 앱 프로젝트</strong>를 위해 새 폴더를 만듭니다.</p>
+          <p>STEP 1에서는 <code>hello-page</code>에 RAG 챗봇을 이어 붙였고, 여기서부터는 <strong>내가 실제로 계획·설계해 나갈 내 앱 프로젝트</strong>를 위해 새 폴더에서 시작합니다. 이번에는 폴더를 <strong>내 손으로 직접</strong> 만들고, 새 세션에서 그 폴더를 작업 폴더로 지정합니다.</p>
           <ol class="substeps">
-            <li><strong>바탕화면(Desktop)</strong>에 <code>my-app</code> 폴더를 새로 만듭니다.<span class="note">(한글·공백 없는 영문 이름 · 위치가 무작위로 잡히지 않게 "바탕화면에 만들어줘"라고 콕 집어 말하세요)</span></li>
-            <li>Claude Desktop <strong>Settings</strong>에서 이 <code>my-app</code> 폴더를 작업 폴더로 지정합니다.<span class="note">(방법이 기억나지 않으면 <a href="../day1/day1_Examples.html#step-2">Day 1 STEP 2</a>를 참고하세요.)</span></li>
+            <li><strong>바탕화면(Desktop)</strong> 빈 곳에서 <strong>마우스 오른쪽 → 새로 만들기 → 폴더</strong>를 눌러, 이름을 <code>my-app</code>으로 지어 폴더를 직접 만듭니다.<span class="note">(한글·공백 없는 영문 이름 그대로 입력하세요.)</span></li>
+            <li>Claude Desktop에서 <strong>새 대화(새 세션)</strong>를 열고, <strong>작업 폴더를 방금 만든 <code>my-app</code> 폴더로 지정</strong>합니다.<span class="note">(폴더 지정 화면이 뜨면 바탕화면의 <code>my-app</code>을 선택하세요. 방법이 기억나지 않으면 <a href="../day1/day1_Examples.html#step-2">Day 1 STEP 2</a>를 참고하세요.)</span></li>
+            <li>잘 지정됐는지 궁금하면 채팅에 <strong>"지금 작업 폴더가 어디야?"</strong>라고 물어 확인합니다.</li>
           </ol>
         </div></li>
         <li><div class="step-content">
@@ -627,7 +543,11 @@ OPENAI_API_KEY      = (Day 1 STEP 1의 sk- 키)</pre>
           <p>기획서 형식의 가벼운 문서부터 시작합니다. 아래 프롬프트로 빈 틀을 먼저 만듭니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">my-app 폴더에 prd_lite.md 파일을 직접 만들어줘.
+            <pre class="code-block">이 프롬프트는 내 앱의 가벼운 기획서(prd_lite.md)를 작성하기 전에,
+먼저 그 빈 틀(양식)을 파일로 만들어 두기 위한 프롬프트입니다.
+해당 작업을 시행하기 위해 아래 요청대로 진행해주세요.
+
+my-app 폴더에 prd_lite.md 파일을 직접 만들어줘.
 
 아래 형식 그대로 빈 틀을 만들어줘. 제목·안내 문구·예시는
 그대로 두고, "답변:" 뒤와 [ ] 안만 비워둬.
@@ -683,14 +603,15 @@ OPENAI_API_KEY      = (Day 1 STEP 1의 sk- 키)</pre>
           <p>Claude가 파일을 만들어도 되는지 물으면 <strong>"허용(Allow)"</strong>을 누릅니다.</p>
         </div></li>
         <li><div class="step-content">
-          <strong>"STEP 3 진행해줘" — Plan 모드로 항목마다 함께 채우기</strong>
+          <strong>Claude와 함께 계획하며 채우기</strong>
           <p>이어서 아래 프롬프트를 붙여넣습니다. Claude가 한 번에 계획을 세우고 끝내는 게 아니라, <strong>항목 하나마다 먼저 의견을 제안하고 내 생각을 물어본 뒤</strong>, 합의된 내용만 그때그때 파일에 반영하고 다음 항목으로 넘어갑니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">STEP 3 진행해줘.
+            <pre class="code-block">이 프롬프트는 방금 만든 기획서 빈 틀(prd_lite.md)의 다섯 항목을
+Claude와 대화를 주고받으며 하나씩 채워가기 위한 프롬프트입니다.
+해당 작업을 시행하기 위해 아래 요청대로 진행해주세요.
 
-Plan 모드로, prd_lite.md의 다섯 항목을
-아래 순서로 나와 함께 하나씩 채워나가자.
+prd_lite.md의 다섯 항목을 아래 순서로 나와 함께 하나씩 채워나가자.
 
 1) 이 앱은 한 마디로 무엇인가
 2) 누가 쓰고, 왜 쓰는가
@@ -698,14 +619,14 @@ Plan 모드로, prd_lite.md의 다섯 항목을
 4) 이번에 절대 만들지 않을 기능
 5) 디자인 느낌과 색상
 
-항목마다 먼저 네 생각(초안)을 제안하고 내 의견을 물어봐줘.
-특히 3)은 기능이 2개를 넘지 않게, 숫자·조건이 들어간
-구체적인 "AI가 지킬 규칙"을 함께 뽑아줘. 4)는 아직 안 만들
-것도 같이 정해서 범위가 커지지 않게 해줘.
-
-내가 답하면 그 의견을 반영해서 문장으로 다듬고,
-같이 합의된 내용만 prd_lite.md에 채운 다음
-다음 항목으로 넘어가자. 다섯 항목이 다 끝날 때까지 반복해줘.</pre>
+- 한꺼번에 다 쓰지 말고, 항목마다 먼저 네 생각(초안)을 제안하고
+  내 의견을 물어봐줘. 나는 "맞다/아니다, 이건 이렇게" 정도로만 답할게.
+- 내가 답하면 그 의견을 반영해 자연스러운 문장으로 다듬고,
+  둘이 합의한 내용만 prd_lite.md에 채운 다음 다음 항목으로 넘어가자.
+- 특히 3)은 기능이 2개를 넘지 않게 하고, 숫자·조건이 들어간
+  구체적인 "AI가 지킬 규칙"을 함께 뽑아줘.
+- 4)는 이번에 안 만들 것을 분명히 정해서 욕심이 커지지 않게 잡아줘.
+- 다섯 항목이 다 끝날 때까지 이 방식을 반복해줘.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
         </div></li>
@@ -746,12 +667,12 @@ Plan 모드로, prd_lite.md의 다섯 항목을
     <div class="card-header">
       <span class="card-id">STEP 4</span>
       <span class="badge badge-p">PRD</span>
-      <strong class="card-title">내 애플리케이션 PRD 직접 작성하기</strong>
+      <strong class="card-title">내 애플리케이션 PRD 작성하기</strong>
     </div>
     <div class="card-body">
 
       <div class="situation">
-        STEP 3의 <code>prd_lite.md</code>를 뼈대 삼아, Claude Desktop으로 <code>PRD.md</code> 파일을 만들고 일곱 항목으로 고도화합니다.
+        STEP 3의 <code>prd_lite.md</code>를 뼈대 삼아, Claude Desktop으로 <code>PRD.md</code> 파일을 만들고 여덟 항목으로 고도화합니다. 개발에 쓸 <strong>기술 스택</strong>도 여기서 Claude가 제안하는 난이도별 옵션 중에서 직접 고릅니다.
       </div>
 
       <div class="cmd-list">
@@ -768,9 +689,13 @@ Plan 모드로, prd_lite.md의 다섯 항목을
           <p>Claude Desktop 대화창에 아래 프롬프트를 붙여넣어, 빈 <code>PRD.md</code> 템플릿을 만들게 합니다. 파일 생성을 물으면 <strong>"허용(Allow)"</strong> 합니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">my-app 폴더에 PRD.md 파일을 직접 만들어줘.
+            <pre class="code-block">이 프롬프트는 정식 기획서(PRD.md)를 작성하기 전에,
+먼저 여덟 항목짜리 빈 틀(양식)을 파일로 만들어 두기 위한 프롬프트입니다.
+해당 작업을 시행하기 위해 아래 요청대로 진행해주세요.
 
-아래 일곱 항목으로 빈 템플릿을 만들어줘.
+my-app 폴더에 PRD.md 파일을 직접 만들어줘.
+
+아래 여덟 항목으로 빈 템플릿을 만들어줘.
 각 항목은 마크다운 제목(##)으로 넣고, 그 바로 아래에
 무엇을 적는 칸인지 한 줄 설명을 이탤릭체로 넣어줘.
 
@@ -792,7 +717,10 @@ Plan 모드로, prd_lite.md의 다섯 항목을
    — 이번 실습에서 만들 것 / 만들지 않을 것
 
 7) 보안·개인정보 검토
-   — 사용 문서의 공개등급, 개인정보 여부, API 키 관리 방법</pre>
+   — 사용 문서의 공개등급, 개인정보 여부, API 키 관리 방법
+
+8) 기술 스택
+   — 개발에 사용할 도구 모음 (난이도별 옵션 중 내가 고른 것과 그 이유)</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
         </div></li>
@@ -801,7 +729,11 @@ Plan 모드로, prd_lite.md의 다섯 항목을
           <p>손으로 다시 옮겨 적지 않고, Claude가 <code>prd_lite.md</code>를 직접 읽어 PRD.md를 채우게 합니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">prd_lite.md를 직접 읽고, 그 내용을 바탕으로
+            <pre class="code-block">이 프롬프트는 앞에서 만든 가벼운 기획서(prd_lite.md)의 내용을 바탕으로,
+정식 기획서(PRD.md)의 여덟 항목을 채우기 위한 프롬프트입니다.
+해당 작업을 시행하기 위해 아래 요청대로 진행해주세요.
+
+prd_lite.md를 직접 읽고, 그 내용을 바탕으로
 PRD.md의 아래 항목들을 채워줘.
 
 - 맨 위에 "# [프로젝트 이름] 서비스 기획서 (PRD)" 제목과
@@ -817,14 +749,25 @@ PRD.md의 아래 항목들을 채워줘.
 사용자와 이용 흐름, 보안·개인정보 검토)은 위 내용에 맞게
 적절히 제안해서 채워줘.
 
+단, "기술 스택" 항목은 바로 채우지 말고 이렇게 진행해줘:
+- 내 앱에 맞는 기술 스택(개발에 사용할 도구 모음)을
+  난이도별로 3가지 옵션으로 제안해줘.
+  · 옵션 1 (쉬움) · 옵션 2 (보통) · 옵션 3 (도전)
+- 옵션마다 어떤 도구들의 조합인지와,
+  비개발자도 이해할 수 있는 쉬운 설명을 한 줄로 붙여줘.
+  (예: "지금까지 실습에서 쓴 것과 같은 구성이라 가장 익숙해요")
+- 내가 옵션 하나를 고르면, 그때 고른 내용과 고른 이유를
+  PRD.md의 "기술 스택" 항목에 채워줘.
+
 prd_lite.md의 "5. 디자인 느낌과 색상"은 PRD.md에는 넣지 말고,
 나중에 실제 화면을 만들 때 다시 참고하게 그대로 남겨줘.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
+          <p class="note" style="padding-left:2px;">프롬프트를 보내면 Claude가 다른 항목들을 먼저 채운 뒤, <strong>기술 스택 옵션 3가지를 제안하며 멈춥니다.</strong> 마음에 드는 옵션 번호로 답하면 "기술 스택" 항목까지 채워집니다. 그다음에 아래 "결과 확인"으로 넘어가세요.</p>
         </div></li>
         <li><div class="step-content">
           <strong>결과 확인</strong>
-          <p><code>my-app</code> 폴더의 <code>PRD.md</code>를 열어 일곱 항목이 내 앱에 맞게 채워졌는지 확인합니다. 아래는 완성된 PRD의 예시입니다.</p>
+          <p><code>my-app</code> 폴더의 <code>PRD.md</code>를 열어 여덟 항목이 내 앱에 맞게 채워졌는지 확인합니다. 아래는 완성된 PRD의 예시입니다.</p>
           <div class="doc-box">
             <div class="doc-title">PRD.md 작성 예시 — 사내 규정 Q&amp;A 챗봇</div>
             <b># 사내 규정 Q&amp;A 챗봇 서비스 기획서 (PRD)</b><br>
@@ -844,13 +787,15 @@ prd_lite.md의 "5. 디자인 느낌과 색상"은 PRD.md에는 넣지 말고,
             <b>6) 범위와 비범위</b><br>
             (범위) 한국어 텍스트 문서 / (비범위) 이미지·표 인식, 로그인, 다국어<br><br>
             <b>7) 보안·개인정보 검토</b><br>
-            사내 공개 규정 문서만 사용(개인정보 없음). OpenAI API 키는 <code>.env</code>에만 저장하고 GitHub에는 올리지 않는다.
+            사내 공개 규정 문서만 사용(개인정보 없음). OpenAI API 키는 <code>.env</code>에만 저장하고 GitHub에는 올리지 않는다.<br><br>
+            <b>8) 기술 스택</b><br>
+            옵션 1 (쉬움) 선택 — HTML/CSS/JS 화면 + Vercel 서버리스 함수 + Supabase. <span style="color:#57606a;">(이유: Day 1~2 실습에서 쓴 것과 같은 구성이라 가장 익숙하고, 새로 배울 것이 없다)</span>
           </div>
         </div></li>
       </ol>
 
       <div class="warning-box">
-        처음부터 완벽하지 않아도 됩니다. 지금은 <strong>일곱 항목이 다 채워진 초안</strong>이면 충분합니다. 다듬기는 STEP 5에서 AI와 함께 합니다.
+        처음부터 완벽하지 않아도 됩니다. 지금은 <strong>여덟 항목이 다 채워진 초안</strong>이면 충분합니다. 다듬기는 STEP 5에서 AI와 함께 합니다.
       </div>
 
     </div>
@@ -883,22 +828,29 @@ prd_lite.md의 "5. 디자인 느낌과 색상"은 PRD.md에는 넣지 말고,
           <p>같은 대화(또는 <code>my-app</code> 폴더가 지정된 대화)에서 아래 프롬프트로 검토를 요청합니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">PRD.md를 직접 읽고 검토해줘.
+            <pre class="code-block">이 프롬프트는 작성한 기획서(PRD.md)에 빠진 부분이나
+모호한 부분이 없는지 Claude에게 검토받기 위한 프롬프트입니다.
+해당 작업을 시행하기 위해 아래 요청대로 진행해주세요.
+
+PRD.md를 직접 읽고 검토해줘.
 1) 빠졌거나 더 정해야 할 부분
 2) 모호하게 적힌 문장
 3) 사용자가 겪을 수 있는 예외 상황 5가지
-를 짚어줘. 아직 파일은 고치지 말고 의견만 줘.</pre>
+를 짚어줘. 아직 파일은 고치지 말고 의견만 줘.
+
+의견을 다 준 다음에도 바로 고치지 말고 기다려줘.
+반영할 것은 내가 직접 번호로 고를게.
+내가 고르면, 고른 것만 PRD.md에 반영해줘.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
         </div></li>
         <li><div class="step-content">
           <strong>피드백 중 반영할 것 고르기</strong>
-          <p>Claude의 의견을 모두 반영할 필요는 없습니다. <strong>이번 앱에 꼭 필요한 것만</strong> 골라, 반영을 지시합니다.</p>
-          <span class="prompt-label">프롬프트</span>
+          <p>이 단계는 프롬프트를 붙여넣는 게 아니라, Claude가 내놓은 의견을 읽고 <strong>내가 직접 고르는 차례</strong>입니다. 의견을 모두 반영할 필요는 없습니다 — <strong>이번 앱에 꼭 필요한 것만</strong> 골라 아래처럼 짧게 답하면, 고른 것만 <code>PRD.md</code>에 반영됩니다.</p>
+          <span class="prompt-label">답변 예시</span>
           <div class="code-wrap">
-            <pre class="code-block">방금 준 의견 중에서
-(예: 1번, 3번의 첫째·둘째 항목)만 반영해서
-PRD.md를 직접 업데이트해줘.</pre>
+            <pre class="code-block">1번이랑 3번의 첫째·둘째 항목만 반영해서 PRD.md를 업데이트해줘.
+나머지는 이번에는 넣지 말자.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
         </div></li>
@@ -907,7 +859,11 @@ PRD.md를 직접 업데이트해줘.</pre>
           <p>다음 개발 단계에서 바로 쓸 수 있도록, 핵심 기능을 작은 작업 단위로 나눠 PRD에 덧붙입니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">핵심 기능을 만들기 좋은 작은 작업 단위로 나눠서,
+            <pre class="code-block">이 프롬프트는 핵심 기능을 개발하기 좋은 작은 단위로 쪼개어,
+기획서(PRD.md)에 "개발 단위" 목록으로 정리해 두기 위한 프롬프트입니다.
+해당 작업을 시행하기 위해 아래 요청대로 진행해주세요.
+
+핵심 기능을 만들기 좋은 작은 작업 단위로 나눠서,
 PRD.md 맨 아래에 "개발 단위" 섹션으로 직접 추가해줘.
 각 단위는 한 줄로, 만들 순서대로 정렬해줘.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
@@ -918,7 +874,11 @@ PRD.md 맨 아래에 "개발 단위" 섹션으로 직접 추가해줘.
           <p>개발을 시작하기 전, PRD에 빠진 전제나 애매한 부분을 미리 걸러내는 방법입니다. 내가 질문을 짜내는 대신, Claude에게 질문을 만들어 나에게 되묻게 합니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">이 PRD를 읽고, 개발 시작 전에 반드시 확인해야 하는
+            <pre class="code-block">이 프롬프트는 개발을 시작하기 전에 미리 정해 두어야 할 것들을
+Claude가 질문으로 만들어 나에게 되묻게 하기 위한 프롬프트입니다.
+해당 작업을 시행하기 위해 아래 요청대로 진행해주세요.
+
+이 PRD를 읽고, 개발 시작 전에 반드시 확인해야 하는
 질문을 10개 만들어서 나에게 하나씩 물어봐줘.
 내가 답하면, 그 답을 PRD.md에 반영할지
 같이 판단해줘.</pre>
@@ -927,7 +887,7 @@ PRD.md 맨 아래에 "개발 단위" 섹션으로 직접 추가해줘.
         </div></li>
         <li><div class="step-content">
           <strong>최종본 확인</strong>
-          <p><code>PRD.md</code>를 다시 열어, 일곱 항목이 구체화되고 맨 아래에 "개발 단위"가 정리되었는지 확인합니다. 이 문서가 <strong>이후 개발의 지도</strong>가 됩니다.</p>
+          <p><code>PRD.md</code>를 다시 열어, 여덟 항목이 구체화되고 맨 아래에 "개발 단위"가 정리되었는지 확인합니다. 이 문서가 <strong>이후 개발의 지도</strong>가 됩니다.</p>
         </div></li>
       </ol>
 
