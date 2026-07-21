@@ -480,8 +480,9 @@
           <p class="note" style="padding-left:2px;">Git이 제대로 깔렸는지는 다음 STEP 3에서 Claude에게 <code>git --version</code>을 실행해 달라고 하면 채팅으로 바로 확인됩니다. 지금은 설치와 Claude 재시작까지만 하면 됩니다.</p>
         </div></li>
         <li><div class="step-content">
-          <strong>자연어로 작업 폴더(hello-page) 만들기</strong>
-          <p>폴더도 손으로 만들 필요 없이 Claude에게 시키면 됩니다. 새 대화창에 아래 프롬프트를 붙여넣으면, Claude Desktop이 실제로 폴더를 만들어 줍니다.</p>
+          <strong>작업 폴더 지정하고, 자연어로 hello-page 폴더 만들기</strong>
+          <p><strong>Claude Desktop을 실행해 채팅창에 처음 입력하려 하면, "어느 폴더에서 작업할지" 고르는 폴더 지정 화면이 먼저 뜹니다.</strong> Claude Desktop은 이렇게 <strong>지정(허용)한 폴더 안에서만</strong> 파일을 만들고 명령을 실행할 수 있어서, 이 지정을 해야 그다음부터 채팅 작업이 가능합니다. 여기서 <strong>바탕화면(Desktop)</strong>을 선택하세요.</p>
+          <p>폴더가 지정되면, 이제 폴더도 손으로 만들 필요 없이 Claude에게 시키면 됩니다. 아래 프롬프트를 붙여넣으면 Claude Desktop이 실제로 폴더를 만들어 줍니다.</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
             <pre class="code-block">바탕화면에 hello-page 라는 폴더를 직접 만들어줘.
@@ -608,7 +609,7 @@ git config --global user.email을 "본인이메일@example.com"으로
       <ol class="step-list">
         <li><div class="step-content">
           <strong>Claude Desktop에서 새 대화 시작</strong>
-          <p>Claude Desktop을 실행하고 <strong>새 대화(New chat)</strong>를 엽니다. STEP 2에서 <code>hello-page</code> 폴더를 만들었으므로, Claude에게 그 폴더에서 작업해 달라고 하면 이 대화의 지시가 그 폴더에 반영됩니다.<span class="note">(폴더가 없으면 STEP 2의 "작업 폴더 만들기"를 먼저 확인하세요.)</span></p>
+          <p>Claude Desktop을 실행하고 <strong>새 대화(New chat)</strong>를 엽니다. STEP 2에서 <code>hello-page</code> 폴더를 만들었으므로, Claude에게 그 폴더에서 작업해 달라고 하면 이 대화의 지시가 그 폴더에 반영됩니다.<span class="note">(폴더가 없으면 STEP 2의 "작업 폴더 만들기"를 먼저 확인하세요. 새 대화에서 <strong>폴더 지정 화면</strong>이 다시 뜨면 STEP 2에서처럼 <strong>바탕화면</strong>을 선택하면 됩니다.)</span></p>
         </div></li>
         <li><div class="step-content">
           <strong>로고 파일 준비</strong>
