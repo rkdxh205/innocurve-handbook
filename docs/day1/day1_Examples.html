@@ -847,8 +847,9 @@ git config --global user.email을 "본인이메일@example.com"으로
             <li><code>hello-page</code> 폴더에서 <code>.mcp.json</code> 파일을 <strong>마우스 오른쪽 → "연결 프로그램" → 메모장</strong>으로 엽니다.<span class="note">(더블클릭으로 안 열리면 메모장을 먼저 켜고 <strong>파일 → 열기</strong>에서 오른쪽 아래를 "모든 파일"로 바꾼 뒤 <code>.mcp.json</code>을 선택하세요.)</span></li>
             <li><code>"SUPABASE_ACCESS_TOKEN": ""</code> 의 <strong>큰따옴표 <code>""</code> 사이</strong>에 커서를 두고, 복사해 둔 <code>sbp_</code> 토큰을 <strong>붙여넣기(Ctrl+V)</strong> 합니다. 최종적으로 <code>"SUPABASE_ACCESS_TOKEN": "sbp_..."</code> 가 되어야 합니다.</li>
             <li><strong>저장(Ctrl+S)</strong> 후 메모장을 닫습니다. 토큰은 내 파일에만 저장되고 채팅에는 남지 않습니다.</li>
-            <li><strong>Claude Code를 한 번 재시작</strong>합니다. 그래야 Supabase 연결이 켜져 다음 ② 단계가 동작합니다.</li>
+            <li><strong>⚠️ Claude Code를 반드시 한 번 재시작</strong>합니다(완전히 닫았다가 다시 열기). 그래야 방금 등록한 Supabase 연결이 켜져 다음 ② 단계가 동작합니다.</li>
           </ol>
+          <div class="warning-box"><strong>토큰만 저장하고 재시작을 건너뛰면 안 됩니다 — 가장 흔한 실수입니다.</strong> 방금 등록한 Supabase 연결(MCP)은 <strong>Claude Code를 새로 시작할 때만 켜집니다.</strong> 재시작하지 않고 <strong>같은 대화(세션)에서 그대로 ② 프롬프트를 실행하면</strong>, Claude가 아직 연결을 인식하지 못해 <strong>Supabase 작업을 승인·실행하지 못하고 오류</strong>가 납니다. 그러니 저장 후 <strong>Claude Code를 완전히 닫았다가 다시 연 뒤</strong>(또는 새로 시작한 뒤) ②로 넘어가세요.</div>
           <p class="note" style="padding-left:2px;">잘 됐는지 궁금하면, 재시작 후 Claude에게 <strong>"supabase MCP에 연결됐어?"</strong>라고 물어보면 됩니다. 연결됐으면 바로 다음 ②로 넘어갑니다.</p>
         </div></li>
         <li><div class="step-content">
