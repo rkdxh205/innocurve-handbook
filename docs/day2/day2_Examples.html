@@ -233,6 +233,7 @@
       content: '🔒 보안'; display: block; font-weight: 700; color: #cf222e;
       margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
     }
+    .security-box.security-box-2::before { content: '🔒 보안2'; }
     .related-cmds {
       border-top: 1px solid var(--border); padding-top: 14px; margin-top: 16px;
       font-size: 13px; color: var(--text-dim);
@@ -488,7 +489,7 @@ github에 push하고 vercel로 배포해줘.
         ① <code>.env</code>는 <strong>절대 GitHub에 올리지 마세요.</strong> 키는 로컬에선 <code>.env</code>, 공개 배포에선 <strong>Vercel 환경 변수</strong> — 두 곳에 같은 값을 둡니다. ② 공개하면 누구나 접속·질문할 수 있어 <strong>OpenAI 사용료가 과금</strong>되니, 필요하면 가입·사용 범위를 제한하세요. ③ 배포 후 오류가 나면 Vercel의 <strong>"Logs"</strong> 메시지를 그대로 붙여넣어 "이 오류 고쳐줘"라고 요청하면 됩니다.
       </div>
 
-      <div class="warning-box">
+      <div class="security-box security-box-2">
         <strong>이 배포본은 "실습용"입니다 — 실제 업무용으로 쓰지 마세요.</strong> 공개 주소는 <strong>링크만 알면 누구나 접속</strong>할 수 있고, 이 앱에는 <strong>호출 횟수 제한 같은 오남용 방지 장치가 없습니다.</strong> 로그인을 붙였더라도 최소한의 보호일 뿐이라, 누군가 챗봇을 많이 사용하면 <strong>내 OpenAI 요금이 그만큼 늘어납니다.</strong> 그러니 ① <strong>공개 주소를 아무에게나 공유하지 말고</strong>, ② 쓰지 않을 때는 <strong>배포를 내려(Vercel에서 삭제)</strong> 두세요. 또한 이메일·전화번호 같은 <strong>개인정보를 입력받는 화면을 만들어 공개하면 개인정보보호법 적용 대상</strong>이 되니, 실습 앱에는 <strong>실제 개인정보를 넣지 마세요.</strong>
       </div>
 
