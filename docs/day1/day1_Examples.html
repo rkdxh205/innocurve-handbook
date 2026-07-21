@@ -849,9 +849,7 @@ git config --global user.email을 "본인이메일@example.com"으로
             <li><strong>저장(Ctrl+S)</strong> 후 메모장을 닫습니다. 토큰은 내 파일에만 저장되고 채팅에는 남지 않습니다.</li>
             <li><strong>⚠️ Claude Code를 반드시 한 번 재시작</strong>합니다(완전히 닫았다가 다시 열기). 그래야 방금 등록한 Supabase 연결이 켜져 다음 ② 단계가 동작합니다.</li>
           </ol>
-          <div class="warning-box"><strong>토큰만 저장하고 재시작을 건너뛰면 안 됩니다 — 가장 흔한 실수입니다.</strong> 방금 등록한 Supabase 연결(MCP)은 <strong>Claude Code를 새로 시작할 때만 켜집니다.</strong> 재시작하지 않고 <strong>같은 대화(세션)에서 그대로 ② 프롬프트를 실행하면</strong>, Claude가 아직 연결을 인식하지 못해 <strong>Supabase 작업을 승인·실행하지 못하고 오류</strong>가 납니다. 그러니 저장 후 <strong>Claude Code를 완전히 닫았다가 다시 연 뒤</strong>(또는 새로 시작한 뒤) ②로 넘어가세요.</div>
-          <p class="note" style="padding-left:2px;">잘 됐는지 궁금하면, 재시작 후 Claude에게 <strong>"supabase MCP에 연결됐어?"</strong>라고 물어보면 됩니다. 연결됐으면 바로 다음 ②로 넘어갑니다.</p>
-        </div></li>
+          <div class="warning-box"><strong>토큰만 저장하고 재시작을 건너뛰면 안 됩니다 — 가장 흔한 실수입니다.</strong> 방금 등록한 Supabase 연결(MCP)은 <strong>Claude Code를 새로 시작할 때만 켜집니다.</strong> 재시작하지 않고 <strong>같은 대화(세션)에서 그대로 ② 프롬프트를 실행하면</strong>, Claude가 아직 연결을 인식하지 못해 <strong>Supabase 작업을 승인·실행하지 못하고 오류</strong>가 납니다. 그러니 저장 후 <strong>Claude Code를 완전히 닫았다가 다시 연 뒤</strong>(또는 새로 시작한 뒤) ②로 넘어가세요.</div>        </div></li>
         <li><div class="step-content">
           <strong>② 프로젝트·키·테이블 자동 생성 프롬프트</strong>
           <div class="tip-box" style="margin:0 0 10px;">
@@ -863,9 +861,12 @@ git config --global user.email을 "본인이메일@example.com"으로
           <div class="code-wrap">
             <pre class="code-block">이 프롬프트는 로그인 기능에 필요한 Supabase 프로젝트와
 회원 명부(user 테이블)를 만들기 위해 실행하는 프롬프트야.
-프로젝트를 만들고, 그 접속 정보를 .env에 안전하게 보관하고,
-회원 명부 표를 만드는 SQL까지 실제로 실행하기 위해
-아래 작업을 순서대로 해줘:
+
+먼저 Supabase MCP에 연결돼 있는지 확인해줘.
+- 아직 연결이 안 돼 있으면(방금 만든 .mcp.json이 아직 안 켜졌으면),
+  "Claude Code를 완전히 껐다 다시 켜서 재시작해야 한다"고 알려주고 여기서 멈춰줘.
+- 연결돼 있으면, 프로젝트를 만들고 접속 정보를 .env에 안전하게 보관하고
+  회원 명부 표를 만드는 SQL까지 실제로 실행하기 위해 아래 작업을 순서대로 해줘:
 
 1. Supabase에 'hello-page'라는 이름으로 새 프로젝트를 생성해줘.
 2. 프로젝트 생성이 완료되면 Project URL과 Anon Key를 추출해서
