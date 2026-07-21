@@ -720,7 +720,7 @@ git config --global user.email을 "본인이메일@example.com"으로
           <p>같은 Claude Desktop 대화에서 아래 프롬프트를 붙여넣습니다. (기존 자기소개 내용은 그대로 두고, 그 아래에 새 섹션을 이어 붙입니다.)</p>
           <span class="prompt-label">프롬프트</span>
           <div class="code-wrap">
-            <pre class="code-block">hello-page 폴더의 index.html에 새 섹션을 추가해줘.
+            <pre class="code-block">바탕화면에 만든 hello-page 폴더의 index.html에 새 섹션을 추가해줘.
 기존 자기소개 내용은 절대 지우지 말고 그 아래에 이어 붙여줘.
 "포멀하고 세련된 디지털 시계"로 만들어줘.
 - 구분선 아래, 화면 가운데에 카드 형태로 시계를 배치
@@ -823,7 +823,7 @@ git config --global user.email을 "본인이메일@example.com"으로
 둘을 연결하는 통로(설정 파일)를 만들기 위해 실행하는 프롬프트야.
 이 연결을 준비하기 위해 아래 작업을 해줘:
 
-1. hello-page 폴더에 Supabase 연결 설정 파일 .mcp.json 을 만들어줘.
+1. 바탕화면에 만든 hello-page 폴더에 Supabase 연결 설정 파일 .mcp.json 을 만들어줘.
 2. 그 파일 안에 supabase 서버를 등록하고, 실행 명령은
    npx -y @supabase/mcp-server-supabase@latest 로 해줘.
 3. 토큰은 .mcp.json 안의 env 항목에 SUPABASE_ACCESS_TOKEN 이라는 이름으로 넣되,
@@ -870,7 +870,7 @@ git config --global user.email을 "본인이메일@example.com"으로
 
 1. Supabase에 'hello-page'라는 이름으로 새 프로젝트를 생성해줘.
 2. 프로젝트 생성이 완료되면 Project URL과 Anon Key를 추출해서
-   hello-page 폴더의 .env 파일에 아래 형식으로 저장해줘.
+   바탕화면에 만든 hello-page 폴더의 .env 파일에 아래 형식으로 저장해줘.
    (OPENAI_API_KEY는 빈 칸으로 둬 — 내가 직접 넣을게):
    SUPABASE_URL=&lt;프로젝트 URL&gt;
    SUPABASE_ANON_KEY=&lt;ANON KEY&gt;
