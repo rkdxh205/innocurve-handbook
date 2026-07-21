@@ -110,6 +110,7 @@
       <dt id="g-apikey">API Key (Application Programming Interface Key · API 키)</dt><dd>프로그램이 외부 AI·서비스를 불러 쓸 때 "누가 요청했는지"를 증명하는 비밀 열쇠(예: OpenAI 키는 <code>sk-</code>로 시작). 비밀번호와 같아 코드·채팅·공개 저장소에 노출하면 안 됩니다.</dd>
       <dt id="g-env"><code>.env</code></dt><dd>API 키 같은 비밀 값을 코드와 분리해 보관하는 파일. 서버가 이 파일을 읽어 씁니다.</dd>
       <dt id="g-gitignore"><code>.gitignore</code></dt><dd>Git이 저장소에 올리지 않을 파일 목록. 여기에 <code>.env</code>를 적어 키 유출을 막습니다.</dd>
+      <dt id="g-mcp-json"><code>.mcp.json</code></dt><dd>Claude Code가 <strong>어떤 외부 도구(MCP 서버)에 연결할지</strong> 적어 두는 설정 파일. Day1에서는 이 파일에 <strong>Supabase 서버</strong>를 등록하고, 그 안의 <code>env</code> 항목에 <strong>Access Token</strong>을 넣어 Claude Code가 내 Supabase를 대신 조작하게 합니다. 토큰이 들어가므로 <code>.gitignore</code>에 넣어 공개 저장소에 올라가지 않게 합니다. <strong>비밀 값을 담는 <code>.env</code>와는 다른 파일</strong>입니다(이름이 비슷한 <code>env</code> 항목도 <code>.env</code> 파일과 무관).</dd>
       <dt id="g-push-protection">Push Protection</dt><dd>실수로 API 키가 든 코드를 GitHub에 올리려 하면, GitHub가 이를 감지해 업로드(push)를 막아 주는 자동 안전장치. <code>.env</code>·<code>.gitignore</code>를 보완하는 마지막 방어선입니다.</dd>
       <dt id="g-env-var">환경변수(Environment Variables)</dt><dd>프로그램이 읽어 쓰는 설정 값. 로컬에서는 <code>.env</code>, 인터넷 배포에서는 Vercel 환경변수를 사용합니다.</dd>
       <dt id="g-api-relay">챗봇 연결 파일(<code>api/chat.js</code>)</dt><dd>화면(<code>index.html</code>) 뒤에서 조용히 도는 작은 파일. 브라우저는 보안상 <code>.env</code>를 읽지 못하므로, 이 파일이 대신 <code>.env</code>의 API 키를 읽어 OpenAI를 호출하고 답만 화면에 돌려줍니다. 덕분에 키가 브라우저로 노출되지 않습니다. 직접 켜서 관리하지 않아도 Vercel이 자동으로 실행해 줍니다(로컬은 <code>vercel dev</code>).</dd>
