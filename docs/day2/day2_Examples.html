@@ -472,18 +472,54 @@ github에 push하고 vercel로 배포해줘.
 - .env에 있는 SUPABASE_URL, SUPABASE_ANON_KEY, OPENAI_API_KEY 세 값을
   Vercel 환경 변수로 등록해줘.
   키 값은 채팅 화면에 보여주지 말고, 파일에서 바로 읽어 등록해줘.
-- 중간에 로그인(GitHub·Vercel)이 필요하면 멈추고
-  내가 어떻게 하면 되는지 알려줘.
+- 중간에 로그인(GitHub·Vercel)이 필요하면 멈추고,
+  처음 쓰는 사람도 따라 할 수 있게 순서대로 친절하게 알려줘.
+  내가 "로그인했어"라고 답하면 이어서 진행해줘.
+- Vercel이 토큰(token) 입력이 필요하다고 하면
+  .env의 VERCEL_TOKEN 값을 읽어서 사용해줘.
+  아직 .env에 없으면 토큰 만드는 방법을 알려주고,
+  내가 .env에 넣을 때까지 기다려줘.
+  토큰 값도 채팅 화면에 절대 보여주지 마.
 - 배포가 끝나면 공개 주소를 알려주고, 접속해서 확인할 항목도 알려줘.</pre>
             <button class="copy-btn" onclick="copyCode(this)">복사</button>
           </div>
-          <p class="note" style="padding-left:2px;">처음 한 번은 GitHub·Vercel <strong>로그인(인증) 안내</strong>가 나올 수 있습니다. Claude가 알려 주는 대로 브라우저에서 로그인만 해 주면, 이후에는 다시 묻지 않습니다.</p>
+          <p class="note" style="padding-left:2px;">처음 한 번은 GitHub·Vercel <strong>로그인(인증) 안내</strong>가 나올 수 있습니다. 안내가 뜨면 당황하지 말고 아래 <strong>2️⃣ 로그인(인증) 안내</strong>를 보면서 그대로 따라 하면 됩니다 — 한 번 해 두면 다음부터는 묻지 않습니다.</p>
         </div></li>
         <li><div class="step-content">
           <strong>공개 주소에서 확인</strong>
           <p>배포된 <code>https://hello-page-xxxx.vercel.app</code>에 접속해 <strong>회원가입·로그인 → 문서 질문</strong>이 인터넷에서도 되면 성공입니다. 앞으로 코드를 고친 뒤 <strong>"github에 다시 올리고 재배포해줘"</strong>라고 하면 바뀐 내용이 자동으로 반영됩니다.</p>
         </div></li>
       </ol>
+
+      <div class="env-head">2️⃣ 처음 한 번만 — GitHub·Vercel 로그인(인증) 안내 <span class="env-note" style="color:#0550ae;">— 한 번 해 두면 다시 묻지 않아요</span></div>
+      <ol class="step-list">
+        <li><div class="step-content">
+          <strong>계정 준비 (아직 없다면)</strong>
+          <p><a href="https://github.com" target="_blank">github.com</a>에서 GitHub 계정을 만들고, <a href="https://vercel.com" target="_blank">vercel.com</a>은 첫 화면에서 <strong>"Continue with GitHub"</strong>를 눌러 GitHub 계정으로 가입하는 것이 가장 간단합니다. 둘 다 무료(Hobby) 플랜이면 충분합니다.</p>
+        </div></li>
+        <li><div class="step-content">
+          <strong>GitHub 로그인 — 브라우저에서 코드 입력</strong>
+          <p>배포 중 Claude가 멈추고 <strong>"github.com/login/device 에서 코드 ○○○○-○○○○를 입력하세요"</strong> 같은 안내를 하면, 브라우저로 그 주소를 열어 코드를 입력하고 <strong>승인(Authorize)</strong> 버튼을 누르면 됩니다. 끝나면 채팅에 <code>로그인했어, 계속해줘</code>라고 답하세요.</p>
+        </div></li>
+        <li><div class="step-content">
+          <strong>Vercel 로그인 — 브라우저에서 확인 버튼</strong>
+          <p>Vercel도 마찬가지로, Claude가 알려 주는 주소를 브라우저로 열어 <strong>로그인 → 확인(Verify)</strong> 버튼만 누르면 됩니다. 이때도 GitHub 계정으로 로그인하는 것이 가장 쉽습니다.</p>
+        </div></li>
+        <li><div class="step-content">
+          <strong>브라우저 로그인이 어려울 때 — Vercel 토큰을 <code>.env</code>에 넣기</strong>
+          <p>Claude가 <strong>"Vercel 토큰(token)이 필요하다"</strong>고 하면, 토큰(비밀번호 대신 내 계정임을 증명하는 긴 문자열)을 발급받아 <code>.env</code>에 넣어 주면 됩니다.</p>
+          <p>① 브라우저에서 <a href="https://vercel.com/account/tokens" target="_blank">vercel.com/account/tokens</a> 접속(또는 Vercel 오른쪽 위 프로필 → <strong>Account Settings → Tokens</strong>) ② <strong>Create</strong> 버튼을 눌러 이름은 아무거나(예: <code>claude-deploy</code>), 만료 기간(Expiration)은 짧게 정해 생성 ③ 화면에 <strong>딱 한 번만</strong> 보여 주는 토큰을 복사 ④ <code>hello-page</code> 폴더의 <code>.env</code> 파일을 메모장으로 열어 맨 아래에 한 줄을 추가하고 저장합니다.</p>
+          <div class="code-wrap">
+            <pre class="code-block">VERCEL_TOKEN=여기에_복사한_토큰_붙여넣기</pre>
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
+          </div>
+          <p>저장했으면 채팅에 <code>.env에 VERCEL_TOKEN 넣었어, 이걸로 진행해줘</code>라고 답하세요. Claude가 파일에서 토큰을 읽어(화면에 보여주지 않고) 이어서 배포합니다.</p>
+        </div></li>
+      </ol>
+
+      <div class="security-box">
+        토큰은 <strong>내 계정 비밀번호와 같은 힘</strong>을 가집니다. ① 토큰을 <strong>채팅 화면에 직접 붙여넣지 말고</strong> 반드시 <code>.env</code> 파일에만 넣으세요(<code>.env</code>는 <code>.gitignore</code> 덕분에 GitHub에 올라가지 않습니다). ② 배포가 끝난 뒤에는 Vercel의 Tokens 화면에서 <strong>토큰을 삭제(Delete)</strong>해 두면 더 안전합니다.
+      </div>
 
       <div class="security-box">
         ① <code>.env</code>는 <strong>절대 GitHub에 올리지 마세요.</strong> 키는 로컬에선 <code>.env</code>, 공개 배포에선 <strong>Vercel 환경 변수</strong> — 두 곳에 같은 값을 둡니다. ② 공개하면 누구나 접속·질문할 수 있어 <strong>OpenAI 사용료가 과금</strong>되니, 필요하면 가입·사용 범위를 제한하세요. ③ 배포 후 오류가 나면 Vercel의 <strong>"Logs"</strong> 메시지를 그대로 붙여넣어 "이 오류 고쳐줘"라고 요청하면 됩니다.
