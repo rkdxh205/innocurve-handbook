@@ -133,7 +133,7 @@
   <a href="#section-2">2. Check — Gap 분석·검증</a>
   <a href="#section-3">3. Act — 개선·고도화</a>
   <div class="nav-section">마무리</div>
-  <a href="#section-4">4. 배포 및 발표 준비 &lt;준비중&gt;</a>
+  <a href="#section-4">4. 배포 및 발표 준비</a>
   <a href="#section-5">5. 발표 및 시연</a>
   <a href="#section-6">6. 피드백·평가·수료</a>
   <div class="nav-section">부록</div>
@@ -162,7 +162,7 @@ Day 4 · 이론 → 실습 대응표
 ├── <span class="cmd">1. Do — 실제 기능 구현</span>          <span class="desc">→ 실습 STEP 1</span>
 ├── <span class="cmd">2. Check — Gap 분석·검증</span>        <span class="desc">→ 실습 STEP 2</span>
 ├── <span class="cmd">3. Act — 개선·고도화</span>            <span class="desc">→ 실습 STEP 3</span>
-├── <span class="cmd">4. 배포 및 발표 준비</span>           <span class="desc">→ 실습 STEP 4 (준비중)</span>
+├── <span class="cmd">4. 배포 및 발표 준비</span>           <span class="desc">→ 실습 STEP 4</span>
 ├── <span class="cmd">5. 발표 및 시연</span>               <span class="desc">→ 실습 STEP 5 (진행 시간)</span>
 └── <span class="cmd">6. 피드백·평가·수료</span>           <span class="desc">→ 실습 STEP 6 (진행 시간)</span>
 </pre></div>
@@ -262,20 +262,48 @@ Day 3            Day 4
 
   <hr>
 
-  <!-- ══════════════ 마무리(진행 시간) — 별도 개념 없이 헤더만 ══════════════ -->
+  <!-- ══════════════ 마무리 — 배포·발표·수료 ══════════════ -->
 
   <!-- ── 섹션 4 ── -->
-  <h2 id="section-4">4. 결과물 Vercel 배포 및 발표 준비 &lt;준비중&gt;</h2>
-  <div class="session-box">
-    <span class="session-tag">준비중</span>
-    <p>이 섹션의 내용은 현재 <strong>&lt;준비중&gt;</strong>입니다. 배포 관련 이론과 실습 안내가 확정되는 대로 이 자리에 추가됩니다.</p>
-  </div>
+  <h2 id="section-4">4. 결과물 Vercel 배포 및 발표 준비</h2>
+  <p>배포는 <strong>내 컴퓨터에서만 돌던 앱을 인터넷 주소로 공개</strong>하는 일입니다. GitHub·Vercel이 각각 무엇인지는 <a href="../day1/day1_Manual.html#section-2">Day 1의 온라인 서비스 이해</a>에서 다뤘으니, 여기서는 <strong>배포가 어떤 흐름으로 일어나는지</strong>를 정리합니다.</p>
+
+  <h3><code>배포 흐름</code> — GitHub에 올리면 Vercel이 받아서 공개</h3>
+  <p>우리 배포는 두 서비스의 분업입니다. <strong>GitHub</strong>는 코드의 <strong>원본 보관소</strong>이고, <strong>Vercel</strong>은 그 보관소를 지켜보다가 새 코드가 올라오면 받아서 <strong>누구나 접속할 수 있는 인터넷 주소로 공개(호스팅)</strong>합니다. 그래서 순서가 "GitHub에 올리기 → Vercel 연결"입니다.</p>
+  <div class="flow-diagram"><pre>
+[내 컴퓨터] ──올리기(push)──→ [GitHub 저장소] ──자동 감지──→ [Vercel]
+                                 (원본 보관)                (빌드·공개)
+                                                               │
+                                          https://내앱-xxxx.vercel.app
+</pre></div>
+  <p>한 번 연결해 두면 그다음부터는 <strong>GitHub에 새 코드를 올릴 때마다 Vercel이 자동으로 다시 배포</strong>합니다. 앱을 고친 뒤 "github에 다시 올리고 재배포해줘" 한마디로 바뀐 내용이 반영되는 이유입니다.</p>
+
+  <h3><code>올리면 안 되는 것</code> — <code>.env</code>와 <code>.gitignore</code></h3>
+  <p>GitHub 저장소는 (공개 설정이면) <strong>누구나 볼 수 있는 곳</strong>입니다. 그래서 API Key 같은 비밀 정보가 든 <code>.env</code>는 절대 올라가면 안 되며, <code>.gitignore</code>(올리지 않을 파일 목록)에 등록해 둡니다 — Day 3에서 <code>CLAUDE.md</code>에 적은 규칙이 바로 이것입니다. 실수로 한 번 올라간 키는 <strong>지워도 변경 기록에 남기 때문에</strong>, 삭제가 아니라 <strong>재발급</strong>이 필요합니다.</p>
+
+  <h3><code>Vercel 환경 변수</code> — 배포된 앱은 키를 어디서 읽나</h3>
+  <p><code>.env</code>를 안 올렸다면 배포된 앱은 API Key를 어디서 읽을까요? Vercel에는 <strong>환경 변수</strong>라는 별도의 비밀 보관함이 있어, 로컬에서는 <code>.env</code>에서 읽던 키를 배포에서는 <strong>Vercel 환경 변수</strong>에서 읽습니다. 키를 GitHub에 올리지 않고도 배포된 앱이 쓸 수 있는 구조입니다(<a href="../day1/day1_Manual.html#section-5">Day 1의 로컬 vs 배포</a> 참고).</p>
+  <table>
+    <thead><tr><th>구분</th><th>로컬 (내 컴퓨터)</th><th>배포 (Vercel)</th></tr></thead>
+    <tbody>
+      <tr><td>앱이 도는 곳</td><td>내 컴퓨터</td><td>Vercel 서버</td></tr>
+      <tr><td>볼 수 있는 사람</td><td>나만</td><td>주소를 아는 누구나</td></tr>
+      <tr><td>비밀 키 보관</td><td><code>.env</code> 파일</td><td>Vercel 환경 변수</td></tr>
+    </tbody>
+  </table>
+
+  <h3><code>발표 준비</code> — 배포 주소가 곧 시연 무대</h3>
+  <p>배포가 끝나면 받은 주소를 <strong>직접 열어 확인</strong>합니다 — ① 접속이 되는가, ② 발표에서 보여줄 핵심 기능 하나가 끝까지 동작하는가, ③ 스마트폰에서도 열리는가. 이 세 가지가 확인되면 발표 때 그 주소로 바로 시연할 수 있습니다.</p>
+
+  <p class="keyline">💡 <strong>핵심 한 줄:</strong> 배포는 <strong>"GitHub에 원본 올리기 → Vercel이 받아서 공개"</strong>입니다 — 코드만 올리고, 비밀 키는 <code>.env</code>(로컬)와 환경 변수(배포)에만 둡니다.</p>
+
+  <div class="practice-box">프롬프트 한 번으로 GitHub 업로드와 Vercel 배포를 진행하는 과정은 <a href="day4_Examples.html#step-4">실습 STEP 4</a>에서 진행합니다.</div>
 
   <!-- ── 섹션 5 ── -->
   <h2 id="section-5">5. 결과물 발표 및 시연</h2>
   <div class="session-box">
     <span class="session-tag">진행 시간</span>
-    <p>각자 만든 앱을 <strong>직접 시연</strong>하며, 무엇을·왜 만들었고 어떻게 만들었는지를 짧게 발표하는 시간입니다. 별도 학습 내용은 없으며, 지금까지의 결과물을 함께 나눕니다.</p>
+    <p>각자 만든 앱을 <strong>배포된 주소로 직접 시연</strong>하며, 무엇을·왜 만들었고 어떻게 만들었는지를 짧게 발표하는 시간입니다. 별도 학습 내용은 없으며, 지금까지의 결과물을 함께 나눕니다.</p>
   </div>
 
   <!-- ── 섹션 6 ── -->

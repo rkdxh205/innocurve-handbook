@@ -183,6 +183,15 @@
       content: '⚠️ 주의'; display: block; font-weight: 700; color: #7d4e00;
       margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
     }
+    /* ── 안전(Security) 박스 ── */
+    .security-box {
+      background: #ffebe9; border: 1px solid #ffb3ab; border-radius: 6px;
+      padding: 12px 16px; margin: 14px 0; font-size: 13.5px; color: #7d1a13;
+    }
+    .security-box::before {
+      content: '🔒 보안'; display: block; font-weight: 700; color: #cf222e;
+      margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
+    }
     .related-cmds {
       border-top: 1px solid var(--border); padding-top: 14px; margin-top: 16px;
       font-size: 13px; color: var(--text-dim);
@@ -224,7 +233,7 @@
   <a href="#step-3"><span class="dot dot-p"></span>STEP 3 · Act — 개선·고도화</a>
 
   <div class="nav-group">마무리 (진행 시간)</div>
-  <a href="#step-4"><span class="dot dot-o"></span>STEP 4 · Vercel 배포 &lt;준비중&gt;</a>
+  <a href="#step-4"><span class="dot dot-o"></span>STEP 4 · GitHub·Vercel 배포</a>
   <a href="#step-5"><span class="dot dot-o"></span>STEP 5 · 발표 및 시연</a>
   <a href="#step-6"><span class="dot dot-o"></span>STEP 6 · 피드백·평가·수료</a>
 
@@ -238,9 +247,9 @@
   <p class="subtitle">Day 3에서 만든 <code>PLAN.md</code>·<code>DESIGN.md</code>를 실제로 굴려 앱을 완성합니다. <strong>Do → Check → Act</strong> 순으로 진행한 뒤, 배포·발표·수료로 마무리합니다.<br>개념이 헷갈리면 각 단계의 "관련 이론" 링크로 <a href="day4_Manual.html">이론 문서</a>를 참고하세요.</p>
 
   <div class="version-box">
-    <div class="version-row"><span class="vlabel">진행 순서</span><span>STEP 1 Do → STEP 2 Check → STEP 3 Act → STEP 4 배포(준비중) → STEP 5~6 발표·수료</span></div>
-    <div class="version-row"><span class="vlabel">사용 도구</span><span><strong>Claude Desktop</strong>의 <strong>Code 탭</strong> · (외부 API를 쓰면) <strong>API Key</strong></span></div>
-    <div class="version-row"><span class="vlabel">오늘의 결과물</span><span>동작하는 <strong>내 앱</strong> · 발표·시연</span></div>
+    <div class="version-row"><span class="vlabel">진행 순서</span><span>STEP 1 Do → STEP 2 Check → STEP 3 Act → STEP 4 배포 → STEP 5~6 발표·수료</span></div>
+    <div class="version-row"><span class="vlabel">사용 도구</span><span><strong>Claude Desktop</strong>의 <strong>Code 탭</strong> · (외부 API를 쓰면) <strong>API Key</strong> · <strong>GitHub·Vercel</strong></span></div>
+    <div class="version-row"><span class="vlabel">오늘의 결과물</span><span>동작하는 <strong>내 앱</strong> · <strong>배포 주소</strong> · 발표·시연</span></div>
   </div>
 
   <div class="warning-box">
@@ -506,7 +515,7 @@ CLAUDE.md에 규칙으로 한두 줄 추가해줘.</pre>
       </div>
 
       <div class="related-cmds">
-        <strong>여기까지:</strong> Plan·Design(Day 3) → <strong>Do·Check·Act(Day 4)</strong>로 첫 PDCA 한 바퀴를 완성했습니다. 이제 발표·수료로 마무리합니다. (배포 실습은 준비중입니다.)
+        <strong>여기까지:</strong> Plan·Design(Day 3) → <strong>Do·Check·Act(Day 4)</strong>로 첫 PDCA 한 바퀴를 완성했습니다. 이제 결과물을 배포하고 발표·수료로 마무리합니다.
       </div>
 
     </div>
@@ -516,7 +525,7 @@ CLAUDE.md에 규칙으로 한두 줄 추가해줘.</pre>
   <div class="level-header">
     <span class="badge badge-o">● 마무리</span>
     <span class="level-title level-title-o">배포 · 발표 · 수료</span>
-    <span class="level-desc">결과물을 발표·수료로 마무리합니다 (배포는 준비중)</span>
+    <span class="level-desc">결과물을 배포하고 발표·수료로 마무리합니다</span>
   </div>
 
   <!-- STEP 4 · 배포 (실습) -->
@@ -524,14 +533,50 @@ CLAUDE.md에 규칙으로 한두 줄 추가해줘.</pre>
     <div class="card-header">
       <span class="card-id">STEP 4</span>
       <span class="badge badge-o">배포</span>
-      <strong class="card-title">Vercel에 자동 배포하기 &lt;준비중&gt;</strong>
+      <strong class="card-title">GitHub에 올리고 Vercel로 배포하기</strong>
     </div>
     <div class="card-body">
 
-      <div class="doc-box" style="text-align:center; padding:28px 20px;">
-        <div class="doc-title">준비중</div>
-        이 단계의 실습 안내는 현재 <strong>&lt;준비중&gt;</strong>입니다.<br>
-        내용이 확정되는 대로 이 자리에 추가됩니다. 그 전까지는 <a href="#step-5">STEP 5(발표 및 시연)</a>로 넘어가 주세요.
+      <div class="situation">
+        앱이 완성됐으니 <strong>인터넷 주소</strong>를 만들 차례입니다. 아래 프롬프트 하나로 Claude가 ① 프로젝트를 GitHub 저장소에 올리고(<code>.env</code> 제외) ② Vercel에 연결해 배포합니다. Day 2 실습에서 이미 한 번 해 본 과정입니다.
+      </div>
+
+      <div class="cmd-list">
+        <div class="cmd-list-title">관련 이론 · 참고</div>
+        <div class="cmd-chips">
+          <a class="cmd-chip" href="day4_Manual.html#section-4">배포 및 발표 준비</a>
+          <a class="cmd-chip" href="../day2/day2_Examples.html#step-2">Day 2 실습 · 로그인(인증) 안내</a>
+        </div>
+      </div>
+
+      <div class="steps-title">단계별 실행</div>
+      <ol class="step-list">
+        <li><div class="step-content">
+          <strong>배포 요청하기</strong>
+          <p>프로젝트 전체를 올리되, <strong>비밀 정보 파일만 빼는 것</strong>이 핵심입니다. 그래서 프롬프트에 <code>.gitignore</code> 확인 조항을 넣습니다.</p>
+          <span class="prompt-label">프롬프트</span>
+          <div class="code-wrap">
+            <pre class="code-block">최종 산출물을 인터넷에 배포할 거야.
+이 프로젝트를 GitHub 저장소에 올리고, Vercel로 배포해줘.
+- .env 등 비밀 정보 파일이 .gitignore에 등록돼 있는지
+  먼저 확인하고, 절대 올리지 않는다
+- 배포가 끝나면 접속 주소를 알려줘</pre>
+            <button class="copy-btn" onclick="copyCode(this)">복사</button>
+          </div>
+          <p class="code-caption">▲ 중간에 GitHub·Vercel <strong>로그인(인증) 안내</strong>가 나오면 <a href="../day2/day2_Examples.html#step-2">Day 2 실습의 로그인 안내</a>를 그대로 따라 하면 됩니다.</p>
+        </div></li>
+        <li><div class="step-content">
+          <strong>접속 주소 확인하기</strong>
+          <p>Claude가 알려 준 <code>https://…vercel.app</code> 주소를 브라우저에서 열어 앱이 동작하는지 확인합니다. 스마트폰에서도 열어 보세요 — 발표 때 그대로 시연할 수 있습니다.</p>
+        </div></li>
+      </ol>
+
+      <div class="tip-box">
+        앱이 <code>.env</code>의 <strong>API Key</strong>를 쓴다면, 프롬프트에 <code>- .env의 키들은 Vercel 환경 변수로 등록해줘</code> 한 줄을 더하세요. 키를 GitHub에 올리지 않고도 배포된 앱이 쓸 수 있게 됩니다.
+      </div>
+
+      <div class="security-box">
+        <code>.env</code>(API Key 등)는 GitHub에 <strong>절대 올라가면 안 됩니다.</strong> 한 번 올라간 키는 지워도 기록에 남기 때문에, 실수로 올렸다면 삭제가 아니라 <strong>재발급</strong>이 필요합니다.
       </div>
 
     </div>
@@ -544,7 +589,7 @@ CLAUDE.md에 규칙으로 한두 줄 추가해줘.</pre>
       <span class="badge badge-o">진행 시간</span>
       <span class="session-title">결과물 발표 및 시연</span>
     </div>
-    <p>각자 만든 앱을 <strong>직접 시연</strong>하며 무엇을·왜·어떻게 만들었는지 짧게 발표하는 시간입니다. (별도 학습 개념 없음)</p>
+    <p>각자 만든 앱을 <strong>배포된 주소로 직접 시연</strong>하며 무엇을·왜·어떻게 만들었는지 짧게 발표하는 시간입니다. (별도 학습 개념 없음)</p>
   </div>
 
   <!-- STEP 6 (진행 시간 — 헤더만) -->
