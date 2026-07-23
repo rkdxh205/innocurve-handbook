@@ -128,6 +128,7 @@
   <a href="#intro">이론 문서를 읽는 법</a>
   <div class="nav-section">개념</div>
   <a href="#section-1">1. 스킬과 플러그인</a>
+  <a href="#section-bkit" style="padding-left:26px;">└ bkit이란?</a>
   <a href="#section-2">2. 외부 도구·데이터 연결 (MCP)</a>
   <a href="#section-3">3. 하네스 엔지니어링 ① — 왜</a>
   <a href="#section-4">4. 하네스 엔지니어링 ② — 구축</a>
@@ -157,6 +158,7 @@
   <div class="tree-box"><pre>
 Day 3 · 이론 → 실습 대응표
 ├── <span class="cmd">1. 스킬과 플러그인</span>            <span class="desc">→ 실습 STEP 1</span>
+│   └── <span class="cmd">bkit이란?</span>               <span class="desc">→ 실습 STEP 1 (설치하는 플러그인의 정체)</span>
 ├── <span class="cmd">2. 외부 도구·데이터 연결(MCP)</span>   <span class="desc">→ 개념만 (실습 생략)</span>
 ├── <span class="cmd">3. 하네스 엔지니어링 ①(왜)</span>     <span class="desc">→ 이론만 (실습은 STEP 2에서 규칙부터)</span>
 ├── <span class="cmd">4. 하네스 엔지니어링 ②(구축)</span>   <span class="desc">→ 실습 STEP 2</span>
@@ -219,6 +221,36 @@ Day 3 · 이론 → 실습 대응표
   <p class="keyline">💡 <strong>핵심 한 줄:</strong> 스킬·플러그인은 <strong>"매번 설명하던 것을 한 번 정의해 재사용"</strong>하게 해 주는 장치입니다 — 하네스의 재료가 됩니다. 그리고 <strong>스킬은 내가 여는 진입점, 서브에이전트는 그 뒤에서 자동으로 붙는 일손</strong>입니다.</p>
 
   <div class="practice-box">사용 가능한 스킬을 확인하고, 이 과정의 하네스인 <strong>bkit 플러그인</strong>을 설치하는 과정은 <a href="day3_Examples.html#step-1">실습 STEP 1</a>에서 진행합니다.</div>
+
+  <hr>
+
+  <!-- ── 섹션 1 보충: bkit이란? ── -->
+  <h2 id="section-bkit">bkit이란? — 이 과정에서 설치하는 바로 그 플러그인</h2>
+  <p>위에서 플러그인을 <strong>"레시피북 + 도구 세트"</strong>라고 했습니다. <strong>bkit</strong>은 그 플러그인의 <strong>실제 상품명</strong>입니다 — 이 과정의 실습에서 우리가 직접 설치해서, Day 3·4 내내 그 위에서 작업하게 되는 도구입니다. 이름은 <strong>Vibecoding Kit(바이브코딩 키트)</strong>의 줄임말로, "코딩이 처음인 사람도 AI와 함께 <strong>계획 → 만들기 → 검증</strong>의 순서로 앱을 완성할 수 있게" 만들어진 패키지입니다.</p>
+
+  <h3><code>신입 직원 비유</code> — Claude에게 첫날 건네는 온보딩 패키지</h3>
+  <p>Claude를 <strong>아주 유능하지만 우리 회사에 오늘 처음 출근한 신입 직원</strong>이라고 생각해 보세요. 실력은 뛰어나도, 우리 회사가 <strong>어떤 순서로 일하는지 · 문서는 어떤 양식으로 쓰는지 · 끝나면 무엇을 점검하는지</strong>는 모릅니다. bkit은 이 직원에게 첫날 건네는 <strong>온보딩 패키지</strong>입니다 — 업무 매뉴얼(스킬), 문서 양식(템플릿), 함께 일할 전담 동료들(서브에이전트), 그리고 "끝나면 꼭 검사받기" 같은 사내 절차(자동 점검)가 한 상자에 들어 있습니다. 이걸 건네고 나면, 매번 말로 설명하지 않아도 <strong>회사 방식대로</strong> 일해 줍니다.</p>
+
+  <h3><code>상자 안에 든 것</code> — 네 가지 구성품</h3>
+  <table>
+    <thead><tr><th>구성품</th><th>무엇인가</th><th>실습에서 만나는 예</th></tr></thead>
+    <tbody>
+      <tr><td><strong>스킬</strong></td><td>"이 작업은 이 순서로" 적힌 업무 매뉴얼 모음</td><td><code>/pdca plan</code> — 계획서 작성 절차</td></tr>
+      <tr><td><strong>서브에이전트</strong></td><td>특정 일을 전담하는 보조 담당자들</td><td><code>gap-detector</code> — 설계와 결과의 차이 검사</td></tr>
+      <tr><td><strong>문서 양식</strong></td><td>계획서·설계서·보고서의 빈 서식</td><td><code>PLAN.md</code>·<code>DESIGN.md</code>의 뼈대</td></tr>
+      <tr><td><strong>자동 점검</strong></td><td>정해진 순간마다 스스로 확인하는 절차</td><td>구현 뒤 "설계대로 됐는지" 자동 비교 제안</td></tr>
+    </tbody>
+  </table>
+
+  <h3><code>왜 이걸 쓰나</code> — 절차가 품질을 지켜 주기 때문</h3>
+  <p>비개발자가 AI에게 일을 시킬 때 가장 큰 위험은 <strong>"결과물이 맞는지 내가 확인할 수 없다"</strong>는 것입니다. bkit의 핵심은 <a href="#section-5">PDCA 방법론</a>이 <strong>처음부터 내장</strong>되어 있다는 점입니다. 계획 없이 바로 만들기 시작하려 하면 계획서부터 잡아 주고, 만들고 나면 <strong>설계서와 실제 결과가 맞는지 Claude가 스스로 검사</strong>합니다. 내가 코드를 읽지 못해도, <strong>절차가 대신 품질을 지켜 주는</strong> 구조 — 이것이 앞서 배운 <a href="#section-3">하네스</a>를 "직접 만들지 않고 완제품으로 설치"하는 셈입니다.</p>
+
+  <h3><code>어디서 오나</code> — 마켓플레이스에서 무료 설치</h3>
+  <p>bkit은 Claude Code의 <strong>플러그인 마켓플레이스</strong>를 통해 무료로 설치합니다. 설치 주소는 <code>popup-studio-ai/bkit-claude-code</code> 하나만 알면 되고, 나머지는 Claude에게 자연어로 부탁하면 알아서 진행됩니다 — 정확한 순서는 실습에서 안내합니다.</p>
+
+  <p class="keyline">💡 <strong>핵심 한 줄:</strong> bkit은 <strong>"이 과정용으로 미리 맞춰 둔 하네스 완제품"</strong>입니다 — 플러그인 하나를 설치하면 업무 매뉴얼(스킬)·전담 동료(서브에이전트)·문서 양식·자동 점검이 한 번에 갖춰집니다.</p>
+
+  <div class="practice-box">bkit 설치와 구성품 확인은 <a href="day3_Examples.html#step-1">실습 STEP 1</a>에서 진행합니다. 설치 후 어떤 스킬·서브에이전트가 들어왔는지 전체 목록도 STEP 1의 카탈로그에서 볼 수 있습니다.</div>
 
   <hr>
 
@@ -377,7 +409,7 @@ Day 3 · 이론 → 실습 대응표
   </table>
 
   <h3><code>Plan</code> — PRD를 작업 순서로 풀기</h3>
-  <p>PRD의 "핵심 기능"과 "개발 단위"를 <strong>만들 순서가 있는 작업 목록</strong>으로 바꿉니다. 무엇을 먼저 만들면 나머지가 수월해지는지 <strong>만들 순서</strong>를 잡는 것이 요령입니다. 이 과정의 PRD는 <strong>이미 MVP 규모</strong>라 범위를 더 자르지 않고 전체를 계획으로 옮깁니다.</p>
+  <p>PRD의 "핵심 기능"과 "개발 단위"를 <strong>만들 순서가 있는 작업 목록</strong>으로 바꿉니다. 무엇을 먼저 만들면 나머지가 수월해지는지 <strong>만들 순서</strong>를 잡는 것이 요령입니다.</p>
 
   <h3><code>Design</code> — 작업을 구현으로 잇기</h3>
   <p>각 작업을 <strong>어떻게</strong> 만들지 정합니다. 화면 구성, 데이터가 흐르는 순서(문서 입력 → 질문과 함께 서버로 → LLM 답변), 사용할 기술의 큰 선택을 미리 그려 두면 Do(구현) 단계에서 헤매지 않습니다.</p>

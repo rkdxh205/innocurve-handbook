@@ -162,7 +162,7 @@ Day 4 · 이론 → 실습 대응표
 ├── <span class="cmd">1. Do — 실제 기능 구현</span>          <span class="desc">→ 실습 STEP 1</span>
 ├── <span class="cmd">2. Check — Gap 분석·검증</span>        <span class="desc">→ 실습 STEP 2</span>
 ├── <span class="cmd">3. Act — 개선·고도화</span>            <span class="desc">→ 실습 STEP 3</span>
-├── <span class="cmd">4. 배포 및 발표 준비</span>           <span class="desc">→ 실습 STEP 4 (배포 실습)</span>
+├── <span class="cmd">4. 배포 및 발표 준비</span>           <span class="desc">→ 실습 STEP 4</span>
 ├── <span class="cmd">5. 발표 및 시연</span>               <span class="desc">→ 실습 STEP 5 (진행 시간)</span>
 └── <span class="cmd">6. 피드백·평가·수료</span>           <span class="desc">→ 실습 STEP 6 (진행 시간)</span>
 </pre></div>
@@ -182,7 +182,7 @@ Day 3            Day 4
   <p>Do(실행)는 <strong>Plan·Design대로 실제로 만드는</strong> 단계입니다. Day 3에서 만든 <code>PLAN.md</code>(작업 순서)와 <code>DESIGN.md</code>(구현 방법)를 입력으로, <strong>내 앱</strong>의 실제 기능을 하나씩 코드로 옮깁니다.</p>
 
   <h3><code>핵심 흐름부터</code> — 한 기능이 끝까지 돌게</h3>
-  <p>우리 <code>PRD</code>는 <a href="../day3/day3_Manual.html#section-6">이미 MVP 규모</a>라, Day 4는 그 <strong>PRD 전체를 구현</strong>합니다. 다만 한 번에 다 만들려 하면 어디서 막혔는지 알기 어렵습니다. 먼저 <strong>핵심 기능 하나가 처음부터 끝까지 도는 상태</strong>를 만들어 놓고, 그 위에 나머지를 얹는 것이 요령입니다. 이렇게 <strong>한 줄기를 끝까지</strong> 완성해 두면 다음 단계(Check)에서 무엇을 확인할지도 분명해집니다.</p>
+  <p>Day 4는 PRD에 정의된 <strong>기능 전체를 구현</strong>합니다. 다만 한 번에 다 만들려 하면 어디서 막혔는지 알기 어렵습니다. 먼저 <strong>핵심 기능 하나가 처음부터 끝까지 도는 상태</strong>를 만들어 놓고, 그 위에 나머지를 얹는 것이 요령입니다. 이렇게 <strong>한 줄기를 끝까지</strong> 완성해 두면 다음 단계(Check)에서 무엇을 확인할지도 분명해집니다.</p>
 
   <h3><code>작게 나눠 구현</code> — 한 번에 한 조각</h3>
   <p>Claude Code에는 <strong>PLAN.md의 작업을 한 번에 하나씩</strong> 시킵니다. 큰 덩어리를 통째로 맡기기보다, 작업 단위로 나눠 만들고 <strong>그때그때 실행해 확인</strong>하면, 문제가 생겨도 방금 바꾼 작은 부분만 보면 됩니다. Day 3에서 세운 하네스(<code>CLAUDE.md</code> 규칙)가 이 과정에서 결과를 일정하게 잡아 줍니다.</p>
@@ -262,35 +262,42 @@ Day 3            Day 4
 
   <hr>
 
-  <!-- ══════════════ 마무리(진행 시간) — 별도 개념 없이 헤더만 ══════════════ -->
+  <!-- ══════════════ 마무리 — 배포·발표·수료 ══════════════ -->
 
   <!-- ── 섹션 4 ── -->
   <h2 id="section-4">4. 결과물 Vercel 배포 및 발표 준비</h2>
-  <p>완성한 <strong>내 앱</strong>을 <strong>Vercel에 배포</strong>해 인터넷에서 접속되는 주소로 만듭니다. 배포 명령(<code>vercel --prod</code>)은 <strong>Claude Code가 내장 터미널에서 대신 실행</strong>하고, 사람은 <strong>최초 1회 <code>vercel login</code>(브라우저 승인)</strong>만 하면 됩니다 — 웹사이트에 들어갈 필요가 없습니다. 이후 수정할 때마다 "다시 배포해줘" 한마디로 갱신됩니다.</p>
+  <p>배포는 <strong>내 컴퓨터에서만 돌던 앱을 인터넷 주소로 공개</strong>하는 일입니다. GitHub·Vercel이 각각 무엇인지는 <a href="../day1/day1_Manual.html#section-2">Day 1의 온라인 서비스 이해</a>에서 다뤘으니, 여기서는 <strong>배포가 어떤 흐름으로 일어나는지</strong>를 정리합니다.</p>
 
-  <h3><code>서버(api/ 함수)</code> — 비밀 키를 브라우저에서 감추는 중간 다리</h3>
-  <p>비밀 키는 <strong>절대 브라우저(사용자 화면)로 보내면 안 됩니다.</strong> 정적 HTML에서 외부 API를 직접 부르면 키가 화면 코드에 실려 <strong>누구나 열어 볼 수 있기</strong> 때문입니다. 그래서 중간에 <strong>내 서버(<code>api/</code> 폴더의 서버리스 함수)</strong>를 두어, 브라우저는 내 함수만 부르고 <strong>키는 그 함수 안에서만</strong> 씁니다. 즉 <code>.env</code>·환경변수는 "키를 코드 밖에 <strong>보관</strong>"하는 곳이고, <code>api/</code> 함수는 "그 키로 <strong>대신 일해 주는</strong> 서버"라 — 대체재가 아니라 <strong>함께 쓰는 별개의 장치</strong>입니다.</p>
+  <h3><code>배포 흐름</code> — GitHub에 올리면 Vercel이 받아서 공개</h3>
+  <p>우리 배포는 두 서비스의 분업입니다. <strong>GitHub</strong>는 코드의 <strong>원본 보관소</strong>이고, <strong>Vercel</strong>은 그 보관소를 지켜보다가 새 코드가 올라오면 받아서 <strong>누구나 접속할 수 있는 인터넷 주소로 공개(호스팅)</strong>합니다. 그래서 순서가 "GitHub에 올리기 → Vercel 연결"입니다.</p>
   <div class="flow-diagram"><pre>
-[브라우저]  ──질문──▶  [내 api/ 함수]  ──질문+키──▶  [외부 API]
- (키 없음)               (여기서만 키 사용)               │
-      ◀──── 답변 ──────────◀──── 답변 ──────────────────┘
+[내 컴퓨터] ──올리기(push)──→ [GitHub 저장소] ──자동 감지──→ [Vercel]
+                                 (원본 보관)                (빌드·공개)
+                                                               │
+                                          https://내앱-xxxx.vercel.app
 </pre></div>
+  <p>한 번 연결해 두면 그다음부터는 <strong>GitHub에 새 코드를 올릴 때마다 Vercel이 자동으로 다시 배포</strong>합니다. 앱을 고친 뒤 "github에 다시 올리고 재배포해줘" 한마디로 바뀐 내용이 반영되는 이유입니다.</p>
 
-  <h3><code>환경변수</code> — 배포본에 비밀 키를 안전하게 전달 (비밀 키를 쓰는 앱만)</h3>
-  <p><code>.env</code> 파일은 <a href="../day3/day3_Manual.html#section-4">규칙</a>대로 공유·커밋하지 않으므로 배포본에 키가 담기지 않습니다. 대신 <strong>Vercel에 비밀 키(예: <code>OPENAI_API_KEY</code>)를 환경변수로 등록</strong>하면(<code>vercel env add</code> 명령을 Claude가 실행하고 값만 본인이 입력), 서버리스 함수가 실행될 때 그 값을 안전하게 읽어 옵니다. 키를 코드나 정적 HTML에 직접 넣으면 노출되므로 절대 금지입니다.</p>
+  <h3><code>올리면 안 되는 것</code> — <code>.env</code>와 <code>.gitignore</code></h3>
+  <p>GitHub 저장소는 (공개 설정이면) <strong>누구나 볼 수 있는 곳</strong>입니다. 그래서 API Key 같은 비밀 정보가 든 <code>.env</code>는 절대 올라가면 안 되며, <code>.gitignore</code>(올리지 않을 파일 목록)에 등록해 둡니다 — Day 3에서 <code>CLAUDE.md</code>에 적은 규칙이 바로 이것입니다. 실수로 한 번 올라간 키는 <strong>지워도 변경 기록에 남기 때문에</strong>, 삭제가 아니라 <strong>재발급</strong>이 필요합니다.</p>
+
+  <h3><code>Vercel 환경 변수</code> — 배포된 앱은 키를 어디서 읽나</h3>
+  <p><code>.env</code>를 안 올렸다면 배포된 앱은 API Key를 어디서 읽을까요? Vercel에는 <strong>환경 변수</strong>라는 별도의 비밀 보관함이 있어, 로컬에서는 <code>.env</code>에서 읽던 키를 배포에서는 <strong>Vercel 환경 변수</strong>에서 읽습니다. 키를 GitHub에 올리지 않고도 배포된 앱이 쓸 수 있는 구조입니다(<a href="../day1/day1_Manual.html#section-5">Day 1의 로컬 vs 배포</a> 참고).</p>
   <table>
-    <thead><tr><th>배포 단계</th><th>하는 일</th></tr></thead>
+    <thead><tr><th>구분</th><th>로컬 (내 컴퓨터)</th><th>배포 (Vercel)</th></tr></thead>
     <tbody>
-      <tr><td>① 준비 점검</td><td>서버리스 함수는 <code>api/</code>에, 키는 환경변수로만 읽는지 확인·정리 <span style="font-size:.85em">(🤖 Claude Code)</span></td></tr>
-      <tr><td>② Vercel 로그인 (최초 1회)</td><td><code>vercel login</code> — 브라우저에서 본인이 승인 <span style="font-size:.85em">(🧑 1회)</span></td></tr>
-      <tr><td>③ 배포</td><td>Claude가 <code>vercel --prod</code> 실행 → 공개 주소 <span style="font-size:.85em">(🤖 Claude Code)</span></td></tr>
-      <tr><td>④ 키 등록·재배포 (키 쓰는 앱만)</td><td><code>vercel env add</code>(값만 본인 입력) → 다시 <code>vercel --prod</code> <span style="font-size:.85em">(🤖 Claude, 값 🧑)</span></td></tr>
+      <tr><td>앱이 도는 곳</td><td>내 컴퓨터</td><td>Vercel 서버</td></tr>
+      <tr><td>볼 수 있는 사람</td><td>나만</td><td>주소를 아는 누구나</td></tr>
+      <tr><td>비밀 키 보관</td><td><code>.env</code> 파일</td><td>Vercel 환경 변수</td></tr>
     </tbody>
   </table>
-  <div class="warning-box"><strong>공개 배포 = "주소를 아는 누구나 접속"</strong>입니다. 실습에서 만든 앱은 <strong>호출 횟수 제한이나 접근 통제 같은 오남용 방지 장치가 없어</strong>, 외부 API(예: OpenAI)를 쓰는 앱이라면 남이 많이 쓸수록 <strong>내 요금이 늘어날</strong> 수 있습니다. 그래서 배포한 앱은 <strong>발표·시연용으로만</strong> 쓰고, 공개 주소를 널리 퍼뜨리지 않으며, 쓰지 않으면 배포를 내립니다. 이메일·전화번호 등 <strong>개인정보를 입력받는 앱을 공개하면 개인정보보호법 적용 대상</strong>이 되니 실습 앱에는 실제 개인정보를 넣지 마세요. <strong>실제 업무용 서비스</strong>로 만들려면 로그인·접근 제한·호출 횟수 제한을 반드시 갖춰야 합니다.</div>
 
-  <p class="keyline">💡 <strong>핵심 한 줄:</strong> <code>vercel login</code> 한 번이면, 그다음부터는 <strong>"배포해줘" 한마디로 Claude가 배포</strong> — 비밀 키만 코드가 아니라 <strong>Vercel 환경변수</strong>에 두세요.</p>
-  <div class="practice-box">Vercel CLI로 (Claude가) 배포하고 필요하면 키를 환경변수로 등록하는 구체적 순서는 <a href="day4_Examples.html#step-4">실습 STEP 4</a>에서 진행합니다.</div>
+  <h3><code>발표 준비</code> — 배포 주소가 곧 시연 무대</h3>
+  <p>배포가 끝나면 받은 주소를 <strong>직접 열어 확인</strong>합니다 — ① 접속이 되는가, ② 발표에서 보여줄 핵심 기능 하나가 끝까지 동작하는가, ③ 스마트폰에서도 열리는가. 이 세 가지가 확인되면 발표 때 그 주소로 바로 시연할 수 있습니다.</p>
+
+  <p class="keyline">💡 <strong>핵심 한 줄:</strong> 배포는 <strong>"GitHub에 원본 올리기 → Vercel이 받아서 공개"</strong>입니다 — 코드만 올리고, 비밀 키는 <code>.env</code>(로컬)와 환경 변수(배포)에만 둡니다.</p>
+
+  <div class="practice-box">프롬프트 한 번으로 GitHub 업로드와 Vercel 배포를 진행하는 과정은 <a href="day4_Examples.html#step-4">실습 STEP 4</a>에서 진행합니다.</div>
 
   <!-- ── 섹션 5 ── -->
   <h2 id="section-5">5. 결과물 발표 및 시연</h2>
